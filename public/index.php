@@ -1,5 +1,4 @@
 <?php
-namespace public;
 use src\controller\ViewController;
 use src\helper;
 
