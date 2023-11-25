@@ -11,21 +11,28 @@
 </head>
 <body>
 <h1>Login Page</h1>
-<h3>Bitte einloggen</h3>
-
-<form action="" method="post">
-    <label for="username">Username</label>
-    <input type="text" name="username">
+<div style="display: flex;justify-content: center">
+    <h3>Login</h3>
+</div>
+<div style="display: flex;justify-content: center">
+<form action="/login" method="post">
+        <label for="username">Username</label>
+        <input type="text" name="username" required>
+        <br>
+        <br>
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
     <br>
-    <label for="password">Password</label>
-    <input type="password" name="password">
     <br>
-    <button type="submit">Login</button>
-</form>
-<br>
+        <button type="submit">Login</button>
+    </form>
+</div>
+<div style="display: flex;justify-content: center">
 <h3>Noch keinen Account ?
     <form action="">
         <button type="submit">Account Anlegen</button>
-    </form></h3>
+    </form>
+</h3>
+</div>
 </body>
 </html>
