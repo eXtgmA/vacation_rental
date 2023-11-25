@@ -1,6 +1,4 @@
 <?
-//var_dump('test');
-
 ?>
 <!doctype html>
 <html lang="en">

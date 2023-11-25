@@ -1,5 +1,4 @@
 <?
-namespace src\views;
 ?>
 <!doctype html>
 <html lang="en">
