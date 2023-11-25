@@ -1,4 +1,6 @@
-<?
+<?php
+session_start();
+$message = $_SESSION['message'];
 ?>
 <!doctype html>
 <html lang="en">
@@ -13,6 +15,11 @@
 <h1>Login Page</h1>
 <div style="display: flex;justify-content: center">
     <h3>Login</h3>
+    <?php
+    echo ($message ?? "<h1>{$_SESSION['message']}</h1>");
+    session_unset();
+    ?>
+
 </div>
 <div style="display: flex;justify-content: center">
 <form action="/login" method="post">

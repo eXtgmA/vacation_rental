@@ -1,9 +1,9 @@
 <?php
 namespace src\controller;
 
-/*
- * This class will manage the login logic
- */
+
+use src\models\User;
+
 class loginController
 {
     public function __construct()
@@ -21,7 +21,12 @@ class loginController
 
     public function postLogin()
     {
-        var_dump('login will be processed');
+        $_REQUEST;
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+
+        $user=new User();
+        $user->login($username,$password);
     }
 
 }

@@ -1,4 +1,7 @@
 <?php
 namespace src\config;
 
-$connection = mysqli_connect('localhost','shop','1234','shop');
+function getConnection(){
+$connection=mysqli_connect('localhost', 'shop', '1234', 'shop');
+return $connection;
+}
