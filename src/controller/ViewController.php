@@ -1,7 +1,7 @@
 <?php
 namespace src\controller;
 
-class ViewController
+class ViewController extends BaseController
 {
     public function __construct($viewName)
     {

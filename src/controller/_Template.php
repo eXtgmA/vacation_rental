@@ -1,7 +1,7 @@
 <?php
 namespace src\controller;
 
-class Template
+class Template extends BaseController
 {
     public function __construct()
 

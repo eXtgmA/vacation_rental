@@ -9,6 +9,7 @@ array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=nul
 <!doctype html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/styling.css"
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -16,4 +17,8 @@ array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=nul
     <title><?php echo $title;?></title>
 </head>
 <body>
+<?php if(isset($_SESSION['user'])){
+    include_once('navbar.view.php');
+}
+?>
 

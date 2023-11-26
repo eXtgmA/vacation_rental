@@ -3,7 +3,7 @@ namespace src\controller;
 
 use src\models\User;
 
-class RegisterController
+class RegisterController extends BaseController
 {
     public function __construct()
 

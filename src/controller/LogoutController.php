@@ -1,7 +1,7 @@
 <?php
 namespace src\controller;
 
-class LogoutController
+class LogoutController extends BaseController
 {
     public function __construct()
 
