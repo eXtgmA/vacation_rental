@@ -1,7 +1,6 @@
 <?php
 namespace src\controller;
 
-
 class ViewController
 {
     public function __construct($viewName)

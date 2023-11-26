@@ -13,7 +13,7 @@ $requestedUri = ($_SERVER['REQUEST_URI']);
 $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 // split the entered uri into single fragments
 $splittedUri = explode('/', $requestedUri);
-$controller = $splittedUri[1];
+$splittedUri[1]!="" ? $controller = $splittedUri[1] : $controller="home";
 if(count($splittedUri)>2){
     $action = $splittedUri[2];
 }else{
