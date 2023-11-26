@@ -1,18 +1,17 @@
 <?php
-/*
- * This class will manage the login logic
- */
-
 namespace src\controller;
+
+
+use src\models\User;
 
 class loginController
 {
-
     public function __construct()
+
     {
     }
 
-    public function index($formdata=null)
+    public function getLogin($formdata=null)
     {
         // Check if there is a user with the send login mail or username
         // if the user exist check if the send password is correct
@@ -20,5 +19,14 @@ class loginController
         new ViewController('loginIndex');
     }
 
+    public function postLogin()
+    {
+        $_REQUEST;
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+
+        $user=new User();
+        $user->login($username,$password);
+    }
 
 }

@@ -8,11 +8,9 @@
 
 return [
     'login' =>
-        ['GET' =>
-            ['' => 'login', // this is the standard index route therefore no further information is needed
-            ],
-        ],
+        ['GET' => [
+            '' => 'login'],
         'POST' => [
-    ]
-
+            '' => 'login']
+        ]
 ];
