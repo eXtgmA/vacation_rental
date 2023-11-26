@@ -1,6 +1,6 @@
 <?php
 session_start();
-$message = $_SESSION['message'];
+array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -16,7 +16,7 @@ $message = $_SESSION['message'];
 <div style="display: flex;justify-content: center">
     <h3>Login</h3>
     <?php
-    echo ($message ?? "<h1>{$_SESSION['message']}</h1>");
+    echo ($message ?? "<h1>$message</h1>");
     session_unset();
     ?>
 
