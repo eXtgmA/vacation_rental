@@ -35,7 +35,7 @@ return [
         ['GET' => [
             '' => 'form'],
           'POST' => [
-             'routeAction' => 'methodName']
+             '' => 'form']
         ],
     'dashboard' =>
         ['GET' => [
