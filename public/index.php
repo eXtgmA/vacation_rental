@@ -14,9 +14,10 @@ $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 // split the entered uri into single fragments
 $splittedUri = explode('/', $requestedUri);
 $controller = $splittedUri[1];
-$action = $splittedUri[2];
-if (!$action) {
-    $action = ''; // set fallback when no action is set to avoid a NULL value
+if(count($splittedUri)>2){
+    $action = $splittedUri[2];
+}else{
+    $action = '';
 }
 
 executeRoute($controller, $action, $routes, $requestedMethod);
