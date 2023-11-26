@@ -1,6 +1,7 @@
 <?php
 $header=__DIR__."\\partials\\header.view.php";
 $title = "Dashboard";
+$site = 'dashboard';
 include_once($header);
 ?>
 
