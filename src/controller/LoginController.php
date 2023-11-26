@@ -2,15 +2,10 @@
 namespace src\controller;
 use src\models\User;
 
-class loginController
+class loginController extends BaseController
 {
     public function __construct()
     {
-        session_start();
-        if (array_key_exists('user',$_SESSION)){
-            // user is logged in , so redirect to dashboard
-            header('location: /dashboard', true ,302);
-        }
     }
 
     /**
