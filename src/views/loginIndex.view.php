@@ -1,7 +1,8 @@
 <?php
 $header = __DIR__ . "\\partials\\header.view.php";
 // Titel der Seite eintragen
-$title = "";
+$title = "login";
+$page = "login";
 include_once($header);
 ?>
     <!--Hier den HTML Inhalt einfuegen-->

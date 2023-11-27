@@ -1,6 +1,7 @@
 <?php
 $header=__DIR__."\\partials\\header.view.php";
 $title = "Ich bin die Seite";
+$page = 'home';
 include_once($header);
 ?>
     <h1>Willkommen auf der AKAD Ferienhausverwaltung</h1>
