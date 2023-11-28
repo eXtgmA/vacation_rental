@@ -17,8 +17,12 @@ array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=nul
     <title><?php echo $title;?></title>
 </head>
 <body>
-<?php if(isset($_SESSION['user'])){
-    include_once('navbar.view.php');
+<?php
+if ($page!="login" && $page!= 'register' && $page!="home"){ // avoid showing header on entry point pages
+    if(isset($_SESSION['user'])){
+        include_once('navbar.view.php');
+    }
 }
+
 ?>
 

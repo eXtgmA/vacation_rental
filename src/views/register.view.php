@@ -2,6 +2,7 @@
 $header=__DIR__."\\partials\\header.view.php";
 // Titel der Seite eintragen
 $title = "Registrieren";
+$page = 'register';
 include_once($header);
 ?>
 <h1>Registriere einen neuen Account</h1>
@@ -35,9 +36,6 @@ include_once($header);
     </div>
 
 </div>
-
-
-
     <!--Ende HTML Inhalt-->
 <?php
 $footer=__DIR__."\\partials\\footer.view.php";
