@@ -1,0 +1,24 @@
+IDE:
+IntelliJ
+(VSCode)
+
+Coding standard:
+welcher php standard?...
+english only (Kommentare dürfen der Lesbarkeit wegen deutsch sein)
+PHPDocs sollen verwendet werden
+
+Projekt-history:
+Github
+
+Kanban:
+Trello (oder Taskworld oder Jira Kanban oder Obsidian)
+
+Datenbank:
+MySQL / MariaDB (oder SQLite)
+MySQL Workbench
+PHPMyAdmin
+
+Struktur der Webanwendung:
+MVC (Model View Controller Paradigma)
+Styleguide
+one simple CSS file used for all websites
