@@ -1,0 +1,25 @@
+KUINDENTYPEN :
+- nicht eingeloggter Besucher
+- eingeloggter Mieter
+- eingeloggter Vermieter
+
+
+USER STORIES :
+- Als Vater möchte ich herausfinden ob ich mit meiner Frau und zwei Kindern in Schweden kostengünstig Urlaub machen kann ohne in einer Jugendherberge eingepfercht zu sein.
+- Als Schüler will ich wissen, ob ich es mir leisten kann übers Wochenende mit meiner neuen Freundin und ihrem Hund nach Warnemünde ans Meer zu fahren.
+- Als Opa möchte ich herausfinden, ob es in dem Dorf wo meine Tochter wohnt ein Apartment zum übernachten gibt, wenn ich sie für 10 Tage besuche.
+
+- Als nicht eingeloggter Besucher möchte ich...
+	... einen Überblick darüber bekommen, was die Webseite mir anbieten kann, um herauszufinden wo ich meine Ferien verbringen kann.
+	... wissen, ob ich auf dieser Webseite meine Ferienhäuser zur Vermietung anbieten kann.
+
+- Als Mieter möchte ich...
+	... meine Buchungshistorie einsehen, damit ich das Haus von letztem Urlaub nochmal für nächstes Jahr buchen kann.
+	... die Detailbeschreibung meiner letzten Buchung durchschauen, um meinen Mitreisenden sagen zu können welchen Teilbetrag jeder überweisen muss.
+	... ein weiteres Haus in meinen Warenkorb legen, damit ich mich später für eins entscheiden kann.
+	... meine Emailadresse ändern.
+
+- Als Vermieter möchte ich...
+	... sehen, wann mein Haus das nächste Mal gebucht ist, um es dafür rechtzeitig vorbereiten zu können.
+	... mein Haus nicht weiter vermieten.
+	... meinem Haus die Option hinzufügen, dass Mieter gegen einen Pauschalpreis das Kanu ausleihen können.
