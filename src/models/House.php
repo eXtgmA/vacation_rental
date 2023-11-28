@@ -1,8 +1,6 @@
 <?php
 namespace src\models;
 
-use MongoDB\Driver\Query;
-
 class House extends BaseModel
 {
     public function __construct()
@@ -15,8 +13,7 @@ class House extends BaseModel
         // prepare statement
         $query = "insert into houses ( owner,";
         $i = 1;
-        $paramLength=var_dump(count($param));
-
+        $paramLength=(count($param));
         foreach ($param as $key=>$value){
             if($i < $paramLength){
                 $query = $query .$key.",";
@@ -25,7 +22,6 @@ class House extends BaseModel
             }
             $i++;
         }
-        $query2 = "insert into houses ( owner,sqm,maxpersons,rooms,pricepernight,zipcode,streetname,streetnumber) Values ( '1','1','1','1','1','1','1','1')";
         $query = $query . ") Values ( '{$_SESSION['user']}',";
         $i = 1;
         foreach ($param as $key=>$value){
@@ -43,6 +39,5 @@ class House extends BaseModel
         } catch (\Exception $e) {
             var_dump($e);
         }
-        var_dump($result);
     }
 }
