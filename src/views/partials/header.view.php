@@ -1,4 +1,5 @@
 <?php
+global $title, $page;
 if(!isset($_SESSION)) // avoid double opening sessions
 {
     session_start();
@@ -23,6 +24,5 @@ if ($page!="login" && $page!= 'register' && $page!="home"){ // avoid showing hea
         include_once('navbar.view.php');
     }
 }
-
 ?>
 

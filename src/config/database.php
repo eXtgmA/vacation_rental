@@ -1,7 +1,13 @@
 <?php
 namespace src\config;
 
-function getConnection(){
-$connection=mysqli_connect('localhost', 'shop', '1234', 'shop');
-return $connection;
+use mysqli;
+
+/**
+ * create connection to database
+ *
+ * @return mysqli|false
+ */
+function getConnection(): mysqli|false{
+    return mysqli_connect('localhost', 'shop', '1234', 'shop');
 }

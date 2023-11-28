@@ -4,11 +4,11 @@ namespace src\controller;
 class LogoutController extends BaseController
 {
     public function __construct()
-
     {
+        parent::__construct();
     }
 
-    public function postLogout($formdata=null)
+    public function postLogout(mixed $formdata=null): void
     {
         session_start();
         unset($_SESSION['user']);

@@ -1,4 +1,5 @@
 <?php
+
 use src\controller\ViewController;
 use src\helper;
 
@@ -13,27 +14,29 @@ $requestedUri = ($_SERVER['REQUEST_URI']);
 $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 // split the entered uri into single fragments
 $splittedUri = explode('/', $requestedUri);
-$splittedUri[1]!="" ? $controller = $splittedUri[1] : $controller="home";
-if(count($splittedUri)>2){
+$splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "home";
+if (count($splittedUri) > 2) {
     $action = $splittedUri[2];
-}else{
+} else {
     $action = '';
 }
 
 executeRoute($controller, $action, $routes, $requestedMethod);
 
 /**
- * @param $controller
- * @param $action
- * @param $routes
- * @param $requestedMethod
+ * redirect to the correct controller and action
+ *
+ * @param string $controller
+ * @param string $action
+ * @param mixed $routes
+ * @param mixed $requestedMethod
  * @return void
  */
-function executeRoute($controller, $action, $routes, $requestedMethod)
+function executeRoute(string $controller, string $action, mixed $routes, mixed $requestedMethod): void
 {
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
-    if ($routeIsValid){
+    if ($routeIsValid) {
         // fetch internal functionname
         $controllerFunction = strtolower($requestedMethod) . $routes[$controller][$requestedMethod][$action];
         // prepare Controller namespace for calling the Class
@@ -48,17 +51,17 @@ function executeRoute($controller, $action, $routes, $requestedMethod)
 }
 
 /**
- * @param $controller
- * @param $action
- * @param $routes
- * @param $requestedMethod
- * @return bool
- *
  * This function will test if there is a defined internal route based on the wanted url parameter
+ *
+ * @param string $controller
+ * @param string $action
+ * @param mixed $routes
+ * @param mixed $requestedMethod
+ * @return bool
  */
-function isValidRoute($controller, $action, $routes, $requestedMethod)
+function isValidRoute(string $controller, string $action, mixed $routes, mixed $requestedMethod): bool
 {
-// check if route is defined in routes.php
+    // check if route is defined in routes.php
     $controllerExists = in_array($controller, (array_keys($routes)));
     if (!$controllerExists) {
         return false; // stop here if controller is not correct
