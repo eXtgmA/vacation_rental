@@ -1,0 +1,80 @@
+name: Static Code Analyse
+run-name: ${{ github.actor }} search for bugs and code smells 🚀
+on: [pull_request]
+jobs:
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Download PHPStan PHAR
+        run: |
+          wget https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar
+          chmod +x phpstan.phar
+      - name: Run PHPStan
+        run: |
+          if ! ./phpstan.phar analyse --configuration=phpstan.neon --level=max --no-progress . > "phpstan-result.txt" ; then
+            echo "PHPSTAN_FAILED=true" >> $GITHUB_ENV
+            {
+              echo 'PHPSTAN_RESULT<<EOF'
+              cat phpstan-result.txt
+              echo EOF
+            } >> "$GITHUB_ENV"
+          fi
+      - name: Comment on Pull Request if PHPSTAN failed
+        if: ${{ env.PHPSTAN_FAILED == 'true' }}
+        run: |
+          echo "${{env.PHPSTAN_RESULT}}"
+          gh pr comment $PR_NUMBER -b '# PHPSTAN Result
+          ```${{env.PHPSTAN_RESULT}}```'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+      - name: Print PHPSTAN Error message
+        if: ${{ env.PHPSTAN_FAILED == 'true' }}
+        run: |
+          echo "${{env.PHPSTAN_RESULT}}"
+          exit 1
+  phpcs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+      - name: Install PHP Code Sniffer
+        run: |
+          wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+          chmod +x phpcs.phar
+          sudo mv phpcs.phar /usr/local/bin/phpcs
+      - name: Run PHP Code Sniffer
+        id: phpcs
+        run: |
+          if ! phpcs --standard=.phpcs.xml . > "phpcs-result.txt" ; then
+            echo "PHPCS_FAILED=true" >> $GITHUB_ENV
+            {
+              echo 'PHPCS_RESULT<<EOF'
+              cat phpcs-result.txt
+              echo EOF
+            } >> "$GITHUB_ENV"
+          fi
+      - name: Comment on Pull Request if PHPCS failed
+        if: ${{ env.PHPCS_FAILED == 'true' }}
+        run: |
+          echo "${{env.PHPCS_RESULT}}"
+          gh pr comment $PR_NUMBER -b '# PHP Code Sniffer Result 
+          ```${{env.PHPCS_RESULT}}```'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
+      - name: Print PHPCS Error message
+        if: ${{ env.PHPCS_FAILED == 'true' }}
+        run: |
+          echo "${{env.PHPCS_RESULT}}"
+          exit 1

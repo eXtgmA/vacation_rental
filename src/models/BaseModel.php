@@ -5,7 +5,7 @@ include_once("../src/config/database.php");
 
 class BaseModel
 {
-    protected $connection;
+    protected \mysqli|false $connection;
 
     protected function __construct()
     {
