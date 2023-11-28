@@ -1,5 +1,5 @@
 <?php
-function customAutoloader(mixed $class): void
+function customAutoloader(array|string $class): void
 {
     $file = str_replace('\\', '/', $class) . '.php';
     $path=__DIR__.'/../../';

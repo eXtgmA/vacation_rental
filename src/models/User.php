@@ -23,13 +23,15 @@ class User extends BaseModel
             $sql = $this->connection->query($query);
             $result = $sql->fetch_object();
             // Check if there is a user with the send login mail or username
-            if (password_verify($password, $result->password)) {
-                // if everything is ok perform login and set user as active user for the session
-                session_start();
-                $_SESSION['user'] = $result->id;
-                header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
-            } else {
-                throw new \Exception('login fehlgeschlagen');
+            if (isset($result)) {
+                if (password_verify($password, $result->password)) {
+                    // if everything is ok perform login and set user as active user for the session
+                    session_start();
+                    $_SESSION['user'] = $result->id;
+                    header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
+                } else {
+                    throw new \Exception('login fehlgeschlagen');
+                }
             }
         } catch (\Exception $exception) {
             session_unset();

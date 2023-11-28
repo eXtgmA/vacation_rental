@@ -32,7 +32,7 @@ executeRoute($controller, $action, $routes, $requestedMethod);
  * @param mixed $requestedMethod
  * @return void
  */
-function executeRoute(string $controller, string $action, mixed $routes, mixed $requestedMethod): void
+function executeRoute(string $controller, string $action, array $routes, string $requestedMethod): void
 {
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
@@ -59,7 +59,7 @@ function executeRoute(string $controller, string $action, mixed $routes, mixed $
  * @param mixed $requestedMethod
  * @return bool
  */
-function isValidRoute(string $controller, string $action, mixed $routes, mixed $requestedMethod): bool
+function isValidRoute(string $controller, string $action, array $routes, string $requestedMethod): bool
 {
     // check if route is defined in routes.php
     $controllerExists = in_array($controller, (array_keys($routes)));

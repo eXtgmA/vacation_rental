@@ -12,10 +12,10 @@ class loginController extends BaseController
     /**
      * Return the login Mask
      *
-     * @param $formdata
+     * @param mixed $formdata
      * @return void
      */
-    public function getLogin($formdata=null): void
+    public function getLogin(mixed $formdata=null): void
     {
         new ViewController('loginIndex');
     }

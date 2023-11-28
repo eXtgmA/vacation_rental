@@ -25,4 +25,3 @@ if ($page!="login" && $page!= 'register' && $page!="home"){ // avoid showing hea
     }
 }
 ?>
-

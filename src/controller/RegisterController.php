@@ -10,11 +10,11 @@ class RegisterController extends BaseController
         parent::__construct();
     }
 
-    public function getform($formdata=null): void
+    public function getform(mixed $formdata=null): void
     {
         new ViewController('register');
     }
-    public function postform($formdata=null): void
+    public function postform(mixed $formdata=null): void
     {
         $username=$_REQUEST['username'];
         $password=$_REQUEST['password'];

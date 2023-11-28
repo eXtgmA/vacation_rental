@@ -6,8 +6,8 @@ use mysqli;
 /**
  * create connection to database
  *
- * @return mysqli|false
+ * @return mysqli
  */
-function getConnection(): mysqli|false{
+function getConnection(): mysqli{
     return mysqli_connect('localhost', 'shop', '1234', 'shop');
 }
