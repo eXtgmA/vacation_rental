@@ -30,7 +30,7 @@ jobs:
         run: |
           echo "${{env.PHPSTAN_RESULT}}"
           gh pr comment $PR_NUMBER -b "# PHPSTAN Result
-          ${{env.PHPSTAN_RESULT}}"
+          ```${{env.PHPSTAN_RESULT}}```"
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
@@ -68,8 +68,8 @@ jobs:
         if: ${{ env.PHPCS_FAILED == 'true' }}
         run: |
           echo "${{env.PHPCS_RESULT}}"
-          gh pr comment $PR_NUMBER -b "# PHP Code Sniffer Result 
-          ${{env.PHPCS_RESULT}}"
+          gh pr comment $PR_NUMBER -b '# PHP Code Sniffer Result 
+          ```${{env.PHPCS_RESULT}}```'
         env:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
