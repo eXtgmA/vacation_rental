@@ -7,6 +7,12 @@ use mysqli_result;
 
 class User extends BaseModel
 {
+    private int $id;
+    private string $name;
+    private string $password;
+    private string $email;
+
+
     public function __construct()
     {
         parent::__construct();
@@ -25,17 +31,21 @@ class User extends BaseModel
             $query = "select * from users where name = '{$username}' limit 1";
             $sql = $this->connection->query($query);
             if ($sql instanceof mysqli_result) {
-                $result = $sql->fetch_object();
+                $result = $sql->fetch_object('src\models\User');
                 // Check if there is a user with the send login mail or username
-                if (isset($result) && $result instanceof \stdClass) {
+                if (isset($result) && $result instanceof User) {
                     if (password_verify($password, $result->password)) {
                         // if everything is ok perform login and set user as active user for the session
                         session_start();
                         $_SESSION['user'] = $result->id;
                         header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                     } else {
+                        error_log('"' . $result->name . '" tried to login with wrong password');
                         throw new Exception('login fehlgeschlagen');
                     }
+                } else {
+                    error_log('User "' . $username . '" does not exist');
+                    throw new Exception('Benutzer "' . $username . '" existiert nicht');
                 }
             }
         } catch (Exception $exception) {
@@ -69,7 +79,8 @@ class User extends BaseModel
                     $_SESSION['message'] = "Email bereits vergeben";
                     header('location : /register', true, 302);
                 } else {
-                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$password}','{$email}')";
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$hashedPassword}','{$email}')";
                     $saved = $sql = $this->connection->query($query);
                     if (!$saved) {
                         $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
@@ -83,5 +94,39 @@ class User extends BaseModel
         } catch (Exception $e) {
             var_dump($e);
         }
+    }
+
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+    public function getName(): string
+    {
+        return $this->name;
+    }
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
     }
 }
