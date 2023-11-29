@@ -8,13 +8,12 @@
     <rule ref="PSR2">
         <exclude name="PSR2.Files.ClosingTag.NotAllowed"/>
         <exclude name="PSR1.Files.SideEffects"/>
-        <property name="absoluteLineLimit" value="0"/>
-        <property name="lineLimit" value="0"/>
+        <exclude name="Generic.Files.LineLength"/>
 
         <!--    configure same line brace -->
         <!--        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />-->
     </rule>
-<!--    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />-->
+    <!--    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />-->
 
     <!-- Specify files or directories to check -->
     <file>src</file>
