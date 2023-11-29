@@ -10,6 +10,5 @@ class Template extends BaseModel
 
     public function templateMethod(): void
     {
-
     }
 }

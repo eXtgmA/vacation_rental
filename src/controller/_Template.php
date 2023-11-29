@@ -8,8 +8,7 @@ class Template extends BaseController
         parent::__construct();
     }
 
-    public function template(mixed $formdata=null): void
+    public function template(mixed $formdata = null): void
     {
     }
-
 }

@@ -1,11 +1,10 @@
 <?php
 global $title, $page;
-if(!isset($_SESSION)) // avoid double opening sessions
-{
+if (!isset($_SESSION)) { // avoid double opening sessions
     session_start();
 }
 // create the variable $message if there are existing messages
-array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=null;
+array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
 ?>
 <!doctype html>
 <html lang="en">
@@ -19,10 +18,9 @@ array_key_exists('message',$_SESSION)?$message=$_SESSION['message']:$message=nul
 </head>
 <body>
 <?php
-if ($page!="login" && $page!= 'register' && $page!="home"){ // avoid showing header on entry point pages
-    if(isset($_SESSION['user'])){
+if ($page!="login" && $page!= 'register' && $page!="home") { // avoid showing header on entry point pages
+    if (isset($_SESSION['user'])) {
         include_once('navbar.view.php');
     }
 }
 ?>
-

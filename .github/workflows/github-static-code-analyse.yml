@@ -53,6 +53,47 @@ jobs:
           wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
           chmod +x phpcs.phar
           sudo mv phpcs.phar /usr/local/bin/phpcs
+      - name: Install PHP Code Beautifier and Fixer
+        run: |
+          wget https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+          chmod +x phpcbf.phar
+          sudo mv phpcbf.phar /usr/local/bin/phpcbf
+      - name: Run PHP Code Autofix
+        run: |
+          if ! phpcbf --standard=.phpcs.xml . > "phpcbf-result.txt" ; then
+            echo "PHPCBF_SUCCESS=true" >> $GITHUB_ENV
+            {
+              echo 'PHPCBF_RESULT<<EOF'
+              cat phpcbf-result.txt
+              echo EOF
+            } >> "$GITHUB_ENV"
+          fi
+      - name: Commit changes
+        run: |
+          # change branch
+          git fetch
+          git rev-parse --abbrev-ref HEAD
+          git checkout ${{ github.head_ref }}
+          # commit
+          git config --global user.email "github-web42[bot]@github.com"
+          git config --global user.name "GitHub WEB42 [bot]"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "Fix code style issues automatically"
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.8.0
+        with:
+          github_token: ${{ secrets.PRIVATE_TOKEN }}
+          branch: ${{ github.head_ref }}
+      - name: Comment on Pull Request if PHPCBF is successfully completed
+        if: ${{ env.PHPCBF_SUCCESS == 'true' }}
+        run: |
+          echo "${{env.PHPCBF_RESULT}}"
+          gh pr comment $PR_NUMBER -b '# Autofix Result
+          Fix code style issues automatically
+          ```${{env.PHPCBF_RESULT}}```'
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          GITHUB_TOKEN: ${{ secrets.PRIVATE_TOKEN }}
       - name: Run PHP Code Sniffer
         id: phpcs
         run: |

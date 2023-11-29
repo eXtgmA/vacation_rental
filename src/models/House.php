@@ -8,33 +8,36 @@ class House extends BaseModel
         parent::__construct();
     }
 
-    public function addhouse($param)
+    /**
+     * @param array<string> $param
+     * @return void
+     */
+    public function addhouse(array $param): void
     {
         // prepare statement
         $query = "insert into houses ( owner,";
         $i = 1;
         $paramLength=(count($param));
-        foreach ($param as $key=>$value){
-            if($i < $paramLength){
+        foreach ($param as $key => $value) {
+            if ($i < $paramLength) {
                 $query = $query .$key.",";
-            }else{
+            } else {
                 $query = $query .$key;
             }
             $i++;
         }
         $query = $query . ") Values ( '{$_SESSION['user']}',";
         $i = 1;
-        foreach ($param as $key=>$value){
-            if($i < $paramLength){
+        foreach ($param as $key => $value) {
+            if ($i < $paramLength) {
                 $query = $query ."'". $value."',";
-            }else{
+            } else {
                 $query = $query ."'". $value."'";
             }
             $i++;
         }
         $query = $query . ")";
         try {
-
             $result = $this->connection->query($query);
         } catch (\Exception $e) {
             var_dump($e);
