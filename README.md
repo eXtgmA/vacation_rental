@@ -29,3 +29,38 @@ cd public
 # start php server
 php -S localhost:8000
 ```
+
+## Run local Code Analysis
+### PHPStan
+1.  install PHPStan
+```
+wget https://github.com/phpstan/phpstan/releases/latest/download/phpstan.phar
+chmod +x phpstan.phar
+```
+2. run PHPStan
+```
+./phpstan.phar analyse --configuration=phpstan.neon --level=max --no-progress .
+```
+
+### PHP CodeSniffer
+1. install PHP CodeSniffer
+```
+wget https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+chmod +x phpcs.phar   
+```
+2. run PHP CodeSniffer
+```
+./phpcs.phar --standard=.phpcs.xml .
+```
+
+### PHP Code Beautifier and Fixer
+This is a tool to automatically fix PHP CodeSniffer errors.
+1. install PHP Code Beautifier and Fixer
+```
+wget https://squizlabs.github.io/PHP_CodeSniffer/phpcbf.phar
+chmod +x phpcbf.phar
+```
+2. run PHP Code Beautifier and Fixer
+```
+./phpcbf.phar --standard=.phpcs.xml .
+```
