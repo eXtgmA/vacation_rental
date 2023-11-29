@@ -49,5 +49,13 @@ return [
 //            'routeAction' => 'methodName'],
             'POST' => [
                 '' => 'logout']
-        ]
+        ],
+    'offer' =>
+        ['GET' => [
+            '' => 'index',
+            'create'=>'create'
+        ],
+          'POST' => [
+             'create' => 'create']
+        ],
 ];

@@ -6,6 +6,6 @@ $site = explode('/', $_SERVER['REQUEST_URI'])[1];
     <div style="width: 78%;display: inline-block;text-align: right">
         <a class="<?php echo $site=='dashboard'? 'active':'';?>" href="">Dashboard</a>
         <a class="<?php echo $site=='profile'? 'active':'';?>" href="">Profile</a>
-        <a class="<?php echo $site=='hire'? 'active':'';?>" href="">Vermieten</a>
+        <a class="<?php echo $site=='offer'? 'active':'';?>" href="/offer">Vermieten</a>
     </div>
 </div>

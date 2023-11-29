@@ -1,0 +1,64 @@
+##### FEATURES #####
+Index-page:
+- Beim Besuch der Startseite wird ein Überbick über alle verfügbaren Aktionen gegeben. (Links zu: Mieten, Vermieten, Einloggen, Registrieren,...)
+- simples Suchformular im Zentrum (Ort, Buchungszeitraum (Anfang und Ende), Anzahl Gäste)
+Register:
+- Formular enhält email, password, forename, surname . (Alle inklusive Validierung und Error-ausgabe)
+- Nach der Registrierung Weiterleitung zur Startseite.
+- Nach der Registrierung ist man schon eingeloggt. (kein zusätzlicher Login erforderlich)
+Login:
+- Die Login-Seite fragt den Benutzernamen und das Passwort ab.
+- Ein erfolgreicher Login führt entweder per default auf die Startseite (mit Dashboard) oder auf diejenige Seite, die den Login erfordert
+- Ein gescheiterter Login führt zurück auf die Login-page. Dort werden Error-Messages mit Informationen zu allen Fehlern angezeigt
+
+COMMON:
+Navbar/header:
+- Ist auf jeder page vorhanden (Ausnahme: Index-page)
+- enthält mindestens Buttons für Index-page, Vermieter-Dashboard, Login mit Register oder Logout und User-Settings
+Footer:
+- Ist immer gleich und auf jeder page vorhanden
+- Link zum Impressum
+- Link zum Datenschutz
+Impressum:
+- generischer Text
+Datenschutz:
+- generischer Text
+
+-----------------------------------------------------------
+
+
+
+MIETER (eingeloggt):
+
+User-Settings:
+- Formular password change (muss doppelt eingegeben werden -> Tippfehler vermeiden)
+- Formular email change
+
+Bestellungs-Historie:
+- Gesamtpreis der Bestellung
+- Link zur Detailansicht aller Optionen (aufschlüsselung des Preises)
+- Link zur Detailseite jedes gebuchten Hauses (um es zb nochmals buchen zu können)
+
+Cart:
+- Button zum Löschen einer Position
+- Alle Buchungspositionen im detail anzeigen
+- Auswahlmöglichkeit für Optionen zu jeder Position (Endowments)
+- Großer "Verbindlich buchen"-Button
+
+-----------------------------------------------------------
+
+
+
+VERMIETER (eingeloggt):
+Dashboard:
+- Liste eigener Häuser (mit Link zur Detail-page)
+  + aktive und deaktivierte Häuser müssen irgendwie visuell unterschieden werden
+
+Detail-page für ein Haus:
+- Link zum Editor
+- Liste der aktiven und zukünftigen Buchungen zu jedem Haus
+
+Haus-Editor:
+- Formular zum Ändern aller Parameter der Datenbanktabelle (siehe ER-diagramm)
+- Formular zum Ändern der Optionen
+- großer Button zum aktivieren oder deaktivieren des Hauses

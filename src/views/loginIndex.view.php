@@ -32,6 +32,9 @@ include_once($header);
         <h3>Noch keinen Account ?
             <div><a href="/register">Account anlegen</a></div>
         </h3>
+        <h3>Passwort Vergessen ?
+            <div><a href="/register">Reset</a></div>
+        </h3>
     </div>
     <!--Ende HTML Inhalt-->
 <?php
