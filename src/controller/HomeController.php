@@ -8,10 +8,8 @@ class HomeController extends BaseController
         parent::__construct();
     }
 
-    public function getindex(mixed $formdata=null): void
+    public function getindex(mixed $formdata = null): void
     {
         new ViewController('home');
     }
-
-
 }

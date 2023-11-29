@@ -9,9 +9,8 @@ class DashboardController extends BaseController
         parent::redirectIfNotLoggedIn();
     }
 
-    public function getindex($formdata=null): void
+    public function getindex(mixed $formdata = null): void
     {
         new ViewController('dashboard');
     }
-
 }

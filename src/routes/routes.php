@@ -18,24 +18,24 @@
 return [
 
 // Home as landingpage
-    'home'=>[
-          'GET'=>[
-              ''=>'index'
-          ]
+    'home' => [
+        'GET' => [
+            '' => 'index'
+        ]
     ],
 // Login when already registered
     'login' =>
         ['GET' => [
             '' => 'login'],
-        'POST' => [
-            '' => 'login']
+            'POST' => [
+                '' => 'login']
         ],
 // restering a new user
-'register' =>
+    'register' =>
         ['GET' => [
             '' => 'form'],
-          'POST' => [
-             '' => 'form']
+            'POST' => [
+                '' => 'form']
         ],
     'dashboard' =>
         ['GET' => [
@@ -47,8 +47,8 @@ return [
         [
 //            'GET' => [
 //            'routeAction' => 'methodName'],
-          'POST' => [
-             '' => 'logout']
+            'POST' => [
+                '' => 'logout']
         ],
     'offer' =>
         ['GET' => [
