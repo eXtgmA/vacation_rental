@@ -28,8 +28,8 @@ executeRoute($controller, $action, $routes, $requestedMethod);
  *
  * @param string $controller
  * @param string $action
- * @param mixed $routes
- * @param mixed $requestedMethod
+ * @param array<string, array<string, array<string, string>>> $routes
+ * @param string $requestedMethod
  * @return void
  */
 function executeRoute(string $controller, string $action, array $routes, string $requestedMethod): void
@@ -55,8 +55,8 @@ function executeRoute(string $controller, string $action, array $routes, string 
  *
  * @param string $controller
  * @param string $action
- * @param mixed $routes
- * @param mixed $requestedMethod
+ * @param array<string, array<string, array<string, string>>> $routes
+ * @param string $requestedMethod
  * @return bool
  */
 function isValidRoute(string $controller, string $action, array $routes, string $requestedMethod): bool

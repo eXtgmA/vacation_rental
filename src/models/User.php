@@ -2,6 +2,9 @@
 
 namespace src\models;
 
+use Exception;
+use mysqli_result;
+
 class User extends BaseModel
 {
     public function __construct()
@@ -21,19 +24,21 @@ class User extends BaseModel
         try {
             $query = "select * from users where name = '{$username}' limit 1";
             $sql = $this->connection->query($query);
-            $result = $sql->fetch_object();
-            // Check if there is a user with the send login mail or username
-            if (isset($result)) {
-                if (password_verify($password, $result->password)) {
-                    // if everything is ok perform login and set user as active user for the session
-                    session_start();
-                    $_SESSION['user'] = $result->id;
-                    header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
-                } else {
-                    throw new \Exception('login fehlgeschlagen');
+            if ($sql instanceof mysqli_result) {
+                $result = $sql->fetch_object();
+                // Check if there is a user with the send login mail or username
+                if (isset($result) && $result instanceof \stdClass) {
+                    if (password_verify($password, $result->password)) {
+                        // if everything is ok perform login and set user as active user for the session
+                        session_start();
+                        $_SESSION['user'] = $result->id;
+                        header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
+                    } else {
+                        throw new Exception('login fehlgeschlagen');
+                    }
                 }
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             session_unset();
             session_start();
             $_SESSION['message'] = $exception->getMessage();
@@ -56,25 +61,27 @@ class User extends BaseModel
             //limiting to have less stress on database
             $query = "select * from users where email = '{$email}' limit 1";
             $sql = $this->connection->query($query);
-            $result = $sql->fetch_object();
-            $result = $sql->num_rows;
-            if ($result == 1) {
-                session_start();
-                $_SESSION['message'] = "Email bereits vergeben";
-                header('location : /register', true, 302);
-            } else {
-                $query = "Insert INTO users (name,password,email) values ('{$username}','{$password}','{$email}')";
-                $saved = $sql = $this->connection->query($query);
-                if (!$saved) {
-                    $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
-                    header("location: /register", true, 302);
+            if ($sql instanceof mysqli_result) {
+                $result = $sql->fetch_object();
+                $result = $sql->num_rows;
+                if ($result == 1) {
+                    session_start();
+                    $_SESSION['message'] = "Email bereits vergeben";
+                    header('location : /register', true, 302);
+                } else {
+                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$password}','{$email}')";
+                    $saved = $sql = $this->connection->query($query);
+                    if (!$saved) {
+                        $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
+                        header("location: /register", true, 302);
+                    }
+                    $userId = $this->connection->insert_id; // get id after creation
+                    $_SESSION['user'] = $userId; // login aver successful creation
+                    header("location: /dashboard", true, 302);
                 }
-                $userId = $this->connection->insert_id; // get id after creation
-                $_SESSION['user'] = $userId; // login aver successful creation
-                header("location: /dashboard", true, 302);
             }
 
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             var_dump($e);
         }
     }
