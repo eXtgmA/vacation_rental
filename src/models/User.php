@@ -80,7 +80,6 @@ class User extends BaseModel
                     header("location: /dashboard", true, 302);
                 }
             }
-
         } catch (Exception $e) {
             var_dump($e);
         }

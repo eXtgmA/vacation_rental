@@ -10,7 +10,8 @@ use mysqli;
  * @return mysqli
  * @throws Exception
  */
-function getConnection(): mysqli{
+function getConnection(): mysqli
+{
     $connection = mysqli_connect('localhost', 'shop', '1234', 'shop');
 
     // check if connection was successful

@@ -11,8 +11,9 @@ function customAutoloader(array|string $class): void
         $class = implode('/', $class);
     }
     $file = str_replace('\\', '/', $class) . '.php';
-    $path=__DIR__.'/../../';
-    include_once($path.$file);
+    $path = __DIR__ . '/../../';
+    include_once($path . $file);
 }
+
 spl_autoload_register('customAutoloader')
 ?>

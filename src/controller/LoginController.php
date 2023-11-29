@@ -1,8 +1,9 @@
 <?php
 namespace src\controller;
+
 use src\models\User;
 
-class loginController extends BaseController
+class LoginController extends BaseController
 {
     public function __construct()
     {
@@ -15,7 +16,7 @@ class loginController extends BaseController
      * @param mixed $formdata
      * @return void
      */
-    public function getLogin(mixed $formdata=null): void
+    public function getLogin(mixed $formdata = null): void
     {
         new ViewController('loginIndex');
     }
@@ -25,7 +26,6 @@ class loginController extends BaseController
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];
         $user=new User();
-        $user->login($username,$password);
+        $user->login($username, $password);
     }
-
 }

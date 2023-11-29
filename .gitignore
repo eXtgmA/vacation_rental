@@ -1,2 +1,5 @@
 /.idea/
 *.log
+/phpstan.phar
+/phpcs.phar
+/phpcbf.phar

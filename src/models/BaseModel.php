@@ -1,6 +1,7 @@
 <?php
 
 namespace src\models;
+
 include_once("../src/config/database.php");
 
 class BaseModel
@@ -12,5 +13,4 @@ class BaseModel
         session_start();
         $this->connection= \src\config\getConnection();
     }
-
 }
