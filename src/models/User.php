@@ -34,8 +34,12 @@ class User extends BaseModel
                         $_SESSION['user'] = $result->id;
                         header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                     } else {
+                        error_log('"' . $result->name . '" tried to login with wrong password');
                         throw new Exception('login fehlgeschlagen');
                     }
+                } else {
+                    error_log('User "' . $result->name . '" does not exist');
+                    throw new Exception('Benutzer "' . $result->name . '" existiert nicht');
                 }
             }
         } catch (Exception $exception) {

@@ -51,6 +51,7 @@ CREATE TABLE `users` (
                          `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
                          `name` varchar(100) DEFAULT NULL,
                          `password` varchar(100) NOT NULL,
+                         `email` varchar(40) NOT NULL,
                          PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -61,7 +62,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'bjoern','123'),(7,'marvin','123'),(8,'rene','123'),(9,'lutz','123');
+INSERT INTO `users` VALUES (1,'bjoern','$2y$10$Mw9btZLrbhyhAVMbWRDM6.GgQiKgcQ1Dm0YZMsEQCKlVkKO7GwZyC', 'ignore@me.pls'),(7,'marvin','$2y$10$Mw9btZLrbhyhAVMbWRDM6.GgQiKgcQ1Dm0YZMsEQCKlVkKO7GwZyC', 'ignore@me.pls'),(8,'rene','$2y$10$Mw9btZLrbhyhAVMbWRDM6.GgQiKgcQ1Dm0YZMsEQCKlVkKO7GwZyC', 'ignore@me.pls'),(9,'lutz','$2y$10$Mw9btZLrbhyhAVMbWRDM6.GgQiKgcQ1Dm0YZMsEQCKlVkKO7GwZyC', 'ignore@me.pls');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
