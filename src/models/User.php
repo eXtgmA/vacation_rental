@@ -73,7 +73,8 @@ class User extends BaseModel
                     $_SESSION['message'] = "Email bereits vergeben";
                     header('location : /register', true, 302);
                 } else {
-                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$password}','{$email}')";
+                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$hashedPassword}','{$email}')";
                     $saved = $sql = $this->connection->query($query);
                     if (!$saved) {
                         $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
