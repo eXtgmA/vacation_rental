@@ -6,6 +6,7 @@ class loginController extends BaseController
 {
     public function __construct()
     {
+        parent::__construct();
     }
 
     /**
@@ -14,12 +15,12 @@ class loginController extends BaseController
      * @param $formdata
      * @return void
      */
-    public function getLogin($formdata=null)
+    public function getLogin($formdata=null): void
     {
         new ViewController('loginIndex');
     }
 
-    public function postLogin()
+    public function postLogin(): void
     {
         $username = $_REQUEST['username'];
         $password = $_REQUEST['password'];

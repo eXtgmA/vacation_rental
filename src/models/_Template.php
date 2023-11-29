@@ -8,7 +8,7 @@ class Template extends BaseModel
         parent::__construct();
     }
 
-    public function templateMethod()
+    public function templateMethod(): void
     {
 
     }

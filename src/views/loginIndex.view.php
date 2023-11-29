@@ -1,4 +1,5 @@
 <?php
+global $message;
 $header = __DIR__ . "\\partials\\header.view.php";
 // Titel der Seite eintragen
 $title = "login";
