@@ -59,6 +59,8 @@ CREATE TABLE `users` (
 --
 -- Dumping data for table `users`
 --
+-- default password is '123'
+--
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
