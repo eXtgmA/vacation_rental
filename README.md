@@ -65,6 +65,14 @@ chmod +x phpcbf.phar
 ./phpcbf.phar --standard=.phpcs.xml .
 ```
 
+### Icon usage
+  - create italic element <i></i>
+  - add class to element <i class=""></i>
+  - add "fa" to class <i class="fa"></i> *important to activate fontawesome icons*
+  - choose desired icon an add this to class aswell <i class="fa fa-heart"></i>
+
+for more information follow [Fontawesome](https://fontawesome.com/search?)
+
 ### Configure GIT to use LF
 
 git config --global core.autocrlf false
