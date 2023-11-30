@@ -13,6 +13,8 @@
         <!--    configure same line brace -->
         <!--        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />-->
     </rule>
+    <exclude-pattern>./public/fa/css/all.min.css</exclude-pattern>
+
     <!--    <rule ref="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />-->
 
     <!-- Specify files or directories to check -->
