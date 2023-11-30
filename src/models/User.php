@@ -65,7 +65,7 @@ class User extends BaseModel
      * @param string $email
      * @return void
      */
-    public function register(string $forename,string $surname, string $password, string $email): void
+    public function register(string $forename, string $surname, string $password, string $email): void
     {
         // Check if email is already taken
         try {

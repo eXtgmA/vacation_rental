@@ -22,6 +22,6 @@ class RegisterController extends BaseController
         $email=$_REQUEST['email'];
 
         $user=new User();
-        $user->register($forname,$surname, $password, $email);
+        $user->register($forname, $surname, $password, $email);
     }
 }
