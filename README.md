@@ -72,3 +72,8 @@ chmod +x phpcbf.phar
   - choose desired icon an add this to class aswell <i class="fa fa-heart"></i>
 
 for more information follow [Fontawesome](https://fontawesome.com/search?)
+
+### Configure GIT to use LF
+
+git config --global core.autocrlf false
+git config --global core.eol lf  

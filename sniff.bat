@@ -1,0 +1,1 @@
+php ./phpcs.phar --standard=.phpcs.xml
