@@ -1,0 +1,1 @@
+php .\phpstan.phar analyse --configuration=phpstan.neon --level=max --no-progress

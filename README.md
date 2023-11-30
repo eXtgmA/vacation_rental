@@ -64,3 +64,8 @@ chmod +x phpcbf.phar
 ```
 ./phpcbf.phar --standard=.phpcs.xml .
 ```
+
+### Configure GIT to use LF
+
+git config --global core.autocrlf false
+git config --global core.eol lf  
