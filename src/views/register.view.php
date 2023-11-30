@@ -15,8 +15,12 @@ include_once($header);
 
         <table>
             <tr>
-                <td>Username</td>
-                <td><input type="text" name="username"></td>
+                <td>Vorname</td>
+                <td><input type="text" name="forename"></td>
+            </tr>
+            <tr>
+                <td>Nachname</td>
+                <td><input type="text" name="surname"></td>
             </tr>
             <tr>
                 <td>Password</td>

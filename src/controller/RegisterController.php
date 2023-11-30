@@ -16,11 +16,12 @@ class RegisterController extends BaseController
     }
     public function postform(mixed $formdata = null): void
     {
-        $username=$_REQUEST['username'];
+        $forname=$_REQUEST['forename'];
+        $surname=$_REQUEST['surname'];
         $password=$_REQUEST['password'];
         $email=$_REQUEST['email'];
 
         $user=new User();
-        $user->register($username, $password, $email);
+        $user->register($forname, $surname, $password, $email);
     }
 }
