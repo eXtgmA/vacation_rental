@@ -59,12 +59,13 @@ class User extends BaseModel
     /**
      * Register a new user
      *
-     * @param string $username
+     * @param string $forename
+     * @param string $surname
      * @param string $password
      * @param string $email
      * @return void
      */
-    public function register(string $username, string $password, string $email): void
+    public function register(string $forename,string $surname, string $password, string $email): void
     {
         // Check if email is already taken
         try {
@@ -80,7 +81,7 @@ class User extends BaseModel
                     header('location : /register', true, 302);
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "Insert INTO users (name,password,email) values ('{$username}','{$hashedPassword}','{$email}')";
+                    $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
                     $saved = $sql = $this->connection->query($query);
                     if (!$saved) {
                         $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
