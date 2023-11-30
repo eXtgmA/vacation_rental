@@ -23,9 +23,9 @@ class LoginController extends BaseController
 
     public function postLogin(): void
     {
-        $username = $_REQUEST['username'];
+        $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
         $user=new User();
-        $user->login($username, $password);
+        $user->login($email, $password);
     }
 }
