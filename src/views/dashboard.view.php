@@ -6,7 +6,7 @@ include_once($header);
 ?>
 
 <div>
-    Hallo hier ist das Dashboard
+    Hallo hier ist das Dashboard <i class="fa fa-home-user"></i>
     <form action="/logout" method="post">
         <button type="submit">Logout</button>
     </form>

@@ -9,7 +9,13 @@ array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=nu
 <!doctype html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="/styling.css"
+
+    <link rel="stylesheet" href="/styling.css"/>
+    <link rel="stylesheet" href="fa/css/all.min.css" type="text/css" />
+    <?php
+
+    ?>
+<!--    <link rel="stylesheet" href="/public/fa/css/fontawesome.css" type="text/css" />-->
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
