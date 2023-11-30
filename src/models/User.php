@@ -21,14 +21,14 @@ class User extends BaseModel
     /**
      * Login the user
      *
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @return void
      */
-    public function login(string $username, string $password): void
+    public function login(string $email, string $password): void
     {
         try {
-            $query = "select * from users where name = '{$username}' limit 1";
+            $query = "select * from users where email = '{$email}' limit 1";
             $sql = $this->connection->query($query);
             if ($sql instanceof mysqli_result) {
                 $result = $sql->fetch_object('src\models\User');
@@ -44,8 +44,8 @@ class User extends BaseModel
                         throw new Exception('login fehlgeschlagen');
                     }
                 } else {
-                    error_log('User "' . $username . '" does not exist');
-                    throw new Exception('Benutzer "' . $username . '" existiert nicht');
+                    error_log('Konto für "' . $email . '" does not exist');
+                    throw new Exception('Konto "' . $email . '" existiert nicht');
                 }
             }
         } catch (Exception $exception) {

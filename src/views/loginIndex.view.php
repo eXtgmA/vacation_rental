@@ -17,8 +17,8 @@ include_once($header);
     </div>
     <div style="display: flex;justify-content: center">
         <form action="/login" method="post">
-            <label for="username">Username</label>
-            <input type="text" name="username" required>
+            <label for="email">Email Adresse</label>
+            <input type="text" name="email" required>
             <br>
             <br>
             <label for="password">Password</label>
