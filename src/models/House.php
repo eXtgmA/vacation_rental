@@ -39,13 +39,11 @@ class House extends BaseModel
         $query = $query . ")";
         try {
             $result = $this->connection->query($query);
-
         } catch (\Exception $e) {
-
             var_dump($e);
         }
         $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
 
-        header("location: /offer",true, 302);
+        header("location: /offer", true, 302);
     }
 }
