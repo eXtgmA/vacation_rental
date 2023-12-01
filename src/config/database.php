@@ -12,7 +12,7 @@ use mysqli;
  */
 function getConnection(): mysqli
 {
-    $connection = mysqli_connect('localhost', 'shop', '1234', 'shop');
+    $connection = mysqli_connect('localhost', 'shop', '1234', 'vacation_rental_db');
 
     // check if connection was successful
     if ($connection === false) {
