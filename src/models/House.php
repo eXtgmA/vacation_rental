@@ -15,7 +15,7 @@ class House extends BaseModel
     public function addhouse(array $param): void
     {
         // prepare statement
-        $query = "insert into houses ( owner,";
+        $query = "insert into houses ( owner_id,";
         $i = 1;
         $paramLength=(count($param));
         foreach ($param as $key => $value) {
@@ -39,8 +39,13 @@ class House extends BaseModel
         $query = $query . ")";
         try {
             $result = $this->connection->query($query);
+
         } catch (\Exception $e) {
+
             var_dump($e);
         }
+        $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
+
+        header("location: /offer",true, 302);
     }
 }
