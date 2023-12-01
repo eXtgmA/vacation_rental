@@ -1,5 +1,5 @@
 <?php
-$header=__DIR__."/partial/header.view.php";
+$header=__DIR__."/partials/header.view.php";
 $title = "Dashboard";
 $page = 'dashboard';
 include_once($header);
