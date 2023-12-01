@@ -1,5 +1,5 @@
 <?php
-$header=__DIR__."\\partials\\header.view.php";
+$header=__DIR__."/partials/header.view.php";
 $title = "Dashboard";
 $page = 'dashboard';
 include_once($header);
@@ -13,6 +13,6 @@ include_once($header);
 </div>
 
 <?php
-$footer=__DIR__."\\partials\\footer.view.php";
+$footer=__DIR__."/partials/footer.view.php";
 include_once($footer)
 ?>

@@ -40,7 +40,11 @@ function executeRoute(string $controller, string $action, array $routes, string 
         // fetch internal functionname
         $controllerFunction = strtolower($requestedMethod) . $routes[$controller][$requestedMethod][$action];
         // prepare Controller namespace for calling the Class
-        $controllerNamespace = '\src\controller\\' . $controller . 'Controller';
+        //var_dump('vor Controller');
+        //$controllerNamespace = '\src\controller\HomeController';
+        $controllername = ucfirst($controller).'Controller';
+
+        $controllerNamespace = "\\src\\controller\\$controllername";
         $controller = new $controllerNamespace();
         // trigger the function in controller
         $controller->$controllerFunction($requestedMethod);

@@ -1,5 +1,5 @@
 <?php
-$header=__DIR__."\\partials\\header.view.php";
+$header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Seite nicht gefunden";
 include_once($header);
@@ -10,6 +10,6 @@ include_once($header);
     </div>
     <!--Ende HTML Inhalt-->
 <?php
-$footer=__DIR__."\\partials\\footer.view.php";
+$footer=__DIR__."/partials/footer.view.php";
 include_once($footer)
 ?>
