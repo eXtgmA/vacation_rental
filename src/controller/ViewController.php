@@ -6,6 +6,6 @@ class ViewController extends BaseController
     public function __construct(string $viewName)
     {
         parent::__construct();
-        include_once("..\\src\\views\\{$viewName}.view.php");
+        include_once(__DIR__."/../views/{$viewName}.view.php");
     }
 }
