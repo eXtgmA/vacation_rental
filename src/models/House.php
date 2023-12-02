@@ -40,7 +40,8 @@ class House extends BaseModel
         try {
             $result = $this->connection->query($query);
         } catch (\Exception $e) {
-            var_dump($e);
+            error_log($e);
+            throw new \Exception($e);
         }
         $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
 

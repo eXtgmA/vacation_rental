@@ -123,4 +123,24 @@ class User extends BaseModel
     {
         $this->email = $email;
     }
+
+    public function getForename(): string
+    {
+        return $this->forename;
+    }
+
+    public function setForename(string $forename): void
+    {
+        $this->forename = $forename;
+    }
+
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    public function setSurname(string $surname): void
+    {
+        $this->surname = $surname;
+    }
 }
