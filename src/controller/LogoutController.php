@@ -10,8 +10,8 @@ class LogoutController extends BaseController
 
     public function postLogout(mixed $formdata = null): void
     {
-        session_start();
         unset($_SESSION['user']);
+        session_unset();
         header('location: /', true, 302); // Redirect to landing page
     }
 }

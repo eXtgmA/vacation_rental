@@ -1,7 +1,6 @@
 <?php
 global $title, $page;
 if (!isset($_SESSION)) { // avoid double opening sessions
-    session_start();
 }
 // create the variable $message if there are existing messages
 array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
