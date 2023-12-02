@@ -23,7 +23,7 @@ include_once($header);
                     </tr>
                     <tr>
                         <td>Quadratmeter</td>
-                        <td><input type="number" name="sqm" min="1"></td>
+                        <td><input type="number" name="square_meter" min="1"></td>
                     </tr>
                     <tr>
                         <td>Anzahl mögliche Personen</td>
@@ -31,7 +31,7 @@ include_once($header);
 
                     <tr>
                         <td>Anzahl Räume</td>
-                        <td><input type="number" name="rooms" min="1"></td>
+                        <td><input type="number" name="room_count" min="1"></td>
                     </tr>
                     <tr>
                         <td>Preis pro Nacht</td>
