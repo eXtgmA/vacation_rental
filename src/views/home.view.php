@@ -2,6 +2,16 @@
 $header=__DIR__."/partials/header.view.php";
 $title = "Ich bin die Seite";
 $page = 'home';
+
+// make an auto redirect to /dashboard if there is already an active session
+if (!isset($_SESSION)) { // avoid double opening sessions
+    session_start();
+}
+if (isset($_SESSION['user'])) {
+    header('Location: /dashboard');
+    exit();
+}
+
 include_once($header);
 ?>
     <h1>Willkommen auf der AKAD Ferienhausverwaltung</h1>

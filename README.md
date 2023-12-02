@@ -18,7 +18,7 @@ git clone git@github.com:eXtgmA/vacation_rental.git
 
 ### 3. Setup Database
 ```
-docker run -d -e MYSQL_ROOT_PASSWORD=password -e MARIADB_USER=shop -e MARIADB_PASSWORD=1234 -e MARIADB_DATABASE=shop -v .\database\init.sql:/docker-entrypoint-initdb.d/init.sql -p 3306:3306 --name web42_mariadb mariadb:lts
+docker run -d -e MYSQL_ROOT_PASSWORD=password -e MARIADB_USER=shop -e MARIADB_PASSWORD=1234 -e MARIADB_DATABASE=vacation_rental_db -v .\database\init.sql:/docker-entrypoint-initdb.d/init.sql -p 3306:3306 --name web42_mariadb mariadb:lts
 ```
 
 ### 4. Start PHP Server

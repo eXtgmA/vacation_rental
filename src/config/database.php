@@ -12,7 +12,15 @@ use mysqli;
  */
 function getConnection(): mysqli
 {
-    $connection = mysqli_connect('localhost', 'shop', '1234', 'vacation_rental_db');
+    // get database credentials
+    $hostname = getenv('DB_HOST') ?: 'localhost';
+    $username = getenv('DB_USER') ?: 'shop';
+    $password = getenv('DB_PASSWORD') ?: '1234';
+    $database = getenv('DB_NAME') ?: 'vacation_rental_db';
+    $port = getenv('DB_PORT') ?: 3306;
+
+    // create connection
+    $connection = mysqli_connect($hostname, $username, $password, $database, $port);
 
     // check if connection was successful
     if ($connection === false) {

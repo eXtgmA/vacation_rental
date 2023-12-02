@@ -1,0 +1,25 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    container_name: web42_web
+    environment:
+      - DB_HOST=mariadb
+      - DB_USER=shop
+      - DB_PASSWORD=1234
+      - DB_NAME=vacation_rental_db
+  mariadb:
+    image: "mariadb:lts"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MARIADB_USER: shop
+      MARIADB_PASSWORD: 1234
+      MARIADB_DATABASE: vacation_rental_db
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    container_name: web42_mariadb
+    ports:
+      - "3306:3306"
