@@ -10,7 +10,6 @@ class BaseModel
 
     protected function __construct()
     {
-        session_start();
         $this->connection= \src\config\getConnection();
     }
 }

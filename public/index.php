@@ -3,7 +3,7 @@
 use src\controller\ViewController;
 use src\helper;
 
-$globalBasePath = "123";
+session_start();
 //include_once('..\src\helper\autoloader.php');
 include_once('../src/helper/autoloader.php');
 
