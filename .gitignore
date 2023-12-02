@@ -1,8 +1,5 @@
 /.idea/
 *.log
-/phpstan.phar
-/phpcs.phar
-/phpcbf.phar
 /phpcs-result.txt
 /phpcbf-result.txt
 /database/.$*
