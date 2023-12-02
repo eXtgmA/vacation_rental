@@ -39,7 +39,7 @@ class User extends BaseModel
                         // if everything is ok perform login and set user as active user for the session
                        // session_start();
                         $_SESSION['user'] = $result->id;
-                        header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
+                        header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                     } else {
                         error_log('"' . $result->email . '" tried to login with wrong password');
                         throw new Exception('login fehlgeschlagen');
@@ -53,7 +53,7 @@ class User extends BaseModel
             session_unset();
             session_start();
             $_SESSION['message'] = $exception->getMessage();
-            header("location : {$_SERVER['HTTP_ORIGIN']}/login", true, 302);
+            header("location: {$_SERVER['HTTP_ORIGIN']}/login", true, 302);
         }
     }
 
@@ -79,7 +79,7 @@ class User extends BaseModel
                 if ($result == 1) {
                  //   session_start();
                     $_SESSION['message'] = "Email bereits vergeben";
-                    header('location : /register', true, 302);
+                    header('location: /register', true, 302);
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
