@@ -87,7 +87,7 @@ CREATE UNIQUE INDEX `ID_UNIQUE` ON `vacation_rental_db`.`tags` (`id` ASC) ;
 
 CREATE INDEX `fk_Tag_House1_idx` ON `vacation_rental_db`.`tags` (`house_id` ASC) ;
 
-CREATE UNIQUE INDEX `house_tag_constraint` ON `vacation_rental_db`.`tags` (`name` ASC, `house_id` ASC) IN;
+CREATE UNIQUE INDEX `house_tag_constraint` ON `vacation_rental_db`.`tags` (`name` ASC, `house_id` ASC);
 
 
 -- -----------------------------------------------------
