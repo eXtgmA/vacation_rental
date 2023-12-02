@@ -8,9 +8,10 @@ use mysqli_result;
 class User extends BaseModel
 {
     private int $id;
-    private string $name;
     private string $password;
     private string $email;
+    private string $forename;
+    private string $surname;
 
 
     public function __construct()
@@ -36,11 +37,11 @@ class User extends BaseModel
                 if (isset($result) && $result instanceof User) {
                     if (password_verify($password, $result->password)) {
                         // if everything is ok perform login and set user as active user for the session
-                        session_start();
+                       // session_start();
                         $_SESSION['user'] = $result->id;
                         header("location : {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                     } else {
-                        error_log('"' . $result->name . '" tried to login with wrong password');
+                        error_log('"' . $result->email . '" tried to login with wrong password');
                         throw new Exception('login fehlgeschlagen');
                     }
                 } else {
@@ -76,7 +77,7 @@ class User extends BaseModel
                 $result = $sql->fetch_object();
                 $result = $sql->num_rows;
                 if ($result == 1) {
-                    session_start();
+                 //   session_start();
                     $_SESSION['message'] = "Email bereits vergeben";
                     header('location : /register', true, 302);
                 } else {
@@ -105,14 +106,6 @@ class User extends BaseModel
     public function setId(int $id): void
     {
         $this->id = $id;
-    }
-    public function getName(): string
-    {
-        return $this->name;
-    }
-    public function setName(string $name): void
-    {
-        $this->name = $name;
     }
     public function getPassword(): string
     {
