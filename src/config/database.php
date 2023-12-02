@@ -17,7 +17,7 @@ function getConnection(): mysqli
     $username = getenv('DB_USER') ?: 'shop';
     $password = getenv('DB_PASSWORD') ?: '1234';
     $database = getenv('DB_NAME') ?: 'vacation_rental_db';
-    $port = getenv('DB_PORT') ?: 3306;
+    $port = (int)getenv('DB_PORT') ?: 3306;
 
     // create connection
     $connection = mysqli_connect($hostname, $username, $password, $database, $port);
