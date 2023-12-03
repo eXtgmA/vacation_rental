@@ -48,6 +48,11 @@ class Option extends BaseModel
         return null;
     }
 
+    /**
+     * @param array<string> $param
+     * @return void
+     * @throws Exception
+     */
     public function addOption(array $param) : void
     {
         // insert option into database
