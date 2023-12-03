@@ -14,14 +14,18 @@ $requestedUri = ($_SERVER['REQUEST_URI']);
 $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 // split the entered uri into single fragments
 $splittedUri = explode('/', $requestedUri);
-$splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "home";
+$splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "home"; // seting "home" as fallback when only domain is called
+$id = null;
 if (count($splittedUri) > 2) {
     $action = $splittedUri[2];
+    if (count($splittedUri)>3){
+        $id = (int)$splittedUri[3];
+    }
 } else {
     $action = '';
 }
 
-executeRoute($controller, $action, $routes, $requestedMethod);
+executeRoute($controller, $action, $routes, $requestedMethod, $id);
 
 /**
  * redirect to the correct controller and action
@@ -32,7 +36,7 @@ executeRoute($controller, $action, $routes, $requestedMethod);
  * @param string $requestedMethod
  * @return void
  */
-function executeRoute(string $controller, string $action, array $routes, string $requestedMethod): void
+function executeRoute(string $controller, string $action, array $routes, string $requestedMethod,?int $id): void
 {
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
@@ -47,7 +51,7 @@ function executeRoute(string $controller, string $action, array $routes, string 
         $controllerNamespace = "\\src\\controller\\$controllername";
         $controller = new $controllerNamespace();
         // trigger the function in controller
-        $controller->$controllerFunction($requestedMethod);
+        $controller->$controllerFunction($id);
     } else {
         new ViewController('notFound'); // redirect if no route is defined
         // todo change with exception handling

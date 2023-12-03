@@ -53,9 +53,12 @@ return [
     'offer' =>
         ['GET' => [
             '' => 'index',
-            'create'=>'create'
+            'create'=>'create',
+            'show'=>'show'
         ],
           'POST' => [
-             'create' => 'create']
+             'create' => 'create',
+              'togglestatus'=>'toggleStatus'],
+
         ],
 ];

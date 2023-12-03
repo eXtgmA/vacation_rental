@@ -1,6 +1,7 @@
 <?php
 global $title, $page;
 if (!isset($_SESSION)) { // avoid double opening sessions
+   // session_start();
 }
 // create the variable $message if there are existing messages
 array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
@@ -10,7 +11,7 @@ array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=nu
 <head>
 
     <link rel="stylesheet" href="/styling.css"/>
-    <link rel="stylesheet" href="fa/css/all.min.css" type="text/css" />
+    <link rel="stylesheet" href="/fa/css/all.min.css" type="text/css" />
     <?php
 
     ?>
