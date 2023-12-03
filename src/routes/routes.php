@@ -58,4 +58,13 @@ return [
           'POST' => [
              'create' => 'create']
         ],
+// address one single option
+    'option' =>
+        ['GET' => [
+            '' => 'index',
+            'create'=>'create'
+        ],
+            'POST' => [
+                'create' => 'create']
+        ],
 ];
