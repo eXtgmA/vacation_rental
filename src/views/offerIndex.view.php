@@ -13,7 +13,7 @@ include_once($header);
 
     <?php
     if (isset($param)) {
-    ?>
+        ?>
     <table>
         <tr>
             <th>Name</th>
@@ -50,8 +50,8 @@ include_once($header);
             </td><?php
         }
         echo "</table>";
-        }
-        ?>
+    }
+    ?>
 
 
 </div>

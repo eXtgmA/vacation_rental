@@ -18,7 +18,7 @@ $splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "home"; //
 $id = null;
 if (count($splittedUri) > 2) {
     $action = $splittedUri[2];
-    if (count($splittedUri)>3){
+    if (count($splittedUri)>3) {
         $id = (int)$splittedUri[3];
     }
 } else {
@@ -36,7 +36,7 @@ executeRoute($controller, $action, $routes, $requestedMethod, $id);
  * @param string $requestedMethod
  * @return void
  */
-function executeRoute(string $controller, string $action, array $routes, string $requestedMethod,?int $id): void
+function executeRoute(string $controller, string $action, array $routes, string $requestedMethod, ?int $id): void
 {
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);

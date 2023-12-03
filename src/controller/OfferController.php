@@ -60,7 +60,7 @@ class OfferController extends BaseController
     {
         $query = "Select * from houses where id = {$id} limit 1";
         $result = $this->connection->query($query);
-        while ($house=$result->fetch_object('src\models\House')){
+        while ($house=$result->fetch_object('src\models\House')) {
             $house->toggleStatus();
         };
         header('location: /offer', true, 302);
