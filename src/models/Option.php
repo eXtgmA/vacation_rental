@@ -48,6 +48,42 @@ class Option extends BaseModel
         return null;
     }
 
+    public function addOption(array $param) : void
+    {
+        // insert option into database
+        $query = "insert into option (";
+        $i = 1;
+        $paramLength=(count($param));
+        foreach ($param as $key => $value) {
+            if ($i < $paramLength) {
+                $query = $query .$key.",";
+            } else {
+                $query = $query .$key;
+            }
+            $i++;
+        }
+        $query = $query . ") Values (";
+        $i = 1;
+        foreach ($param as $key => $value) {
+            if ($i < $paramLength) {
+                $query = $query ."'". $value."',";
+            } else {
+                $query = $query ."'". $value."'";
+            }
+            $i++;
+        }
+        $query = $query . ")";
+        try {
+            $result = $this->connection->query($query);
+        } catch (\Exception $e) {
+            error_log($e);
+            throw new \Exception($e);
+        }
+        $_SESSION['message'] = 'Option wurde erfolgreich angelegt';
+
+//        header("location: /option/'{$param['id']}'", true, 302);
+    }
+
     public function getId(): int
     {
         return $this->id;
