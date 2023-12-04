@@ -61,4 +61,11 @@ return [
               'togglestatus'=>'toggleStatus'],
 
         ],
+    'image' =>
+        ['GET' => [
+            '' => 'form'],
+          'POST' => [
+             'save' => 'save',
+              'delete'=>'delete']
+        ]
 ];
