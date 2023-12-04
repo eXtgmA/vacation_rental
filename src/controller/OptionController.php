@@ -2,8 +2,9 @@
 namespace src\controller;
 
 use src\models\Option;
-use src\models\Image;
 use src\models\User;
+
+//use src\models\Image;
 //use src\models\Typetable;
 
 class OptionController extends BaseController
@@ -29,11 +30,11 @@ class OptionController extends BaseController
     {
         // check if house is owned by user
         $user = new User();
-        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
-            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
-            header("location: {$_SERVER['HTTP_ORIGIN']}/createoption", true, 403);
-        }
+//        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
+//            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
+//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
+//            header("location: {$_SERVER['HTTP_ORIGIN']}/createoption", true, 403);
+//        }
 
         try {
             // feed image parameters into image creation

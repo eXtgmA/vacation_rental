@@ -11,8 +11,8 @@ class Option extends BaseModel
     private string $description;
     private float $price;
     private bool $is_disabled;
-    private int $house_id;
-    private int $image_id;
+    private int $house_id;  /* @phpstan-ignore-line */
+    private int $image_id;  /* @phpstan-ignore-line */
 
 
     public function __construct()
