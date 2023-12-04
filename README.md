@@ -65,7 +65,7 @@ chmod +x phpcbf.phar
 ./phpcbf.phar --standard=.phpcs.xml .
 ```
 
-### Icon usage
+## Icon usage
   - create italic element <i></i>
   - add class to element <i class=""></i>
   - add "fa" to class <i class="fa"></i> *important to activate fontawesome icons*
@@ -73,7 +73,17 @@ chmod +x phpcbf.phar
 
 for more information follow [Fontawesome](https://fontawesome.com/search?)
 
-### Configure GIT to use LF
-
+## Configure GIT to use LF
 git config --global core.autocrlf false
 git config --global core.eol lf  
+
+
+## Deployment with Docker-Compose
+Run the following command to start the application with the official images, based on the current main branch.
+```
+docker-compose -f compose-official.yaml -p web42-vacation_rental up -d
+```
+If you want to start the application with your local changes, use the following command.
+```
+docker-compose -f compose-local.yaml -p web42-vacation_rental up -d --build
+```
