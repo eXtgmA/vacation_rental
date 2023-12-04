@@ -89,6 +89,69 @@ class Option extends BaseModel
 //        header("location: /option/'{$param['id']}'", true, 302);
     }
 
+    /**
+     * @param int $id
+     * @param array<string> $param
+     * @return void
+     * @throws Exception
+     */
+    public function updateOption(int $id, array $param) : void
+    {
+        // update option
+        $query = "UPDATE options SET ";
+        $i = 1;
+        $paramLength=(count($param));
+        foreach ($param as $key => $value) {
+            if ($i < $paramLength) {
+                $query = $query .$key."=".$value.",";
+            } else {
+                $query = $query .$key."=".$value;
+            }
+            $i++;
+        }
+        $query = $query . " WHERE id=".$id.";";
+        try {
+            $result = $this->connection->query($query);
+        } catch (\Exception $e) {
+            error_log($e);
+            throw new \Exception($e);
+        }
+        $_SESSION['message'] = 'Option wurde erfolgreich aktualisiert';
+
+//        header("location: /optionedit/'{$param['id']}'", true, 302);
+    }
+
+    /**
+     * Delete an option and the related image from database.
+     * Either returns true or throws exception.
+     *
+     * @param int $option_id
+     * @param int $image_id
+     * @return bool
+     * @throws Exception
+     */
+    public function deleteOption(int $option_id, int $image_id) : bool
+    {
+        $this->connection->begin_transaction();
+        try {
+            // first: delete option
+            $query = "DELETE FROM options WHERE id=".$option_id.";";
+            $this->connection->query($query);
+            // second: delete image
+//            $image = new \src\models\Image();     // todo: activate if delete-function in Image model exists
+//            $image->deleteImage($image_id);
+        } catch (Exception $e) {
+            $this->connection->rollback();
+            error_log("Error while deleting option (" .$option_id. ") from databse.");
+            throw new Exception($e);
+        }
+        // if all ok, commit transaction
+        $this->connection->commit();
+        $_SESSION["message"] = "Option wurde erfolgreich gelöscht";
+        return true;
+        // redirection to next page has to be executed by caller
+    }
+
     public function getId(): int
     {
         return $this->id;
