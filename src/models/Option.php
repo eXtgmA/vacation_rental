@@ -115,7 +115,7 @@ class Option extends BaseModel
             }
             $i++;
         }
-        $query = $query . " WHERE id=".$id.";";
+        $query = $query . " WHERE id=".$id." LIMIT 1;";
         try {
             $result = $this->connection->query($query);
         } catch (\Exception $e) {
@@ -141,7 +141,7 @@ class Option extends BaseModel
         $this->connection->begin_transaction();
         try {
             // first: delete option
-            $query = "DELETE FROM options WHERE id=".$option_id.";";
+            $query = "DELETE FROM options WHERE id=".$option_id." LIMIT 1;";
             $this->connection->query($query);
             // second: delete image
 //            $image = new \src\models\Image();     // todo: activate if delete-function in Image model exists
