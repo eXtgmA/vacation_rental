@@ -3,6 +3,8 @@ namespace src\controller;
 
 use src\models\Option;
 use src\models\Image;
+use src\models\User;
+//use src\models\Typetable;
 
 class OptionController extends BaseController
 {
@@ -25,23 +27,34 @@ class OptionController extends BaseController
 
     public function postCreate() : void
     {
-        // feed image parameters into image creation
-        $image_param["id"] = $_REQUEST["image_id"];
-        $image_param["uuid"] = $_REQUEST["uuid"];
-        $image_param["house_id"] = $_REQUEST["house_id"];
-        $image_param["typetable_id"] = $_REQUEST["typetable_id"];
-//        $image = new Image();
-//        $image->addImage($image_param);
+        // check if house is owned by user
+        $user = new User();
+        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
+            header("location: {$_SERVER['HTTP_ORIGIN']}/createoption", true, 403);
+        }
 
-        // option parameters
-        $option_param["id"] = $_REQUEST["option_id"];
-        $option_param["name"] = $_REQUEST["name"];
-        $option_param["description"] = $_REQUEST["description"];
-        $option_param["price"] = $_REQUEST["price"];
-        $option_param["is_disabled"] = $_REQUEST["is_disabled"];
-        $option_param["house_id"] = $_REQUEST["house_id"];
-//        $option_param["image_id"] = $image->getId();
-        $option = new Option();
-        $option->addOption($option_param);
+        try {
+            // feed image parameters into image creation
+            $image_param["house_id"] = $_REQUEST["house_id"];
+//            $typetable = new Typetable(); // todo: activate after implementing typetable function
+//            $image_param["typetable_id"] = $typetable->getIdFromType("Option");
+//            $image = new Image();
+//            $image = $image->addImage($image_param);
+
+            // option parameters
+            $option_param["id"] = $_REQUEST["option_id"];
+            $option_param["name"] = $_REQUEST["name"];
+            $option_param["description"] = $_REQUEST["description"];
+            $option_param["price"] = $_REQUEST["price"];
+            $option_param["is_disabled"] = $_REQUEST["is_disabled"];
+            $option_param["house_id"] = $_REQUEST["house_id"];
+//            $option_param["image_id"] = $image->getId();
+            $option = new Option();
+            $option->addOption($option_param);
+        } catch (\Exception $exception) {
+            // todo if fail hopopla Fehler  , + POST-data zurückgeben!
+            $_SESSION["message"] = $exception->getMessage();
+            header("location: {$_SERVER['HTTP_ORIGIN']}/createoption", true, 302);
+        }
     }
 }
