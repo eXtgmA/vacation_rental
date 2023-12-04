@@ -10,7 +10,7 @@ include_once($header);
 
     <div style="justify-content: center">
         <div>
-            <form action="/offer/create" method="post">
+            <form action="/offer/create" method="post" enctype="multipart/form-data">
 
                 <table>
                     <tr>
@@ -53,7 +53,11 @@ include_once($header);
                         <td>Hausnummer</td>
                         <td><input type="number" name="house_number" min="1"></td>
                     </tr>
-
+                    <tr>
+                        <td> <label for="image" >Frontbild <i class="fa fa-camera"></i></label></td>
+                        <td><input type="file" name="image" hidden="hidden" id="image"></td>
+                    </tr>
+                    </form>
                 </table>
                 <button type="submit">Haus einstellen</button>
             </form>

@@ -1,5 +1,8 @@
 <?php
+
 namespace src\models;
+
+use src\controller\ImageController;
 
 class House extends BaseModel
 {
@@ -17,64 +20,73 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
 
+    private string $frontimage;
+    /**
+     * @var string[]
+     */
+    private array $allowedAttributes= ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+
     public function __construct()
     {
         parent::__construct();
     }
 
+
     /**
-     * @param array<string> $param
+     * @param string[] $param
+     * @param string[] $image
      * @return void
+     * @throws \Exception
      */
-    public function addhouse(array $param): void
+    public function addhouse(array $param, array $image): void
     {
         // remove all unnecessary keys, only allow the keys from db table houses
-        $param = array_filter($param, function ($key) {
-            return in_array($key, ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled']);
-        }, ARRAY_FILTER_USE_KEY);
-
+        $filteredParam = $this->filter($param);
         // prepare statement
         $query = "insert into houses ( owner_id,";
         $i = 1;
-        $paramLength=(count($param));
-        foreach ($param as $key => $value) {
+        $paramLength = (count($filteredParam));
+        foreach ($filteredParam as $key => $value) {
             if ($i < $paramLength) {
-                $query = $query .$key.",";
+                $query = $query . $key . ",";
             } else {
-                $query = $query .$key;
+                $query = $query . $key;
             }
             $i++;
         }
         $query = $query . ") Values ( '{$_SESSION['user']}',";
         $i = 1;
-        foreach ($param as $key => $value) {
+        foreach ($filteredParam as $key => $value) {
             if ($i < $paramLength) {
-                $query = $query ."'". $value."',";
+                $query = $query . "'" . $value . "',";
             } else {
-                $query = $query ."'". $value."'";
+                $query = $query . "'" . $value . "'";
             }
             $i++;
         }
         $query = $query . ")";
         try {
-            $result = $this->connection->query($query);
+            // insert in db
+            $this->connection->query($query);
+            // fetch id after saving
+            $houseId = $this->connection->insert_id;
         } catch (\Exception $e) {
             error_log($e);
             throw new \Exception($e);
         }
+        $this->setFrontimage((int)$houseId, $image);
         $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
-
         header("location: /offer", true, 302);
     }
 
     /**
      * @return void
      */
-    public function toggleStatus() :void
+    public function toggleStatus(): void
     {
-        $newStatus=(int)!$this->getIsDisabled();
+        $newStatus = (int)!$this->getIsDisabled();
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-        $result=$this->connection->query($query);
+        $result = $this->connection->query($query);
     }
 
     /**
@@ -304,5 +316,45 @@ class House extends BaseModel
     public function setSquareMeter(int $square_meter): void
     {
         $this->square_meter = $square_meter;
+    }
+
+    public function getFrontImage(): string
+    {
+        $query = ("select uuID from images where house_id = {$this->id} limit 1");
+        $results = $this->connection->query($query);
+        if ($results instanceof \mysqli_result) {
+            $row = $results->fetch_row();
+            if ($row) {
+                $this->frontimage = $row[0];
+                return $this->frontimage;
+            }
+        }
+        $this->frontimage = '';
+        return $this->frontimage;
+    }
+
+
+    /**
+     * @param int $houseId
+     * @param string[] $frontimage
+     * @return void
+     * @throws \Exception
+     */
+    public function setFrontimage(int $houseId, array $frontimage): void
+    {
+        $type = 1;
+        $newImage = new ImageController();
+        $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
+    }
+
+    /**
+     * @param string[] $param
+     * @return string[]
+     */
+    public function filter(array $param): array
+    {
+        return array_filter($param, function ($key) {
+            return in_array($key, $this->allowedAttributes);
+        }, ARRAY_FILTER_USE_KEY);
     }
 }

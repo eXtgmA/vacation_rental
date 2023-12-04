@@ -30,7 +30,9 @@ class OfferController extends BaseController
             $param[$key] = $value;
         }
         $house = new House();
-        $house->addhouse($param);
+        $image=$_FILES['image'];
+        $house->addhouse($param,$image);
+
     }
 
 
@@ -45,6 +47,7 @@ class OfferController extends BaseController
         if ($housesResult instanceof \mysqli_result) {
             $houses = [];
             while ($house = $housesResult->fetch_object('src\models\House')) {
+                /** @var House $house */
                 $houses[] = $house;
             }
             return $houses;
@@ -67,5 +70,20 @@ class OfferController extends BaseController
             };
         }
         header('location: /offer', true, 302);
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function getshow(int $id):void
+    {
+        // fetch house by id
+        $query = "Select * from houses where id = {$id} limit 1";
+        $result = $this->connection->query($query);
+        if($result instanceof \mysqli_result){
+            fetch_object('src\models\House');
+        }
+        new ViewController("offerDetail", $house);
     }
 }

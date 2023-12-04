@@ -22,31 +22,31 @@ class ImageController extends BaseController
                 $fetchedImagesArray[] = $image;
             }
         }
-
-
         new ViewController('imageform', $fetchedImagesArray);
     }
 
+
     /**
-     * @return void
+     * @param array $file
+     * @param int $houseId
+     * @param int|null $typeId
+     * @return string
      * @throws \Exception
      */
-    public function postsave():void
+    public function postsave(array $file, int $houseId, int $typeId=null,):string
     {
-        if ($_FILES['image']['tmp_name']=="") {
+        if ($file['tmp_name']=="") {
             header('location: /image', true, 302);
         }
 
         // create random binary string in length of 40 Chars -> translate to HEX
         $randomId=bin2hex(random_bytes(15));
         // Uploaded file is in "tmp_name" (php standard)
-        $image = $_FILES['image']['tmp_name'];
+        $image = $file['tmp_name'];
         // get the uploaded file extension
         $mimetype = mime_content_type($image);
         $extension = '';
-
         if ($mimetype) {
-
             $exploded = explode('/', $mimetype);
             if (count($exploded)==2) {
                 $extension=$exploded[1];
@@ -64,9 +64,9 @@ class ImageController extends BaseController
             // saving process
             move_uploaded_file($image, $path.$imageName);
             // save to db
-            $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',1,1) ");
+            $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
             $this->connection->query($query);
-            header("location: /image", true, 302);
+            return $imageName;
         } catch (\Exception $e) {
             var_dump($e);
         }

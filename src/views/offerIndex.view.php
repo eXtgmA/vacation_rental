@@ -26,6 +26,8 @@ include_once($header);
             <th>Straße</th>
             <th>Hausnummer</th>
             <th>status</th>
+            <th>Detail</th>
+            <th>Front</th>
         </tr>
         <?php
         /** @var \src\models\House[] $param */
@@ -43,13 +45,17 @@ include_once($header);
             echo "<td>" . $house->getIsDisabled() . "</td>";
             echo "<td><a href='/offer/show/" . $house->getId() . "'><i class='fa fa-house'></i></a></td>";
             ?>
+        </td>
+        <td><img src="/images/<?php print $house->getFrontImage() ?>" style="width: 30px;height: 30px" alt="alt"></td>
             <td>
             <form action="/offer/togglestatus/<?php echo $house->getId(); ?>" method="post">
                 <button type="submit"><i class="fa <?php $house->getIsDisabled()==1 ? print('fa-eye-slash') : print('fa-eye')?>"></i></button>
             </form>
-            </td><?php
+
+            <?php
         }
         echo "</table>";
+
     }
     ?>
 
