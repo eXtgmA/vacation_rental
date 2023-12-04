@@ -30,6 +30,8 @@ class OptionController extends BaseController
         // check if house is owned by user
         $user = new User();
         if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
+            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
+            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
             header("location: {$_SERVER['HTTP_ORIGIN']}/createoption", true, 403);
         }
 
@@ -42,11 +44,9 @@ class OptionController extends BaseController
 //            $image = $image->addImage($image_param);
 
             // option parameters
-            $option_param["id"] = $_REQUEST["option_id"];
             $option_param["name"] = $_REQUEST["name"];
             $option_param["description"] = $_REQUEST["description"];
             $option_param["price"] = $_REQUEST["price"];
-            $option_param["is_disabled"] = $_REQUEST["is_disabled"];
             $option_param["house_id"] = $_REQUEST["house_id"];
 //            $option_param["image_id"] = $image->getId();
             $option = new Option();
