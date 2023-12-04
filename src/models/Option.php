@@ -21,7 +21,7 @@ class Option extends BaseModel
     }
 
     /**
-     * Retrieves an Option from the database specified by its index
+     * Retrieve an option from the database specified by its index
      *
      * @param int $option_id
      * @return Option|null
@@ -49,6 +49,9 @@ class Option extends BaseModel
     }
 
     /**
+     * Add an option to the database.
+     * In associative array $param, $key must be equal to column name in database table
+     *
      * @param array<string> $param
      * @return void
      * @throws Exception
@@ -90,6 +93,9 @@ class Option extends BaseModel
     }
 
     /**
+     * Update the option defined by $id with data provided by $param
+     * In associative array $param, $key must be equal to column name in database table
+     *
      * @param int $id
      * @param array<string> $param
      * @return void
