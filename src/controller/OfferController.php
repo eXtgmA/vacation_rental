@@ -82,7 +82,7 @@ class OfferController extends BaseController
         $query = "Select * from houses where id = {$id} limit 1";
         $result = $this->connection->query($query);
         if($result instanceof \mysqli_result){
-            fetch_object('src\models\House');
+           $house= $result->fetch_object('src\models\House');
         }
         new ViewController("offerDetail", $house);
     }
