@@ -28,6 +28,11 @@ class House extends BaseModel
      */
     public function addhouse(array $param): void
     {
+        // remove all unnecessary keys, only allow the keys from db table houses
+        $param = array_filter($param, function ($key) {
+            return in_array($key, ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled']);
+        }, ARRAY_FILTER_USE_KEY);
+
         // prepare statement
         $query = "insert into houses ( owner_id,";
         $i = 1;
