@@ -54,8 +54,8 @@ include_once($header);
                         <td><input type="number" name="house_number" min="1"></td>
                     </tr>
                     <tr>
-                        <td> <label for="image" >Frontbild <i class="fa fa-camera"></i></label></td>
-                        <td><input type="file" name="image" hidden="hidden" id="image"></td>
+                        <td> <label for="frontimage" >Frontbild <i class="fa fa-camera"></i></label></td>
+                        <td><input type="file" name="frontimage" hidden="hidden" id="frontimage"></td>
                     </tr>
                     </form>
                 </table>

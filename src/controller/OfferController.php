@@ -30,8 +30,8 @@ class OfferController extends BaseController
             $param[$key] = $value;
         }
         $house = new House();
-        $image=$_FILES['image'];
-        $house->addhouse($param,$image);
+        $frontimage=$_FILES['frontimage'];
+        $house->addhouse($param,$frontimage);
 
     }
 
