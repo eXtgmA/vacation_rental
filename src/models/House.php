@@ -2,7 +2,6 @@
 
 namespace src\models;
 
-use src\controller\ImageController;
 
 class House extends BaseModel
 {
@@ -24,7 +23,7 @@ class House extends BaseModel
     /**
      * @var string[]
      */
-    private array $allowedAttributes= ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+    private array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
 
     public function __construct()
     {
@@ -343,7 +342,7 @@ class House extends BaseModel
     public function setFrontimage(int $houseId, array $frontimage): void
     {
         $type = 1;
-        $newImage = new ImageController();
+        $newImage = new Image();
         $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
     }
 
