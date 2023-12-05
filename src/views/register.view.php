@@ -43,8 +43,6 @@ include_once($header);
 </div>
     <!--Ende HTML Inhalt-->
 <?php
-unset($_SESSION["old_POST"]);
-// footer
 $footer=__DIR__."/partials/footer.view.php";
 include_once($footer);
 ?>

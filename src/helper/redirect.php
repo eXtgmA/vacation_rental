@@ -1,18 +1,22 @@
 <?php
+
 /**
- * Send a raw HTTP header like function header() , but send $_POST-data with it using $_SESSION
+ *  Send a raw HTTP header like function header() , but send $_POST-data with it using $_SESSION
  *
- * Data can be retrieved at destination via associative array $_SESSION["old_POST"]
+ *  Data can be retrieved at destination via associative array $_SESSION["old_POST"]
  *
  * @param string $headerstring
- * @param bool $replace
  * @param int $response_code
- * @param array<string> $old_POST
+ * @param array|null $old_POST
+ * @param bool $replace
  * @return void
  */
-function redirect(string $headerstring, bool $replace = true, int $response_code = 0, array $old_POST = null): void
+function redirect(string $headerstring, int $response_code, array $old_POST = null, bool $replace = true): void
 {
-    $_SESSION["old_POST"] = $old_POST ?? null;
-    header($headerstring, $replace, $response_code);
+
+        if($old_POST != null) {
+                $_SESSION["old_POST"] = $old_POST;
+        }
+        header("location: {$headerstring}", $replace, $response_code);
 }
 ?>
