@@ -7,7 +7,8 @@
  * @param string $name
  * @return void
  */
-function prefill(string $name) : void {
+function prefill(string $name) : void
+{
     echo $_SESSION["old_POST"][$name] ?? "";
 }
 ?>
