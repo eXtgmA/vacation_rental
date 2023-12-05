@@ -97,7 +97,7 @@ class Image extends BaseModel
             move_uploaded_file($image, $path . $imageName);
             // save to db
             $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
-            $this->runQuery($query);
+            $this->fetch($query);
         } catch (\Exception $e) {
             var_dump($e);
         }
@@ -114,7 +114,7 @@ class Image extends BaseModel
         $path = __DIR__ . "/../../public/images/" . $_POST['uuid'];
         $deleted = unlink($path);
         $query = "delete from images where uuID like '{$_POST['uuid']}'";
-        $this->runQuery($query);
+        $this->fetch($query);
         header('location: /image', true, 302);
     }
 }

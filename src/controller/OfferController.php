@@ -27,13 +27,16 @@ class OfferController extends BaseController
 
     public function postCreate(): void
     {
+
         $param = [];
         foreach ($_REQUEST as $key => $value) {
             $param[$key] = $value;
         }
         $house = new House();
+
         $frontimage=$_FILES['frontimage'];
         $house->addhouse($param,$frontimage);
+
     }
 
 
@@ -44,7 +47,7 @@ class OfferController extends BaseController
     {
         $query = "Select * From houses where owner_id = {$_SESSION['user']}";
         // Fetch houses from db as HOUSE Object
-        $housesResult = $this->runQuery($query);
+        $housesResult = $this->fetch($query);
         // add each object to array
             $houses = [];
             while ($house = $housesResult->fetch_object('src\models\House')) {
@@ -61,7 +64,7 @@ class OfferController extends BaseController
     public function posttoggleStatus(int $id): void
     {
         $query = "Select * from houses where id = {$id} limit 1";
-        $result = $this->runQuery($query);
+        $result = $this->fetch($query);
             while ($house=$result->fetch_object('src\models\House')) {
                 /** @var House $house */
                 $house->toggleStatus();
@@ -77,7 +80,7 @@ class OfferController extends BaseController
     {
         // fetch house by id
         $query = "Select * from houses where id = {$id} limit 1";
-        $result = $this->runQuery($query);
+        $result = $this->fetch($query);
         $house= $result->fetch_object('src\models\House');
             new ViewController("offerDetail", $house);
         }

@@ -31,7 +31,7 @@ class User extends BaseModel
     {
         try {
             $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->runQuery($query);
+            $sql = $this->fetch($query);
                 $result = $sql->fetch_object('src\models\User');
                 // Check if there is a user with the send login mail or username
                 if ($result instanceof User) {
@@ -71,24 +71,25 @@ class User extends BaseModel
         try {
             //limiting to have less stress on database
             $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->runQuery($query);
-                $result = $sql->num_rows;
+            $sql = $this->fetch($query);
+            $result = $sql->num_rows;
+                // mail exist in db -> abort
                 if ($result == 1) {
-                 //   session_start();
                     $_SESSION['message'] = "Email bereits vergeben";
                     header('location: /register', true, 302);
-                } else {
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
-                    $saved = $this->runQuery($query);
-                    if ($saved==null) {
+                }
+
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+                $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
+            /** @var User $user */
+            $user = $this->storeAndReturn($query, '\\src\\models\\User','users');
+                if ($user==null) {
                         $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
                         header("location: /register", true, 302);
-                    }
-                    $userId = $this->connection()->insert_id; // get id after creation
-                    $_SESSION['user'] = $userId; // login aver successful creation
-                    header("location: /dashboard", true, 302);
                 }
+                $_SESSION['user'] = $user->getId(); // login aver successful creation
+                header("location: /dashboard", true, 302);
+
         } catch (Exception $e) {
             var_dump($e);
         }

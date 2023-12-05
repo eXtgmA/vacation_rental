@@ -66,7 +66,7 @@ class House extends BaseModel
         $query = $query . ")";
         try {
             // insert in db
-            $this->runQuery($query);
+            $this->store($query);
             // fetch id after saving
             $houseId = $this->connection()->insert_id;
         } catch (\Exception $e) {
@@ -85,7 +85,7 @@ class House extends BaseModel
     {
         $newStatus = (int)!$this->getIsDisabled();
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-        $result = $this->runQuery($query);
+        $result = $this->fetch($query);
     }
 
     /**
@@ -320,7 +320,7 @@ class House extends BaseModel
     public function getFrontImage(): string
     {
         $query = ("select uuID from images where house_id = {$this->id} limit 1");
-        $results = $this->runQuery($query);
+        $results = $this->fetch($query);
             $row = $results->fetch_row();
             if ($row) {
                 $this->frontimage = $row[0];
