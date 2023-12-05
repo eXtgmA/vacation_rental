@@ -10,7 +10,7 @@
  * @param array<string> $old_POST
  * @return void
  */
-function redirect(string $headerstring, bool $replace = true, int $response_code = 0, array $old_POST = NULL): void
+function redirect(string $headerstring, bool $replace = true, int $response_code = 0, array $old_POST = null): void
 {
     $_SESSION["old_POST"] = $old_POST ?? null;
     header($headerstring, $replace, $response_code);
