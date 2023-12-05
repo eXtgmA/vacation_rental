@@ -2,14 +2,14 @@
 
 namespace src\models;
 
+use src\helper\DatabaseTrait;
+
 include_once("../src/config/database.php");
 
 class BaseModel
 {
-    protected \mysqli $connection;
-
+use DatabaseTrait;
     protected function __construct()
     {
-        $this->connection= \src\config\getConnection();
     }
 }

@@ -1,14 +1,15 @@
 <?php
 namespace src\controller;
 
+use src\helper\DatabaseTrait;
+
 include_once("../src/config/database.php");
 
 class BaseController
 {
-    protected \mysqli $connection;
+    use DatabaseTrait;
     public function __construct()
     {
-        $this->connection= \src\config\getConnection();
     }
 
     protected function redirectIfNotLoggedIn(): void
