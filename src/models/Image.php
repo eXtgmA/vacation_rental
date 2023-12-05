@@ -1,10 +1,8 @@
 <?php
-namespace src\controller;
 
-use PHPStan\Type\Php\VersionCompareFunctionDynamicReturnTypeExtension;
-use function _PHPStan_758e5f118\RingCentral\Psr7\str;
+namespace src\models;
 
-class ImageController extends BaseController
+class Image extends BaseModel
 {
     public function __construct()
     {
@@ -18,14 +16,14 @@ class ImageController extends BaseController
      * @return string
      * @throws \Exception
      */
-    public function postsave(array $file, int $houseId, int $typeId=null,):string
+    public function postsave(array $file, int $houseId, int $typeId = null,): string
     {
-        if ($file['tmp_name']=="") {
+        if ($file['tmp_name'] == "") {
             header('location: /image', true, 302);
         }
 
         // create random binary string in length of 40 Chars -> translate to HEX
-        $randomId=bin2hex(random_bytes(15));
+        $randomId = bin2hex(random_bytes(15));
         // Uploaded file is in "tmp_name" (php standard)
         $image = $file['tmp_name'];
         // get the uploaded file extension
@@ -33,21 +31,21 @@ class ImageController extends BaseController
         $extension = '';
         if ($mimetype) {
             $exploded = explode('/', $mimetype);
-            if (count($exploded)==2) {
-                $extension=$exploded[1];
+            if (count($exploded) == 2) {
+                $extension = $exploded[1];
             }
-        }else{
+        } else {
             throw new \Exception();
 
         }
         // creating saving path
-        $path=__DIR__."/../../public/images/";
+        $path = __DIR__ . "/../../public/images/";
 
         // putting path and storage name together
-            $imageName =$randomId . "." . $extension;
+        $imageName = $randomId . "." . $extension;
         try {
             // saving process
-            move_uploaded_file($image, $path.$imageName);
+            move_uploaded_file($image, $path . $imageName);
             // save to db
             $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
             $this->connection->query($query);
@@ -62,10 +60,10 @@ class ImageController extends BaseController
      *
      * @return void
      */
-    public function postdelete():void
+    public function postdelete(): void
     {
-        $path=__DIR__."/../../public/images/".$_POST['uuid'];
-        $deleted=unlink($path);
+        $path = __DIR__ . "/../../public/images/" . $_POST['uuid'];
+        $deleted = unlink($path);
         $query = "delete from images where uuID like '{$_POST['uuid']}'";
         $this->connection->query($query);
         header('location: /image', true, 302);
