@@ -53,7 +53,7 @@ class User extends BaseModel
             session_unset();
             session_start();
             $_SESSION['message'] = $exception->getMessage();
-            header("location: {$_SERVER['HTTP_ORIGIN']}/login", true, 302);
+            redirect("location: {$_SERVER['HTTP_ORIGIN']}/login", true, 302, $_POST);
         }
     }
 
@@ -79,18 +79,18 @@ class User extends BaseModel
                 if ($result == 1) {
                  //   session_start();
                     $_SESSION['message'] = "Email bereits vergeben";
-                    header('location: /register', true, 302);
+                    redirect('location: /register', true, 302, $_POST);
                 } else {
                     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                     $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
                     $saved = $sql = $this->connection->query($query);
                     if (!$saved) {
                         $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
-                        header("location: /register", true, 302);
+                        redirect("location: /register", true, 302, $_POST);
                     }
                     $userId = $this->connection->insert_id; // get id after creation
                     $_SESSION['user'] = $userId; // login aver successful creation
-                    header("location: /dashboard", true, 302);
+                    redirect("location: /dashboard", true, 302, $_POST);
                 }
             }
         } catch (Exception $e) {
