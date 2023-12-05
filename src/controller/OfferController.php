@@ -32,7 +32,6 @@ class OfferController extends BaseController
         $house = new House();
         $frontimage=$_FILES['frontimage'];
         $house->addhouse($param,$frontimage);
-
     }
 
 
@@ -81,9 +80,10 @@ class OfferController extends BaseController
         // fetch house by id
         $query = "Select * from houses where id = {$id} limit 1";
         $result = $this->connection->query($query);
+        $house = null; // initialize to avoid undefined variable
         if($result instanceof \mysqli_result){
            $house= $result->fetch_object('src\models\House');
         }
-        new ViewController("offerDetail", $house);
-    }
+            new ViewController("offerDetail", $house);
+        }
 }

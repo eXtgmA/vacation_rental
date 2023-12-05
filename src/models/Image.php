@@ -4,13 +4,65 @@ namespace src\models;
 
 class Image extends BaseModel
 {
+    private int $id;
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
+
+    public function setUuid(string $uuid): void
+    {
+        $this->uuid = $uuid;
+    }
+
+    public function getHouseId(): int
+    {
+        return $this->house_id;
+    }
+
+    public function setHouseId(int $house_id): void
+    {
+        $this->house_id = $house_id;
+    }
+
+    public function getTypetableId(): ?int
+    {
+        return $this->typetable_id;
+    }
+
+    public function setTypetableId(?int $typetable_id): void
+    {
+        $this->typetable_id = $typetable_id;
+    }
+
+    private string $uuid;
+    private int $house_id;
+    private int|null $typetable_id;
+    /**
+     * @var array|string[]
+     * @phpstan-ignore-next-line
+     */
+    private array $allowedAttributes = ['uuid','house_id','typetable_id'];
+
+
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
-     * @param array $file
+     * @param string[] $file
      * @param int $houseId
      * @param int|null $typeId
      * @return string
@@ -21,7 +73,6 @@ class Image extends BaseModel
         if ($file['tmp_name'] == "") {
             header('location: /image', true, 302);
         }
-
         // create random binary string in length of 40 Chars -> translate to HEX
         $randomId = bin2hex(random_bytes(15));
         // Uploaded file is in "tmp_name" (php standard)
@@ -36,11 +87,9 @@ class Image extends BaseModel
             }
         } else {
             throw new \Exception();
-
         }
         // creating saving path
         $path = __DIR__ . "/../../public/images/";
-
         // putting path and storage name together
         $imageName = $randomId . "." . $extension;
         try {
@@ -49,10 +98,10 @@ class Image extends BaseModel
             // save to db
             $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
             $this->connection->query($query);
-            return $imageName;
         } catch (\Exception $e) {
             var_dump($e);
         }
+        return $imageName;
     }
 
     /**
