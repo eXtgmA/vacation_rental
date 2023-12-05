@@ -11,21 +11,6 @@ class ImageController extends BaseController
         parent::__construct();
     }
 
-    public function getform(mixed $formdata = null): void
-    {
-        // getting all images
-        $query="Select uuID from images";
-        $result=$this->connection->query($query);
-        $fetchedImagesArray = [];
-        if ($result && $result instanceof \mysqli_result) {
-            while ($image=$result->fetch_row()) {
-                $fetchedImagesArray[] = $image;
-            }
-        }
-        new ViewController('imageform', $fetchedImagesArray);
-    }
-
-
     /**
      * @param array $file
      * @param int $houseId

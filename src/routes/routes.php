@@ -62,9 +62,8 @@ return [
 
         ],
     'image' =>
-        ['GET' => [
-            '' => 'form'],
-          'POST' => [
+        ['GET'=>[],
+            'POST' => [
              'save' => 'save',
               'delete'=>'delete']
         ]
