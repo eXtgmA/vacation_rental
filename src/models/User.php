@@ -7,13 +7,11 @@ use src\helper\DatabaseTrait;
 
 class User extends BaseModel
 {
-    use DatabaseTrait;
     private int $id;
     private string $password;
     private string $email;
     private string $forename;
     private string $surname;
-
 
     public function __construct()
     {
@@ -89,7 +87,6 @@ class User extends BaseModel
                 }
                 $_SESSION['user'] = $user->getId(); // login aver successful creation
                 header("location: /dashboard", true, 302);
-
         } catch (Exception $e) {
             var_dump($e);
         }

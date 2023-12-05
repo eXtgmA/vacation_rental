@@ -31,7 +31,7 @@ trait DatabaseTrait
         if ($result instanceof \mysqli_result) {
             return $result; // return if valid
         }
-        throw new Exception('Kein gültiges Mysqli Result'); //
+        throw new Exception('Kein gültiges Mysqli Result');
     }
 
     /**
