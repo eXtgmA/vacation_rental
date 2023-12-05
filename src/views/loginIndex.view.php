@@ -18,7 +18,7 @@ include_once($header);
     <div style="display: flex;justify-content: center">
         <form action="/login" method="post">
             <label for="email">Email Adresse</label>
-            <input type="text" name="email" required>
+            <input type="text" name="email" value='<?php echo isset($_SESSION["old_POST"]["email"]) ? $_SESSION["old_POST"]["email"] : "";?>' required>
             <br>
             <br>
             <label for="password">Password</label>

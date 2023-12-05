@@ -16,23 +16,23 @@ include_once($header);
         <table>
             <tr>
                 <td>Vorname</td>
-                <td><input type="text" name="forename"></td>
+                <td><input type="text" name="forename" value='<?php echo isset($_SESSION["old_POST"]["forename"]) ? $_SESSION["old_POST"]["forename"] : "";?>'></td>
             </tr>
             <tr>
                 <td>Nachname</td>
-                <td><input type="text" name="surname"></td>
+                <td><input type="text" name="surname" value='<?php echo isset($_SESSION["old_POST"]["surname"]) ? $_SESSION["old_POST"]["surname"] : "";?>'></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password"></td>
+                <td><input type="password" name="password" value='<?php echo isset($_SESSION["old_POST"]["password"]) ? $_SESSION["old_POST"]["password"] : "";?>'></td>
             </tr>
             <tr>
                 <td>Password bestätigen</td>
-                <td><input type="password" name="password_confirm"></td>
+                <td><input type="password" name="password_confirm" value='<?php echo isset($_SESSION["old_POST"]["password_confirm"]) ? $_SESSION["old_POST"]["password_confirm"] : "";?>'></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="text" name="email"></td>
+                <td><input type="text" name="email" value='<?php echo isset($_SESSION["old_POST"]["email"]) ? $_SESSION["old_POST"]["email"] : "";?>'></td>
             </tr>
         </table>
             <button>Registrieren</button>
@@ -44,5 +44,5 @@ include_once($header);
     <!--Ende HTML Inhalt-->
 <?php
 $footer=__DIR__."/partials/footer.view.php";
-include_once($footer)
+include_once($footer);
 ?>

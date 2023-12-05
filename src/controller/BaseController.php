@@ -1,6 +1,8 @@
 <?php
 namespace src\controller;
 
+include_once("../src/helper/redirect.php");
+
 class BaseController
 {
     public function __construct()
