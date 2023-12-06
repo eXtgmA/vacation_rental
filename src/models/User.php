@@ -3,7 +3,6 @@
 namespace src\models;
 
 use Exception;
-use src\helper\DatabaseTrait;
 
 class User extends BaseModel
 {
@@ -50,7 +49,7 @@ class User extends BaseModel
             session_unset();
             session_start();
             $_SESSION['message'] = $exception->getMessage();
-            header("location: {$_SERVER['HTTP_ORIGIN']}/login", true, 302);
+            redirect('/login', 302, $_POST);
         }
     }
 
@@ -74,19 +73,18 @@ class User extends BaseModel
                 // mail exist in db -> abort
                 if ($result == 1) {
                     $_SESSION['message'] = "Email bereits vergeben";
-                    header('location: /register', true, 302);
+                    redirect('/register', 302, $_POST);
                 }
-
-                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
             /** @var User $user */
             $user = $this->storeAndReturn($query, '\\src\\models\\User','users');
-                if ($user==null) {
-                        $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
-                        header("location: /register", true, 302);
-                }
-                $_SESSION['user'] = $user->getId(); // login aver successful creation
-                header("location: /dashboard", true, 302);
+            if ($user==null) {
+                $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
+                redirect('/register', 302, $_POST);
+            }
+            $_SESSION['user'] = $user->getId(); // login aver successful creation
+            redirect('/dashboard', 302, $_POST);
         } catch (Exception $e) {
             var_dump($e);
         }

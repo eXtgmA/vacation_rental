@@ -1,6 +1,6 @@
-:root{
-    --frontcolor: #bdb589;
-    --backcolor: #2e4e1f;
+:root {
+    --frontcolor: #ed7e50;
+    --backcolor: #478386;
 }
 
 .navparent {
@@ -8,34 +8,47 @@
     height: 80px;
     background: var(--backcolor);
     text-align: left;
-
-
-    & a {
-        text-align: center;
-        color: white;
-        display: inline-block;
+    display: flex;
+    align-items: center;
+    & button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+    }
+    & img {
         height: 80px;
-        width: 100px;
-        line-height: 60px;
+        display: inline-flex;
+    }
 
-        &:hover{
+    & cont {
+        display: inline-flex;
+
+
+        & a {
+            text-align: center;
+            color: white;
             display: inline-block;
-            color: var(--frontcolor);
+            width: 40px;
+            line-height: 60px;
 
-        }
-        &.active {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 30px;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 30px;
-            display: inline-block;
-            /*padding-top: 10px;*/
-            margin-top: 10px;
-            height: 60px;
-            line-height: 65px;
+            &:hover{
+                display: inline-block;
+                color: var(--frontcolor);
 
-            color: var(--backcolor);
-            background: var(--frontcolor);
+            }
+            &.active {
+                border-top-left-radius: 30px;
+                border-top-right-radius: 30px;
+                border-bottom-right-radius: 30px;
+                border-bottom-left-radius: 30px;
+                display: inline-block;
+                height: 30px;
+                width: 30px;
+                line-height: 30px;
+                color: var(--backcolor);
+                background: var(--frontcolor);
+            }
         }
     }
 

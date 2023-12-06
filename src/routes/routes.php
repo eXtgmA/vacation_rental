@@ -66,5 +66,9 @@ return [
             'POST' => [
              'save' => 'save',
               'delete'=>'delete']
+        ],
+    'impressum' =>
+        ['GET' => [
+            '' => 'index']
         ]
 ];

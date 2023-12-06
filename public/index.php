@@ -14,7 +14,7 @@ $requestedUri = ($_SERVER['REQUEST_URI']);
 $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 // split the entered uri into single fragments
 $splittedUri = explode('/', $requestedUri);
-$splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "home"; // seting "home" as fallback when only domain is called
+$splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "dashboard";
 $id = null;
 if (count($splittedUri) > 2) {
     $action = $splittedUri[2];
