@@ -58,4 +58,8 @@ return [
           'POST' => [
              'create' => 'create']
         ],
+    'impressum' =>
+        ['GET' => [
+            '' => 'index']
+        ]
 ];

@@ -1,3 +1,8 @@
+    <hr>
+    <div style="display: flex;justify-content: center">
+        <span>© <?php echo date("Y"); ?> Ferienverwaltung GmbH - </span>
+        <a href="/impressum">Impressum</a>
+    </div>
 </body>
 </html>
 <?php
