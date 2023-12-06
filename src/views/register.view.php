@@ -16,23 +16,23 @@ include_once($header);
         <table>
             <tr>
                 <td>Vorname</td>
-                <td><input type="text" name="forename" value='<?php echo isset($_SESSION["old_POST"]["forename"]) ? $_SESSION["old_POST"]["forename"] : "";?>'></td>
+                <td><input type="text" name="forename" value='<?php prefill("forename");?>'></td>
             </tr>
             <tr>
                 <td>Nachname</td>
-                <td><input type="text" name="surname" value='<?php echo isset($_SESSION["old_POST"]["surname"]) ? $_SESSION["old_POST"]["surname"] : "";?>'></td>
+                <td><input type="text" name="surname" value='<?php prefill("surname");?>'></td>
             </tr>
             <tr>
                 <td>Password</td>
-                <td><input type="password" name="password" value='<?php echo isset($_SESSION["old_POST"]["password"]) ? $_SESSION["old_POST"]["password"] : "";?>'></td>
+                <td><input type="password" name="password" value='<?php prefill("password");?>'></td>
             </tr>
             <tr>
                 <td>Password bestätigen</td>
-                <td><input type="password" name="password_confirm" value='<?php echo isset($_SESSION["old_POST"]["password_confirm"]) ? $_SESSION["old_POST"]["password_confirm"] : "";?>'></td>
+                <td><input type="password" name="password_confirm" value='<?php prefill("password_confirm");?>'></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="text" name="email" value='<?php echo isset($_SESSION["old_POST"]["email"]) ? $_SESSION["old_POST"]["email"] : "";?>'></td>
+                <td><input type="text" name="email" value='<?php prefill("email");?>'></td>
             </tr>
         </table>
             <button>Registrieren</button>

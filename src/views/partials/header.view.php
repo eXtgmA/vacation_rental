@@ -28,4 +28,7 @@ if ($page!="login" && $page!= 'register' && $page!="home") { // avoid showing he
         include_once('navbar.view.php');
     }
 }
+
+// helper functions for frontend:
+include_once("../src/helper/prefill.php");
 ?>
