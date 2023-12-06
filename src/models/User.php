@@ -12,6 +12,8 @@ class User extends BaseModel
     private string $forename;
     private string $surname;
 
+    static string $table = 'users';
+
     public function __construct()
     {
         parent::__construct();
@@ -78,7 +80,7 @@ class User extends BaseModel
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
             /** @var User $user */
-            $user = $this->storeAndReturn($query, '\\src\\models\\User','users');
+            $user = $this->storeAndReturn($query, '\\src\\models\\User');
             if ($user==null) {
                 $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
                 redirect('/register', 302, $_POST);

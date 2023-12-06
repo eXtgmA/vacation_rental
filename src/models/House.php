@@ -18,6 +18,7 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
+    static string $table = 'houses';
 
     private string $frontimage;
     /**
@@ -66,14 +67,14 @@ class House extends BaseModel
         $query = $query . ")";
         try {
             // insert in db
-            $this->store($query);
+            /** @var House $house */
+            $house=$this->storeAndReturn($query,'\src\models\House');
             // fetch id after saving
-            $houseId = $this->connection()->insert_id;
         } catch (\Exception $e) {
             error_log($e);
             throw new \Exception($e);
         }
-        $this->setFrontimage((int)$houseId, $image);
+        $this->setFrontimage($house->id, $image);
         $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
         header("location: /offer", true, 302);
     }
@@ -88,7 +89,49 @@ class House extends BaseModel
         $result = $this->fetch($query);
     }
 
+
+    public function getFrontImage(): string
+    {
+        $query = ("select uuID from images where house_id = {$this->id} limit 1");
+        $results = $this->fetch($query);
+        $row = $results->fetch_row();
+        if ($row) {
+            $this->frontimage = $row[0];
+            return $this->frontimage;
+        }
+
+        $this->frontimage = '';
+        return $this->frontimage;
+    }
+
+
     /**
+     * @param int $houseId
+     * @param string[] $frontimage
+     * @return void
+     * @throws \Exception
+     */
+    public function setFrontimage(int $houseId, array $frontimage): void
+    {
+
+        $type = 1;
+        $newImage = new Image();
+        $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
+    }
+
+    /**
+     * @param string[] $param
+     * @return string[]
+     */
+    public function filter(array $param): array
+    {
+        return array_filter($param, function ($key) {
+            return in_array($key, $this->allowedAttributes);
+        }, ARRAY_FILTER_USE_KEY);
+    }
+
+
+/**
      * @return int
      */
     public function getId(): int
@@ -315,44 +358,5 @@ class House extends BaseModel
     public function setSquareMeter(int $square_meter): void
     {
         $this->square_meter = $square_meter;
-    }
-
-    public function getFrontImage(): string
-    {
-        $query = ("select uuID from images where house_id = {$this->id} limit 1");
-        $results = $this->fetch($query);
-            $row = $results->fetch_row();
-            if ($row) {
-                $this->frontimage = $row[0];
-                return $this->frontimage;
-            }
-
-        $this->frontimage = '';
-        return $this->frontimage;
-    }
-
-
-    /**
-     * @param int $houseId
-     * @param string[] $frontimage
-     * @return void
-     * @throws \Exception
-     */
-    public function setFrontimage(int $houseId, array $frontimage): void
-    {
-        $type = 1;
-        $newImage = new Image();
-        $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
-    }
-
-    /**
-     * @param string[] $param
-     * @return string[]
-     */
-    public function filter(array $param): array
-    {
-        return array_filter($param, function ($key) {
-            return in_array($key, $this->allowedAttributes);
-        }, ARRAY_FILTER_USE_KEY);
     }
 }

@@ -86,7 +86,7 @@ class Image extends BaseModel
                 $extension = $exploded[1];
             }
         } else {
-            throw new \Exception();
+            throw new \Exception('Bilderdaten nicht korrekt');
         }
         // creating saving path
         $path = __DIR__ . "/../../public/images/";
@@ -97,7 +97,8 @@ class Image extends BaseModel
             move_uploaded_file($image, $path . $imageName);
             // save to db
             $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
-            $this->fetch($query);
+
+            $this->store($query);
         } catch (\Exception $e) {
             var_dump($e);
         }

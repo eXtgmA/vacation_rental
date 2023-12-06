@@ -35,8 +35,8 @@ class OfferController extends BaseController
         $house = new House();
 
         $frontimage=$_FILES['frontimage'];
-        $house->addhouse($param,$frontimage);
 
+        $house->addhouse($param,$frontimage);
     }
 
 
