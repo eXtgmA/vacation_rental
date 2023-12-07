@@ -55,7 +55,6 @@ include_once($header);
             <?php
         }
         echo "</table>";
-
     }
     ?>
 

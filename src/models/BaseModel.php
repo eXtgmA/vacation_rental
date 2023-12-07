@@ -9,7 +9,7 @@ include_once("../src/helper/redirect.php");
 
 class BaseModel
 {
-use DatabaseTrait;
+    use DatabaseTrait;
     protected function __construct()
     {
     }

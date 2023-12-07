@@ -2,7 +2,6 @@
 
 namespace src\models;
 
-
 class House extends BaseModel
 {
     private int $id;
@@ -68,7 +67,7 @@ class House extends BaseModel
         try {
             // insert in db
             /** @var House $house */
-            $house=$this->storeAndReturn($query,'\src\models\House');
+            $house=$this->storeAndReturn($query, '\src\models\House');
             // fetch id after saving
         } catch (\Exception $e) {
             error_log($e);

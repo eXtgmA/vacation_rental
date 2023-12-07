@@ -33,20 +33,20 @@ class User extends BaseModel
             $sql = $this->fetch($query);
                 $result = $sql->fetch_object('src\models\User');
                 // Check if there is a user with the send login mail or username
-                if ($result instanceof User) {
-                    if (password_verify($password, $result->password)) {
-                        // if everything is ok perform login and set user as active user for the session
-                       // session_start();
-                        $_SESSION['user'] = $result->id;
-                        header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
-                    } else {
-                        error_log('"' . $result->email . '" tried to login with wrong password');
-                        throw new Exception('login fehlgeschlagen');
-                    }
+            if ($result instanceof User) {
+                if (password_verify($password, $result->password)) {
+                    // if everything is ok perform login and set user as active user for the session
+                   // session_start();
+                    $_SESSION['user'] = $result->id;
+                    header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                 } else {
-                    error_log('Konto für "' . $email . '" does not exist');
-                    throw new Exception('Konto "' . $email . '" existiert nicht');
+                    error_log('"' . $result->email . '" tried to login with wrong password');
+                    throw new Exception('login fehlgeschlagen');
                 }
+            } else {
+                error_log('Konto für "' . $email . '" does not exist');
+                throw new Exception('Konto "' . $email . '" existiert nicht');
+            }
         } catch (Exception $exception) {
             session_unset();
             session_start();
@@ -73,10 +73,10 @@ class User extends BaseModel
             $sql = $this->fetch($query);
             $result = $sql->num_rows;
                 // mail exist in db -> abort
-                if ($result == 1) {
-                    $_SESSION['message'] = "Email bereits vergeben";
-                    redirect('/register', 302, $_POST);
-                }
+            if ($result == 1) {
+                $_SESSION['message'] = "Email bereits vergeben";
+                redirect('/register', 302, $_POST);
+            }
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
             /** @var User $user */

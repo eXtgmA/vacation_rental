@@ -36,7 +36,7 @@ class OfferController extends BaseController
 
         $frontimage=$_FILES['frontimage'];
 
-        $house->addhouse($param,$frontimage);
+        $house->addhouse($param, $frontimage);
     }
 
 
@@ -50,10 +50,10 @@ class OfferController extends BaseController
         $housesResult = $this->fetch($query);
         // add each object to array
             $houses = [];
-            while ($house = $housesResult->fetch_object('src\models\House')) {
-                /** @var House $house */
-                $houses[] = $house;
-            }
+        while ($house = $housesResult->fetch_object('src\models\House')) {
+            /** @var House $house */
+            $houses[] = $house;
+        }
             return $houses;
     }
 
@@ -65,9 +65,9 @@ class OfferController extends BaseController
     {
         $query = "Select * from houses where id = {$id} limit 1";
         $result = $this->fetch($query);
-            while ($house=$result->fetch_object('src\models\House')) {
-                /** @var House $house */
-                $house->toggleStatus();
+        while ($house=$result->fetch_object('src\models\House')) {
+            /** @var House $house */
+            $house->toggleStatus();
         }
         header('location: /offer', true, 302);
     }
@@ -83,5 +83,5 @@ class OfferController extends BaseController
         $result = $this->fetch($query);
         $house= $result->fetch_object('src\models\House');
             new ViewController("offerDetail", $house);
-        }
+    }
 }

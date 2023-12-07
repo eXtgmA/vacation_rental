@@ -21,10 +21,10 @@ array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=nu
 </head>
 <body>
 <?php
-    if (isset($_SESSION['user'])) {
-        include_once('navbar.view.php');
-    }else{
-        include_once('navbar-blank.view.php');
+if (isset($_SESSION['user'])) {
+    include_once('navbar.view.php');
+} else {
+    include_once('navbar-blank.view.php');
 }
 // helper functions for frontend:
 include_once("../src/helper/prefill.php");

@@ -2,7 +2,6 @@
 
 namespace src\helper;
 
-
 use Exception;
 
 trait DatabaseTrait
@@ -44,7 +43,7 @@ trait DatabaseTrait
         $connection = $this->connection();
         try {
             $result = $connection->query($query);
-            if ($result==false){
+            if ($result==false) {
                 throw new Exception($query . "Konnte nicht gespeichert werden");
             }
         } catch (Exception $exception) {
@@ -66,7 +65,6 @@ trait DatabaseTrait
         $connection = $this->connection();
         try {
             $result = $connection->query($query);
-
         } catch (Exception $exception) {
             throw new Exception('Daten konnten nicht gespeichert werden ' . $exception);
         }
@@ -76,9 +74,8 @@ trait DatabaseTrait
         $query = "Select * from {$table} where id = {$id} limit 1";
         var_dump($query);
         $result = $this->fetch($query);
-        while ($object=$result->fetch_object($model)){
+        while ($object=$result->fetch_object($model)) {
             return $object;
         }
     }
-
 }
