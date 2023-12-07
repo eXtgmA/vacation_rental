@@ -12,7 +12,7 @@ class Option extends BaseModel
     private float $price;
     private bool $is_disabled;
     private int $house_id;  /* @phpstan-ignore-line */
-    private int $image_id;  /* @phpstan-ignore-line */
+    private int $image_id;
 
 
     public function __construct()
@@ -56,8 +56,15 @@ class Option extends BaseModel
      * @return void
      * @throws Exception
      */
-    public function addOption(array $param) : void
+    public function addOption(array $param, array $image) : void
     {
+        // insert image into database
+        try {
+            $param["image_id"] = $this->setOptionimage($param["house_id"], $image);
+        } catch (\Exception $e) {
+            error_log($e);
+            throw new \Exception($e);
+        }
         // insert option into database
         $query = "insert into option (";
         $i = 1;
@@ -82,20 +89,20 @@ class Option extends BaseModel
         }
         $query = $query . ")";
         try {
-            $this->connection->begin_transaction();
-            $result = $this->connection->query($query);
-            // add option name to tags
+            // insert option to db
+            $this->connection()->begin_transaction();
+            $this->connection()->query($query);
+            // insert option name into tags (db)
             $query = "insert into tags (name) values ('".$param['name']."'');";
-            $result = $this->connection->query($query);
-            $this->connection->commit();
+            $this->connection()->query($query);
+            $this->connection()->commit();
         } catch (\Exception $e) {
-            $this->connection->rollback();
+            $this->connection()->rollback();
             error_log($e);
             throw new \Exception($e);
         }
         $_SESSION['message'] = 'Option wurde erfolgreich angelegt';
-
-//        header("location: /option/'{$param['id']}'", true, 302);
+        redirect("location: /dashboard", 302); // todo redirect to page show-all-options
     }
 
     /**
@@ -172,6 +179,22 @@ class Option extends BaseModel
         // redirection to next page has to be executed by caller
     }
 
+    public function setOptionimage(int $house_id, array $image) : int
+    {
+        $typetable_id = 1;
+        $newImage = new Image();
+        $imagename = $newImage->postsave($image, $house_id, $typetable_id);
+        // get image id via uuid from database
+        $query = "SELECT id FROM images WHERE uuid={$imagename} LIMIT 1;";
+        try {
+            $result = $this->fetch($query);
+        } catch (\Exception $e) {
+            error_log($e);
+        }
+        $row = $result->fetch_assoc();
+        return $row["id"];
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -230,5 +253,10 @@ class Option extends BaseModel
     public function getImageId(): int
     {
         return $this->image_id;
+    }
+
+    public function setImageId(int $image_id): void
+    {
+        $this->image_id = $image_id;
     }
 }
