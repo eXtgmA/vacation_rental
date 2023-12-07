@@ -123,8 +123,16 @@ class Option extends BaseModel
         }
         $query = $query . " WHERE id=".$id." LIMIT 1;";
         try {
+            $this->connection->begin_transaction();
             $result = $this->connection->query($query);
+            // update tag if name changed
+            if (isset($param["name"]) && ($param["name"] != $this->name)) {
+                $tag_query = "UPDATE tags SET name='".$param["name"]."' WHERE name='".$this->name."' LIMIT 1;";
+                $this->connection->query($tag_query);
+            }
+            $this->connection->commit();
         } catch (\Exception $e) {
+            $this->connection->rollback();
             error_log($e);
             throw new \Exception($e);
         }
