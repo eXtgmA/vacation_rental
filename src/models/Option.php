@@ -82,8 +82,14 @@ class Option extends BaseModel
         }
         $query = $query . ")";
         try {
+            $this->connection->begin_transaction();
             $result = $this->connection->query($query);
+            // add option name to tags
+            $query = "insert into tags (name) values ('".$param['name']."'');";
+            $result = $this->connection->query($query);
+            $this->connection->commit();
         } catch (\Exception $e) {
+            $this->connection->rollback();
             error_log($e);
             throw new \Exception($e);
         }
