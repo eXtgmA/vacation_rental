@@ -3,7 +3,6 @@
 namespace src\models;
 
 use Exception;
-use mysqli_result;
 
 class User extends BaseModel
 {
@@ -13,6 +12,7 @@ class User extends BaseModel
     private string $forename;
     private string $surname;
 
+    static string $table = 'users';
 
     public function __construct()
     {
@@ -30,30 +30,28 @@ class User extends BaseModel
     {
         try {
             $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->connection->query($query);
-            if ($sql instanceof mysqli_result) {
+            $sql = $this->fetch($query);
                 $result = $sql->fetch_object('src\models\User');
                 // Check if there is a user with the send login mail or username
-                if (isset($result) && $result instanceof User) {
-                    if (password_verify($password, $result->password)) {
-                        // if everything is ok perform login and set user as active user for the session
-                       // session_start();
-                        $_SESSION['user'] = $result->id;
-                        header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
-                    } else {
-                        error_log('"' . $result->email . '" tried to login with wrong password');
-                        throw new Exception('login fehlgeschlagen');
-                    }
+            if ($result instanceof User) {
+                if (password_verify($password, $result->password)) {
+                    // if everything is ok perform login and set user as active user for the session
+                   // session_start();
+                    $_SESSION['user'] = $result->id;
+                    header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
                 } else {
-                    error_log('Konto für "' . $email . '" does not exist');
-                    throw new Exception('Konto "' . $email . '" existiert nicht');
+                    error_log('"' . $result->email . '" tried to login with wrong password');
+                    throw new Exception('login fehlgeschlagen');
                 }
+            } else {
+                error_log('Konto für "' . $email . '" does not exist');
+                throw new Exception('Konto "' . $email . '" existiert nicht');
             }
         } catch (Exception $exception) {
             session_unset();
             session_start();
             $_SESSION['message'] = $exception->getMessage();
-            header("location: {$_SERVER['HTTP_ORIGIN']}/login", true, 302);
+            redirect('/login', 302, $_POST);
         }
     }
 
@@ -72,32 +70,27 @@ class User extends BaseModel
         try {
             //limiting to have less stress on database
             $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->connection->query($query);
-            if ($sql instanceof mysqli_result) {
-                $result = $sql->fetch_object();
-                $result = $sql->num_rows;
-                if ($result == 1) {
-                 //   session_start();
-                    $_SESSION['message'] = "Email bereits vergeben";
-                    header('location: /register', true, 302);
-                } else {
-                    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-                    $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
-                    $saved = $sql = $this->connection->query($query);
-                    if (!$saved) {
-                        $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
-                        header("location: /register", true, 302);
-                    }
-                    $userId = $this->connection->insert_id; // get id after creation
-                    $_SESSION['user'] = $userId; // login aver successful creation
-                    header("location: /dashboard", true, 302);
-                }
+            $sql = $this->fetch($query);
+            $result = $sql->num_rows;
+                // mail exist in db -> abort
+            if ($result == 1) {
+                $_SESSION['message'] = "Email bereits vergeben";
+                redirect('/register', 302, $_POST);
             }
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
+            /** @var User $user */
+            $user = $this->storeAndReturn($query, '\\src\\models\\User');
+            if ($user==null) {
+                $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
+                redirect('/register', 302, $_POST);
+            }
+            $_SESSION['user'] = $user->getId(); // login aver successful creation
+            redirect('/dashboard', 302, $_POST);
         } catch (Exception $e) {
             var_dump($e);
         }
     }
-
 
     public function getId(): int
     {

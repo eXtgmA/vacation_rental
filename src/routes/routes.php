@@ -53,11 +53,24 @@ return [
     'offer' =>
         ['GET' => [
             '' => 'index',
-            'create'=>'create'
+            'create'=>'create',
+            'show'=>'show'
         ],
           'POST' => [
-             'create' => 'create']
+             'create' => 'create',
+              'togglestatus'=>'toggleStatus'],
+
         ],
+    'image' =>
+        ['GET'=>[],
+            'POST' => [
+             'save' => 'save',
+              'delete'=>'delete']
+        ],
+    'impressum' =>
+        ['GET' => [
+            '' => 'index']
+        ]
 // address one single option
     'option' =>
         ['GET' => [

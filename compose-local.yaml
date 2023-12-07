@@ -1,0 +1,26 @@
+name: web42-vacation_rental
+services:
+  web42-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web42-app
+    ports:
+      - "80:80"
+    environment:
+      - DB_HOST=web42-db
+      - DB_USER=shop
+      - DB_PASSWORD=1234
+      - DB_NAME=vacation_rental_db
+  web42-db:
+    image: "mariadb:lts"
+    container_name: web42-db
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MARIADB_USER: shop
+      MARIADB_PASSWORD: 1234
+      MARIADB_DATABASE: vacation_rental_db
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
