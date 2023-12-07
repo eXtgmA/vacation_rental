@@ -2,7 +2,7 @@
 namespace src\controller;
 
 include_once("../src/helper/redirect.php");
-
+include_once("../src/config/database.php");
 class BaseController
 {
     public function __construct()
@@ -12,7 +12,7 @@ class BaseController
     protected function redirectIfNotLoggedIn(): void
     {
         if (!isset($_SESSION['user'])) {
-            header('location: /login', true, 302);
+            header('location: /dashboard', true, 302);
         }
     }
 }
