@@ -70,8 +70,7 @@ return [
     'impressum' =>
         ['GET' => [
             '' => 'index']
-        ]
-// address one single option
+        ],
     'option' =>
         ['GET' => [
             '' => 'index',
