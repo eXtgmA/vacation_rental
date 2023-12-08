@@ -2,7 +2,7 @@
 $site = explode('/', $_SERVER['REQUEST_URI'])[1];
 ?>
 <div class="navparent">
-    <img src="/images/unbenannt.png" alt="logo">
+    <img src="/images/logo.png" alt="logo">
     <cont style="width: 78%;display: inline-block;text-align: right">
         <a class="<?php echo $site=='dashboard'? 'active':'';?>" href="/dashboard"><i class="fa fa-magnifying-glass"></i></a>
         <a class="<?php echo $site=='cart'? 'active':'';?>" href="/cart"><i class="fa fa-cart-shopping"></i></a>
