@@ -43,9 +43,8 @@
     cursor: pointer;
 }
 
-.login-card #login-button:hover {
-    background-color: #ff4a00;
-    opacity: 0.8;
+.login-card .login-button:hover {
+    background-color: #ec6730;
 }
 
 .login-card #register-account {
