@@ -8,7 +8,7 @@ include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
 <div>
-    <a href="<?php echo "/offer/show/".$house_id; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
+    <a href="<?php echo "/option/showall/".$house_id; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
 </div>
     <h1>Create Option</h1>
         <?php
