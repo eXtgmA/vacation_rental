@@ -30,7 +30,7 @@ class Option extends BaseModel
     {
         try {
             $query = "select * from options where id = '{$option_id}' limit 1";
-            $sql = $this->connection->query($query);
+            $sql = $this->connection()->query($query);
             if ($sql instanceof mysqli_result) {
                 $result = $sql->fetch_object('\src\models\Option');
                 // if all ok return Option
@@ -48,24 +48,21 @@ class Option extends BaseModel
         return null;
     }
 
+
     /**
      * Add an option to the database.
+     *
      * In associative array $param, $key must be equal to column name in database table
      *
      * @param array<string> $param
+     * @param array<string> $image
      * @return void
      * @throws Exception
      */
     public function addOption(array $param, array $image) : void
     {
         // insert image into database
-        try {
-            $param["image_id"] = $this->setOptionimage($param["house_id"], $image);
-        } catch (\Exception $e) {
-            error_log($e);
-            throw new \Exception($e);
-            redirect("option/create/".$param["house_id"], 302);
-        }
+        $param["image_id"] = $this->setOptionimage((int)$param["house_id"], $image);
         // insert option into database
         $query = "INSERT INTO options (";
         $i = 1;
@@ -131,16 +128,16 @@ class Option extends BaseModel
         }
         $query = $query . " WHERE id=".$id." LIMIT 1;";
         try {
-            $this->connection->begin_transaction();
-            $result = $this->connection->query($query);
+            $this->connection()->begin_transaction();
+            $result = $this->connection()->query($query);
             // update tag if name changed
             if (isset($param["name"]) && ($param["name"] != $this->name)) {
                 $tag_query = "UPDATE tags SET name='".$param["name"]."' WHERE name='".$this->name."' LIMIT 1;";
-                $this->connection->query($tag_query);
+                $this->connection()->query($tag_query);
             }
-            $this->connection->commit();
+            $this->connection()->commit();
         } catch (\Exception $e) {
-            $this->connection->rollback();
+            $this->connection()->rollback();
             error_log($e);
             throw new \Exception($e);
         }
@@ -160,26 +157,32 @@ class Option extends BaseModel
      */
     public function deleteOption(int $option_id, int $image_id) : bool
     {
-        $this->connection->begin_transaction();
+        $this->connection()->begin_transaction();
         try {
             // first: delete option
             $query = "DELETE FROM options WHERE id=".$option_id." LIMIT 1;";
-            $this->connection->query($query);
+            $this->connection()->query($query);
             // second: delete image
 //            $image = new \src\models\Image();     // todo: activate if delete-function in Image model exists
 //            $image->deleteImage($image_id);
         } catch (Exception $e) {
-            $this->connection->rollback();
+            $this->connection()->rollback();
             error_log("Error while deleting option (" .$option_id. ") from databse.");
             throw new Exception($e);
         }
         // if all ok, commit transaction
-        $this->connection->commit();
+        $this->connection()->commit();
         $_SESSION["message"] = "Option wurde erfolgreich gelöscht";
         return true;
         // redirection to next page has to be executed by caller
     }
 
+    /**
+     * @param int $house_id
+     * @param array<string> $image
+     * @return int
+     * @throws Exception
+     */
     public function setOptionimage(int $house_id, array $image) : int
     {
         $typetable_id = 3;
@@ -189,13 +192,16 @@ class Option extends BaseModel
         $query = "SELECT id FROM images WHERE uuID='{$imagename}' LIMIT 1;";
         try {
             $result = $this->fetch($query);
-            if ($result == false) {throw new Exception("Bad query in seOptionimage.");}
         } catch (\Exception $e) {
             error_log($e);
-            throw new Exception($e);
+            redirect("/option/create/".$house_id, 302);
         }
         $row = $result->fetch_assoc();
-        return $row["id"];
+        if ($row === null) {
+            $_SESSION['message']="Das gespeicherte Foto ist wohl verlorengegangen... Hier ist etwas schiefgegangen.";
+            redirect("/option/create/".$house_id, 302);
+        }
+        return (int)$row['id'];
     }
 
     public function getId(): int
