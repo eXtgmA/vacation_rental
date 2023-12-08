@@ -17,7 +17,7 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
-    static string $table = 'houses';
+    public static string $table = 'houses';
 
     private string $frontimage;
     /**
@@ -91,7 +91,7 @@ class House extends BaseModel
 
     public function getFrontImage(): string
     {
-        $query = ("select uuID from images where house_id = {$this->id} limit 1");
+        $query = ("SELECT uuID FROM images WHERE house_id = {$this->id} AND typetable_id=1 LIMIT 1;");
         $results = $this->fetch($query);
         $row = $results->fetch_row();
         if ($row) {

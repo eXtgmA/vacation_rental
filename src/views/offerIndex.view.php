@@ -13,8 +13,8 @@ include_once($header);
 
     <?php
     if (isset($param)) {
+        echo "<table>"
         ?>
-    <table>
         <tr>
             <th>Name</th>
             <th>Quadratmeter</th>

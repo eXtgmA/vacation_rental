@@ -70,5 +70,14 @@ return [
     'impressum' =>
         ['GET' => [
             '' => 'index']
-        ]
+        ],
+    'option' =>
+        ['GET' => [
+            '' => 'index',
+            'create'=>'create',
+            'showall'=>'showall'
+        ],
+            'POST' => [
+                'create' => 'create']
+        ],
 ];
