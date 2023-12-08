@@ -17,7 +17,7 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
-    static string $table = 'houses';
+    public static string $table = 'houses';
 
     private string $frontimage;
     /**

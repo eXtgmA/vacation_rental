@@ -12,7 +12,7 @@ class User extends BaseModel
     private string $forename;
     private string $surname;
 
-    static string $table = 'users';
+    public static string $table = 'users';
 
     public function __construct()
     {
