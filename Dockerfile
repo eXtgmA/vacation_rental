@@ -25,4 +25,3 @@ WORKDIR /app/public
 
 # Start PHP server using the built-in server command
 CMD ["php", "-S", "0.0.0.0:80"]
-

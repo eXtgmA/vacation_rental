@@ -37,7 +37,7 @@ include_once($header);
             </div>
             <div id="suggestion-cards">
                 <div class="suggestion-card">
-                    <img class="card-image" src="/images/haus1.jpg" alt="">
+                    <img class="card-image" src="/assets/haus1.jpg" alt="">
                     <div class="card-content">
                         <span class="card-location">Berlin</span>
                         <span class="card-price">750 € / Nacht</span>
@@ -45,7 +45,7 @@ include_once($header);
                     <span class="card-name">Haus auf grüner Wiese</span>
                 </div>
                 <div class="suggestion-card">
-                    <img class="card-image" src="/images/haus2.jpg" alt="">
+                    <img class="card-image" src="/assets/haus2.jpg" alt="">
                     <div class="card-content">
                         <span class="card-location">München</span>
                         <span class="card-price">100 € / Nacht</span>
@@ -53,7 +53,7 @@ include_once($header);
                     <span class="card-name">Wohnung am Hang</span>
                 </div>
                 <div class="suggestion-card">
-                    <img class="card-image" src="/images/haus3.jpg" alt="">
+                    <img class="card-image" src="/assets/haus3.jpg" alt="">
                     <div class="card-content">
                         <span class="card-location">Hamburg</span>
                         <span class="card-price">50 € / Nacht</span>

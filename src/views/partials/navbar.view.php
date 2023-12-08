@@ -4,7 +4,7 @@ $site = explode('/', $_SERVER['REQUEST_URI'])[1];
 <link rel="stylesheet" href="/styles/navbar.css"/>
 <div class="navparent">
     <div class="logo">
-        <img src="/images/logo.png" alt="logo">
+        <img src="/assets/logo.png" alt="logo">
     </div>
     <div class="navlinks">
         <a class="<?php echo $site=='dashboard'? 'active':'';?>" href="/dashboard" title="Suchen"><i class="fa fa-magnifying-glass"></i></a>
