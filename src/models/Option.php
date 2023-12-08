@@ -204,6 +204,22 @@ class Option extends BaseModel
         return (int)$row['id'];
     }
 
+    public function getOptionImage(): string
+    {
+        $query = ("SELECT uuID FROM images WHERE id={$this->image_id} LIMIT 1;");
+        try {
+            $results = $this->fetch($query);
+        } catch (Exception $e) {
+            $_SESSION["message"] = "Es gab ein Problem beim Laden des Fotos";
+            return "";
+        }
+        $row = $results->fetch_row();
+        if ($row) {
+            return $row[0];
+        }
+        return "";
+    }
+
     public function getId(): int
     {
         return $this->id;

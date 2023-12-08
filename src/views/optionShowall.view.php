@@ -41,7 +41,7 @@ if (isset($param["house_id"])) {
             echo "<td>" . $option->getPrice() . "</td>";
             echo "<td>" . $option->getIsDisabled() . "</td>";
             ?>
-            <td><img src="/images/<?php // print $option->getOptionImage() ?>" style="width: 30px;height: 30px" alt="alt"></td>
+            <td><img src="/images/<?php print $option->getOptionImage() ?>" style="width: 30px;height: 30px" alt="alt"></td>
             <!-- todo: toggle status on and off
             <td>
                 <form action="/offer/togglestatus/<?php // echo $option->getId(); ?>" method="post">
