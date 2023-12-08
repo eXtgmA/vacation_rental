@@ -1,41 +1,69 @@
 <?php
-$header=__DIR__."/partials/header.view.php";
+$header = __DIR__ . "/partials/header.view.php";
 $title = "dashboard";
 $site = "dashboard";
 include_once($header);
 ?>
-<div style="text-align: center">
-<h2>Finde dein Traumhaus für den Perfekten Urlaub</h2>
-    <div>
-        <div style="display: inline-block;text-align: left" >
-        <label style="display: block" for="Reiseziel">Reiseziel</label>
-        <input  name="Reiseziel" type="text">
+    <link rel="stylesheet" href="/styles/dashboard.css"/>
+    <div id="dashboard-grid">
+        <div id="title">
+            <h1>Finde dein Traumhaus für den Perfekten Urlaub</h1>
         </div>
-        <div style="display: inline-block">
-        <label for="Anreise" style="display: block;text-align: left">Anreise</label>
-        <input name="Anreise" type="date">
-        </div>
-            <div style="display: inline-block">
-        <label for="Abreise" style="display: block;text-align: left">Abreise</label>
-        <input name="Abreise" type="date">
+        <div id="search">
+            <div id="destination-search" class="search-input" style="display: inline-block;text-align: left">
+                <label id="destination-label" style="display: block" for="destination-input-field">Reiseziel</label>
+                <input id="destination-input-field" class="input-field" name="Reiseziel" type="text">
             </div>
-                <div style="display: inline-block">
-        <label for="Personen" style="display: block;text-align: left">Personen</label>
-        <input name="Personen" type="number">
-                </div>
-    </div>
-    <div style="margin: 10px">
-        <button>Starte Suche</button>
-    </div>
-    <div style="text-align: center">
-        <h4 style="margin-top: 30px">Entdecke auch mal was neues</h4>
-        <div>
-            <img src="/images/haus1.jpg" style="width: 150px;margin: 20px" alt="">
-            <img src="/images/haus2.jpg" style="width: 150px;margin: 20px" alt="">
-            <img src="/images/haus3.jpg" style="width: 150px;margin: 20px" alt="">
+            <div id="from-date-search" class="search-input" style="display: inline-block">
+                <label id="from-date-label" for="from-date-input-field"
+                       style="display: block;text-align: left">Anreise</label>
+                <input id="from-date-input-field" class="input-field" name="Anreise" type="date">
+            </div>
+            <div id="to-date-search" class="search-input" style="display: inline-block">
+                <label id="to-date-label" for="to-date-label-input-field" style="display: block;text-align: left">Abreise</label>
+                <input id="to-date-label-input-field" class="input-field" name="Abreise" type="date">
+            </div>
+            <div id="person-amount-search" class="search-input" style="display: inline-block">
+                <label id="person-amount-label" for="person-amount-input-field" style="display: block;text-align: left">Personen</label>
+                <input id="person-amount-input-field" class="input-field" name="Personen" type="number">
+            </div>
+            <div style="margin: 10px">
+                <button class="search-submit-button">Ferienhaus suchen</button>
+            </div>
         </div>
-</div>
+        <div id="suggestions">
+            <div id="suggestion-title">
+                <h4>Entdecke auch mal was Neues</h4>
+            </div>
+            <div id="suggestion-cards">
+                <div class="suggestion-card">
+                    <img class="card-image" src="/images/haus1.jpg" alt="">
+                    <div class="card-content">
+                        <span class="card-location">Berlin</span>
+                        <span class="card-price">750 € / Nacht</span>
+                    </div>
+                    <span class="card-name">Haus auf grüner Wiese</span>
+                </div>
+                <div class="suggestion-card">
+                    <img class="card-image" src="/images/haus2.jpg" alt="">
+                    <div class="card-content">
+                        <span class="card-location">München</span>
+                        <span class="card-price">100 € / Nacht</span>
+                    </div>
+                    <span class="card-name">Wohnung am Hang</span>
+                </div>
+                <div class="suggestion-card">
+                    <img class="card-image" src="/images/haus3.jpg" alt="">
+                    <div class="card-content">
+                        <span class="card-location">Hamburg</span>
+                        <span class="card-price">50 € / Nacht</span>
+                    </div>
+                    <span class="card-name">Holzhaus umgeben von Baumaterial</span>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php
-$footer=__DIR__."/partials/footer.view.php";
+$footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
