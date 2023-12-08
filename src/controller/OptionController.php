@@ -1,11 +1,13 @@
 <?php
 namespace src\controller;
 
+use src\helper\DatabaseTrait;
 use src\models\Option;
 use src\models\User;
 
 class OptionController extends BaseController
 {
+    use DatabaseTrait;
     public function __construct()
     {
         parent::__construct();
@@ -46,5 +48,34 @@ class OptionController extends BaseController
             $_SESSION["message"] = "Hoppla! Da ist wohl etwas schief gelaufen!";
             redirect("/option/create".$house_id, 302, $_POST);
         }
+    }
+
+    public function getShowall(int $house_id) : void
+    {
+        // todo: check if house is owned by user (see above in postCreate() )
+        $options_all = $this->getAllOptionsByHouseId($house_id);
+        $options_all["house_id"] = $house_id;
+        new ViewController("optionShowall", $options_all);
+    }
+
+    /**
+     * Get all options that belong to a house as array
+     *
+     * @param int $house_id
+     * @return mixed[]|null
+     * @throws \Exception
+     */
+    public function getAllOptionsByHouseId(int $house_id) : ?array
+    {
+        $query = "SELECT * FROM options WHERE house_id = {$house_id};";
+        // Fetch option from db as OPTION Object
+        $options_result = $this->fetch($query);
+        // add each object to array
+        $options = [];
+        while ($option = $options_result->fetch_object('src\models\Option')) {
+            /** @var Option $option */
+            $options[] = $option;
+        }
+        return $options;
     }
 }

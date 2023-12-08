@@ -100,7 +100,7 @@ class Option extends BaseModel
             throw new \Exception($e);
         }
         $_SESSION['message'] = 'Option wurde erfolgreich angelegt';
-        redirect("/offer", 302); // todo redirect to page show-all-options
+        redirect("/option/showall/".$param["house_id"], 302); // todo redirect to page show-all-options
     }
 
     /**
@@ -244,7 +244,7 @@ class Option extends BaseModel
         $this->price = ($price >= 0) ? $price : 0;
     }
 
-    public function isIsDisabled(): bool
+    public function getIsDisabled(): bool
     {
         return $this->is_disabled;
     }

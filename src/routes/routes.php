@@ -74,7 +74,8 @@ return [
     'option' =>
         ['GET' => [
             '' => 'index',
-            'create'=>'create'
+            'create'=>'create',
+            'showall'=>'showall'
         ],
             'POST' => [
                 'create' => 'create']

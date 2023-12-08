@@ -63,7 +63,7 @@ include_once($header);
     </tr>
 </table>
 <div>
-    <a href="<?php echo "/option/show/".$house->getId();?>"><h1>Show all Options</h1></a>
+    <a href="<?php echo "/option/showall/".$house->getId();?>"><h1>Show all Options</h1></a>
     <a href="<?php echo "/option/create/".$house->getId();?>"><h1>Create Option</h1></a>
 </div>
 <!--Ende HTML Inhalt-->
