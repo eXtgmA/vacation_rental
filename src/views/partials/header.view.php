@@ -6,6 +6,12 @@ if (!isset($_SESSION)) { // avoid double opening sessions
 }
 // create the variable $message if there are existing messages
 array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
+
+// auto redirect to login page, if the user tries to access a page that requires login
+if (!isset($_SESSION['user']) && !in_array($_SERVER['REQUEST_URI'], ['/login', '/register', '/', '/dashboard'])) {
+    header('location: /login', true, 302);
+}
+
 ?>
 <!doctype html>
 <html lang="en">
