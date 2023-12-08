@@ -7,6 +7,9 @@ $house_id = isset($param) ? $param : null;
 include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
+<div>
+    <a href="<?php echo "/offer/show/".$house_id; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
+</div>
     <h1>Create Option</h1>
         <?php
         echo($message ?? "<h1>$message</h1>");
