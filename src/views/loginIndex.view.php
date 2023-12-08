@@ -8,6 +8,7 @@ include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="login-card">
+    <h1>Anmelden</h1>
     <form action="/login" method="post">
         <label id="login-password-input-label" for="login-email-input-field">Email</label>
         <input id="login-email-input-field" type="text" name="email"
@@ -15,7 +16,7 @@ include_once($header);
                    required>
         <label id="login-password-input-label" for="login-password-input-field">Password</label>
         <input id="login-password-input-field" type="password" name="password" required>
-        <button id="login-button" type="submit">Login</button>
+        <button class="login-button" type="submit">Login</button>
         <span id="register-account">Noch keinen Account?<br/><a href="/register">neuen Anlegen</a>
         </span>
     </form>

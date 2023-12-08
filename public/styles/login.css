@@ -31,7 +31,7 @@
     background-color: #f8f8f8;
 }
 
-.login-card #login-button {
+.login-card .login-button {
     background-color: var(--frontcolor);
     border: none;
     border-radius: 5px;
