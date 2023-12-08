@@ -18,12 +18,12 @@ class OptionController extends BaseController
         new ViewController('showOneOption');
     }
 
-    public function getCreate() : void
+    public function getCreate(int $house_id) : void
     {
-        new ViewController("OptionCreate");
+        new ViewController("OptionCreate", $house_id);
     }
 
-    public function postCreate() : void
+    public function postCreate(int $house_id) : void
     {
         // todo: check if house is owned by user
         $user = new User();
@@ -37,15 +37,14 @@ class OptionController extends BaseController
             $param["name"] = $_POST["name"];
             $param["description"] = $_POST["description"];
             $param["price"] = $_POST["price"];
-            $param["house_id"] = $_POST["house_id"];
+            $param["house_id"] = $house_id;
             $optionimage = $_FILES['optionimage'];
         try {
             $option = new Option();
             $option->addOption($param, $optionimage);
         } catch (\Exception $exception) {
-            // todo if fail hopopla Fehler  , + POST-data zurückgeben!
-            $_SESSION["message"] = $exception->getMessage();
-            redirect("location: {$_SERVER['HTTP_ORIGIN']}/option/create", 302, $_POST);
+            $_SESSION["message"] = "Hoppla! Da ist wohl etwas schief gelaufen!";
+            redirect("/option/create".$house_id, 302, $_POST);
         }
     }
 }

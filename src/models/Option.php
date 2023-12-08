@@ -64,9 +64,10 @@ class Option extends BaseModel
         } catch (\Exception $e) {
             error_log($e);
             throw new \Exception($e);
+            redirect("option/create/".$param["house_id"], 302);
         }
         // insert option into database
-        $query = "insert into option (";
+        $query = "INSERT INTO options (";
         $i = 1;
         $paramLength=(count($param));
         foreach ($param as $key => $value) {
@@ -77,7 +78,7 @@ class Option extends BaseModel
             }
             $i++;
         }
-        $query = $query . ") Values (";
+        $query = $query . ") VALUES (";
         $i = 1;
         foreach ($param as $key => $value) {
             if ($i < $paramLength) {
@@ -87,13 +88,13 @@ class Option extends BaseModel
             }
             $i++;
         }
-        $query = $query . ")";
+        $query = $query . ");";
         try {
             // insert option to db
             $this->connection()->begin_transaction();
             $this->connection()->query($query);
             // insert option name into tags (db)
-            $query = "insert into tags (name) values ('".$param['name']."'');";
+            $query = "insert into tags (name, house_id) values ('{$param['name']}','{$param['house_id']}');";
             $this->connection()->query($query);
             $this->connection()->commit();
         } catch (\Exception $e) {
@@ -102,7 +103,7 @@ class Option extends BaseModel
             throw new \Exception($e);
         }
         $_SESSION['message'] = 'Option wurde erfolgreich angelegt';
-        redirect("location: /dashboard", 302); // todo redirect to page show-all-options
+        redirect("/offer", 302); // todo redirect to page show-all-options
     }
 
     /**
@@ -181,15 +182,17 @@ class Option extends BaseModel
 
     public function setOptionimage(int $house_id, array $image) : int
     {
-        $typetable_id = 1;
+        $typetable_id = 3;
         $newImage = new Image();
         $imagename = $newImage->postsave($image, $house_id, $typetable_id);
         // get image id via uuid from database
-        $query = "SELECT id FROM images WHERE uuid={$imagename} LIMIT 1;";
+        $query = "SELECT id FROM images WHERE uuID='{$imagename}' LIMIT 1;";
         try {
             $result = $this->fetch($query);
+            if ($result == false) {throw new Exception("Bad query in seOptionimage.");}
         } catch (\Exception $e) {
             error_log($e);
+            throw new Exception($e);
         }
         $row = $result->fetch_assoc();
         return $row["id"];
