@@ -129,3 +129,36 @@
 #suggestions .suggestion-card .card-content .card-price {
   text-align: right;
 }
+
+/* Mobile View */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+  #dashboard-grid {
+    grid-gap: 1rem;
+    margin: 0.5rem;
+  }
+
+  #search > .search-input {
+    padding: 5px;
+  }
+
+  #search .search-input .input-field {
+    padding: 5px;
+  }
+
+  #suggestion-cards {
+    flex-direction: column;
+  }
+
+  .suggestion-card {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .suggestion-card .card-image {
+    height: 150px;
+  }
+
+}
