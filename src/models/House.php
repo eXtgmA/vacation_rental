@@ -39,6 +39,8 @@ class House extends BaseModel
      */
     public function addhouse(array $param, array $image): void
     {
+        header("location: /offer", true, 302);
+
         // remove all unnecessary keys, only allow the keys from db table houses
         $filteredParam = $this->filter($param);
         // prepare statement
@@ -75,7 +77,6 @@ class House extends BaseModel
         }
         $this->setFrontimage($house->id, $image);
         $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
-        header("location: /offer", true, 302);
     }
 
     /**
