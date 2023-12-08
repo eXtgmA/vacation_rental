@@ -14,6 +14,9 @@ RUN docker-php-ext-install fileinfo
 COPY ./public /app/public
 COPY ./src /app/src
 
+# Change upload limit to 100MB
+RUN echo "upload_max_filesize = 100M" > /usr/local/etc/php/conf.d/uploads.ini
+
 ## create folder images in /app/public
 #RUN mkdir /app/public/images
 
