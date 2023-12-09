@@ -7,7 +7,7 @@ include_once($header);
     <link rel="stylesheet" href="/styles/dashboard.css"/>
     <div id="dashboard-grid">
         <div id="title">
-            <h1>Finde dein Traumhaus für den Perfekten Urlaub</h1>
+            <h1>Finde dein Traumhaus für den perfekten Urlaub</h1>
         </div>
         <div id="search">
             <div id="destination-search" class="search-input" style="display: inline-block;text-align: left">
