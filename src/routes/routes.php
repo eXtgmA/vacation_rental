@@ -80,4 +80,10 @@ return [
             'POST' => [
                 'create' => 'create']
         ],
+    'booking' =>
+        ['GET' => [
+            'create' => 'createBookingposition',
+        ], 'POST' => [
+            'create'=>'createBookingposition']
+        ],
 ];
