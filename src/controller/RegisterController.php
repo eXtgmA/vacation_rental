@@ -16,12 +16,15 @@ class RegisterController extends BaseController
     }
     public function postform(mixed $formdata = null): void
     {
-        $forname=$_REQUEST['forename'];
-        $surname=$_REQUEST['surname'];
-        $password=$_REQUEST['password'];
-        $email=$_REQUEST['email'];
+        $input = $_REQUEST;
+        $user=new User($input);
+        $userExists=$user->checkIfExist();
+        if($userExists){
+            $_SESSION['message'] = 'Emailkonto bereits vergeben';
+            redirect("/register",302);
+        }
+        $user->register();
+        redirect("/login",302);
 
-        $user=new User();
-        $user->register($forname, $surname, $password, $email);
     }
 }

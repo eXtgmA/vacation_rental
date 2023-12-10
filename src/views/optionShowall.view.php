@@ -2,14 +2,14 @@
 $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "All Options";
-// set "zurück"-button target via house_id
-if (isset($param["house_id"])) {
-    $house_reference = "/offer/show/".$param["house_id"];
-    $house_id = $param["house_id"];
-    unset($param["house_id"]);
+// set "zurück"-button target via houseId
+if (isset($param["houseId"])) {
+    $house_reference = "/offer/show/".$param["houseId"];
+    $houseId = $param["houseId"];
+    unset($param["houseId"]);
 } else {
     $house_reference = "/offer";
-    $house_id = "#";
+    $houseId = "#";
 }
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
@@ -17,7 +17,7 @@ if (isset($param["house_id"])) {
     <a href="<?php echo $house_reference; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
 </div>
 <div>
-    <a href="<?php echo "/option/create/".$house_id;?>"><h3>Create Option</h3></a>
+    <a href="<?php echo "/option/create/".$houseId;?>"><h3>Create Option</h3></a>
 </div>
 <div>
     <h1>Alle angelegten Optionen</h1>

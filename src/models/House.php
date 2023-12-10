@@ -18,92 +18,39 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
     public static string $table = 'houses';
+    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
+
+    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
 
     private string $frontimage;
     /**
      * @var string[]
      */
-    private array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
 
-    public function __construct()
+    public function __construct($modelData=null)
     {
-        parent::__construct();
+        if($modelData){
+            parent::createFromModelData($modelData);
+        }
     }
 
-
-    /**
-     * @param string[] $param
-     * @param string[] $image
-     * @return void
-     * @throws \Exception
-     */
-    public function addhouse(array $param, array $image): void
-    {
-        header("location: /offer", true, 302);
-
-        // remove all unnecessary keys, only allow the keys from db table houses
-        $filteredParam = $this->filter($param);
-        // prepare statement
-        $query = "insert into houses ( owner_id,";
-        $i = 1;
-        $paramLength = (count($filteredParam));
-        foreach ($filteredParam as $key => $value) {
-            if ($i < $paramLength) {
-                $query = $query . $key . ",";
-            } else {
-                $query = $query . $key;
-            }
-            $i++;
-        }
-        $query = $query . ") Values ( '{$_SESSION['user']}',";
-        $i = 1;
-        foreach ($filteredParam as $key => $value) {
-            if ($i < $paramLength) {
-                $query = $query . "'" . $value . "',";
-            } else {
-                $query = $query . "'" . $value . "'";
-            }
-            $i++;
-        }
-        $query = $query . ")";
-        try {
-            // insert in db
-            /** @var House $house */
-            $house=$this->storeAndReturn($query, '\src\models\House');
-            // fetch id after saving
-        } catch (\Exception $e) {
-            error_log($e);
-            throw new \Exception($e);
-        }
-        $this->setFrontimage($house->id, $image);
-        $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
-    }
-
-    /**
-     * @return void
-     */
     public function toggleStatus(): void
     {
+//        get old status and invert
         $newStatus = (int)!$this->getIsDisabled();
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-        $result = $this->fetch($query);
+//        write to db
+        $this->connection()->query($query);
     }
-
 
     public function getFrontImage(): string
     {
-        $query = ("SELECT uuID FROM images WHERE house_id = {$this->id} AND typetable_id=1 LIMIT 1;");
-        $results = $this->fetch($query);
-        $row = $results->fetch_row();
-        if ($row) {
-            $this->frontimage = $row[0];
-            return $this->frontimage;
+        $result=$this->find('\src\models\Image', 'house_id', $this->id,1);
+        if($result) {
+            return $this->frontimage = $result->getUuid();
         }
-
-        $this->frontimage = '';
-        return $this->frontimage;
+        return $this->frontimage='';
     }
-
 
     /**
      * @param int $houseId
@@ -293,7 +240,6 @@ class House extends BaseModel
     {
         return $this->is_disabled;
     }
-
 
     /**
      * @param $is_disabled

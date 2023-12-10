@@ -3,12 +3,12 @@ global $message;
 $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "optioncreation";
-$house_id = isset($param) ? $param : null;
+$houseId = isset($param) ? $param : null;
 include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
 <div>
-    <a href="<?php echo "/option/showall/".$house_id; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
+    <a href="<?php echo "/option/showall/".$houseId; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
 </div>
     <h1>Create Option</h1>
         <?php
@@ -17,7 +17,7 @@ include_once($header);
 
     <div style="justify-content: center">
         <div>
-            <form action="<?php echo "/option/create/".$house_id ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo "/option/create/".$houseId ?>" method="post" enctype="multipart/form-data">
 
                 <table>
                     <tr>

@@ -1,5 +1,4 @@
 <?php
-global $message;
 $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Registrieren";
@@ -9,6 +8,7 @@ include_once($header);
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="login-card">
     <h1>Neuer Account</h1>
+    <h3><?php isset($message)?print $message: Print '' ?></h3>
     <form action="/register" method="post">
         <label id="register-forname-input-label" for="register-forname-input-field">Vorname</label>
         <input id="register-forname-input-field" type="text" name="forename" value='<?php prefill("forename");?>'>

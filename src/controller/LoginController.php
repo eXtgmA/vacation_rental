@@ -28,4 +28,5 @@ class LoginController extends BaseController
         $user=new User();
         $user->login($email, $password);
     }
+
 }

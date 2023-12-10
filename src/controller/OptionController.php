@@ -2,12 +2,14 @@
 namespace src\controller;
 
 use src\helper\DatabaseTrait;
+use src\models\Image;
 use src\models\Option;
 use src\models\User;
 
 class OptionController extends BaseController
 {
     use DatabaseTrait;
+
     public function __construct()
     {
         parent::__construct();
@@ -20,12 +22,12 @@ class OptionController extends BaseController
         new ViewController('showOneOption');
     }
 
-    public function getCreate(int $house_id) : void
+    public function getCreate(int $houseId) : void
     {
-        new ViewController("OptionCreate", $house_id);
+        new ViewController("OptionCreate", $houseId);
     }
 
-    public function postCreate(int $house_id) : void
+    public function postCreate(int $houseId) : void
     {
         // todo: check if house is owned by user
         $user = new User();
@@ -34,48 +36,38 @@ class OptionController extends BaseController
 //            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
 //            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
 //        }
-
-            // option parameters
-            $param["name"] = $_POST["name"];
-            $param["description"] = $_POST["description"];
-            $param["price"] = $_POST["price"];
-            $param["house_id"] = $house_id;
-            $optionimage = $_FILES['optionimage'];
-        try {
-            $option = new Option();
-            $option->addOption($param, $optionimage);
-        } catch (\Exception $exception) {
-            $_SESSION["message"] = "Hoppla! Da ist wohl etwas schief gelaufen!";
-            redirect("/option/create".$house_id, 302, $_POST);
-        }
+        //upload image and give uuid to option
+        $uuid = Image::imageToDisk($_FILES['optionimage']);
+        $image=new Image(['house_id'=>$houseId,'typetable_id'=>1,'uuid'=>$uuid]);
+        $image->save();
+        $option = $_Post;
+        $option['house_id'] = $houseId;
+        $option['image_id'] = $image->getId();
+        $option=new Option($option);
+        $option->save();
+        redirect("/option/create/".$houseId, 302);
     }
 
-    public function getShowall(int $house_id) : void
+    public function getShowall(int $houseId) : void
     {
         // todo: check if house is owned by user (see above in postCreate() )
-        $options_all = $this->getAllOptionsByHouseId($house_id);
-        $options_all["house_id"] = $house_id;
-        new ViewController("optionShowall", $options_all);
+        $allOptions = $this->find('\src\models\Option', 'house_id', $houseId);
+        $allOptions['houseId'] = $houseId;
+        new ViewController("optionShowall", $allOptions);
     }
+
 
     /**
      * Get all options that belong to a house as array
      *
-     * @param int $house_id
-     * @return mixed[]|null
+     *
+     * @param int $houseId
+     * @return array|null
      * @throws \Exception
      */
-    public function getAllOptionsByHouseId(int $house_id) : ?array
+    public function getAllOptionsByHouseId(int $houseId) : ?array
     {
-        $query = "SELECT * FROM options WHERE house_id = {$house_id};";
-        // Fetch option from db as OPTION Object
-        $options_result = $this->fetch($query);
-        // add each object to array
-        $options = [];
-        while ($option = $options_result->fetch_object('src\models\Option')) {
-            /** @var Option $option */
-            $options[] = $option;
-        }
+        $options = $this->find('\src\models\Option', 'house_id', $houseId);
         return $options;
     }
 }

@@ -14,10 +14,14 @@ class Option extends BaseModel
     private int $house_id;  /* @phpstan-ignore-line */
     private int $image_id;
 
+    public static string $table = 'options';
+    public static array $allowedAttributes = ['name', 'description', 'price', 'is_disabled', 'house_id', 'image_id'];
 
-    public function __construct()
+    public function __construct($modelData=null)
     {
-        parent::__construct();
+        if($modelData){
+            parent::__construct($modelData);
+        }
     }
 
     /**
@@ -206,18 +210,8 @@ class Option extends BaseModel
 
     public function getOptionImage(): string
     {
-        $query = ("SELECT uuID FROM images WHERE id={$this->image_id} LIMIT 1;");
-        try {
-            $results = $this->fetch($query);
-        } catch (Exception $e) {
-            $_SESSION["message"] = "Es gab ein Problem beim Laden des Fotos";
-            return "";
-        }
-        $row = $results->fetch_row();
-        if ($row) {
-            return $row[0];
-        }
-        return "";
+        $image = $this->find('\src\models\Image', 'id', $this->image_id, 1);
+        return $image->getUuid();
     }
 
     public function getId(): int
@@ -272,6 +266,13 @@ class Option extends BaseModel
 
     public function getHouseId(): int
     {
+        return $this->house_id;
+    }
+    public function setHouseId($id=null): int
+    {
+        if($id){
+            $this->house_id = $id;
+        }
         return $this->house_id;
     }
 

@@ -1,5 +1,4 @@
 <?php
-global $message;
 $header = __DIR__ . "//partials/header.view.php";
 // Titel der Seite eintragen
 $title = "login";
@@ -9,6 +8,8 @@ include_once($header);
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="login-card">
     <h1>Anmelden</h1>
+    <h3><?php isset($message)?print ($message):print ''?></h3>
+
     <form action="/login" method="post">
         <label id="login-password-input-label" for="login-email-input-field">Email</label>
         <input id="login-email-input-field" type="text" name="email"
