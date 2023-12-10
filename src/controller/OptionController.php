@@ -46,7 +46,8 @@ class OptionController extends BaseController
             $option->addOption($param, $optionimage);
         } catch (\Exception $exception) {
             $_SESSION["message"] = "Hoppla! Da ist wohl etwas schief gelaufen!";
-            redirect("/option/create".$house_id, 302, $_POST);
+            redirect("/option/create/".$house_id, 302, $_POST);
+            die();
         }
     }
 
