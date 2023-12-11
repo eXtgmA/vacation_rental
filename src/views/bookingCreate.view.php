@@ -20,6 +20,10 @@ include_once($header);
     <form action="/booking/create/" method="post">
         <table>
             <tr>
+                <td>Buchungsauslastung</td>
+                <!-- todo (Marvin) insert calender showing booked dates -->
+            </tr>
+            <tr>
                 <td><label for="dateStart">Von</label></td>
                 <td><input type="date" id="dateStart" name="dateStart" value="<?php prefill('dateEnd') ?>" required></td>
             </tr>
