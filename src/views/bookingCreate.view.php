@@ -15,7 +15,7 @@ include_once($header);
 
     <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
 
-    <h1 style="margin-left: 25px"><?php print $house->getName(); ?> buchen</h1>
+    <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
     <form action="/booking/create/" method="post" id="booking-form">
 
         <div class="description-area">
@@ -26,10 +26,12 @@ include_once($header);
         </div>
         <div class="occupancy-area">
             <h3>Buchungsauslastung</h3>
-            <div id="calendar-occupancy" class="calendar"></div>
-            <script>
-                drawCalendar("calendar-occupancy", currentMonth, currentYear, bookedDays);
-            </script>
+            <div class="occupancy-calendar">
+                <div id="calendar-occupancy" class="calendar"></div>
+                <script>
+                    drawCalendar("calendar-occupancy", currentMonth, currentYear, bookedDays);
+                </script>
+            </div>
         </div>
         <div class="booking-period-area">
             <h3>Buchungszeitraum</h3>
@@ -64,9 +66,11 @@ include_once($header);
         </div>
         <div class="cost-summary-area">
             <h3>Gesamtpreis</h3>
-            <div class="card cost-value">
-                <span>300€</span>
-                <?php prefill('price') ?> <!-- todo JS (Marvin) add live calculation for Gesamtpreis -->
+            <div class="cost-summary">
+                <div class="card cost-value">
+                    <span>300€</span>
+                    <?php prefill('price') ?> <!-- todo JS (Marvin) add live calculation for Gesamtpreis -->
+                </div>
             </div>
         </div>
         <div class="submit-area">
