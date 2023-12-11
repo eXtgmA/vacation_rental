@@ -1,34 +1,136 @@
-.horizontal-card {
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 2% auto;
+
+    & > h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    & > button {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.offer-card {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 
     background-color: white;
-    /*padding: 20px;*/
     border-radius: 10px;
-    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.1);
-    height: 300px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    height: 250px;
     width: 80%;
-    margin: 10% auto;
+    margin: 2% auto;
 }
 
+.offer-card .card-image {
+    flex: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
-.horizontal-card .card-image {
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-.horizontal-card .card-image img {
-    /*width: auto; !* Adjust this value as needed *!*/
-    /*height: auto; !* This will maintain the aspect ratio of the image *!*/
-    max-width: 300px;
-    max-height: 300px;
-    object-fit: cover;
+.offer-card .card-image img {
+    max-width: 100%;
+    max-height: 100%;
+    box-shadow: inset 0 0 50px #000000;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 
-.horizontal-card .card-details {
+.offer-card .card-details {
+    flex: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+.card-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-overflow: ellipsis;
+}
 
+.button-container {
+    margin-top: 15px;
+    display: flex;
+
+    & > * {
+        margin: 0 5px;
+    }
+}
+
+.offer-card .card-calendars {
+    flex: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .page-header {
+        flex-direction: column;
+        width: 100%;
+        margin: 2% auto;
+
+        & > h1 {
+            margin: 10px;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        & > button {
+            margin: 10px;
+        }
+    }
+
+    .offer-card {
+        flex-direction: column;
+        height: auto;
+        width: 95%;
+        margin-bottom: 20px;
+
+        & > .card-image {
+            margin: 5px 5px 0;
+
+            & > img {
+                max-width: 100%;
+                max-height: 100%;
+                border-bottom-left-radius: 0;
+                border-top-right-radius: 5px;
+            }
+        }
+
+        & > .card-details {
+            margin: 0 5px 15px;
+
+            & > .card-title {
+                margin-top: 10px;
+                margin-bottom: 5px;
+            }
+        }
+
+        & > .card-calendars {
+            margin: 0 5px 10px;
+        }
+    }
+}

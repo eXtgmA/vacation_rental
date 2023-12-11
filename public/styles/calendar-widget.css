@@ -31,7 +31,7 @@
 
 /* Button style*/
 .calendar .btn-prev, .calendar .btn-next {
-    background-color: var(--backcolor); /* Green background */
+    background-color: var(--color-primary); /* Green background */
     border: none; /* Remove border */
     border-radius: 6px;
     color: white; /* White text */
