@@ -83,7 +83,10 @@ return [
     'booking' =>
         ['GET' => [
             'create' => 'createBookingposition',
+            'cart' => 'cart',
+            'checkout' => 'checkout'
         ], 'POST' => [
-            'create'=>'createBookingposition']
+            'create'=>'createBookingposition',
+            'checkout'=>'checkout']
         ],
 ];
