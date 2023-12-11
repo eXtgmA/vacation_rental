@@ -95,12 +95,42 @@ class BookingController extends BaseController
 
     public function getCheckout(int $bookingId) : void
     {
-        // todo
+        try {
+            // todo : fetch the one an only booking where "is_confirmed" equals false
+            $query = "SELECT * FROM bookings WHERE id={$bookingId} LIMIT 1;";
+            $bookingResult = $this->fetch($query);
+            $param["booking"] = $bookingResult->fetch_object('src\models\Booking');
+            // get all bookingpositions related to this booking
+//            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
+            $queryBps = "SELECT * FROM bookingpositions WHERE booking_id={$bookingId};";
+            $bpsResult = $this->fetch($queryBps);
+            $bpos = [];
+            while ($pos = $bpsResult->fetch_assoc()) {
+                $bpos[] = $pos;
+            }
+            $param["bookingpositions"] = $bpos;
+            // todo : get all houses related to all bookingpositions
+            // set $param["houses"]["house_id"] = house-object
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
+            new ViewController('checkout');
+            die();
+        }
+        new ViewController('checkout', $param);
     }
 
     public function postCheckout(int $bookingId) : void
     {
-        // todo
+        try {
+            // todo : set "is_confirmend" to true and save timestamp in "booked_ad" in db
+            $query = "UPDATE bookings SET is_confirmed=1, booked_at=CURRENT_TIMESTAMP() WHERE id={$bookingId};";
+            $this->store($query);
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Beim Bezahlvorgang ist etwas schiefgelaufen.";
+            redirect('/booking/checkout/'.$bookingId, 302);
+            die();
+        }
+        new ViewController('checkoutSuccess');
     }
 
     public function postBooking(int $bookingId) : void
