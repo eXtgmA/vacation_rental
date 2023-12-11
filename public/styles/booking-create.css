@@ -1,0 +1,93 @@
+#title-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#booking-form {
+    margin-left: 25px;
+    margin-right: 25px;
+    display: grid;
+    grid-template-areas:
+    "description description price"
+    "occupancy booking-period options"
+    "occupancy cost-summary submit";
+    grid-template-columns: 35% 30% 35%;
+}
+
+.description-area {
+    grid-area: description;
+    font-style: italic;
+}
+
+.price-area {
+    grid-area: price;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.occupancy-area {
+    grid-area: occupancy;
+}
+
+.booking-period-area {
+    grid-area: booking-period;
+    margin-left: 10px;
+    margin-right: 50px;
+
+    & input {
+        width: 80%;
+    }
+}
+
+.options-area {
+    grid-area: options;
+
+    & .options-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+
+        & .option {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.cost-summary-area {
+    grid-area: cost-summary;
+
+    & .cost-value {
+        width: 60%;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    & .cost-summary {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+}
+
+.submit-area {
+    grid-area: submit;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    & button {
+        width: 100%;
+        height: 80%;
+        font-size: 24px;
+    }
+}
