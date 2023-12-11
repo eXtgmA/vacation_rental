@@ -11,6 +11,7 @@
 #dashboard-grid > #title {
   grid-area: title;
   text-align: center;
+  color: var(--color-text-headline);
 }
 
 /* SEARCH */
