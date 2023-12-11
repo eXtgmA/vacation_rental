@@ -15,7 +15,7 @@ include_once($header);
 <div>
     <?php if (isset($booking) && isset($bpos)) {
         echo "<table>";
-        foreach($bpos as $key => $p) {
+        foreach ($bpos as $key => $p) {
             ?>
             <tr>
                 <td>Von</td>

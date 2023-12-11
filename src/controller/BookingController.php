@@ -80,7 +80,7 @@ class BookingController extends BaseController
             $queryBps = "SELECT * FROM bookingpositions WHERE booking_id={$bookingId};";
             $bpsResult = $this->fetch($queryBps);
             $bpos = [];
-            while($pos = $bpsResult->fetch_assoc()) {
+            while ($pos = $bpsResult->fetch_assoc()) {
                 $bpos[] = $pos;
             }
             $param["bookingpositions"] = $bpos;
