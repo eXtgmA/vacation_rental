@@ -11,7 +11,6 @@
 #dashboard-grid > #title {
   grid-area: title;
   text-align: center;
-  /*border: 1px solid #ccc;*/
 }
 
 /* SEARCH */
@@ -19,55 +18,15 @@
 #dashboard-grid > #search {
   grid-area: search;
   text-align: center;
-  /*border: 1px solid #ccc;*/
 }
-
-.search-submit-button {
-  background-color: var(--frontcolor);
-  border: none;
-  border-radius: 5px;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  cursor: pointer;
-}
-.search-submit-button:hover {
-  background-color: #ec6730;
-}
-
 
 #search > .search-input{
   padding: 10px;
 }
 
-#search .search-input label {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 5px;
-  display: block;
-}
-
-#search .search-input .input-field {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-  font-size: 16px;
-  background-color: #f8f8f8;
-}
-
-#search .search-input .input-field:focus {
-  background-color: #fff;
-}
-
 /* SUGGESTION */
 #dashboard-grid > #suggestions {
   grid-area: suggestions;
-  /*border: 1px solid #ccc*/
 }
 
 #suggestion-title {
