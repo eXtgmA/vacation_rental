@@ -71,9 +71,11 @@ class BookingController extends BaseController
     public function getCart(int $bookingId) : void
     {
         try {
+            // get the booking from db
             $query = "SELECT * FROM bookings WHERE id={$bookingId} LIMIT 1;";
             $bookingResult = $this->fetch($query);
             $param["booking"] = $bookingResult->fetch_object('src\models\Booking'); // todo : get the one an only booking where is_confirmed equals false
+            // get all bookingpositions related to this booking
 //            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
             $queryBps = "SELECT * FROM bookingpositions WHERE booking_id={$bookingId};";
             $bpsResult = $this->fetch($queryBps);
@@ -82,6 +84,7 @@ class BookingController extends BaseController
                 $bpos[] = $pos;
             }
             $param["bookingpositions"] = $bpos;
+            // todo : get all houses related to all bookingpositions
         } catch (\Exception $e) {
             $_SESSION['message'] = "Buchung wurde nicht gefunden";
             new ViewController('cart');
