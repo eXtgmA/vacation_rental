@@ -7,7 +7,7 @@
  *
  * @param string $headerstring
  * @param int $response_code
- * @param array<string>|null $old_POST
+ * @param array<string|int>|null $old_POST
  * @param bool $replace
  * @return void
  */

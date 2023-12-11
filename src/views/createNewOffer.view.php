@@ -4,7 +4,11 @@ $header=__DIR__."/partials/header.view.php";
 $title = "Haus anlegen";
 $page = 'createhouse';
 $_SESSION['previous'] = $_SERVER['REQUEST_URI'];
-function pold($string){
+/**
+ * @param string $string
+ * @return void
+ */
+function pold($string):void{
     $old = $_SESSION['old_POST'] ?? null;
     if(isset($old)){
         print $old[$string]??'';

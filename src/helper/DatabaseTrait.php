@@ -3,6 +3,7 @@
 namespace src\helper;
 
 use Exception;
+use mysql_xdevapi\DatabaseObject;
 
 trait DatabaseTrait
 {
@@ -13,22 +14,25 @@ trait DatabaseTrait
     }
 
     /**
-     * @param string $query
+     * @param $model
+     * @param $column
+     * @param $identifier
+     * @param null|int $limit
      * @throws Exception
      */
-    public function find($model,$column,$identifier,$limit=null)
+    public function find($model, $column, $identifier, $limit = null) //@phpstan-ignore-line
     {
 //        $model = '\src\models\\' . $model;
         // switch between string or int atm no boolcheck
         $identifierString = "'" . $identifier . "'";
-        if(is_numeric($identifier)){
+        if (is_numeric($identifier)) {
             $identifierString = $identifier;
         }
-        $table=$model::$table;
+        $table = $model::$table;
 
-        if($limit){
+        if ($limit) {
             $query = "Select * from {$table} where $column = {$identifierString} limit {$limit}";
-        }else{
+        } else {
             $query = "Select * from {$table} where $column = {$identifierString}";
         }
         $connection = $this->connection();
@@ -39,10 +43,10 @@ trait DatabaseTrait
         }
         $objectArray = [];
         if ($result instanceof \mysqli_result) {
-            if($limit){
+            if ($limit) {
                 return $object = $result->fetch_object($model);
             }
-            while($object=$result->fetch_object($model)){
+            while ($object = $result->fetch_object($model)) {
                 $objectArray[] = $object;
             }
             return $objectArray;
@@ -50,28 +54,43 @@ trait DatabaseTrait
         throw new Exception('Kein gültiges Mysqli Result');
     }
 
-    public function save()
+    /**
+     * @return void
+     */
+    public function save(): void
     {
-        // prepare query
-        $query = $this->buildInsertQuery($this);
-        // $connection=$this->connection()->query($query);
-        $con = $this->connection();
-        if ($con->query($query) === TRUE) {
-            $id = $con->insert_id;
+        try {
+            // prepare query
+            $query = $this->buildInsertQuery($this);
+            // $connection=$this->connection()->query($query);
+            $con = $this->connection();
+            if ($con->query($query) === TRUE) {
+                $id = $con->insert_id;
+                $this->setId($id);//@phpstan-ignore-line
+            } else {
+                throw new Exception('Etwas lief bei dem Speichern in der Datenbank schief');
+            }
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+            die();
         }
-        $this->setId($id);
     }
 
-    public function buildInsertQuery($objectData)
+
+    /**
+     * @param mixed $objectData
+     * @return string
+     */
+    public function buildInsertQuery($objectData):string
     {
         $table = get_class($this)::$table;
         $attributes = $this->objectToArray();
 //          "," connect all attributes and values
         $columns = implode(',', array_keys($attributes));
 //        transform bool
-        foreach ($attributes as $key=>$value){
-            if(is_bool($value)){
-               $attributes[$key]=(int)$value;
+        foreach ($attributes as $key => $value) {
+            if (is_bool($value)) {
+                $attributes[$key] = (int)$value;
             }
         }
         $values = "'" . implode("','", array_values($attributes)) . "'";
@@ -79,7 +98,6 @@ trait DatabaseTrait
         $query = "insert into $table($columns) values($values)";
         $query = rtrim($query, ','); // Remove trailing comma
         return $query;
-
     }
 
     /**
@@ -91,7 +109,7 @@ trait DatabaseTrait
      * we have to cut off the class name
      * ! the extracted string contains /0 stopbits, which have to be removed too !
      *
-     * @return array
+     * @return array<mixed>
      */
     public function objectToArray(): array
     {

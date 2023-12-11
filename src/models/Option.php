@@ -11,10 +11,13 @@ class Option extends BaseModel
     private string $description;
     private float $price;
     private bool $is_disabled;
-    private int $house_id;  /* @phpstan-ignore-line */
+    private int $house_id;
     private int $image_id;
 
     public static string $table = 'options';
+    /**
+     * @var string[]
+     */
     public static array $allowedAttributes = ['name', 'description', 'price', 'is_disabled', 'house_id', 'image_id'];
 
     public function __construct($modelData=null)
@@ -195,7 +198,7 @@ class Option extends BaseModel
         // get image id via uuid from database
         $query = "SELECT id FROM images WHERE uuID='{$imagename}' LIMIT 1;";
         try {
-            $result = $this->fetch($query);
+            $result = $this->fetch($query); //@phpstan-ignore-line
         } catch (\Exception $e) {
             error_log($e);
             redirect("/option/create/".$house_id, 302);
@@ -268,6 +271,11 @@ class Option extends BaseModel
     {
         return $this->house_id;
     }
+
+    /**
+     * @param int $id
+     * @return int
+     */
     public function setHouseId($id=null): int
     {
         if($id){

@@ -18,17 +18,28 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
     public static string $table = 'houses';
-    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
-
-    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
-
-    private string $frontimage;
     /**
      * @var string[]
      */
+    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
 
+    /**
+     * @var array<int|string, array<int|string>|string>
+     */
+    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
+
+    /**
+     * @var string
+     */
+    private string $frontimage; //phpstan ignore-next-line
+
+
+    /**
+     * @param string[] $modelData
+     */
     public function __construct($modelData=null)
     {
+
         if($modelData){
             parent::createFromModelData($modelData);
         }
@@ -47,7 +58,8 @@ class House extends BaseModel
     {
         $result=$this->find('\src\models\Image', 'house_id', $this->id,1);
         if($result) {
-            return $this->frontimage = $result->getUuid();
+            $this->frontimage=$result->getUuid();
+            return $this->frontimage;
         }
         return $this->frontimage='';
     }

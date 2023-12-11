@@ -12,6 +12,9 @@ class BaseModel
 {
     use DatabaseTrait,ValidationTrait;
 
+    /**
+     * @param string[] $modelData
+     */
     protected function __construct($modelData=null)
     {
         if ($modelData) {
@@ -20,7 +23,10 @@ class BaseModel
         }
     }
 
-    protected function createFromModelData($modelData)
+    /**
+     * @param array<int|string> $modelData
+     */
+    protected function createFromModelData($modelData):void
     {
         $class = get_class($this);
         $allowedAttributes = $class::$allowedAttributes;

@@ -40,7 +40,7 @@ class OptionController extends BaseController
         $uuid = Image::imageToDisk($_FILES['optionimage']);
         $image=new Image(['house_id'=>$houseId,'typetable_id'=>1,'uuid'=>$uuid]);
         $image->save();
-        $option = $_Post;
+        $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
         $option=new Option($option);
@@ -62,7 +62,7 @@ class OptionController extends BaseController
      *
      *
      * @param int $houseId
-     * @return array|null
+     * @return string[]|null
      * @throws \Exception
      */
     public function getAllOptionsByHouseId(int $houseId) : ?array

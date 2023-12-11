@@ -8,10 +8,19 @@ class Image extends BaseModel
     private string $uuid;
     private int $house_id;
     private int|null $typetable_id;
+    /**
+     * @var array|string[]
+     */
     public static array $allowedAttributes = ['uuid','house_id','typetable_id'];
 
+    /**
+     * @var string
+     */
     public static string $table = 'images';
 
+    /**
+     * @param array<int|string> $modelData
+     */
     public function __construct($modelData=null)
     {
         if($modelData){
@@ -19,6 +28,11 @@ class Image extends BaseModel
         }
     }
 
+    /**
+     * @param string[] $file
+     * @return string
+     * @throws \Exception
+     */
     public static function imageToDisk(array $file): string
     {
 
@@ -56,6 +70,7 @@ class Image extends BaseModel
         return $imageName;
     }
 
+//    todo delete
     /**
      * @param string[] $file
      * @param int $houseId
@@ -93,13 +108,14 @@ class Image extends BaseModel
             // save to db
             $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
 
-            $this->store($query);
+//            $this->store($query);
         } catch (\Exception $e) {
             var_dump($e);
         }
         return $imageName;
     }
 
+//    todo delete
     /**
      * Deleting image from disk and DB
      *
@@ -110,7 +126,7 @@ class Image extends BaseModel
         $path = __DIR__ . "/../../public/images/" . $_POST['uuid'];
         $deleted = unlink($path);
         $query = "delete from images where uuID like '{$_POST['uuid']}'";
-        $this->fetch($query);
+//        $this->fetch($query);
         header('location: /image', true, 302);
     }
 

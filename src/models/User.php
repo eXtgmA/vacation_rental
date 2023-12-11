@@ -7,18 +7,42 @@ use PHPStan\Type\ThisType;
 
 class User extends BaseModel
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $password;
+    /**
+     * @var string
+     */
     private string $email;
+    /**
+     * @var string
+     */
     private string $forename;
+    /**
+     * @var string
+     */
     private string $surname;
 
+    /**
+     * @var string[]
+     */
     public static array $allowedAttributes = ['surname', 'forename', 'password','email'];
+    /**
+     * @var string[]
+     */
     public static array $requiredAttributes = ['surname', 'forename', 'password','email'];
 
 
     public static string $table = 'users';
 
+    /**
+     * @param string[] $modelData
+     */
     public function __construct($modelData=null)
     {
         if($modelData){
@@ -63,10 +87,6 @@ class User extends BaseModel
     /**
      * Register a new user
      *
-     * @param string $forename
-     * @param string $surname
-     * @param string $password
-     * @param string $email
      * @return void
      */
 //    public function register(string $forename, string $surname, string $password, string $email): void
@@ -129,7 +149,7 @@ class User extends BaseModel
         $this->surname = $surname;
     }
 
-    public function checkIfExist()
+    public function checkIfExist():bool
     {
         $existingUser=$this->find('\src\models\User', 'email', $this->email, 1);
         if($existingUser){

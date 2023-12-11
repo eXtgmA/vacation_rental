@@ -7,28 +7,55 @@ use Exception;
 trait ValidationTrait
 {
 
-    private function string($value, $key)
+    /**
+     * @param int|string $value
+     * @param int|string $key
+     * @return void
+     * @throws Exception
+     */
+    private function string($value, $key): void
     {
-        if (gettype($value) != 'string'|| $value=="") {
+        if (gettype($value) != 'string' || $value == "") {
             throw new Exception("Fehler: {$key} muss ein Text sein");
         }
     }
-    private function integer($value, $key)
+
+    /**
+     * @param int|string $value
+     * @param int|string $key
+     * @return void
+     * @throws Exception
+     */
+    private function integer($value, $key): void
     {
         $value = (int)$value;
-        if (gettype($value) != 'integer' || $value<=0) {
+        if ($value <= 0) {
             throw new Exception("Fehler: unerlaubter Wert für {$key}");
+
         }
     }
-    private function double($value, $key)
+
+    /**
+     * @param int|string $value
+     * @param int|string $key
+     * @return void
+     * @throws Exception
+     */
+    private function double($value, $key): void
     {
         $value = (double)$value;
-        if (gettype($value) != 'double' || $value<=0) {
+        if ($value <= 0) { //phpstan-ignore-line
             throw new Exception("Fehler: unerlaubter Wert für {$key}");
         }
     }
 
-    public function validateInput($model, $input)
+    /**
+     * @phpstan-ignore-next-line
+     * @param $model
+     * @param array<int|string> $input
+     * @return void
+     */
+    public function validateInput($model, $input): void
     {
         $model = '\src\models\\' . $model;
         $rules = $model::$rules;
@@ -42,11 +69,10 @@ trait ValidationTrait
                 }
             }
             return;
-        } catch (Exception $e) {
+        } catch (Exception $e) { //@phpstan-ignore-line  Error is thrown in seperate message
             $previousPage = $_SESSION['previous'];
             $_SESSION['message'] = $e->getMessage();
-            redirect($previousPage, 302,$input);
-            die();
+            redirect($previousPage, 302, $input);
         }
     }
 
