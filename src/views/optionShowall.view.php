@@ -4,7 +4,6 @@ use src\models\Option;
 
 $header = __DIR__ . "/partials/header.view.php";
 $title = "Alle Optionen";
-$title = "Option erstellen";
 $house_id = $param ?? null;
 include_once($header);
 
@@ -39,8 +38,8 @@ if (isset($param["house_id"])) {
         echo '<h3>' . $option->getName() . '</h3>';
         echo '</div>';
         echo '<div class="option-price">';
-        echo '<span>Preis: </span>';
-        echo '<span>' . $option->getPrice() . '</span>';
+        echo '<span class="option-price-label">Preis: </span>';
+        echo '<span class="option-price-value">' . $option->getPrice() . '€</span>';
         echo '</div>';
         echo '<div class="option-description">';
         echo '<p>' . $option->getDescription() . '</p>';

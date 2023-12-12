@@ -24,12 +24,11 @@ if (isset($param)) {
                 <hr style="width: 80%"/>
                 <p><?php print $house->getStreet() . " " . $house->getHouseNumber() . ", " . $house->getPostalCode() . " " . $house->getCity() ?></p>
                 <div class="button-container">
-                    <button class="btn-secondary" onclick="openLink('/offer/show/<?php echo $house->getId() ?>')">
+                    <button class="btn-primary" onclick="openLink('/offer/show/<?php echo $house->getId() ?>')">
                         Bearbeiten
                     </button>
-                    <!--                    <button class="btn-primary">Deaktivieren</button>-->
                     <form action="/offer/togglestatus/<?php echo $house->getId(); ?>" method="post">
-                        <button type="submit" class="btn-primary">
+                        <button type="submit" class="btn-secondary">
                             <?php $house->getIsDisabled() == 1 ? print('Aktivieren') : print('Deaktivieren') ?>
                         </button>
                     </form>
