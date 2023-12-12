@@ -74,7 +74,6 @@ class BookingController extends BaseController
             redirect('/booking/create/' . $_POST['houseId'], 302, $_POST);
             die();
         }
-
     }
 
     public function getCart(int $bookingId): void

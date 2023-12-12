@@ -37,10 +37,10 @@ class House extends BaseModel
     /**
      * @param string[] $modelData
      */
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
 
-        if($modelData){
+        if ($modelData) {
             parent::createFromModelData($modelData);
         }
     }
@@ -56,8 +56,8 @@ class House extends BaseModel
 
     public function getFrontImage(): string
     {
-        $result=$this->find('\src\models\Image', 'house_id', $this->id,1);
-        if($result) {
+        $result=$this->find('\src\models\Image', 'house_id', $this->id, 1);
+        if ($result) {
             $this->frontimage=$result->getUuid();
             return $this->frontimage;
         }

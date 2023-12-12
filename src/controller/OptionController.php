@@ -44,7 +44,7 @@ class OptionController extends BaseController
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
-        $this->validateInput('Option',$_POST);
+        $this->validateInput('Option', $_POST);
         $option=new Option($option);
         $option->save();
         redirect("/option/showall/".$houseId, 302);
@@ -76,6 +76,6 @@ class OptionController extends BaseController
     public function postDelete($optionId)
     {
         $this->delete(model: 'Option', id: $optionId);
-        redirect($_SESSION['previous'],302);
+        redirect($_SESSION['previous'], 302);
     }
 }

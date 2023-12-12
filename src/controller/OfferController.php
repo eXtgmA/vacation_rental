@@ -32,7 +32,7 @@ class OfferController extends BaseController
 //        add owner to attributes
         $_POST['owner_id'] = $_SESSION['user'];
 //        create house with values
-        $this->validateInput('House',$_POST);
+        $this->validateInput('House', $_POST);
         $house = new House($_POST);
         $house->save();
 
@@ -41,7 +41,7 @@ class OfferController extends BaseController
         $frontimage = new Image(['house_id'=>$house->getId(),'typetable_id'=>1,'uuid'=>$uuid]);
         $frontimage->save();
 
-        redirect('/offer',302);
+        redirect('/offer', 302);
     }
 
     /**
@@ -50,7 +50,7 @@ class OfferController extends BaseController
      */
     public function getAllHousesBelongingToTheCurrentUser(): ?array
     {
-        $houses = $this->find('src\models\House','owner_id',$_SESSION['user']);
+        $houses = $this->find('src\models\House', 'owner_id', $_SESSION['user']);
         return $houses;
     }
 
@@ -61,7 +61,7 @@ class OfferController extends BaseController
      */
     public function posttoggleStatus(int $id): void
     {
-        $house = $this->find('\src\models\House', 'id', $id,1);
+        $house = $this->find('\src\models\House', 'id', $id, 1);
         $house->toggleStatus();
         header('location: /offer', true, 302);
     }
@@ -80,6 +80,6 @@ class OfferController extends BaseController
     public function postDelete($houseId)
     {
         $this->delete(model: 'House', id: $houseId);
-        redirect($_SESSION['previous'],302);
+        redirect($_SESSION['previous'], 302);
     }
 }

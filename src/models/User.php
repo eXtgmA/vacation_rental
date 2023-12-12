@@ -43,9 +43,9 @@ class User extends BaseModel
     /**
      * @param string[] $modelData
      */
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::createFromModelData($modelData);
         }
     }
@@ -60,7 +60,6 @@ class User extends BaseModel
     public function login(string $email, string $password): void
     {
         try {
-
             $user = $this->find('src\models\User', 'email', $email, 1);
 
             // Check if there is a user with the send login mail or username
@@ -74,14 +73,14 @@ class User extends BaseModel
 
                 throw new Exception('login fehlgeschlagen');
             }
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
                 session_unset();
-                if(!isset($_SESSION)){
-                    session_start();
-                };
+            if (!isset($_SESSION)) {
+                session_start();
+            };
                 $_SESSION['message'] = $exception->getMessage();
                 redirect('/login', 302, $_POST);
-            }
+        }
     }
 
     /**
@@ -152,11 +151,9 @@ class User extends BaseModel
     public function checkIfExist():bool
     {
         $existingUser=$this->find('\src\models\User', 'email', $this->email, 1);
-        if($existingUser){
+        if ($existingUser) {
             return true;
         }
         return false;
     }
-
-
 }

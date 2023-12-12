@@ -23,9 +23,9 @@ class Option extends BaseModel
      */
     public static array $allowedAttributes = ['name', 'description', 'price', 'is_disabled', 'house_id', 'image_id'];
 
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::__construct($modelData);
         }
     }
@@ -282,9 +282,9 @@ class Option extends BaseModel
      * @param int $id
      * @return int
      */
-    public function setHouseId($id=null): int
+    public function setHouseId($id = null): int
     {
-        if($id){
+        if ($id) {
             $this->house_id = $id;
         }
         return $this->house_id;

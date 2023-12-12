@@ -21,9 +21,9 @@ class Image extends BaseModel
     /**
      * @param array<int|string> $modelData
      */
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::createFromModelData($modelData);
         }
     }
@@ -40,7 +40,7 @@ class Image extends BaseModel
         if ($file['tmp_name'] == "") {
             $_SESSION['message'] = "Fehler, kein Bild gewählt";
             $previous = $_SESSION['previous'];
-            redirect($previous,  302, $_POST);
+            redirect($previous, 302, $_POST);
         }
         // create random binary string in length of 40 Chars -> translate to HEX
         $randomId = bin2hex(random_bytes(15));

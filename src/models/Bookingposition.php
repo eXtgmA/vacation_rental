@@ -15,9 +15,9 @@ class Bookingposition extends BaseModel
 
     public static string $table = 'bookingpositions';
 
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::__construct($modelData);
         }
     }

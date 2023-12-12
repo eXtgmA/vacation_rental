@@ -8,7 +8,7 @@ include_once($header);
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="card" style="margin: 5% auto">
     <h1>Neuer Account</h1>
-    <h3><?php isset($message)?print $message: Print '' ?></h3>
+    <h3><?php isset($message)?print $message: print '' ?></h3>
     <form action="/register" method="post">
         <label id="register-forname-input-label" class="label" for="register-forname-input-field">Vorname</label>
         <input id="register-forname-input-field" class="input-field" type="text" name="forename" value='<?php prefill("forename");?>'>
