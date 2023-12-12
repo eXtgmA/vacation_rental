@@ -10,11 +10,9 @@ include_once($header);
 <div class="center-content">
     <h1>Neue Option anlegen</h1>
 </div>
-    <h1>Create Option</h1>
-        <?php
-        echo($message ?? "<h1>$message</h1>");
-        ?>
-
+<?php
+echo($message ?? "<h1>$message</h1>");
+?>
 <div class="option-area center-content" style="margin: 20px">
     <form action="<?php echo "/option/create/" . $house_id ?>" method="post" enctype="multipart/form-data">
         <div class="card ">
