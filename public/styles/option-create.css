@@ -1,0 +1,88 @@
+#drop-area {
+    width: 100%;
+    height: 250px;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+#drop-area.highlight {
+    border-color: var(--color-primary-4);
+}
+
+#option-image-input {
+    display: none;
+}
+
+
+#select-image-label {
+    display: inline-block;
+
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-secondary-3);
+    }
+
+    &:disabled {
+        background-color: var(--color-secondary-1);
+        cursor: not-allowed;
+    }
+
+    &:focus {
+        outline: none;
+        padding: 8px 18px;
+        border: 2px solid var(--color-secondary-4);
+    }
+}
+
+#option-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+#option-image {
+    position: relative;
+}
+
+#option-image .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.option-name {
+    margin-top: 10px;
+}
+
+.button-area {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
