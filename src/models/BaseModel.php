@@ -32,8 +32,9 @@ class BaseModel
         $allowedAttributes = $class::$allowedAttributes;
         // go through each given parameter and check if key exist
         foreach ($modelData as $key => $value) {
+
             if (in_array($key, $allowedAttributes)) {
-//                transform square_meter_param to SquareMeterParam
+//              transform square_meter_param to SquareMeterParam
                 $method=str_replace(' ', '',ucwords(str_replace('_', ' ', $key)));
                 $method = "set" . $method;
                 $this->$method($value);

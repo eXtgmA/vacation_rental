@@ -5,6 +5,7 @@
     </div>
 </body>
 </html>
+<script src="/scripts.js"></script>
 <?php
 // unset possible old data sourced from array $_POST
 if (isset($_SESSION['old_POST'])) {

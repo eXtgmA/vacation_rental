@@ -1,0 +1,66 @@
+/* Calendar Widget */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    text-align: center;
+
+    width: 330px;
+    min-width: 330px;
+    height: 200px;
+    background-color: #fff;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* Add rounded corners */
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+
+}
+
+.calendar .month {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Button style */
+.calendar .btn-prev, .calendar .btn-next {
+    background-color: var(--color-primary);
+    border: none;
+    border-radius: 6px;
+    color: white;
+    padding: 5px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-primary-3);
+    }
+}
+
+/* Weekdays */
+.calendar .weekday {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: bold;
+    color: #000000;
+}
+
+/* normal days */
+.calendar .day {
+    border-radius: 5px;
+    padding-top: 2px;
+    height: 20px;
+}
+
+/* booked days */
+.calendar .booked {
+    background-color: red;
+    color: white;
+}
+
+s

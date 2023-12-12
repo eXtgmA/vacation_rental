@@ -32,7 +32,6 @@ class OfferController extends BaseController
 //        add owner to attributes
         $_POST['owner_id'] = $_SESSION['user'];
 //        create house with values
-        // todo change to post
         $this->validateInput('House',$_POST);
         $house = new House($_POST);
         $house->save();
@@ -76,5 +75,11 @@ class OfferController extends BaseController
     {
         $house = $this->find('\src\models\House', 'id', $id, 1);
         new ViewController("offerDetail", $house);
+    }
+
+    public function postDelete($houseId)
+    {
+        $this->delete(model: 'House', id: $houseId);
+        redirect($_SESSION['previous'],302);
     }
 }

@@ -3,6 +3,3 @@ parameters:
   paths:
     - public
     - src
-
-  earlyTerminatingFunctionCalls:
-  		- redirect

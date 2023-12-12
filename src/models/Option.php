@@ -15,6 +15,9 @@ class Option extends BaseModel
     private int $image_id;
 
     public static string $table = 'options';
+
+    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'is_disabled'=>['integer'],'house_id'=>['integer'],'image_id'=>['integer'] ];
+
     /**
      * @var string[]
      */
@@ -202,13 +205,16 @@ class Option extends BaseModel
         } catch (\Exception $e) {
             error_log($e);
             redirect("/option/create/".$house_id, 302);
+            die();
         }
         $row = $result->fetch_assoc();
         if ($row === null) {
             $_SESSION['message']="Das gespeicherte Foto ist wohl verlorengegangen... Hier ist etwas schiefgegangen.";
             redirect("/option/create/".$house_id, 302);
+            die();
+        } else {
+            return (int)$row['id'];
         }
-        return (int)$row['id'];
     }
 
     public function getOptionImage(): string

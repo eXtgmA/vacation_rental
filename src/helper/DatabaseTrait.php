@@ -81,7 +81,7 @@ trait DatabaseTrait
      * @param mixed $objectData
      * @return string
      */
-    public function buildInsertQuery($objectData):string
+    public function buildInsertQuery($objectData): string
     {
         $table = get_class($this)::$table;
         $attributes = $this->objectToArray();
@@ -94,6 +94,7 @@ trait DatabaseTrait
             }
         }
         $values = "'" . implode("','", array_values($attributes)) . "'";
+        $values = str_replace(",'',", ",null,", $values);
 //          insert into prebuild query
         $query = "insert into $table($columns) values($values)";
         $query = rtrim($query, ','); // Remove trailing comma
@@ -127,4 +128,21 @@ trait DatabaseTrait
         }
         return $attributeArray;
     }
+
+    public function delete($model, $id)
+    {
+        try {
+            $model = '\src\models\\' . $model;
+            $table = $model::$table;
+            $connection = $this->connection();
+            $query = "delete from {$table} where id={$id}";
+            $connection->query($query);
+        } catch (Exception $e) {
+            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
+            $previous = $_SESSION['previous'];
+            redirect($previous,500);
+        }
+
+    }
+
 }

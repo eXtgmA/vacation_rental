@@ -3,7 +3,7 @@
     height: 80px;
     justify-content: space-between;
     align-items: center;
-    background: var(--backcolor);
+    background: var(--color-primary);
 }
 
 .navparent img {
@@ -44,8 +44,8 @@
         height: 40px;
         width: 40px;
         line-height: 40px;
-        color: var(--backcolor);
-        background: var(--frontcolor);
+        color: var(--color-primary);
+        background: var(--color-secondary);
     }
 
     & i {
@@ -86,13 +86,13 @@
 
             &:hover {
                 display: inline-block;
-                color: var(--frontcolor);
+                color: var(--color-secondary);
                 font-weight: bolder;
                 cursor: pointer;
             }
 
             &.active {
-                color: var(--backcolor);
+                color: var(--color-primary);
                 font-weight: bold;
             }
 
