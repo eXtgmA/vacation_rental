@@ -16,6 +16,9 @@ class Option extends BaseModel
 
     public static string $table = 'options';
 
+    /**
+     * @var array<string, array<int, string>>
+     */
     public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'is_disabled'=>['integer'],'house_id'=>['integer'],'image_id'=>['integer'] ];
 
     /**

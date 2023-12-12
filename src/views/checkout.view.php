@@ -1,4 +1,5 @@
 <?php
+global $message;
 $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Kasse";
@@ -27,7 +28,7 @@ include_once($header);
             </tr>
             <tr>
                 <td>Optionen</td>
-                <td><?php echo $p->getPriceDetailList(); ?></td>
+<!--                <td>--><?php //echo $p->getPriceDetailList(); ?><!--</td>-->
             </tr>
             <tr>
                 <td>Preis</td>

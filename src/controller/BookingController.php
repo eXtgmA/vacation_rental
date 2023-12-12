@@ -121,7 +121,8 @@ class BookingController extends BaseController
         try {
             // todo : set "is_confirmend" to true and save timestamp in "booked_ad" in db
             $query = "UPDATE bookings SET is_confirmed=1, booked_at=CURRENT_TIMESTAMP() WHERE id={$bookingId};";
-            $this->store($query);
+            /* @phpstan-ignore-next-line */
+            $this->store($query);   // todo: this should be refactored into some of the new methods
         } catch (\Exception $e) {
             $_SESSION['message'] = "Beim Bezahlvorgang ist etwas schiefgelaufen.";
             redirect('/booking/checkout/' . $bookingId, 302);

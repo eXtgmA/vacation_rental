@@ -69,11 +69,10 @@ class OptionController extends BaseController
      */
     public function getAllOptionsByHouseId(int $houseId) : ?array
     {
-        $options = $this->find('\src\models\Option', 'house_id', $houseId);
-        return $options;
+        return $this->find('\src\models\Option', 'house_id', $houseId);
     }
 
-    public function postDelete($optionId)
+    public function postDelete(int $optionId): void
     {
         $this->delete(model: 'Option', id: $optionId);
         redirect($_SESSION['previous'], 302);

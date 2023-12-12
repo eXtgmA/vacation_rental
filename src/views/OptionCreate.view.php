@@ -1,4 +1,5 @@
 <?php
+global $message;
 $header = __DIR__ . "/partials/header.view.php";
 $title = "Option erstellen";
 $house_id = isset($param) ? $param : null;

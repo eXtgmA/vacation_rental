@@ -77,7 +77,7 @@ class OfferController extends BaseController
         new ViewController("offerDetail", $house);
     }
 
-    public function postDelete($houseId)
+    public function postDelete(int $houseId): void
     {
         $this->delete(model: 'House', id: $houseId);
         redirect($_SESSION['previous'], 302);

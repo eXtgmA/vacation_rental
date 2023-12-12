@@ -129,7 +129,7 @@ trait DatabaseTrait
         return $attributeArray;
     }
 
-    public function delete($model, $id)
+    public function delete(string $model, int $id): void
     {
         try {
             $model = '\src\models\\' . $model;

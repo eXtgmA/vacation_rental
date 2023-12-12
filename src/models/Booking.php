@@ -41,7 +41,7 @@ class Booking extends BaseModel
         $this->is_confirmed = $isConfirmed;
     }
 
-    public function getBookedAt(): string
+    public function getBookedAt(): string | null    // todo: should this be nullable?
     {
         return $this->booked_at;
     }

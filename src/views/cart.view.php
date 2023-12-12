@@ -28,7 +28,7 @@ include_once($header);
             </tr>
             <tr>
                 <td>Price Details</td>
-                <td><?php echo $p->getPriceDetailList() ?></td>
+<!--                <td>--><?php //echo $p->getPriceDetailList() ?><!--</td>-->
             </tr>
             <tr>
                 <td>House id</td>
