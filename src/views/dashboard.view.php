@@ -28,7 +28,7 @@ include_once($header);
                 <input id="person-amount-input-field" class="input-field" name="Personen" type="number">
             </div>
             <div style="margin: 10px">
-                <button class="search-submit-button">Ferienhaus suchen</button>
+                <button class="btn-secondary">Ferienhaus suchen</button>
             </div>
         </div>
         <div id="suggestions">

@@ -4,6 +4,8 @@ $header=__DIR__."/partials/header.view.php";
 $title = "Impressum";
 include_once($header);
 ?>
+    <link rel="stylesheet" href="/styles/impressum.css"/>
+
 <!--Hier den HTML Inhalt einfuegen-->
     <div class='impressum'><h1>Impressum</h1><p>Angaben gemäß § 5 TMG</p><p>Max Muster <br>
             Musterweg<br>
