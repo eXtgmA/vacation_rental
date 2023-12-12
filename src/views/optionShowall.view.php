@@ -1,10 +1,15 @@
 <?php
-$header=__DIR__."/partials/header.view.php";
-// Titel der Seite eintragen
-$title = "All Options";
-// set "zurück"-button target via house_id
+
+use src\models\Option;
+
+$header = __DIR__ . "/partials/header.view.php";
+$title = "Alle Optionen";
+$title = "Option erstellen";
+$house_id = $param ?? null;
+include_once($header);
+
 if (isset($param["house_id"])) {
-    $house_reference = "/offer/show/".$param["house_id"];
+    $house_reference = "/offer/show/" . $param["house_id"];
     $house_id = $param["house_id"];
     unset($param["house_id"]);
 } else {
@@ -12,51 +17,45 @@ if (isset($param["house_id"])) {
     $house_id = "#";
 }
 ?>
-<!--Hier den HTML Inhalt einfuegen-->
-<div>
-    <a href="<?php echo $house_reference; ?>"><p class="fa fa-chevron-left"></p> zurück</a>
-</div>
-<div>
-    <a href="<?php echo "/option/create/".$house_id;?>"><h3>Create Option</h3></a>
-</div>
-<div>
+<link rel="stylesheet" href="/styles/option-overview.css"/>
+<div class="headline">
     <h1>Alle angelegten Optionen</h1>
+    <button class="btn-secondary" onclick="openLink('<?php echo $house_reference; ?>')">Zurück</button>
+</div>
+
+<div class="options-grid">
     <?php
-    if (isset($param)) {
-        echo "<table>"
-        ?>
-        <tr>
-            <th>Name</th>
-            <th>Beschreibung</th>
-            <th>Preis</th>
-            <th>Status</th>
-            <th>Foto</th>
-        </tr>
-        <?php
-        /** @var \src\models\Option[] $param */
-        foreach ($param as $option) {
-            echo "<tr>";
-            echo "<td>" . $option->getName() . "</td>";
-            echo "<td>" . $option->getDescription() . "</td>";
-            echo "<td>" . $option->getPrice() . "</td>";
-            echo "<td>" . $option->getIsDisabled() . "</td>";
-            ?>
-            <td><img src="/images/<?php print $option->getOptionImage() ?>" style="width: 30px;height: 30px" alt="alt"></td>
-            <!-- todo: toggle status on and off
-            <td>
-                <form action="/offer/togglestatus/<?php // echo $option->getId(); ?>" method="post">
-                    <button type="submit"><i class="fa <?php // $option->getIsDisabled()==1 ? print('fa-eye-slash') : print('fa-eye')?>"></i></button>
-                </form>
-            </td>
-            -->
-            <?php
-        }
-        echo "</table>";
+    /** @var Option[] $param */
+    foreach ($param as $option) {
+        echo '<div class="card option-card' . (($option->getIsDisabled() == 1) ? ' disabled' : '') . '">';
+        echo '<div class="option-buttons">';
+        echo '<button class="edit-button btn-primary">Edit</button>';
+        echo '<button class="delete-button btn-secondary">Delete</button>';
+        echo '</div>';
+        echo '<div class="option-image">';
+        echo '<img src="/images/' . $option->getOptionImage() . '" alt="alt">';
+        echo '</div>';
+        echo '<div class="option-name">';
+        echo '<h3>' . $option->getName() . '</h3>';
+        echo '</div>';
+        echo '<div class="option-price">';
+        echo '<span>Preis: </span>';
+        echo '<span>' . $option->getPrice() . '</span>';
+        echo '</div>';
+        echo '<div class="option-description">';
+        echo '<p>' . $option->getDescription() . '</p>';
+        echo '</div>';
+        echo '</div>';
     }
     ?>
+    <div class="card new-card" id="add-new-option"
+         onclick="openLink('/option/create/<?php echo $house_id ?>')">
+        <div class="plus-icon">
+            <i class="fa-solid fa-plus"></i>
+        </div>
+    </div>
 </div>
-<!--Ende HTML Inhalt-->
 <?php
-$footer=__DIR__."/partials/footer.view.php";
+$footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
