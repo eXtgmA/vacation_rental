@@ -16,7 +16,8 @@ let bookedDays = ['2023-09-03', '2023-09-07', '2023-09-14', '2023-09-21', '2023-
     '2023-11-13', '2023-11-14', '2023-12-20', '2023-12-21', '2023-12-22', '2023-12-23', '2023-12-24', '2023-12-25',
     '2023-12-26', '2023-12-27'];
 
-function drawCalendar(elementId, month, year, bookedDays = []) {
+function drawCalendar(elementId, month, year, bookedDays = [])
+{
     // remove spaces from elementId
     elementId = elementId.replace(/\s/g, '');
 
