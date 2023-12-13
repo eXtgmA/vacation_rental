@@ -160,7 +160,7 @@ class Option extends BaseModel
     }
 
     /**
-     * Delete an option and the related image from database.
+     * Delete an option and the related image from database and disk.
      *
      * Either returns true or throws exception.
      *

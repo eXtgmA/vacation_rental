@@ -80,11 +80,12 @@ class OfferController extends BaseController
     public function postDelete(int $houseId): void
     {
         try {
-            $this->delete(model: 'House', id: $houseId);
+            /** @var House $house */
+            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+            $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
-            $previous = $_SESSION['previous'];
-            redirect($previous, 500);
+            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
+            redirect($_SESSION['previous'], 500);
         }
         redirect($_SESSION['previous'], 302);
     }
