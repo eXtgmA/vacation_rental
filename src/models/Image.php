@@ -114,7 +114,7 @@ class Image extends BaseModel
     {
         $path = __DIR__ . "/../../public/images/" . $_POST['uuid'];
         $deleted = unlink($path);
-        $query = "delete from images where uuID like '{$_POST['uuid']}'";
+        $query = "delete from images where uuid like '{$_POST['uuid']}'";
         $this->fetch($query);
         header('location: /image', true, 302);
     }

@@ -92,7 +92,7 @@ class House extends BaseModel
 
     public function getFrontImage(): string
     {
-        $query = ("SELECT uuID FROM images WHERE house_id = {$this->id} AND typetable_id=1 LIMIT 1;");
+        $query = ("SELECT uuid FROM images WHERE house_id = {$this->id} AND typetable_id=1 LIMIT 1;");
         $results = $this->fetch($query);
         $row = $results->fetch_row();
         if ($row) {
