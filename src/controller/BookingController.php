@@ -76,15 +76,13 @@ class BookingController extends BaseController
 
     public function getCart(int $bookingId): void
     {
-
         try {
             // get the booking from db
+            /** @var Booking $booking */
             $booking = $this->find('\src\models\Booking', 'id', $bookingId, 1);
             $param["booking"] = $booking;// todo : get the one and only booking where is_confirmed equals false
             // get all bookingpositions related to this booking
-//            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
-            $bookingpositions = $this->find('\src\models\Bookingposition', 'booking_id', $bookingId);
-            $param["bookingpositions"] = $bookingpositions;
+            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
             // todo : get all houses related to all bookingpositions
         } catch (\Exception $e) {
             $_SESSION['message'] = "Buchung wurde nicht gefunden";
@@ -101,9 +99,7 @@ class BookingController extends BaseController
             $bookingResult = $this->find('\src\models\Booking', 'id', $bookingId, 1);
             $param["booking"] = $bookingResult;
             // get all bookingpositions related to this booking
-//            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
-            $bookingPositions = $this->find('\src\models\Bookingposition', 'booking_id', $bookingId);
-            $param["bookingpositions"] = $bookingPositions;
+            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
             // todo : get all houses related to all bookingpositions
             // set $param["houses"]["house_id"] = house-object
         } catch (\Exception $e) {
