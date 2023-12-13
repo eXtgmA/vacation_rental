@@ -113,7 +113,7 @@ DROP TABLE IF EXISTS `vacation_rental_db`.`images` ;
 
 CREATE TABLE IF NOT EXISTS `vacation_rental_db`.`images` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `uuID` VARCHAR(60) NOT NULL,
+  `uuid` VARCHAR(60) NOT NULL,
   `house_id` INT UNSIGNED NOT NULL,
   `typetable_id` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`id`),
