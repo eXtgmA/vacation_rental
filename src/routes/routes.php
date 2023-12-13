@@ -54,10 +54,12 @@ return [
         ['GET' => [
             '' => 'index',
             'create'=>'create',
+            'edit'=>'edit',
             'show'=>'show'
         ],
           'POST' => [
              'create' => 'create',
+              'edit'=>'edit',
               'togglestatus'=>'toggleStatus',
               'delete'=>'delete'],
 
