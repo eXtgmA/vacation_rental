@@ -65,7 +65,6 @@ class BookingController extends BaseController
             $bookingposition->save();
 
             $_SESSION['message'] = "Bookingposition erfolgreich angelegt";
-            var_dump($booking->getId());
             redirect('/booking/cart/' . $booking->getId(), 302);
         } catch (\Exception $e) {
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";

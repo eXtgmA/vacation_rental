@@ -87,4 +87,19 @@ class OfferController extends BaseController
         }
         redirect($_SESSION['previous'], 302);
     }
+
+    public function getEdit(int $houseId): void
+    {
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        new ViewController('offerEdit', $house);
+    }
+
+    public function postEdit(int $houseId): void
+    {
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        /** @var House $house */
+        $param = $_POST;
+        $house->update($param);
+        redirect("/offer/show/{$houseId}", 302);
+    }
 }
