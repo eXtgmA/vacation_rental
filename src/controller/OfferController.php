@@ -84,7 +84,7 @@ class OfferController extends BaseController
             $house = $this->find('\src\models\House', 'id', $houseId, 1);
             $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden';
+            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
             redirect($_SESSION['previous'], 500);
         }
         redirect($_SESSION['previous'], 302);
