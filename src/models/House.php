@@ -96,9 +96,9 @@ class House extends BaseModel
      *
      * Returns false if no options found
      *
-     * @return array<Option>|bool
+     * @return array<Option>|false
      */
-    public function getAllOptions() : array|bool
+    public function getAllOptions() : array|false
     {
         try {
             /** @var Option[] $options */
@@ -156,9 +156,9 @@ class House extends BaseModel
      *
      * Returns false if no image found
      *
-     * @return array<Image>|bool
+     * @return array<Image>|false
      */
-    public function getImages() : array|bool
+    public function getImages() : array|false
     {
         try {
             /** @var Image[] $images */

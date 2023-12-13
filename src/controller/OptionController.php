@@ -2,6 +2,7 @@
 namespace src\controller;
 
 use src\helper\DatabaseTrait;
+use src\models\House;
 use src\models\Image;
 use src\models\Option;
 use src\models\User;
@@ -53,23 +54,20 @@ class OptionController extends BaseController
     public function getShowall(int $houseId) : void
     {
         // todo: check if house is owned by user (see above in postCreate() )
-        $allOptions = $this->find('\src\models\Option', 'house_id', $houseId);
+        // initialize house
+        try {
+            /** @var House $house */
+            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
+            redirect($_SESSION['previous'], 500);
+            die();
+        }
+        // get all options related to house from db
+        /** @var mixed[] $allOptions */
+        $allOptions = $house->getAllOptions();
         $allOptions['houseId'] = $houseId;
         new ViewController("optionShowall", $allOptions);
-    }
-
-
-    /**
-     * Get all options that belong to a house as array
-     *
-     *
-     * @param int $houseId
-     * @return string[]|null
-     * @throws \Exception
-     */
-    public function getAllOptionsByHouseId(int $houseId) : ?array
-    {
-        return $this->find('\src\models\Option', 'house_id', $houseId);
     }
 
     public function postDelete(int $optionId): void
