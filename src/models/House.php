@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use Exception;
+
 class House extends BaseModel
 {
     private int $id;
@@ -68,7 +70,7 @@ class House extends BaseModel
      * @param int $houseId
      * @param string[] $frontimage
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function setFrontimage(int $houseId, array $frontimage): void
     {
@@ -89,8 +91,87 @@ class House extends BaseModel
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     * Get all options associated with this house
+     *
+     * Returns false if no options found
+     *
+     * @return array<Option>|bool
+     */
+    public function getAllOptions() : array|bool
+    {
+        try {
+            /** @var Option[] $options */
+            $options = $this->find('\src\models\Option', 'house_id', $this->id);
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Keine Optionen vorhanden";
+            return false;
+        }
+        return $options;
+    }
 
-/**
+
+    /**
+     * Delete a house and all of its options and images
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function deleteHouse() : bool
+    {
+        $this->connection()->begin_transaction();
+        // get all options and images
+        $allOptions = $this->getAllOptions();
+        $allImages = $this->getImages();
+        try {
+            // delete all options (related option images included)
+            if ($allOptions) {
+                foreach ($allOptions as $option) {
+                    $option->deleteOption();
+                }
+            }
+            // delete all images (front, layout and other)
+            if ($allImages) {
+                foreach ($allImages as $image) {
+                    $image->deleteImage();
+                }
+            }
+            // todo : delete related features
+            // todo : delete related tags
+            // delete house itself
+            $this->delete(model: 'House', id: $this->id);
+            // if all ok, commit to db
+            $this->connection()->commit();
+        } catch (Exception $e) {
+            $this->connection()->rollback();
+            $_SESSION['message'] = "Haus konnte nicht gelöscht werden";
+            throw new Exception($e);
+        }
+        $_SESSION['message'] = "Haus erfolgreich gelöscht";
+        return true;
+    }
+
+    /**
+     * Get all images associated with this house
+     *
+     * Returns false if no image found
+     *
+     * @return array<Image>|bool
+     */
+    public function getImages() : array|bool
+    {
+        try {
+            /** @var Image[] $images */
+            $images = $this->find('\src\models\Image', 'house_id', $this->id);
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Keine Fotos vorhanden";
+            return false;
+        }
+        return $images;
+    }
+
+
+    /**
      * @return int
      */
     public function getId(): int
