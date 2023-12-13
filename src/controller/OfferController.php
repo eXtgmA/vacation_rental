@@ -79,7 +79,13 @@ class OfferController extends BaseController
 
     public function postDelete(int $houseId): void
     {
-        $this->delete(model: 'House', id: $houseId);
+        try {
+            $this->delete(model: 'House', id: $houseId);
+        } catch (Exception $e) {
+            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
+            $previous = $_SESSION['previous'];
+            redirect($previous, 500);
+        }
         redirect($_SESSION['previous'], 302);
     }
 }
