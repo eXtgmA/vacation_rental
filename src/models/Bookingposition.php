@@ -4,10 +4,11 @@ namespace src\models;
 class Bookingposition extends BaseModel
 {
     private int $id;
-    private string|null $date_start;
-    private string|null $date_end;
+
+    private string|null $date_start;    // todo: is this type correct?
+    private string|null $date_end;      // todo: is this type correct?
     /** @var array<string> */
-    private array|null|int $price_detail_list;
+    private array|null|int $price_detail_list;  // todo: is this type correct?
     private int $house_id;
     private int $booking_id;
     /** @var string[] */
@@ -15,9 +16,9 @@ class Bookingposition extends BaseModel
 
     public static string $table = 'bookingpositions';
 
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::__construct($modelData);
         }
     }
@@ -33,7 +34,7 @@ class Bookingposition extends BaseModel
         $this->id = $id;
     }
 
-    public function getDateStart(): string
+    public function getDateStart(): string | null
     {
         return $this->date_start;
     }
@@ -44,17 +45,18 @@ class Bookingposition extends BaseModel
     }
 
     /**
-     * @return string[]
+     * @return array<string>|int|null
      */
-    public function getPriceDetailList(): array|null
+    public function getPriceDetailList(): array | int | null
     {
         return $this->price_detail_list;
     }
 
     /**
+     * @param int $priceDetailList
      * @return void
      */
-    public function setPriceDetailList($priceDetailList): void
+    public function setPriceDetailList(int $priceDetailList): void
     {
         $this->price_detail_list = $priceDetailList;
     }

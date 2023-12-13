@@ -44,7 +44,7 @@ class OptionController extends BaseController
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
-        $this->validateInput('Option',$_POST);
+        $this->validateInput('Option', $_POST);
         $option=new Option($option);
         $option->save();
         redirect("/option/showall/".$houseId, 302);
@@ -69,13 +69,21 @@ class OptionController extends BaseController
      */
     public function getAllOptionsByHouseId(int $houseId) : ?array
     {
-        $options = $this->find('\src\models\Option', 'house_id', $houseId);
-        return $options;
+        return $this->find('\src\models\Option', 'house_id', $houseId);
     }
 
-    public function postDelete($optionId)
+    public function postDelete(int $optionId): void
     {
-        $this->delete(model: 'Option', id: $optionId);
-        redirect($_SESSION['previous'],302);
+        try {
+            // delete option (related image included)
+            /** @var Option $option */
+            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
+            $option->deleteOption();
+        } catch (\Exception $e) {
+            // database error during deletion
+            redirect($_SESSION['previous'], 500);
+        }
+        // deletion successful
+        redirect($_SESSION['previous'], 302);
     }
 }

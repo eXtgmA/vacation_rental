@@ -13,9 +13,9 @@ class Booking extends BaseModel
     public static array $allowedAttributes = ['is_confirmed', 'booked_at', 'user_id'];
     public static string $table = 'bookings';
 
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::createFromModelData($modelData);
         }
     }
@@ -41,12 +41,12 @@ class Booking extends BaseModel
         $this->is_confirmed = $isConfirmed;
     }
 
-    public function getBookedAt(): string
+    public function getBookedAt(): string | null    // todo: should this be nullable?
     {
         return $this->booked_at;
     }
 
-    public function setBookedAt(string $bookedAt=null): void
+    public function setBookedAt(string $bookedAt = null): void
     {
         $this->booked_at = $bookedAt;
     }

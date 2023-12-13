@@ -21,9 +21,9 @@ class Image extends BaseModel
     /**
      * @param array<int|string> $modelData
      */
-    public function __construct($modelData=null)
+    public function __construct($modelData = null)
     {
-        if($modelData){
+        if ($modelData) {
             parent::createFromModelData($modelData);
         }
     }
@@ -40,7 +40,7 @@ class Image extends BaseModel
         if ($file['tmp_name'] == "") {
             $_SESSION['message'] = "Fehler, kein Bild gewählt";
             $previous = $_SESSION['previous'];
-            redirect($previous,  302, $_POST);
+            redirect($previous, 302, $_POST);
         }
         // create random binary string in length of 40 Chars -> translate to HEX
         $randomId = bin2hex(random_bytes(15));
@@ -115,19 +115,28 @@ class Image extends BaseModel
         return $imageName;
     }
 
-//    todo delete
     /**
-     * Deleting image from disk and DB
+     * Delete an image from database
      *
-     * @return void
+     * Returns path of image for manual deletion from disk
+     *
+     * @return string
+     * @throws \Exception
      */
-    public function postdelete(): void
+    public function deleteImage(): string
     {
-        $path = __DIR__ . "/../../public/images/" . $_POST['uuid'];
-        $deleted = unlink($path);
-        $query = "delete from images where uuID like '{$_POST['uuid']}'";
-//        $this->fetch($query);
-        header('location: /image', true, 302);
+        // delete image from disk
+        $path = __DIR__ . "/../../public/images/" . $this->uuid;
+        try {
+            // delete image from database
+            $this->delete('Image', $this->id);
+        } catch (\Exception $e) {
+            error_log("Error while deleting image ({$this->id}) from databse.");
+            $_SESSION["message"] = "Image konnte nicht gelöscht werden";
+            throw new \Exception($e);
+        }
+        return $path;
+        // image has to be removed from disk by the caller using the returned path
     }
 
     public function getId(): int

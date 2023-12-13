@@ -27,26 +27,28 @@ if (isset($param["houseId"])) {
     <?php
     /** @var array $param */
     /** @var Option $option */
-    foreach ($param as $option) {
-        echo '<div class="card option-card' . (($option->getIsDisabled() == 1) ? ' disabled' : '') . '">';
-        echo '<div class="option-buttons">';
-        echo '<button class="edit-button btn-primary">Edit</button>';
-        echo "<form action='/option/delete/{$option->getId()}' method='post'><button class='delete-button btn-secondary'>Delete</button></form>";
-        echo '</div>';
-        echo '<div class="option-image">';
-        echo '<img src="/images/' . $option->getOptionImage() . '" alt="alt">';
-        echo '</div>';
-        echo '<div class="option-name">';
-        echo '<h3>' . $option->getName() . '</h3>';
-        echo '</div>';
-        echo '<div class="option-price">';
-        echo '<span class="option-price-label">Preis: </span>';
-        echo '<span class="option-price-value">' . $option->getPrice() . '€</span>';
-        echo '</div>';
-        echo '<div class="option-description">';
-        echo '<p>' . $option->getDescription() . '</p>';
-        echo '</div>';
-        echo '</div>';
+    if ($param != null) {
+        foreach ($param as $option) {
+            echo '<div class="card option-card' . (($option->getIsDisabled() == 1) ? ' disabled' : '') . '">';
+            echo '<div class="option-buttons">';
+            echo '<button class="edit-button btn-primary">Edit</button>';
+            echo "<form action='/option/delete/{$option->getId()}' method='post'><button class='delete-button btn-secondary'>Delete</button></form>";
+            echo '</div>';
+            echo '<div class="option-image">';
+            echo '<img src="/images/' . $option->getOptionImage() . '" alt="alt">';
+            echo '</div>';
+            echo '<div class="option-name">';
+            echo '<h3>' . $option->getName() . '</h3>';
+            echo '</div>';
+            echo '<div class="option-price">';
+            echo '<span class="option-price-label">Preis: </span>';
+            echo '<span class="option-price-value">' . $option->getPrice() . '€</span>';
+            echo '</div>';
+            echo '<div class="option-description">';
+            echo '<p>' . $option->getDescription() . '</p>';
+            echo '</div>';
+            echo '</div>';
+        }
     }
     ?>
     <div class="card new-card" id="add-new-option"

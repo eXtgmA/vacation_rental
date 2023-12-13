@@ -8,9 +8,10 @@ $_SESSION['previous'] = $_SERVER['REQUEST_URI'];
  * @param string $string
  * @return void
  */
-function pold($string):void{
+function pold($string):void
+{
     $old = $_SESSION['old_POST'] ?? null;
-    if(isset($old)){
+    if (isset($old)) {
         print $old[$string]??'';
     }
 }

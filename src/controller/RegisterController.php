@@ -19,12 +19,11 @@ class RegisterController extends BaseController
         $input = $_REQUEST;
         $user=new User($input);
         $userExists=$user->checkIfExist();
-        if($userExists){
+        if ($userExists) {
             $_SESSION['message'] = 'Emailkonto bereits vergeben';
-            redirect("/register",302);
+            redirect("/register", 302);
         }
         $user->register();
-        redirect("/login",302);
-
+        redirect("/login", 302);
     }
 }

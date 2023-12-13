@@ -64,7 +64,7 @@ trait DatabaseTrait
             $query = $this->buildInsertQuery($this);
             // $connection=$this->connection()->query($query);
             $con = $this->connection();
-            if ($con->query($query) === TRUE) {
+            if ($con->query($query) === true) {
                 $id = $con->insert_id;
                 $this->setId($id);//@phpstan-ignore-line
             } else {
@@ -129,7 +129,7 @@ trait DatabaseTrait
         return $attributeArray;
     }
 
-    public function delete($model, $id)
+    public function delete(string $model, int $id): void
     {
         try {
             $model = '\src\models\\' . $model;
@@ -138,11 +138,7 @@ trait DatabaseTrait
             $query = "delete from {$table} where id={$id}";
             $connection->query($query);
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
-            $previous = $_SESSION['previous'];
-            redirect($previous,500);
+            throw new Exception($e);
         }
-
     }
-
 }

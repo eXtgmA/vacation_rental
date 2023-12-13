@@ -31,7 +31,6 @@ trait ValidationTrait
         $value = (int)$value;
         if ($value <= 0) {
             throw new Exception("Fehler: unerlaubter Wert für {$key}");
-
         }
     }
 
@@ -75,5 +74,4 @@ trait ValidationTrait
             redirect($previousPage, 302, $input);
         }
     }
-
 }
