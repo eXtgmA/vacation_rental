@@ -129,7 +129,7 @@ class Image extends BaseModel
         $path = __DIR__ . "/../../public/images/" . $this->uuid;
         try {
             // delete image from database
-            $this->delete('Image',$this->id);
+            $this->delete('Image', $this->id);
         } catch (\Exception $e) {
             error_log("Error while deleting image ({$this->id}) from databse.");
             $_SESSION["message"] = "Image konnte nicht gelöscht werden";
