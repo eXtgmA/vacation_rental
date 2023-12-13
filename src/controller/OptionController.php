@@ -1,7 +1,6 @@
 <?php
 namespace src\controller;
 
-use src\helper\DatabaseTrait;
 use src\models\House;
 use src\models\Image;
 use src\models\Option;
@@ -9,7 +8,6 @@ use src\models\User;
 
 class OptionController extends BaseController
 {
-    use DatabaseTrait;
     public function __construct()
     {
         parent::__construct();

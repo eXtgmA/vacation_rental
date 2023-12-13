@@ -3,13 +3,11 @@
 namespace src\controller;
 
 use Exception;
-use src\helper\DatabaseTrait;
 use src\models\House;
 use src\models\Image;
 
 class OfferController extends BaseController
 {
-    use DatabaseTrait;
     public function __construct()
     {
         parent::__construct();

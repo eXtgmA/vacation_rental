@@ -8,7 +8,7 @@ include_once("../src/helper/redirect.php");
 include_once("../src/config/database.php");
 class BaseController
 {
-    use ValidationTrait,DatabaseTrait;
+    use DatabaseTrait, ValidationTrait;
     public function __construct()
     {
     }

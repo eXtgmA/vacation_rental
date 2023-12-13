@@ -2,14 +2,12 @@
 
 namespace src\controller;
 
-use src\helper\DatabaseTrait;
 use src\models\Booking;
 use src\models\Bookingposition;
 use src\models\House;
 
 class BookingController extends BaseController
 {
-    use DatabaseTrait;
 
     public function __construct()
     {

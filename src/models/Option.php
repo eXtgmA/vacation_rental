@@ -177,9 +177,9 @@ class Option extends BaseModel
             /** @var Image $image */
             $image = $this->find('\src\models\Image', 'id', $this->image_id, 1);
             $imgPath = $image->deleteImage();
-            // if deletion from database successful, remove image from disk
+            // remove image from disk
             if (!unlink($imgPath)) {
-                throw new Exception("Image could not be deleted (unlinked) from disk");
+                error_log("Image could not be deleted (unlinked) from disk (path: {$imgPath} )");
             }
             // if all ok, commit transaction
             $this->connection()->commit();
