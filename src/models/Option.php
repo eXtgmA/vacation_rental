@@ -202,7 +202,7 @@ class Option extends BaseModel
         $newImage = new Image();
         $imagename = $newImage->postsave($image, $house_id, $typetable_id);
         // get image id via uuid from database
-        $query = "SELECT id FROM images WHERE uuID='{$imagename}' LIMIT 1;";
+        $query = "SELECT id FROM images WHERE uuid='{$imagename}' LIMIT 1;";
         try {
             $result = $this->fetch($query); //@phpstan-ignore-line
         } catch (\Exception $e) {

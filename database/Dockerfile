@@ -5,6 +5,6 @@ ENV MARIADB_USER=shop
 ENV MARIADB_PASSWORD=1234
 ENV MARIADB_DATABASE=vacation_rental_db
 
-COPY ./init.sql /docker-entrypoint-initdb.d/init.sql
+COPY ./db_dump.sql /docker-entrypoint-initdb.d/init.sql
 
 EXPOSE 3306
