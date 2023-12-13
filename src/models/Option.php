@@ -189,7 +189,7 @@ class Option extends BaseModel
         $newImage = new Image();
         $imagename = $newImage->postsave($image, $house_id, $typetable_id);
         // get image id via uuid from database
-        $query = "SELECT id FROM images WHERE uuID='{$imagename}' LIMIT 1;";
+        $query = "SELECT id FROM images WHERE uuid='{$imagename}' LIMIT 1;";
         try {
             $result = $this->fetch($query);
         } catch (\Exception $e) {
@@ -206,7 +206,7 @@ class Option extends BaseModel
 
     public function getOptionImage(): string
     {
-        $query = ("SELECT uuID FROM images WHERE id={$this->image_id} LIMIT 1;");
+        $query = ("SELECT uuid FROM images WHERE id={$this->image_id} LIMIT 1;");
         try {
             $results = $this->fetch($query);
         } catch (Exception $e) {
