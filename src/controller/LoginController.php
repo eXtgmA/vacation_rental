@@ -28,9 +28,11 @@ class LoginController extends BaseController
         $user = $this->find('\src\models\User', 'email', $email, 1);
         if($user){
             $user->login($email, $password);
+        }else{
+            $_SESSION['message'] = 'Ungültige Mailadresse';
+            $previous = $_SESSION['previous'];
+            redirect($previous,302);
         }
-        $_SESSION['message'] = 'Ungültige Mailadresse';
-        $previous = $_SESSION['previous'];
-        redirect($previous,302);
+
     }
 }
