@@ -161,30 +161,35 @@ class Option extends BaseModel
 
     /**
      * Delete an option and the related image from database.
+     *
      * Either returns true or throws exception.
      *
-     * @param int $option_id
-     * @param int $image_id
      * @return bool
      * @throws Exception
      */
-    public function deleteOption(int $option_id, int $image_id) : bool
+    public function deleteOption() : bool
     {
         $this->connection()->begin_transaction();
         try {
             // first: delete option
-            $query = "DELETE FROM options WHERE id=".$option_id." LIMIT 1;";
-            $this->connection()->query($query);
+            $this->delete(model: 'Option', id: $this->id);
             // second: delete image
-//            $image = new \src\models\Image();     // todo: activate if delete-function in Image model exists
-//            $image->deleteImage($image_id);
+            /** @var Image $image */
+            $image = $this->find('\src\models\Image', 'id', $this->image_id, 1);
+            $imgPath = $image->deleteImage();
+            // if deletion from database successful, remove image from disk
+            if (!unlink($imgPath)) {
+                throw new Exception("Image could not be deleted (unlinked) from disk");
+            }
+            // if all ok, commit transaction
+            $this->connection()->commit();
         } catch (Exception $e) {
+            // if error, rollback
             $this->connection()->rollback();
-            error_log("Error while deleting option (" .$option_id. ") from databse.");
+            error_log("Error while deleting option ({$this->id}) from databse.");
+            $_SESSION["message"] = "Option konnte nicht gelöscht werden";
             throw new Exception($e);
         }
-        // if all ok, commit transaction
-        $this->connection()->commit();
         $_SESSION["message"] = "Option wurde erfolgreich gelöscht";
         return true;
         // redirection to next page has to be executed by caller

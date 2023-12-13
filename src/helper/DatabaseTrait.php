@@ -138,9 +138,7 @@ trait DatabaseTrait
             $query = "delete from {$table} where id={$id}";
             $connection->query($query);
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
-            $previous = $_SESSION['previous'];
-            redirect($previous, 500);
+            throw new Exception($e);
         }
     }
 }

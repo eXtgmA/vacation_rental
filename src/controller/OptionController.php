@@ -74,7 +74,16 @@ class OptionController extends BaseController
 
     public function postDelete(int $optionId): void
     {
-        $this->delete(model: 'Option', id: $optionId);
+        try {
+            // delete option (related image included)
+            /** @var Option $option */
+            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
+            $option->deleteOption();
+        } catch (\Exception $e) {
+            // database error during deletion
+            redirect($_SESSION['previous'], 500);
+        }
+        // deletion successful
         redirect($_SESSION['previous'], 302);
     }
 }
