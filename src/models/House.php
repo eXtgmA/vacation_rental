@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use Exception;
+
 class House extends BaseModel
 {
     private int $id;
@@ -18,98 +20,57 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
     public static string $table = 'houses';
-
-    private string $frontimage;
     /**
      * @var string[]
      */
-    private array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
 
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    /**
+     * @var array<int|string, array<int|string>|string>
+     */
+    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
+
+    /**
+     * @var string
+     */
+    private string $frontimage; //phpstan ignore-next-line
 
 
     /**
-     * @param string[] $param
-     * @param string[] $image
-     * @return void
-     * @throws \Exception
+     * @param string[] $modelData
      */
-    public function addhouse(array $param, array $image): void
+    public function __construct($modelData = null)
     {
-        header("location: /offer", true, 302);
 
-        // remove all unnecessary keys, only allow the keys from db table houses
-        $filteredParam = $this->filter($param);
-        // prepare statement
-        $query = "insert into houses ( owner_id,";
-        $i = 1;
-        $paramLength = (count($filteredParam));
-        foreach ($filteredParam as $key => $value) {
-            if ($i < $paramLength) {
-                $query = $query . $key . ",";
-            } else {
-                $query = $query . $key;
-            }
-            $i++;
+        if ($modelData) {
+            parent::createFromModelData($modelData);
         }
-        $query = $query . ") Values ( '{$_SESSION['user']}',";
-        $i = 1;
-        foreach ($filteredParam as $key => $value) {
-            if ($i < $paramLength) {
-                $query = $query . "'" . $value . "',";
-            } else {
-                $query = $query . "'" . $value . "'";
-            }
-            $i++;
-        }
-        $query = $query . ")";
-        try {
-            // insert in db
-            /** @var House $house */
-            $house=$this->storeAndReturn($query, '\src\models\House');
-            // fetch id after saving
-        } catch (\Exception $e) {
-            error_log($e);
-            throw new \Exception($e);
-        }
-        $this->setFrontimage($house->id, $image);
-        $_SESSION['message'] = 'Haus wurde erfolgreich angelegt';
     }
 
-    /**
-     * @return void
-     */
     public function toggleStatus(): void
     {
+//        get old status and invert
         $newStatus = (int)!$this->getIsDisabled();
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-        $result = $this->fetch($query);
+//        write to db
+        $this->connection()->query($query);
     }
-
 
     public function getFrontImage(): string
     {
-        $query = ("SELECT uuid FROM images WHERE house_id = {$this->id} AND typetable_id=1 LIMIT 1;");
-        $results = $this->fetch($query);
-        $row = $results->fetch_row();
-        if ($row) {
-            $this->frontimage = $row[0];
+        $result=$this->find('\src\models\Image', 'house_id', $this->id, 1);
+        if ($result) {
+            $this->frontimage=$result->getUuid();
             return $this->frontimage;
         }
-
-        $this->frontimage = '';
-        return $this->frontimage;
+        return $this->frontimage='';
     }
-
 
     /**
      * @param int $houseId
      * @param string[] $frontimage
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function setFrontimage(int $houseId, array $frontimage): void
     {
@@ -130,8 +91,87 @@ class House extends BaseModel
         }, ARRAY_FILTER_USE_KEY);
     }
 
+    /**
+     * Get all options associated with this house
+     *
+     * Returns false if no options found
+     *
+     * @return array<Option>|false
+     */
+    public function getAllOptions() : array|false
+    {
+        try {
+            /** @var Option[] $options */
+            $options = $this->find('\src\models\Option', 'house_id', $this->id);
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Keine Optionen vorhanden";
+            return false;
+        }
+        return $options;
+    }
 
-/**
+
+    /**
+     * Delete a house and all of its options and images
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function deleteHouse() : bool
+    {
+        $this->connection()->begin_transaction();
+        // get all options and images
+        $allOptions = $this->getAllOptions();
+        $allImages = $this->getImages();
+        try {
+            // delete all options (related option images included)
+            if ($allOptions) {
+                foreach ($allOptions as $option) {
+                    $option->deleteOption();
+                }
+            }
+            // delete all images (front, layout and other)
+            if ($allImages) {
+                foreach ($allImages as $image) {
+                    $image->deleteImage();
+                }
+            }
+            // todo : delete related features
+            // todo : delete related tags
+            // delete house itself
+            $this->delete(model: 'House', id: $this->id);
+            // if all ok, commit to db
+            $this->connection()->commit();
+        } catch (Exception $e) {
+            $this->connection()->rollback();
+            $_SESSION['message'] = "Haus konnte nicht gelöscht werden";
+            throw new Exception($e);
+        }
+        $_SESSION['message'] = "Haus erfolgreich gelöscht";
+        return true;
+    }
+
+    /**
+     * Get all images associated with this house
+     *
+     * Returns false if no image found
+     *
+     * @return array<Image>|false
+     */
+    public function getImages() : array|false
+    {
+        try {
+            /** @var Image[] $images */
+            $images = $this->find('\src\models\Image', 'house_id', $this->id);
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Keine Fotos vorhanden";
+            return false;
+        }
+        return $images;
+    }
+
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -293,7 +333,6 @@ class House extends BaseModel
     {
         return $this->is_disabled;
     }
-
 
     /**
      * @param $is_disabled

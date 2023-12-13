@@ -1,0 +1,328 @@
+#title-image {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.title {
+    margin-left: 25px;
+}
+
+#booking-form {
+    margin-left: 25px;
+    margin-right: 25px;
+    display: grid;
+    grid-template-areas:
+    "description description price"
+    "occupancy booking-period options"
+    "occupancy cost-summary submit";
+    grid-template-columns: 35% 30% 35%;
+}
+
+.description-area {
+    grid-area: description;
+    font-style: italic;
+}
+
+.price-area {
+    grid-area: price;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.occupancy-area {
+    grid-area: occupancy;
+}
+
+.booking-period-area {
+    grid-area: booking-period;
+    margin-left: 10px;
+    margin-right: 50px;
+
+    & input {
+        width: 80%;
+    }
+}
+
+.options-area {
+    grid-area: options;
+
+    & .options-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 20px;
+
+        & .option {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
+
+.cost-summary-area {
+    grid-area: cost-summary;
+
+    & .cost-value {
+        width: 60%;
+        text-align: center;
+        font-size: 24px;
+        font-weight: bold;
+    }
+}
+
+.submit-area {
+    grid-area: submit;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    & button {
+        width: 100%;
+        height: 80%;
+        font-size: 24px;
+    }
+}
+
+/* Large 992px - 1200px*/
+@media (max-width: 1200px) {
+    #booking-form {
+        margin-left: 10px;
+        margin-right: 10px;
+        grid-template-areas:
+        "description price"
+        "occupancy booking-period"
+        "options cost-summary"
+        "submit submit";
+        grid-template-columns: 50% 50%;
+    }
+
+    .submit-area {
+        margin-top: 20px;
+
+        & button {
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+        }
+    }
+}
+
+/* Medium 768px - 992px*/
+@media (max-width: 992px) {
+    .title {
+        width: 60%;
+        margin: 2% auto;
+    }
+
+    #booking-form {
+        margin-left: 10px;
+        margin-right: 10px;
+        grid-template-areas:
+        "description"
+        "price"
+        "occupancy"
+        "booking-period"
+        "options"
+        "cost-summary"
+        "submit";
+        grid-template-columns: 100%;
+    }
+
+    .description-area {
+        width: 60%;
+        margin: 2% auto;
+    }
+
+    .price-area {
+        width: 60%;
+        margin: 2% auto;
+    }
+
+    .occupancy-area {
+        width: 60%;
+        margin: 2% auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .booking-period-area {
+        width: 60%;
+        margin: 2% auto;
+
+        & input {
+            width: 100%;
+        }
+    }
+
+    .options-area {
+        width: 60%;
+        margin: 2% auto;
+    }
+
+    .cost-summary-area {
+        width: 60%;
+        margin: 2% auto;
+
+        & .cost-summary {
+            display: flex;
+            justify-content: center;
+        }
+
+        & .cost-value {
+            width: 80%;
+        }
+    }
+
+    .submit-area {
+        width: 60%;
+        margin: 2% auto;
+
+        & button {
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+        }
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    .title {
+        width: 80%;
+    }
+
+    .description-area {
+        width: 80%;
+    }
+
+    .price-area {
+        width: 80%;
+    }
+
+    .occupancy-area {
+        width: 80%;
+    }
+
+    .booking-period-area {
+        width: 80%;
+    }
+
+    .options-area {
+        width: 80%;
+    }
+
+    .cost-summary-area {
+        width: 80%;
+
+        & .cost-value {
+            width: 80%;
+        }
+    }
+
+    .submit-area {
+        width: 80%;
+    }
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    .title {
+        width: 95%;
+    }
+
+    .description-area {
+        width: 95%;
+    }
+
+    .price-area {
+        width: 95%;
+    }
+
+    .occupancy-area {
+        width: 95%;
+    }
+
+    .booking-period-area {
+        width: 95%;
+    }
+
+    .options-area {
+        width: 95%;
+    }
+
+    .cost-summary-area {
+        width: 95%;
+
+        & .cost-value {
+            width: 80%;
+        }
+    }
+
+    .submit-area {
+        width: 95%;
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    #booking-form {
+        margin-left: 10px;
+        margin-right: 10px;
+        grid-template-areas:
+        "description"
+        "price"
+        "occupancy"
+        "booking-period"
+        "options"
+        "cost-summary"
+        "submit";
+        grid-template-columns: 100%;
+    }
+
+    .occupancy-calendar {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .booking-period-area {
+        margin-left: 0;
+        margin-right: 0;
+
+        & input {
+            width: 100%;
+        }
+    }
+
+    .cost-summary-area {
+        & .cost-summary {
+            display: flex;
+            justify-content: center;
+        }
+
+        & .cost-value {
+            width: 80%;
+        }
+    }
+
+    .submit-area {
+        margin-top: 20px;
+
+        & button {
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+        }
+    }
+}

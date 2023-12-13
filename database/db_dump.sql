@@ -15,8 +15,8 @@ SET @OLD_SQL_MODE = @@SQL_MODE, SQL_MODE =
 -- -----------------------------------------------------
 -- Schema vacation_rental_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `vacation_rental_db` DEFAULT CHARACTER SET utf8;
-USE `vacation_rental_db`;
+CREATE SCHEMA IF NOT EXISTS `vacation_rental_db` DEFAULT CHARACTER SET utf8 ;
+USE `vacation_rental_db` ;
 
 -- -----------------------------------------------------
 -- Table `vacation_rental_db`.`users`

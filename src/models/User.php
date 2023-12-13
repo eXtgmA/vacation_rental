@@ -3,20 +3,51 @@
 namespace src\models;
 
 use Exception;
+use PHPStan\Type\ThisType;
 
 class User extends BaseModel
 {
+    /**
+     * @var int
+     */
     private int $id;
+    /**
+     * @var string
+     */
     private string $password;
+    /**
+     * @var string
+     */
     private string $email;
+    /**
+     * @var string
+     */
     private string $forename;
+    /**
+     * @var string
+     */
     private string $surname;
+
+    /**
+     * @var string[]
+     */
+    public static array $allowedAttributes = ['surname', 'forename', 'password','email'];
+    /**
+     * @var string[]
+     */
+    public static array $requiredAttributes = ['surname', 'forename', 'password','email'];
+
 
     public static string $table = 'users';
 
-    public function __construct()
+    /**
+     * @param string[] $modelData
+     */
+    public function __construct($modelData = null)
     {
-        parent::__construct();
+        if ($modelData) {
+            parent::createFromModelData($modelData);
+        }
     }
 
     /**
@@ -29,89 +60,69 @@ class User extends BaseModel
     public function login(string $email, string $password): void
     {
         try {
-            $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->fetch($query);
-                $result = $sql->fetch_object('src\models\User');
-                // Check if there is a user with the send login mail or username
-            if ($result instanceof User) {
-                if (password_verify($password, $result->password)) {
-                    // if everything is ok perform login and set user as active user for the session
-                   // session_start();
-                    $_SESSION['user'] = $result->id;
-                    header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
-                } else {
-                    error_log('"' . $result->email . '" tried to login with wrong password');
-                    throw new Exception('login fehlgeschlagen');
-                }
+            $user = $this->find('src\models\User', 'email', $email, 1);
+
+            // Check if there is a user with the send login mail or username
+            if (password_verify($password, $user->getPassword())) {
+                // if everything is ok perform login and set user as active user for the session
+                // session_start();
+                $_SESSION['user'] = $user->getId();
+                header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
             } else {
-                error_log('Konto für "' . $email . '" does not exist');
-                throw new Exception('Konto "' . $email . '" existiert nicht');
+                error_log('"' . $user->getEmail() . '" tried to login with wrong password');
+
+                throw new Exception('login fehlgeschlagen');
             }
         } catch (Exception $exception) {
-            session_unset();
-            session_start();
-            $_SESSION['message'] = $exception->getMessage();
-            redirect('/login', 302, $_POST);
+                session_unset();
+            if (!isset($_SESSION)) {
+                session_start();
+            };
+                $_SESSION['message'] = $exception->getMessage();
+                redirect('/login', 302, $_POST);
         }
     }
 
     /**
      * Register a new user
      *
-     * @param string $forename
-     * @param string $surname
-     * @param string $password
-     * @param string $email
      * @return void
      */
-    public function register(string $forename, string $surname, string $password, string $email): void
+//    public function register(string $forename, string $surname, string $password, string $email): void
+    public function register(): void
     {
         // Check if email is already taken
-        try {
-            //limiting to have less stress on database
-            $query = "select * from users where email = '{$email}' limit 1";
-            $sql = $this->fetch($query);
-            $result = $sql->num_rows;
-                // mail exist in db -> abort
-            if ($result == 1) {
-                $_SESSION['message'] = "Email bereits vergeben";
-                redirect('/register', 302, $_POST);
-            }
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $query = "Insert INTO users (forename,surname,password,email) values ('{$forename}','{$surname}','{$hashedPassword}','{$email}')";
-            /** @var User $user */
-            $user = $this->storeAndReturn($query, '\\src\\models\\User');
-            if ($user==null) {
-                $_SESSION['message'] = "Hoppla, da ist etwas schiefgelaufen";
-                redirect('/register', 302, $_POST);
-            }
-            $_SESSION['user'] = $user->getId(); // login aver successful creation
-            redirect('/dashboard', 302, $_POST);
-        } catch (Exception $e) {
-            var_dump($e);
-        }
+            $this->password=password_hash($this->password, PASSWORD_DEFAULT);
+            $this->save();
+            // after registration the user has to log in first
+            redirect('/login', 302, $_POST);
     }
 
     public function getId(): int
     {
         return $this->id;
     }
+
     public function setId(int $id): void
     {
         $this->id = $id;
     }
+
     public function getPassword(): string
     {
         return $this->password;
     }
+
     public function setPassword(string $password): void
     {
         $this->password = $password;
     }
+
     public function getEmail(): string
     {
         return $this->email;
     }
+
     public function setEmail(string $email): void
     {
         $this->email = $email;
@@ -135,5 +146,14 @@ class User extends BaseModel
     public function setSurname(string $surname): void
     {
         $this->surname = $surname;
+    }
+
+    public function checkIfExist():bool
+    {
+        $existingUser=$this->find('\src\models\User', 'email', $this->email, 1);
+        if ($existingUser) {
+            return true;
+        }
+        return false;
     }
 }

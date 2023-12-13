@@ -7,16 +7,15 @@
  *
  * @param string $headerstring
  * @param int $response_code
- * @param array<string>|null $old_POST
+ * @param array<string|int>|null $old_POST
  * @param bool $replace
  * @return void
  */
 function redirect(string $headerstring, int $response_code, array $old_POST = null, bool $replace = true): void
 {
-    header("location: {$headerstring}", $replace, $response_code);
-
     if ($old_POST != null) {
-            $_SESSION["old_POST"] = $old_POST;
+        $_SESSION["old_POST"] = $old_POST;
     }
+    header("location: {$headerstring}", $replace, $response_code);
 }
 ?>

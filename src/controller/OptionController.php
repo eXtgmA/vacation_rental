@@ -1,13 +1,13 @@
 <?php
 namespace src\controller;
 
-use src\helper\DatabaseTrait;
+use src\models\House;
+use src\models\Image;
 use src\models\Option;
 use src\models\User;
 
 class OptionController extends BaseController
 {
-    use DatabaseTrait;
     public function __construct()
     {
         parent::__construct();
@@ -20,12 +20,12 @@ class OptionController extends BaseController
         new ViewController('showOneOption');
     }
 
-    public function getCreate(int $house_id) : void
+    public function getCreate(int $houseId) : void
     {
-        new ViewController("OptionCreate", $house_id);
+        new ViewController("OptionCreate", $houseId);
     }
 
-    public function postCreate(int $house_id) : void
+    public function postCreate(int $houseId) : void
     {
         // todo: check if house is owned by user
         $user = new User();
@@ -34,48 +34,52 @@ class OptionController extends BaseController
 //            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
 //            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
 //        }
+        //upload image and give uuid to option
+        // todo check which typetable id to use
+        $uuid = Image::imageToDisk($_FILES['optionimage']);
+        $image=new Image(['house_id'=>$houseId,'typetable_id'=>1,'uuid'=>$uuid]);
+        $image->save();
 
-            // option parameters
-            $param["name"] = $_POST["name"];
-            $param["description"] = $_POST["description"];
-            $param["price"] = $_POST["price"];
-            $param["house_id"] = $house_id;
-            $optionimage = $_FILES['optionimage'];
-        try {
-            $option = new Option();
-            $option->addOption($param, $optionimage);
-        } catch (\Exception $exception) {
-            $_SESSION["message"] = "Hoppla! Da ist wohl etwas schief gelaufen!";
-            redirect("/option/create".$house_id, 302, $_POST);
-        }
+        $option = $_POST;
+        $option['house_id'] = $houseId;
+        $option['image_id'] = $image->getId();
+        $this->validateInput('Option', $_POST);
+        $option=new Option($option);
+        $option->save();
+        redirect("/option/showall/".$houseId, 302);
     }
 
-    public function getShowall(int $house_id) : void
+    public function getShowall(int $houseId) : void
     {
         // todo: check if house is owned by user (see above in postCreate() )
-        $options_all = $this->getAllOptionsByHouseId($house_id);
-        $options_all["house_id"] = $house_id;
-        new ViewController("optionShowall", $options_all);
+        // initialize house
+        try {
+            /** @var House $house */
+            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
+            redirect($_SESSION['previous'], 500);
+            die();
+        }
+        // get all options related to house from db
+        /** @var mixed[] $allOptions */
+        $allOptions = $house->getAllOptions();
+        $allOptions['houseId'] = $houseId;
+        new ViewController("optionShowall", $allOptions);
     }
 
-    /**
-     * Get all options that belong to a house as array
-     *
-     * @param int $house_id
-     * @return mixed[]|null
-     * @throws \Exception
-     */
-    public function getAllOptionsByHouseId(int $house_id) : ?array
+    public function postDelete(int $optionId): void
     {
-        $query = "SELECT * FROM options WHERE house_id = {$house_id};";
-        // Fetch option from db as OPTION Object
-        $options_result = $this->fetch($query);
-        // add each object to array
-        $options = [];
-        while ($option = $options_result->fetch_object('src\models\Option')) {
+        try {
+            // delete option (related image included)
             /** @var Option $option */
-            $options[] = $option;
+            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
+            $option->deleteOption();
+        } catch (\Exception $e) {
+            // database error during deletion
+            redirect($_SESSION['previous'], 500);
         }
-        return $options;
+        // deletion successful
+        redirect($_SESSION['previous'], 302);
     }
 }

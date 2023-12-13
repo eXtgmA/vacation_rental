@@ -1,0 +1,206 @@
+.headline {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    width: 80%;
+
+    & button {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+        height: 50px;
+    }
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+}
+
+.card {
+    margin: 0 auto;
+    min-width: 200px;
+    max-width: 200px;
+    min-height: 400px;
+    max-height: 400px;
+    position: relative;
+}
+
+.new-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 2px dashed #ccc;
+    cursor: pointer;
+}
+
+.new-card .plus-icon {
+    font-size: 50px;
+    color: #ccc;
+}
+
+.new-card:hover {
+    border-color: var(--color-primary-4);
+}
+
+.new-card:hover .plus-icon {
+    color: var(--color-primary-4);
+}
+
+.option-buttons {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.option-card:hover {
+
+    > *:not(.option-buttons) {
+        filter: blur(2px);
+    }
+
+    & .option-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+    }
+}
+
+.edit-button, .delete-button {
+    margin: 10px;
+}
+
+.disabled > *:not(.option-buttons) {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.option-image img {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.option-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 1.2rem;
+
+    & .option-price-label {
+        font-size: 1.2rem;
+        font-weight: 400;
+    }
+
+    & .option-price-value {
+        font-weight: 600;
+    }
+}
+
+.option-description {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5rem;
+    font-style: italic;
+
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30px;
+        background: linear-gradient(to bottom, transparent, white);
+    }
+}
+
+/* XXL 1400px - 1600px */
+@media (max-width: 1600px) {
+    .options-grid {
+        grid-template-columns: repeat(4, 1fr);
+        width: 80%;
+    }
+}
+
+/* XL 1200px - 1400px */
+@media (max-width: 1400px) {
+    .options-grid {
+        grid-template-columns: repeat(4, 1fr);
+        width: 90%;
+    }
+
+    .headline {
+        width: 90%;
+    }
+}
+
+/* XL 992px - 1200px */
+@media (max-width: 1200px) {
+    .options-grid {
+        grid-template-columns: repeat(3, 1fr);
+        width: 80%;
+    }
+
+    .headline {
+        width: 80%;
+    }
+}
+
+/* Medium 768px - 992px */
+@media (max-width: 992px) {
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 80%;
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 90%;
+    }
+
+    .headline {
+        width: 90%;
+    }
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+        width: 100%;
+    }
+
+    .headline {
+        width: 95%;
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}

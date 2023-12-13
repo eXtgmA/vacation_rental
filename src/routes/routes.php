@@ -54,11 +54,14 @@ return [
         ['GET' => [
             '' => 'index',
             'create'=>'create',
+            'edit'=>'edit',
             'show'=>'show'
         ],
           'POST' => [
              'create' => 'create',
-              'togglestatus'=>'toggleStatus'],
+              'edit'=>'edit',
+              'togglestatus'=>'toggleStatus',
+              'delete'=>'delete'],
 
         ],
     'image' =>
@@ -78,6 +81,16 @@ return [
             'showall'=>'showall'
         ],
             'POST' => [
-                'create' => 'create']
+                'create' => 'create',
+                'delete'=>'delete']
+        ],
+    'booking' =>
+        ['GET' => [
+            'create' => 'createBookingposition',
+            'cart' => 'cart',
+            'checkout' => 'checkout'
+        ], 'POST' => [
+            'create'=>'createBookingposition',
+            'checkout'=>'checkout']
         ],
 ];
