@@ -1,13 +1,14 @@
 <?php
 namespace src\controller;
 
+use src\helper\DatabaseTrait;
 use src\helper\ValidationTrait;
 
 include_once("../src/helper/redirect.php");
 include_once("../src/config/database.php");
 class BaseController
 {
-    use ValidationTrait;
+    use ValidationTrait,DatabaseTrait;
     public function __construct()
     {
     }

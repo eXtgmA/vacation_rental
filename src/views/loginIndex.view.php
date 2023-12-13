@@ -3,6 +3,7 @@ $header = __DIR__ . "//partials/header.view.php";
 // Titel der Seite eintragen
 $title = "login";
 $page = "login";
+$_SESSION['previous']='/login';
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/login.css"/>
