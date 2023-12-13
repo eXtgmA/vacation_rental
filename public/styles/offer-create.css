@@ -1,0 +1,167 @@
+#detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+    "name street price"
+    "city house-number room-count"
+    "postal-code max-person square-meter"
+    "description description description";
+    grid-gap: 2rem;
+    margin: 1rem;
+
+    & > #name-area {
+        grid-area: name;
+        color: var(--color-text-headline);
+    }
+
+    & > #street-area {
+        grid-area: street;
+    }
+
+    & > #price-area {
+        grid-area: price;
+    }
+
+    & > #city-area {
+        grid-area: city;
+    }
+
+    & > #house-number-area {
+        grid-area: house-number;
+    }
+
+    & > #room-count-area {
+        grid-area: room-count;
+    }
+
+    & > #postal-code-area {
+        grid-area: postal-code;
+    }
+
+    & > #max-person-area {
+        grid-area: max-person;
+    }
+
+    & > #square-meter-area {
+        grid-area: square-meter;
+    }
+
+    & > #description-area {
+        grid-area: description;
+    }
+
+    & > #description-area > .description-input {
+        padding: 10px;
+    }
+
+    & > #description-area > .description-input > textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+    }
+}
+
+
+#feature-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    /*grid-gap: 1rem;*/
+    /*margin: 1rem auto;*/
+    /*width: 80%;*/
+}
+
+.feature-select-list {
+    display: flex;
+    flex-direction: column;
+    /*justify-content: space-evenly;*/
+
+    & .feature-select {
+        font-size: 16px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/*.tag-pill {*/
+/*    display: inline-block;*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    padding: 10px 20px;*/
+/*    border-radius: 25px;*/
+/*    margin: 2px;*/
+/*    min-width: 50px;*/
+
+/*    & span:hover {*/
+/*        display: none;*/
+/*    }*/
+/*}*/
+
+/*.tag-pill span {*/
+/*    margin-right: 5px;*/
+/*}*/
+
+/*.tag-pill button {*/
+/*    !*display: none;*!*/
+/*    display: inline-block;*/
+
+/*    background-color: #ffffff;*/
+/*    color: #000000;*/
+/*    border: none;*/
+/*    cursor: pointer;*/
+/*    border-radius: 50%;*/
+/*    padding: 0 5px*/
+/*}*/
+
+/*.tag-pill:hover button {*/
+/*    display: inline-block;*/
+/*}*/
+
+
+/*#new-offer-grid {*/
+/*  display: grid;*/
+/*  grid-template-columns: 1fr 1fr;*/
+/*  grid-template-rows: auto;*/
+/*  grid-template-areas:*/
+/*    "title title"*/
+/*    "search search"*/
+/*    "suggestions suggestions";*/
+/*  grid-gap: 2rem;*/
+/*  margin: 1rem;*/
+/*}*/
+
+.tag-pill {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-secondary);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 2px;
+    transition: all 0.3s ease;
+    min-width: 80px;
+    width: max-content;
+    cursor: pointer;
+
+    & .tag-text {
+        display: inline-block;
+    }
+
+    & .delete-text {
+        display: none;
+        color: #fff;
+    }
+
+    &:hover, &:focus {
+        background-color: var(--color-secondary-3);
+
+        & .tag-text {
+            display: none;
+        }
+
+        & .delete-text {
+            display: block;
+        }
+    }
+}

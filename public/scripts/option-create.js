@@ -66,7 +66,7 @@ function uploadFile(file)
     // add the image for the preview
     let closeButton = document.createElement('div')
     closeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>' // Use Font Awesome icon
-    closeButton.classList.add('close-btn')
+    closeButton.classList.add('delete-btn')
     closeButton.addEventListener('click', function () {
         preview.remove()
         closeButton.remove()
