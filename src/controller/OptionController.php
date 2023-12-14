@@ -46,6 +46,7 @@ class OptionController extends BaseController
         $this->validateInput('Option', $_POST);
         $option=new Option($option);
         $option->save();
+        $_SESSION['message'] = "Option wurde erfolgreich angelegt";
         redirect("/option/showall/".$houseId, 302);
     }
 
