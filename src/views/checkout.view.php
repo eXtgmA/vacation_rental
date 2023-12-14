@@ -28,7 +28,7 @@ include_once($header);
             </tr>
             <tr>
                 <td>Optionen</td>
-<!--                <td>--><?php //echo $p->getPriceDetailList(); ?><!--</td>-->
+                <td><?php print_r($p->getPriceDetailList()); ?></td> <!-- todo : expand list in detail -->
             </tr>
             <tr>
                 <td>Preis</td>
@@ -46,7 +46,7 @@ include_once($header);
         <?php
     } else {
         // if no booking exists
-        echo "<h3>Hier gibt es nichts zu bezahlen. Suche jetzt nach dem Ferienhaus deiner Träume! => <a href='/dashboard'>Zur Suche</a></h3>";
+        echo "<h3>Hier gibt es nichts zu bezahlen. Suche jetzt nach dem Ferienhaus deiner Träume! => <a href='/dashboard'>Zur Suche</a></h3>"; // todo : make me pretty (Marvin)
     }
     ?>
 </div>
