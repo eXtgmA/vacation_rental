@@ -48,14 +48,14 @@ class BookingController extends BaseController
 
     public function postCreateBookingposition(): void
     {
-        // todo:
-        // fetch the one booking where "is_confirmed" is set to false (if exists)
-        // if a non-confirmed booking exists => new Booking($existingBooking); and append the new bookingposition
-        // else:
-        // insert a new booking into database and use it
         try {
-            $booking = new Booking(['is_confirmed' => 0, 'user_id' => $_SESSION['user'],'booked_at'=>null]);
-            $booking->save();
+            // get the one and only booking that is not confirmed
+            $booking = $this->find('\src\models\Booking', 'is_confirmed', 0, 1);
+            if ($booking == null) {
+                // if no booking found => insert new booking into database and use this one
+                $booking = new Booking(['is_confirmed' => 0, 'user_id' => $_SESSION['user'], 'booked_at' => null]);
+                $booking->save();
+            }
 
             $param = $_POST;
             $param['booking_id'] = $booking->getId();
@@ -64,7 +64,7 @@ class BookingController extends BaseController
             $bookingposition = new Bookingposition($param);
             $bookingposition->save();
 
-            $_SESSION['message'] = "Bookingposition erfolgreich angelegt";
+            $_SESSION['message'] = "Buchungsposition erfolgreich angelegt";
             redirect('/cart', 302);
         } catch (\Exception $e) {
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
