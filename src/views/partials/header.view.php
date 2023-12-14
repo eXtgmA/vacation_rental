@@ -14,7 +14,7 @@ if (!isset($_SESSION['user']) && !in_array($_SERVER['REQUEST_URI'], ['/login', '
 
 ?>
 <!doctype html>
-<html lang="en">
+<html lang="de">
 <head>
 
     <link rel="stylesheet" href="/styling.css"/>

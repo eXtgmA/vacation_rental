@@ -9,6 +9,7 @@
         <exclude name="PSR2.Files.ClosingTag.NotAllowed"/>
         <exclude name="PSR1.Files.SideEffects"/>
         <exclude name="Generic.Files.LineLength"/>
+        <exclude-pattern>*\.js</exclude-pattern>
 
         <!--    configure same line brace -->
         <!--        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine" />-->

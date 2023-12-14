@@ -19,20 +19,20 @@ function pold($string): void
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
-<form action="/offer/create" method="post" enctype="multipart/form-data">
+<form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">
         <div class="headline">
             <h1>Neues Haus anlegen</h1>
-            <button class="btn btn-primary" onclick="window.location.href='/offer/index'">Zurück</button>
-            <button class="btn btn-primary">Optionen bearbeiten</button>
+            <button class="btn btn-primary" onclick="">Zurück</button>
+<!--            <button class="btn btn-primary">Optionen bearbeiten</button>-->
         </div>
 
         <h2>Details</h2>
         <div id="detail-grid">
             <div id="name-area">
                 <label class="label" for="name">Name der Anlage</label>
-                <input class="input-field" type="text" name="name" id="name" value="<?php pold('name') ?>">
+                <input class="input-field" type="text" name="name" id="name" value="<?php pold('name') ?>" required>
             </div>
             <div id="description-area">
                 <label class="label" for="description">Beschreibung</label>
@@ -80,7 +80,43 @@ include_once($header);
         </div>
 
         <h2>Bilder</h2>
-        <div id="image-grid">
+        <h3>Benötigte Bilder</h3>
+        <div id="required-images" class="image-row">
+            <div id="front-image-area">
+                <h3>Frontansicht</h3>
+                <div id="front-image" class="image-upload-area image-container">
+                    <div id="front-image-drop-area" class="image-upload-drop-area">
+                        <p class="image-upload-hint" style="margin: 10px">Bild in den markierten Bereich ziehen
+                            oder </p>
+                        <input type="file" class="image-upload-input" id="front-image-input-field"
+                               accept="image/*" name="front-image-input">
+                        <label class="image-upload-label" for="front-image-input-field"
+                               id="front-image-label">Bild auswählen</label>
+                    </div>
+                </div>
+            </div>
+            <div id="layout-image-area">
+                <h3>Grundriss</h3>
+                <div id="layout-image" class="image-upload-area image-container">
+                    <div id="layout-image-drop-area" class="image-upload-drop-area">
+                        <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
+                        <input type="file" class="image-upload-input" id="layout-image-input-field"
+                               accept="image/*" name="layout-image-input">
+                        <label class="image-upload-label" for="layout-image-input-field"
+                               id="layout-image-label">Bild auswählen</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h3>Optionale Bilder</h3>
+        <div id="optional-images" class="image-row">
+            <div id="optional-image-drop-area" class="image-upload-drop-area">
+                <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
+                <input type="file" class="image-upload-input" id="optional-image-input-field"
+                       accept="image/*" multiple name="optional-images[]">
+                <label class="image-upload-label" for="optional-image-input-field"
+                       id="optional-image-label">Bild auswählen</label>
+            </div>
         </div>
 
 
@@ -245,17 +281,19 @@ include_once($header);
 
         <h2>Tags</h2>
         <div id="tag-grid">
-            <input class="input-field" type="text">
+            <label>
+                <span class="label">Tag hinzufügen</span>
+                <input class="input-field" type="text">
+            </label>
             <button class="btn btn-primary" disabled>Tag hinzufügen</button>
-<!--            <div class="tag-pill">-->
-<!--                <span class="tag-text">Tag 1</span>-->
-<!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
-<!--            </div>-->
-<!--            <div class="tag-pill">-->
-<!--                <span class="tag-text">Tag 2</span>-->
-<!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
-<!--            </div>-->
-
+            <!--            <div class="tag-pill">-->
+            <!--                <span class="tag-text">Tag 1</span>-->
+            <!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
+            <!--            </div>-->
+            <!--            <div class="tag-pill">-->
+            <!--                <span class="tag-text">Tag 2</span>-->
+            <!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
+            <!--            </div>-->
         </div>
 
         <button class="btn-primary" type="submit">Haus einstellen</button>
@@ -320,8 +358,8 @@ include_once($header);
                     <td><input type="file" name="frontimage" hidden="hidden" id="frontimage"></td>
                 </tr>
             </table>
+            <button type="submit">Haus einstellen</button>
         </form>
-        <button type="submit">Haus einstellen</button>
 
     </div>
 </div>

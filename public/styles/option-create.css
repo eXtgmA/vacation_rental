@@ -1,4 +1,4 @@
-#drop-area {
+#image-drop-area {
     width: 100%;
     height: 250px;
     border: 2px dashed #ccc;
@@ -10,7 +10,7 @@
     text-align: center;
 }
 
-#drop-area.highlight {
+#image-drop-area.highlight {
     border-color: var(--color-primary-4);
 }
 
