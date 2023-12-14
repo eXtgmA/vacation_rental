@@ -8,7 +8,7 @@ class Bookingposition extends BaseModel
     private string|null $date_start;    // todo: is this type correct?
     private string|null $date_end;      // todo: is this type correct?
     /** @var array<string> */
-    private array|null|int $price_detail_list;  // todo: is this type correct?
+    private array|null $price_detail_list;
     private int $house_id;
     private int $booking_id;
     /** @var string[] */
@@ -45,18 +45,18 @@ class Bookingposition extends BaseModel
     }
 
     /**
-     * @return array<string>|int|null
+     * @return array<string>|null
      */
-    public function getPriceDetailList(): array | int | null
+    public function getPriceDetailList(): array | null
     {
         return $this->price_detail_list;
     }
 
     /**
-     * @param int $priceDetailList
+     * @param array<string> $priceDetailList
      * @return void
      */
-    public function setPriceDetailList(int $priceDetailList): void
+    public function setPriceDetailList(array|null $priceDetailList): void
     {
         $this->price_detail_list = $priceDetailList;
     }
