@@ -34,18 +34,27 @@ class OptionController extends BaseController
 //            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
 //            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
 //        }
-        //upload image and give uuid to option
-        // todo check which typetable id to use
-        $uuid = Image::imageToDisk($_FILES['optionimage']);
-        $image=new Image(['house_id'=>$houseId,'typetable_id'=>1,'uuid'=>$uuid]);
+        // save image to disk and db
+        try {
+            $uuid = Image::imageToDisk($_FILES['optionimage']);
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Foto(s) wurde(n) nicht korrekt übergeben";
+            redirect($_SESSION['previous'], 302, $_POST);
+            die();
+        }
+        // save image into db // todo : use transaction (rollback and unlink in case of error)
+        $image = new Image(['house_id' => $houseId, 'typetable_id' => 3, 'uuid' => $uuid]);
         $image->save();
 
+        // validate input of option
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
         $this->validateInput('Option', $_POST);
+        // save option
         $option=new Option($option);
         $option->save();
+
         $_SESSION['message'] = "Option wurde erfolgreich angelegt";
         redirect("/option/showall/".$houseId, 302);
     }
