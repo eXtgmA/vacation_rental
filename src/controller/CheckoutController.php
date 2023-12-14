@@ -20,8 +20,25 @@ class CheckoutController extends BaseController
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
-                // todo : get all houses related to all bookingpositions
-                // set $param["houses"]["house_id"] = house-object
+                // if no positions found show empty checkout
+                if ($param["bookingpositions"] == false) {
+                    new ViewController('checkout');
+                    die();
+                }
+
+                // get all houses related to all bookingpositions
+                $houseIds = [];
+                foreach ($param["bookingpositions"] as $bp) {
+                    // fetch house if not already loaded
+                    if (!in_array($bp->getHouseId(), $houseIds)) {
+                        $param["houses"][$bp->getHouseId()] = $this->find('\src\models\House', 'id', $bp->getHouseId(), 1);
+                        $houseIds[] = $bp->getHouseId();
+                    }
+                }
+                // check that at least one house has been fetched
+                if (empty($param["houses"])) {
+                    throw new \Exception("No house loaded");
+                }
             }
         } catch (\Exception $e) {
             $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";

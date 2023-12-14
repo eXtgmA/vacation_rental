@@ -5,26 +5,45 @@ $header=__DIR__."/partials/header.view.php";
 $title = "Kasse";
 $booking = $param["booking"] ?? null;
 $bpos = $param["bookingpositions"] ?? null;
+$houses = $param["houses"] ?? null;
 include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
+<div>
+    <a href="/cart"><p class="fa fa-chevron-left"></p> zurück</a>
+</div>
     <h1>Kasse</h1>
     <?php
     echo($message ?? "<h1>$message</h1>");
     ?>
 <div>
-    <?php if (isset($booking) && isset($bpos)) {
+    <?php if (isset($booking, $bpos, $houses)) {
         echo "<table>";
         /** @var \src\models\Bookingposition $p */
         foreach ($bpos as $key => $p) {
-            ?>
+            /** @var \src\models\House $house */
+            $house = $houses[$p->getHouseId()];
+            ?><tr>
+            <td><h3><?php echo $house->getName() ?></h3></td>
+            </tr>
+            <td>
+                <img src="<?php echo "/images/".$house->getFrontimage();?>" style="width: 100px;height: 100px" alt="[alt]">
+            </td>
+            <tr>
+                <td>Ort</td>
+                <td><?php echo $house->getPostalCode(). ", " .$house->getCity() ?></td>
+            </tr>
+            <tr>
+                <td>Strasse</td>
+                <td><?php echo $house->getStreet() ." ". $house->getHouseNumber() ?></td>
+            </tr>
             <tr>
                 <td>Von</td>
-                <td><?php echo $p->getDateStart(); ?></td>
+                <td><?php echo $p->getDateStart() ?></td>
             </tr>
             <tr>
                 <td>Bis</td>
-                <td><?php echo $p->getDateEnd(); ?></td>
+                <td><?php echo $p->getDateEnd() ?></td>
             </tr>
             <tr>
                 <td>Optionen</td>
@@ -32,7 +51,7 @@ include_once($header);
             </tr>
             <tr>
                 <td>Preis</td>
-                <td>XXXX,xx Euro<?php // echo $p["price_detail_list"]["price"]; ?></td>
+                <td>XXXX,xx Euro<?php // echo $p["price_detail_list"]["price"]; ?></td> <!-- todo : get price from list -->
             </tr>
             <?php
         }
