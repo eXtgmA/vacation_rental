@@ -72,42 +72,4 @@ class BookingController extends BaseController
             die();
         }
     }
-
-    public function getCheckout(int $bookingId): void
-    {
-        try {
-            // todo : fetch the one an only booking where "is_confirmed" equals false
-            $bookingResult = $this->find('\src\models\Booking', 'id', $bookingId, 1);
-            $param["booking"] = $bookingResult;
-            // get all bookingpositions related to this booking
-            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
-            // todo : get all houses related to all bookingpositions
-            // set $param["houses"]["house_id"] = house-object
-        } catch (\Exception $e) {
-            $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
-            new ViewController('checkout');
-            die();
-        }
-        new ViewController('checkout', $param);
-    }
-
-    public function postCheckout(int $bookingId): void
-    {
-        try {
-            // todo : set "is_confirmend" to true and save timestamp in "booked_ad" in db
-            $query = "UPDATE bookings SET is_confirmed=1, booked_at=CURRENT_TIMESTAMP() WHERE id={$bookingId};";
-            /* @phpstan-ignore-next-line */
-            $this->store($query);   // todo: this should be refactored into some of the new methods
-        } catch (\Exception $e) {
-            $_SESSION['message'] = "Beim Bezahlvorgang ist etwas schiefgelaufen.";
-            redirect('/booking/checkout/' . $bookingId, 302);
-            die();
-        }
-        new ViewController('checkoutSuccess');
-    }
-
-    public function postBooking(int $bookingId): void
-    {
-        // todo
-    }
 }

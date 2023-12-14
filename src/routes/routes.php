@@ -96,4 +96,10 @@ return [
         ['GET' => [
             '' => 'cart']
         ],
+    'checkout' =>
+        ['GET' => [
+            '' => 'checkout'
+        ], 'POST' => [
+            'booking' => 'checkout']
+        ],
 ];

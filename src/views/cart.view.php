@@ -37,7 +37,7 @@ include_once($header);
             <?php
         }
         echo "</table>";
-        echo "<a href='/booking/checkout/".$booking->getId()."'><button type='submit'>Zur Kasse</button></a>";
+        echo "<a href='/checkout'><button type='submit'>Zur Kasse</button></a>";
     } else {
         // if no booking exists
         echo "<h3>Der Warenkorb ist leer. Suche jetzt nach dem Ferienhaus deiner Träume! => <a href='/dashboard'>Zur Suche</a></h3>"; // todo : design (Marvin)

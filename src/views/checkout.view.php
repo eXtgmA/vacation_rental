@@ -39,7 +39,7 @@ include_once($header);
         echo "</table>";
         ?>
         <h2>Gesamtpreis: XXXX,xx Euro</h2>
-        <form action='<?php "/booking/checkout/".$booking->getId(); ?>' method='post'>
+        <form action='<?php echo "/checkout/booking/".$booking->getId(); ?>' method='post'>
             <input type="hidden" id="gesamtpreis" name="gesamtpreis" value=""> <!-- todo : calculate value with JS (sum of all prices) -->
             <button type="submit">Bezahlen</button>
         </form>
