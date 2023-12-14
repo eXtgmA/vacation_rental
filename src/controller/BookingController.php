@@ -65,30 +65,12 @@ class BookingController extends BaseController
             $bookingposition->save();
 
             $_SESSION['message'] = "Bookingposition erfolgreich angelegt";
-            redirect('/booking/cart/' . $booking->getId(), 302);
+            redirect('/cart', 302);
         } catch (\Exception $e) {
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
             redirect('/booking/create/' . $_POST['houseId'], 302, $_POST);
             die();
         }
-    }
-
-    public function getCart(int $bookingId): void
-    {
-        try {
-            // get the booking from db
-            /** @var Booking $booking */
-            $booking = $this->find('\src\models\Booking', 'id', $bookingId, 1);
-            $param["booking"] = $booking;// todo : get the one and only booking where is_confirmed equals false
-            // get all bookingpositions related to this booking
-            $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
-            // todo : get all houses related to all bookingpositions
-        } catch (\Exception $e) {
-            $_SESSION['message'] = "Buchung wurde nicht gefunden";
-            new ViewController('cart');
-            die();
-        }
-        new ViewController('cart', $param);
     }
 
     public function getCheckout(int $bookingId): void
