@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             newTagElement.className = "tag-pill";
             newTagElement.tabIndex = 0;
             newTagElement.innerHTML = `<span class="tag-text">${tagText}</span>
-                                       <span class="delete-text">Remove X</span>`;
+                                       <span class="delete-text"> <i class="fa-solid fa-xmark"></i></span>`;
 
             // Append tag to hidden input
             appendTag(tagText);
@@ -88,7 +88,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
     // Disable the button if the input field is empty
     tagInput.addEventListener("input", () => {
-        tagButton.disabled = !tagInput.value.trim();
+        tagButton.disabled = !tagInput.value.trim() || tagInput.value.trim().length > 45;
     });
 
 
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let layoutImageSelectElement = document.getElementById("layout-image-input-field");
 
     // optional images elements
-    let optionalImageContainer = document.getElementById("optional-images");
+    let optionalImageContainer = document.getElementById("optional-images-grid");
     let optionalImageDropArea = document.getElementById("optional-image-drop-area");
     let optionalImageSelectElement = document.getElementById("optional-image-input-field");
 

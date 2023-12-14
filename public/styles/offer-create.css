@@ -1,14 +1,37 @@
+.headline {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    width: 80%;
+
+    & button {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+        height: 50px;
+    }
+}
+
+.sub-headline {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    width: 80%;
+}
+
 #detail-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-areas:
-    "name street price"
-    "city house-number room-count"
-    "postal-code max-person square-meter"
+    "name city postal-code"
+    "street house-number square-meter"
+    "room-count max-person price"
     "description description description";
-    grid-gap: 2rem;
-    margin: 1rem;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+
 
     & > #name-area {
         grid-area: name;
@@ -67,7 +90,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 
-    grid-gap: 1rem;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+
 
     & .feature-select-list {
         display: flex;
@@ -97,69 +124,70 @@
     }
 }
 
-
-.tag-pill {
+#tag-grid {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
-    background-color: var(--color-secondary);
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 10px;
-    margin: 2px;
-    transition: all 0.3s ease;
-    min-width: 80px;
-    width: max-content;
-    cursor: pointer;
+    margin: 1rem auto;
+    width: 80%;
 
-    & .tag-text {
-        display: inline-block;
+    #add-tag-button {
+        margin-top: 23px;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
-    & .delete-text {
-        display: none;
+    .tag-pill {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-secondary);
         color: #fff;
-    }
-
-    &:hover, &:focus {
-        background-color: var(--color-secondary-3);
+        padding: 5px 10px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        min-width: 80px;
+        cursor: pointer;
+        margin: 25px 2px 2px;
 
         & .tag-text {
-            display: none;
+            display: inline-block;
         }
 
         & .delete-text {
-            display: block;
+            display: none;
+            color: #fff;
+        }
+
+        &:hover, &:focus {
+            background-color: var(--color-secondary-3);
+
+            & .delete-text {
+                margin-left: 8px;
+                display: block;
+            }
         }
     }
 }
 
 
-
-
-#image-grid {
-    /*display: grid;*/
-    /*!*grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));*!*/
-    /*grid-template-columns: 1fr 1fr 1fr;*/
-    /*grid-template-columns: 1fr 1fr 1fr;*/
-    /*grid-gap: 1rem;*/
-    /*margin: 1rem;*/
-}
-
-#required-images {
+#required-images-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /*grid-template-columns: 1fr 1fr 1fr;*/
-    /*grid-gap: 1rem;*/
-    /*margin: 1rem;*/
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
 }
 
-#optional-images {
-    /*display: grid;*/
-    /*grid-template-columns: 1fr 1fr 1fr;*/
-    /*!*grid-template-columns: 1fr 1fr 1fr;*!*/
-    /*grid-gap: 1rem;*/
-    /*margin: 1rem;*/
+#optional-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
 }
 
 .image-upload-drop-area {
@@ -214,17 +242,11 @@
     margin: 10px;
 }
 
-#optional-images {
+#optional-images-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
+    /*gap: 1px;*/
 }
-#optional-images-preview {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-}
-
 
 .image-container img {
     width: 100%;
@@ -236,22 +258,43 @@
 
 .image-container {
     position: relative;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    & .delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .hidden {
+        display: none;
+    }
 }
 
-.image-container .delete-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: #fff;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+.footline {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
+    justify-content: flex-end;
+    margin: 1rem auto;
+    width: 80%;
 
-.hidden {
-    display: none;
+    & button {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+        height: 50px;
+    }
 }

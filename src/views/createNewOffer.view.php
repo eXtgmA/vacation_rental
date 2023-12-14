@@ -25,102 +25,102 @@ include_once($header);
         <div class="headline">
             <h1>Neues Haus anlegen</h1>
             <button class="btn btn-primary" onclick="">Zurück</button>
-<!--            <button class="btn btn-primary">Optionen bearbeiten</button>-->
+            <!--            <button class="btn btn-primary">Optionen bearbeiten</button>-->
         </div>
 
-        <h2>Details</h2>
+        <h2 class="sub-headline">Details</h2>
         <div id="detail-grid">
             <div id="name-area">
-                <label class="label" for="name">Name der Anlage</label>
-                <input class="input-field" type="text" name="name" id="name" value="<?php pold('name') ?>" required>
-            </div>
-            <div id="description-area">
-                <label class="label" for="description">Beschreibung</label>
-                <textarea class="input-field" name="description" id="description" cols="30"
-                          rows="10"><?php pold('description') ?></textarea>
-            </div>
-            <div id="square-meter-area">
-                <label class="label" for="square_meter">Quadratmeter</label>
-                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1"
-                       value="<?php pold('square_meter') ?>">
-            </div>
-            <div id="max-person-area">
-                <label class="label" for="max_person">Anzahl mögliche Personen</label>
-                <input class="input-field" type="number" name="max-person" id="max_person" min="1"
-                       value="<?php pold('max_person') ?>">
-            </div>
-            <div id="room-count-area">
-                <label class="label" for="room-count">Anzahl Räume</label>
-                <input class="input-field" type="number" name="room-count" id="room-count" min="1"
-                       value="<?php pold('room_count') ?>">
-            </div>
-            <div id="price-area">
-                <label class="label" for="price">Preis pro Nacht</label>
-                <input class="input-field" type="number" name="price" id="price" min="1"
-                       value="<?php pold('price') ?>">
-            </div>
-            <div id="postal-code-area">
-                <label class="label" for="postal-code">Postleitzahl</label>
-                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5"
-                       value="<?php pold('postal_code') ?>">
+                <label class="label" for="name">Name der Anlage*</label>
+                <input class="input-field" type="text" name="name" id="name" value="<?php pold('name') ?>" required
+                       autofocus>
             </div>
             <div id="city-area">
-                <label class="label" for="city">Ort</label>
-                <input class="input-field" type="text" name="city" id="city" value="<?php pold('city') ?>">
+                <label class="label" for="city">Ort*</label>
+                <input class="input-field" type="text" name="city" id="city" value="<?php pold('city') ?>" required>
+            </div>
+            <div id="postal-code-area">
+                <label class="label" for="postal-code">Postleitzahl*</label>
+                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5"
+                       value="<?php pold('postal_code') ?>" required>
             </div>
             <div id="street-area">
-                <label class="label" for="street">Straße</label>
-                <input class="input-field" type="text" name="street" id="street" value="<?php pold('street') ?>">
+                <label class="label" for="street">Straße*</label>
+                <input class="input-field" type="text" name="street" id="street" value="<?php pold('street') ?>"
+                       required>
             </div>
             <div id="house-number-area">
-                <label class="label" for="house-number">Hausnummer</label>
+                <label class="label" for="house-number">Hausnummer*</label>
                 <input class="input-field" type="number" name="house-number" id="house-number" min="1"
-                       value="<?php pold('house_number') ?>">
+                       value="<?php pold('house_number') ?>" required>
+            </div>
+            <div id="square-meter-area">
+                <label class="label" for="square_meter">Quadratmeter*</label>
+                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1"
+                       value="<?php pold('square_meter') ?>" required>
+            </div>
+            <div id="room-count-area">
+                <label class="label" for="room-count">Anzahl Räume*</label>
+                <input class="input-field" type="number" name="room-count" id="room-count" min="1"
+                       value="<?php pold('room_count') ?>" required>
+            </div>
+            <div id="max-person-area">
+                <label class="label" for="max_person">Anzahl mögliche Personen*</label>
+                <input class="input-field" type="number" name="max-person" id="max_person" min="1"
+                       value="<?php pold('max_person') ?>" required>
+            </div>
+            <div id="price-area">
+                <label class="label" for="price">Preis pro Nacht*</label>
+                <input class="input-field" type="number" name="price" id="price" min="1"
+                       value="<?php pold('price') ?>" required>
+            </div>
+            <div id="description-area">
+                <label class="label" for="description">Beschreibung*</label>
+                <textarea class="input-field" name="description" id="description" cols="30" required
+                          rows="10"><?php pold('description') ?></textarea>
             </div>
         </div>
 
-        <h2>Bilder</h2>
-        <h3>Benötigte Bilder</h3>
-        <div id="required-images" class="image-row">
+        <h2 class="sub-headline">Bilder</h2>
+        <h3 class="sub-headline">Benötigte Bilder</h3>
+        <div id="required-images-grid">
             <div id="front-image-area">
-                <h3>Frontansicht</h3>
+                <h4 style="margin-top: inherit;">Frontansicht</h4>
                 <div id="front-image" class="image-upload-area image-container">
                     <div id="front-image-drop-area" class="image-upload-drop-area">
-                        <p class="image-upload-hint" style="margin: 10px">Bild in den markierten Bereich ziehen
-                            oder </p>
+                        <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
                         <input type="file" class="image-upload-input" id="front-image-input-field"
                                accept="image/*" name="front-image-input">
                         <label class="image-upload-label" for="front-image-input-field"
-                               id="front-image-label">Bild auswählen</label>
+                               id="front-image-label" tabindex="0">Bild auswählen</label>
                     </div>
                 </div>
             </div>
             <div id="layout-image-area">
-                <h3>Grundriss</h3>
+                <h4 style="margin-top: inherit;">Grundriss</h4>
                 <div id="layout-image" class="image-upload-area image-container">
                     <div id="layout-image-drop-area" class="image-upload-drop-area">
                         <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
                         <input type="file" class="image-upload-input" id="layout-image-input-field"
                                accept="image/*" name="layout-image-input">
                         <label class="image-upload-label" for="layout-image-input-field"
-                               id="layout-image-label">Bild auswählen</label>
+                               id="layout-image-label" tabindex="0">Bild auswählen</label>
                     </div>
                 </div>
             </div>
         </div>
-        <h3>Optionale Bilder</h3>
-        <div id="optional-images" class="image-row">
+        <h3 class="sub-headline" style="margin-top: 25px">Optionale Bilder</h3>
+        <div id="optional-images-grid">
             <div id="optional-image-drop-area" class="image-upload-drop-area">
                 <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
                 <input type="file" class="image-upload-input" id="optional-image-input-field"
                        accept="image/*" multiple name="optional-images[]">
                 <label class="image-upload-label" for="optional-image-input-field"
-                       id="optional-image-label">Bild auswählen</label>
+                       id="optional-image-label" tabindex="0">Bild auswählen</label>
             </div>
         </div>
 
-
-        <h2>Ausstattung</h2>
+        <h2 class="sub-headline">Ausstattung</h2>
         <div id="feature-grid">
             <div class="feature-select-list">
                 <div class="feature-topic">
@@ -279,24 +279,18 @@ include_once($header);
         </div>
 
 
-        <h2>Tags</h2>
+        <h2 class="sub-headline">Tags</h2>
         <div id="tag-grid">
             <label>
-                <span class="label">Tag hinzufügen</span>
-                <input class="input-field" type="text">
+                <span class="label" style="margin-top: auto">Tag hinzufügen</span>
+                <input class="input-field" type="text" id="tag-input-field">
             </label>
-            <button class="btn btn-primary" disabled>Tag hinzufügen</button>
-            <!--            <div class="tag-pill">-->
-            <!--                <span class="tag-text">Tag 1</span>-->
-            <!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
-            <!--            </div>-->
-            <!--            <div class="tag-pill">-->
-            <!--                <span class="tag-text">Tag 2</span>-->
-            <!--                <span class="delete-text">löschen <i class="fa-solid fa-xmark"></i></span>-->
-            <!--            </div>-->
+            <button class="btn btn-primary" disabled id="add-tag-button">Tag hinzufügen</button>
         </div>
 
-        <button class="btn-primary" type="submit">Haus einstellen</button>
+        <div class="footline">
+            <button class="btn-primary" type="submit">Haus einstellen</button>
+        </div>
 
 
     </div>

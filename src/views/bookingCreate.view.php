@@ -35,8 +35,8 @@ include_once($header);
         <div class="booking-period-area">
             <h3>Buchungszeitraum</h3>
             <label class="label" for="date_start">Von</label>
-            <input class="input-field" type="date" id="date_start" name="date_start" value="<?php prefill('date_end') ?>"
-                   required>
+            <input class="input-field" type="date" id="date_start" name="date_start"
+                   value="<?php prefill('date_end') ?>" required>
             <label class="label" for="date_end">Bis</label>
             <input class="input-field" type="date" id="date_end" name="date_end" value="<?php prefill('date_end') ?>"
                    required>
