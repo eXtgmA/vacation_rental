@@ -9,9 +9,6 @@ $houses = $param["houses"] ?? null;
 include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
-<div>
-    <a href="/cart"><p class="fa fa-chevron-left"></p> zurück</a>
-</div>
     <h1>Kasse</h1>
     <?php
     echo($message ?? "<h1>$message</h1>");
@@ -60,6 +57,7 @@ include_once($header);
         <h2>Gesamtpreis: XXXX,xx Euro</h2>
         <form action='<?php echo "/checkout/booking/".$booking->getId(); ?>' method='post'>
             <input type="hidden" id="gesamtpreis" name="gesamtpreis" value=""> <!-- todo : calculate value with JS (sum of all prices) -->
+            <a href="/cart"><button type="button">zurück zum Warenkorb</button></a>
             <button type="submit">Bezahlen</button>
         </form>
         <?php
