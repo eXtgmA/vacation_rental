@@ -28,7 +28,7 @@ include_once($header);
             </tr>
             <tr>
                 <td>Price Details</td>
-<!--                <td>--><?php //echo $p->getPriceDetailList() ?><!--</td>-->
+                <td><?php print_r($p->getPriceDetailList()); ?></td> <!-- todo : expand list in detail -->
             </tr>
             <tr>
                 <td>House id</td>
@@ -40,7 +40,7 @@ include_once($header);
         echo "<a href='/booking/checkout/".$booking->getId()."'><button type='submit'>Zur Kasse</button></a>";
     } else {
         // if no booking exists
-        echo "<h3>Der Warenkorb ist leer. Suche jetzt nach dem Ferienhaus deiner Träume! => <a href='/dashboard'>Zur Suche</a></h3>";
+        echo "<h3>Der Warenkorb ist leer. Suche jetzt nach dem Ferienhaus deiner Träume! => <a href='/dashboard'>Zur Suche</a></h3>"; // todo : design (Marvin)
     }
     ?>
 </div>
