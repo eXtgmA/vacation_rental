@@ -14,13 +14,13 @@ class CartController extends BaseController
     public function getCart(): void
     {
         try {
-            // get the booking from db
+            // get the one and only booking where "is_confirmed" equals false
             /** @var Booking|null $booking */
             $booking = $this->find('\src\models\Booking', 'is_confirmed', 0, 1);
-            $param["booking"] = $booking;// todo : get the one and only booking where is_confirmed equals false
+            $param["booking"] = $booking;
             if ($booking != null) {
                 // get all bookingpositions related to this booking
-                $param["bookingpositions"] = $param["booking"]->getAllBookingpositions();
+                $param["bookingpositions"] = $booking->getAllBookingpositions();
                 // todo : get all houses related to all bookingpositions
             }
         } catch (\Exception $e) {
