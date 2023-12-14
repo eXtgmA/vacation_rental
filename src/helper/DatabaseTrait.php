@@ -3,7 +3,6 @@
 namespace src\helper;
 
 use Exception;
-use mysql_xdevapi\DatabaseObject;
 
 trait DatabaseTrait
 {
@@ -138,9 +137,59 @@ trait DatabaseTrait
             $query = "delete from {$table} where id={$id}";
             $connection->query($query);
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Datensatz konnte nicht entfernt werden (Abhängigkeiten vorhanden)';
-            $previous = $_SESSION['previous'];
-            redirect($previous, 500);
+            throw new Exception($e);
         }
+    }
+
+    /**
+     * @param array<string> $param
+     * @return void
+     */
+    public function update($param): void
+    {
+        try {
+            //$this is our current object
+            $class = get_Class($this);
+            $allowedAttributes = $class::$allowedAttributes;
+            $table = $class::$table;
+            $updateables = [];
+//            try to find the counterpart of wished attribute to set in allowed attributes
+            foreach ($param as $updatekey => $updatevalue) {
+                $found = false;
+                foreach ($allowedAttributes as $value) {
+                    if ($updatekey === $value) {
+//                        if found add to updating values
+                        $updateables[$updatekey] = $updatevalue;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    throw new Exception('Ungültiger Wert angefragt');
+                }
+            }
+//            @phpstan-ignore-next-line   cant resolve specific object in base class when called
+            $query = $this->prepareUpdateQuery($table, $this->getId(), $updateables);
+            $this->connection()->query($query);
+        } catch (Exception $e) {
+            var_dump($e->getMessage());
+        }
+    }
+
+    /**
+     * @param string $table
+     * @param int $id
+     * @param array<string> $updateables
+     * @return string
+     */
+    public function prepareUpdateQuery($table, $id, $updateables): string
+    {
+        $query = "update {$table} set ";
+        foreach ($updateables as $key => $value) {
+            $query = $query . $key . " = '{$value}' ,";
+        }
+        $query = rtrim($query, ',');
+        $query = $query . " where id = {$id} limit 1";
+        return $query;
     }
 }

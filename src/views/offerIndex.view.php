@@ -28,7 +28,10 @@ if (isset($param)) {
                 <hr style="width: 80%"/>
                 <p><?php print $house->getStreet() . " " . $house->getHouseNumber() . ", " . $house->getPostalCode() . " " . $house->getCity() ?></p>
                 <div class="button-container">
-                    <button class="btn-primary" onclick="openLink('/offer/show/<?php echo $house->getId() ?>')">
+                    <button class="btn-primary" onclick="openLink('/booking/create/<?php echo $house->getId() ?>')">
+                        Buchen <!-- todo : remove buchen-button after implementing search-result page -->
+                    </button>
+                    <button class="btn-primary" onclick="openLink('/offer/edit/<?php echo $house->getId() ?>')">
                         Bearbeiten
                     </button>
                     <form action="/offer/togglestatus/<?php echo $house->getId(); ?>" method="post">

@@ -20,6 +20,7 @@ if (isset($param["houseId"])) {
 <link rel="stylesheet" href="/styles/option-overview.css"/>
 <div class="headline">
     <h1>Alle angelegten Optionen</h1>
+    <?php isset($message)?print ("<h3>".$message."</h3>"):print ''?> <!-- todo : set better position in frontend -->
     <button class="btn-secondary" onclick="openLink('<?php echo $house_reference; ?>')">Zurück</button>
 </div>
 

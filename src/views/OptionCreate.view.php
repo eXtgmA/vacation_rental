@@ -36,8 +36,8 @@ echo($message ?? "<h1>$message</h1>");
             <div class="option-description">
                 <label class="label" for="option-description-input">Beschreibung</label>
                 <textarea class="input-field" id="option-description-input" style="margin: 0;" name="description"
-                          cols="30" rows="10" maxlength="300" required>
-                    <?php echo $_SESSION["old_POST"]["description"] ?? ""; ?></textarea>
+                          cols="30" rows="10" maxlength="300" required
+                    ><?php echo $_SESSION["old_POST"]["description"] ?? ""; ?></textarea>
             </div>
         </div>
         <div class="button-area">

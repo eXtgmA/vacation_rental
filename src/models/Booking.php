@@ -20,6 +20,18 @@ class Booking extends BaseModel
         }
     }
 
+    /**
+     * @return array<Bookingposition>|false
+     */
+    public function getAllBookingpositions() : array|false
+    {
+        try {
+            return $this->find('\src\models\Bookingposition', 'booking_id', $this->id);
+        } catch (\Exception $e) {
+            $_SESSION['message'] = "Keine Positionen vorhanden";
+            return false;
+        }
+    }
 
     public function getId(): int
     {

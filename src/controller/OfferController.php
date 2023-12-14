@@ -3,13 +3,11 @@
 namespace src\controller;
 
 use Exception;
-use src\helper\DatabaseTrait;
 use src\models\House;
 use src\models\Image;
 
 class OfferController extends BaseController
 {
-    use DatabaseTrait;
     public function __construct()
     {
         parent::__construct();
@@ -79,7 +77,29 @@ class OfferController extends BaseController
 
     public function postDelete(int $houseId): void
     {
-        $this->delete(model: 'House', id: $houseId);
+        try {
+            /** @var House $house */
+            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+            $house->deleteHouse();
+        } catch (Exception $e) {
+            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
+            redirect($_SESSION['previous'], 500);
+        }
         redirect($_SESSION['previous'], 302);
+    }
+
+    public function getEdit(int $houseId): void
+    {
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        new ViewController('offerEdit', $house);
+    }
+
+    public function postEdit(int $houseId): void
+    {
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        /** @var House $house */
+        $param = $_POST;
+        $house->update($param);
+        redirect("/offer/show/{$houseId}", 302);
     }
 }
