@@ -1,1 +1,1 @@
-php ./phpcs.phar --standard=.phpcs.xml
+php ./phpcs.phar.1 --standard=.phpcs.xml
