@@ -34,9 +34,9 @@ class OfferController extends BaseController
         $house = new House($_POST);
         $house->save();
 
-        $uuid = Image::imageToDisk($_FILES['frontimage']);
-
-        $frontimage = new Image(['house_id'=>$house->getId(),'typetable_id'=>1,'uuid'=>$uuid]);
+        // save front image
+        $uuidF = Image::imageToDisk($_FILES['front-image-input']);
+        $frontimage = new Image(['house_id'=>$house->getId(),'typetable_id'=>1,'uuid'=>$uuidF]);
         $frontimage->save();
 
         redirect('/offer', 302);
