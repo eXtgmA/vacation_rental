@@ -32,15 +32,31 @@ class BookingController extends BaseController
 
     public function getCreateBookingposition(int $houseId): void
     {
-        // fetch a house object by id
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        if ($house === null) {
+        try {
+            // fetch a house object by id
+            /** @var \src\models\House $house */
+            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+            if ($house == null) {
+                throw new \Exception();
+            }
+        } catch (\Exception $e) {
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
-            redirect('/dashboard', 302);
+            redirect('/dashboard', 302); // todo : check redirect path
+            die();
         }
         $param["house"] = $house;
-        // todo fetch all options by house id
-        $param["options"] = null;
+
+        // fetch all options related to the given house
+        $param["options"] = $house->getAllOptions();
+        if ($param["options"] != false) {
+            foreach ($param["options"] as $key => $option) {
+                // sort out all disabled options
+                if ($option->getIsDisabled()) {
+                    unset($param["options"][$key]);
+                }
+            }
+        }
+
         // todo fetch all bookings for a house (then translate into days)
         $param["bookedDays"] = null; // (array of days)
         new ViewController('bookingCreate', $param);
