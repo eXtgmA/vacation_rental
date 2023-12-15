@@ -58,12 +58,22 @@ class House extends BaseModel
 
     public function getFrontImage(): string
     {
-        $result=$this->find('\src\models\Image', 'house_id', $this->id, 1);
-        if ($result) {
-            $this->frontimage=$result->getUuid();
-            return $this->frontimage;
+        // get front image id from db
+        $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=1 LIMIT 1;";
+        $result = $this->connection()->query($query);
+        if (!($result instanceof \mysqli_result)) {
+            return '';
         }
-        return $this->frontimage='';
+        $row = $result->fetch_assoc();
+        // no image found => return empty string
+        if ($row == null) {
+            return '';
+        }
+        // fetch associated uuid
+        /** @var \src\models\Image $image */
+        $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
+        $this->frontimage = $image->getUuid();
+        return $this->frontimage;
     }
 
     /**
