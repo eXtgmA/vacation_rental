@@ -28,6 +28,17 @@ class LoginController extends BaseController
         $user = $this->find('\src\models\User', 'email', $email, 1);
         if ($user) {
             $user->login($email, $password);
+
+            // Redirect to previous page
+            if (isset($_SESSION['redirect_back'])) {
+                $redirect_url = $_SESSION['redirect_back'];
+                unset($_SESSION['redirect_back']);
+                redirect($redirect_url, 302);
+            } else {
+                // Redirect to landing page
+                redirect("dashboard", 302);
+            }
+            exit;
         } else {
             $_SESSION['message'] = 'Ungültige Mailadresse';
             $previous = $_SESSION['previous'];
