@@ -280,10 +280,10 @@
         align-items: center;
         cursor: pointer;
     }
+}
 
-    .hidden {
-        display: none;
-    }
+.hidden {
+    display: none;
 }
 
 .footline {
