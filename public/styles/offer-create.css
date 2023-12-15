@@ -298,3 +298,267 @@
         height: 50px;
     }
 }
+
+
+/* Large 992px - 1200px*/
+@media (max-width: 1200px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        width: 95%;
+    }
+
+    #required-images-grid {
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+    }
+
+
+    #tag-grid {
+        width: 95%;
+    }
+
+    .footline {
+        width: 95%;
+    }
+}
+
+/* Medium 768px - 992px*/
+@media (max-width: 992px) {
+    .headline {
+        width: 80%;
+    }
+
+    .sub-headline {
+        width: 80%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas:
+        "name name"
+        "city postal-code"
+        "street house-number"
+        "square-meter room-count"
+        "max-person price"
+        "description description";
+        grid-column-gap: 3rem;
+        grid-row-gap: 1rem;
+        margin: 1rem auto;
+        width: 80%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto auto;
+        width: 80%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: 1fr 1fr;
+        width: 80%;
+    }
+
+    #feature-grid {
+        grid-template-columns: auto auto;
+        width: 80%;
+    }
+
+    #tag-grid {
+        width: 80%;
+    }
+
+    .footline {
+        width: 80%;
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        width: 95%;
+    }
+
+    #required-images-grid {
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+    }
+
+    #tag-grid {
+        width: 95%;
+    }
+
+    .footline {
+        width: 95%;
+    }
+
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-areas:
+        "name"
+        "city"
+        "postal-code"
+        "street"
+        "house-number"
+        "square-meter"
+        "room-count"
+        "max-person"
+        "price"
+        "description";
+        width: 95%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+
+        & .feature-select-list::after {
+            display: none;
+        }
+    }
+
+
+    #tag-grid {
+        justify-content: space-between;
+        width: 95%;
+
+        & label {
+            width: 40%;
+        }
+
+        & button {
+            width: 50%;
+            margin-right: 0 !important;
+        }
+    }
+
+    .footline {
+        width: 95%;
+
+        button {
+            width: 100%;
+        }
+    }
+
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-areas:
+        "name"
+        "city"
+        "postal-code"
+        "street"
+        "house-number"
+        "square-meter"
+        "room-count"
+        "max-person"
+        "price"
+        "description";
+        width: 95%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #feature-grid {
+        grid-template-columns: auto;
+        width: 95%;
+
+        & .feature-select-list::after {
+            display: none;
+        }
+    }
+
+
+    #tag-grid {
+        justify-content: space-between;
+        width: 95%;
+
+        & label {
+            width: 40%;
+        }
+
+        & button {
+            width: 50%;
+            margin-right: 0 !important;
+        }
+    }
+
+    .footline {
+        width: 95%;
+
+        button {
+            width: 100%;
+        }
+    }
+}
