@@ -51,7 +51,7 @@ class BookingController extends BaseController
         if ($param["options"] != false) {
             foreach ($param["options"] as $key => $option) {
                 // sort out all disabled options
-                if ($option->getIsDisabled()) {
+                if ($option->isDisabled()) {
                     unset($param["options"][$key]);
                 }
             }

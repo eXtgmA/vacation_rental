@@ -30,7 +30,7 @@ if (isset($param["houseId"])) {
     /** @var Option $option */
     if ($param != null) {
         foreach ($param as $option) {
-            echo '<div class="card option-card' . (($option->getIsDisabled() == 1) ? ' disabled' : '') . '">';
+            echo '<div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">';
             echo '<div class="option-buttons">';
             echo '<button class="edit-button btn-primary">Edit</button>';
             echo "<form action='/option/delete/{$option->getId()}' method='post'><button class='delete-button btn-secondary'>Delete</button></form>";

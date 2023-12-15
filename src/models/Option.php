@@ -271,7 +271,7 @@ class Option extends BaseModel
         $this->price = ($price >= 0) ? $price : 0;
     }
 
-    public function getIsDisabled(): bool
+    public function isDisabled(): bool
     {
         return $this->is_disabled;
     }
