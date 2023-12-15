@@ -17,8 +17,8 @@ echo($message ?? "<h1>$message</h1>");
     <form action="<?php echo "/option/create/" . $house_id ?>" method="post" enctype="multipart/form-data">
         <div class="card ">
             <div id="option-image">
-                <div id="drop-area">
-                    <p style="margin: 10px">Bild in den makierten Bereich ziehen oder </p>
+                <div id="image-drop-area">
+                    <p style="margin: 10px">Bild in den markierten Bereich ziehen oder </p>
                     <input type="file" id="option-image-input" accept="image/*" name="optionimage">
                     <label for="option-image-input" id="select-image-label">Bild auswählen</label>
                 </div>

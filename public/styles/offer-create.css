@@ -1,0 +1,564 @@
+.headline {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    width: 80%;
+
+    & button {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+        height: 50px;
+    }
+}
+
+.sub-headline {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    width: 80%;
+}
+
+#detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+    "name city postal-code"
+    "street house-number square-meter"
+    "room-count max-person price"
+    "description description description";
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+
+
+    & > #name-area {
+        grid-area: name;
+        color: var(--color-text-headline);
+    }
+
+    & > #street-area {
+        grid-area: street;
+    }
+
+    & > #price-area {
+        grid-area: price;
+    }
+
+    & > #city-area {
+        grid-area: city;
+    }
+
+    & > #house-number-area {
+        grid-area: house-number;
+    }
+
+    & > #room-count-area {
+        grid-area: room-count;
+    }
+
+    & > #postal-code-area {
+        grid-area: postal-code;
+    }
+
+    & > #max-person-area {
+        grid-area: max-person;
+    }
+
+    & > #square-meter-area {
+        grid-area: square-meter;
+    }
+
+    & > #description-area {
+        grid-area: description;
+    }
+
+    & > #description-area > .description-input {
+        padding: 10px;
+    }
+
+    & > #description-area > .description-input > textarea {
+        width: 100%;
+        height: 100%;
+        resize: none;
+    }
+}
+
+
+#feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+
+
+    & .feature-select-list {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 0 1rem;
+
+        & .feature-select {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    & .feature-select-list::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 180px;
+        border-right: 1px solid #000;
+    }
+
+    & .feature-select-list:last-child::after {
+        border-right: none;
+    }
+}
+
+#tag-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 1rem auto;
+    width: 80%;
+
+    #add-tag-button {
+        margin-top: 23px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .tag-pill {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: var(--color-secondary);
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        min-width: 80px;
+        cursor: pointer;
+        margin: 25px 2px 2px;
+
+        & .tag-text {
+            display: inline-block;
+        }
+
+        & .delete-text {
+            display: none;
+            color: #fff;
+        }
+
+        &:hover, &:focus {
+            background-color: var(--color-secondary-3);
+
+            & .delete-text {
+                margin-left: 8px;
+                display: block;
+            }
+        }
+    }
+}
+
+
+#required-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+}
+
+#optional-images-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 3rem;
+    grid-row-gap: 1rem;
+    margin: 1rem auto;
+    width: 80%;
+}
+
+.image-upload-drop-area {
+    width: 100%;
+    height: 250px;
+    border: 2px dashed #ccc;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.image-upload-drop-area.highlight {
+    border-color: var(--color-primary-4);
+}
+
+.image-upload-input {
+    display: none;
+}
+
+.image-upload-label {
+    display: inline-block;
+
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-secondary-3);
+    }
+
+    &:disabled {
+        background-color: var(--color-secondary-1);
+        cursor: not-allowed;
+    }
+
+    &:focus {
+        outline: none;
+        padding: 8px 18px;
+        border: 2px solid var(--color-secondary-4);
+    }
+}
+
+.image-upload-hint {
+    margin: 10px;
+}
+
+#optional-images-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /*gap: 1px;*/
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.image-container {
+    position: relative;
+
+    & img {
+        width: 100%;
+        height: 100%;
+        max-height: 250px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+
+    & .delete-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #fff;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.footline {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem auto;
+    width: 80%;
+
+    & button {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+        height: 50px;
+    }
+}
+
+
+/* Large 992px - 1200px*/
+@media (max-width: 1200px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        width: 95%;
+    }
+
+    #required-images-grid {
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+    }
+
+
+    #tag-grid {
+        width: 95%;
+    }
+
+    .footline {
+        width: 95%;
+    }
+}
+
+/* Medium 768px - 992px*/
+@media (max-width: 992px) {
+    .headline {
+        width: 80%;
+    }
+
+    .sub-headline {
+        width: 80%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+        grid-template-areas:
+        "name name"
+        "city postal-code"
+        "street house-number"
+        "square-meter room-count"
+        "max-person price"
+        "description description";
+        grid-column-gap: 3rem;
+        grid-row-gap: 1rem;
+        margin: 1rem auto;
+        width: 80%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto auto;
+        width: 80%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: 1fr 1fr;
+        width: 80%;
+    }
+
+    #feature-grid {
+        grid-template-columns: auto auto;
+        width: 80%;
+    }
+
+    #tag-grid {
+        width: 80%;
+    }
+
+    .footline {
+        width: 80%;
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        width: 95%;
+    }
+
+    #required-images-grid {
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+    }
+
+    #tag-grid {
+        width: 95%;
+    }
+
+    .footline {
+        width: 95%;
+    }
+
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-areas:
+        "name"
+        "city"
+        "postal-code"
+        "street"
+        "house-number"
+        "square-meter"
+        "room-count"
+        "max-person"
+        "price"
+        "description";
+        width: 95%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #feature-grid {
+        width: 95%;
+
+        & .feature-select-list::after {
+            display: none;
+        }
+    }
+
+
+    #tag-grid {
+        justify-content: space-between;
+        width: 95%;
+
+        & label {
+            width: 40%;
+        }
+
+        & button {
+            width: 50%;
+            margin-right: 0 !important;
+        }
+    }
+
+    .footline {
+        width: 95%;
+
+        button {
+            width: 100%;
+        }
+    }
+
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+    .headline {
+        width: 95%;
+    }
+
+    .sub-headline {
+        width: 95%;
+    }
+
+    #detail-grid {
+        grid-template-columns: auto;
+        grid-template-areas:
+        "name"
+        "city"
+        "postal-code"
+        "street"
+        "house-number"
+        "square-meter"
+        "room-count"
+        "max-person"
+        "price"
+        "description";
+        width: 95%;
+    }
+
+    #required-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #optional-images-grid {
+        grid-template-columns: auto;
+        width: 95%;
+    }
+
+    #feature-grid {
+        grid-template-columns: auto;
+        width: 95%;
+
+        & .feature-select-list::after {
+            display: none;
+        }
+    }
+
+
+    #tag-grid {
+        justify-content: space-between;
+        width: 95%;
+
+        & label {
+            width: 40%;
+        }
+
+        & button {
+            width: 50%;
+            margin-right: 0 !important;
+        }
+    }
+
+    .footline {
+        width: 95%;
+
+        button {
+            width: 100%;
+        }
+    }
+}
