@@ -44,24 +44,17 @@ include_once($header);
         <div class="options-area">
             <h3>Zusatzoptionen</h3>
             <div class="options-list">
-                <label class="option">
-                    <input type="checkbox">
-                    Pool
-                </label>
-                <label class="option">
-                    <input type="checkbox">
-                    Garage
-                </label>
-                <label class="option">
-                    <input type="checkbox">
-                    Room Service
-                </label>
-                <label class="option">
-                    <input type="checkbox">
-                    TV
-                </label>
+                <?php if ($options != null) {
+                    foreach ($options as $option) { ?>
+                        <label class="option">
+                            <input type="checkbox">
+                            <?php echo $option->getName()." ".$option->getPrice()."€"; ?>
+                        </label>
+                    <?php }
+                } else {
+                    echo "<p>keine vorhanden</p>";
+                } ?> <!-- todo post logic for checkboxes -->
             </div>
-            <?php print_r($options) ?> <!-- todo checkboxes for options -->
         </div>
         <div class="cost-summary-area">
             <h3>Gesamtpreis</h3>
