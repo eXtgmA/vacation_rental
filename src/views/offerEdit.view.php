@@ -5,20 +5,33 @@ $title = "Datailseite für ein hausobject";
 $house = isset($param) ? $param : null;
 include_once($header);
 ?>
-<link rel="stylesheet" href="/styles/offer-create.css"/>
-<form action="/offer/edit/<?php echo $house->getId() ?>" method="post" enctype="multipart/form-data"
-      id="edit-offer-form">
 
+<?php // sort photos
+/** @var \src\models\Image[]|array<\src\models\Image[]> $images */
+$images = [];
+$result = $house->getImages();
+if ($result) {
+    foreach ($result as $img) {
+        $tId = $img->getTypetableId();
+        if ($tId == 1) {
+            $images['front'] = $img;
+        } elseif ($tId == 2) {
+            $images['layout'] = $img;
+        } elseif ($tId == 4) {
+            $images['optional'][] = $img;
+        }
+    }
+}
+?>
+
+<link rel="stylesheet" href="/styles/offer-create.css"/>
+<form action="/offer/edit/<?php echo $house->getId() ?>" method="post" enctype="multipart/form-data" id="edit-offer-form">
     <div id="new-offer-area">
         <div class="headline">
             <h1>Bearbeiten des Ferienhauses <span style="font-style: italic"><?php echo $house->getName() ?></span></h1>
             <div>
-                <button class="btn btn-secondary" type="button" onclick="openLink('/offer')" style="margin-right: 20px">
-                    Zurück
-                </button>
-                <button class="btn btn-primary" type="button"
-                        onclick="openLink('<?php echo "/option/showall/" . $house->getId(); ?>')">Optionen bearbeiten
-                </button>
+                <button class="btn btn-secondary" type="button" onclick="openLink('/offer')" style="margin-right: 20px">Zurück</button>
+                <button class="btn btn-primary" type="button" onclick="openLink('<?php echo "/option/showall/" . $house->getId(); ?>')">Optionen bearbeiten</button>
             </div>
         </div>
 
@@ -26,55 +39,44 @@ include_once($header);
         <div id="detail-grid">
             <div id="name-area">
                 <label class="label" for="name">Name der Anlage*</label>
-                <input class="input-field" type="text" name="name" id="name" value="<?php echo $house->getName(); ?>"
-                       required
-                       autofocus>
+                <input class="input-field" type="text" name="name" id="name" value="<?php echo $house->getName(); ?>" required autofocus>
             </div>
             <div id="city-area">
                 <label class="label" for="city">Ort*</label>
-                <input class="input-field" type="text" name="city" id="city" value="<?php echo $house->getCity(); ?>"
-                       required>
+                <input class="input-field" type="text" name="city" id="city" value="<?php echo $house->getCity(); ?>" required>
             </div>
             <div id="postal-code-area">
                 <label class="label" for="postal-code">Postleitzahl*</label>
-                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5"
-                       value="<?php echo $house->getPostalCode(); ?>" required>
+                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5" value="<?php echo $house->getPostalCode(); ?>" required>
             </div>
             <div id="street-area">
                 <label class="label" for="street">Straße*</label>
                 <input class="input-field" type="text" name="street" id="street"
-                       value="<?php echo $house->getStreet(); ?>"
-                       required>
+                       value="<?php echo $house->getStreet(); ?>" required>
             </div>
             <div id="house-number-area">
                 <label class="label" for="house-number">Hausnummer*</label>
-                <input class="input-field" type="number" name="house-number" id="house-number" min="1"
-                       value="<?php echo $house->getHouseNumber(); ?>" required>
+                <input class="input-field" type="number" name="house-number" id="house-number" min="1" value="<?php echo $house->getHouseNumber(); ?>" required>
             </div>
             <div id="square-meter-area">
                 <label class="label" for="square_meter">Quadratmeter*</label>
-                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1"
-                       value="<?php echo $house->getSquareMeter(); ?>" required>
+                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1" value="<?php echo $house->getSquareMeter(); ?>" required>
             </div>
             <div id="room-count-area">
                 <label class="label" for="room-count">Anzahl Räume*</label>
-                <input class="input-field" type="number" name="room-count" id="room-count" min="1"
-                       value="<?php echo $house->getRoomCount(); ?>" required>
+                <input class="input-field" type="number" name="room-count" id="room-count" min="1" value="<?php echo $house->getRoomCount(); ?>" required>
             </div>
             <div id="max-person-area">
                 <label class="label" for="max_person">Anzahl mögliche Personen*</label>
-                <input class="input-field" type="number" name="max-person" id="max_person" min="1"
-                       value="<?php echo $house->getMaxPerson(); ?>" required>
+                <input class="input-field" type="number" name="max-person" id="max_person" min="1" value="<?php echo $house->getMaxPerson(); ?>" required>
             </div>
             <div id="price-area">
                 <label class="label" for="price">Preis pro Nacht*</label>
-                <input class="input-field" type="number" name="price" id="price" min="1"
-                       value="<?php echo $house->getPrice(); ?>" required>
+                <input class="input-field" type="number" name="price" id="price" min="1" value="<?php echo $house->getPrice(); ?>" required>
             </div>
             <div id="description-area">
                 <label class="label" for="description">Beschreibung*</label>
-                <textarea class="input-field" name="description" id="description" cols="30" required
-                          rows="10"><?php echo $house->getDescription(); ?></textarea>
+                <textarea class="input-field" name="description" id="description" cols="30" required rows="10"><?php echo $house->getDescription(); ?></textarea>
             </div>
         </div>
 
@@ -86,10 +88,8 @@ include_once($header);
                 <div id="front-image" class="image-upload-area image-container">
                     <div id="front-image-drop-area" class="image-upload-drop-area">
                         <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
-                        <input type="file" class="image-upload-input" id="front-image-input-field"
-                               accept="image/*" name="front-image-input">
-                        <label class="image-upload-label" for="front-image-input-field"
-                               id="front-image-label" tabindex="0">Bild auswählen</label>
+                        <input type="file" class="image-upload-input" id="front-image-input-field" accept="image/*" name="front-image-input">
+                        <label class="image-upload-label" for="front-image-input-field" id="front-image-label" tabindex="0">Bild auswählen</label>
                     </div>
                 </div>
             </div>
@@ -98,10 +98,8 @@ include_once($header);
                 <div id="layout-image" class="image-upload-area image-container">
                     <div id="layout-image-drop-area" class="image-upload-drop-area">
                         <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
-                        <input type="file" class="image-upload-input" id="layout-image-input-field"
-                               accept="image/*" name="layout-image-input">
-                        <label class="image-upload-label" for="layout-image-input-field"
-                               id="layout-image-label" tabindex="0">Bild auswählen</label>
+                        <input type="file" class="image-upload-input" id="layout-image-input-field" accept="image/*" name="layout-image-input">
+                        <label class="image-upload-label" for="layout-image-input-field" id="layout-image-label" tabindex="0">Bild auswählen</label>
                     </div>
                 </div>
             </div>
@@ -110,10 +108,8 @@ include_once($header);
         <div id="optional-images-grid">
             <div id="optional-image-drop-area" class="image-upload-drop-area">
                 <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
-                <input type="file" class="image-upload-input" id="optional-image-input-field"
-                       accept="image/*" multiple name="optional-images[]">
-                <label class="image-upload-label" for="optional-image-input-field"
-                       id="optional-image-label" tabindex="0">Bild auswählen</label>
+                <input type="file" class="image-upload-input" id="optional-image-input-field" accept="image/*" multiple name="optional-images[]">
+                <label class="image-upload-label" for="optional-image-input-field" id="optional-image-label" tabindex="0">Bild auswählen</label>
             </div>
         </div>
 
@@ -286,9 +282,7 @@ include_once($header);
         </div>
 
         <div class="footline">
-            <button class="btn btn-secondary" type="button" onclick="openLink('/offer')" style="margin-right: 20px">
-                Zurück
-            </button>
+            <button class="btn btn-secondary" type="button" onclick="openLink('/offer')" style="margin-right: 20px">Zurück</button>
             <button class="btn-primary" type="submit">Speichern</button>
         </div>
     </div>
@@ -367,16 +361,16 @@ include_once($footer)
 
 <script>
     // preload the frontImage
-    <?php if ($house->getFrontimage() != null) { ?>
-    fetch("<?php echo "/images/" . $house->getFrontimage(); ?>")
+    <?php if (isset($images['front'])) { ?>
+    fetch("<?php echo "/images/" . $images['front']->getUuid() ?>")
         .then(response => response.blob())
         .then(blob => addPrimaryImage(new File([blob], "<?php echo $house->getFrontimage() ?>", {type: "image"}), frontImageContainer, frontImageDropArea, frontImageSelectElement))
         .catch(error => console.error(error));
     <?php } ?>
 
     // preload the layoutImage
-    <?php if ($house->getLayoutImage() != null) { ?>
-    fetch("<?php echo "/images/" . $house->getLayoutImage(); ?>")
+    <?php if (isset($images['layout'])) { ?>
+    fetch("<?php echo "/images/" . $images['layout']->getUuid() ?>")
         .then(response => response.blob())  // convert to blob
         .then(blob => addPrimaryImage(new File([blob], "<?php echo $house->getLayoutImage() ?>", {type: "image"}), layoutImageContainer, layoutImageDropArea, layoutImageSelectElement))
         .catch(error => console.error(error));
@@ -384,20 +378,20 @@ include_once($footer)
 
     // preload the optional images
     // Fetch all optional images associated with the house
-    let optionalImages = <?php echo json_encode($house->getOptionalImages()); ?>;
-    if (optionalImages?.length > 0) {
-        // Create an array to store the File temporary
-        let tempFiles = [];
-        Promise.all(optionalImages?.map(image =>
-            fetch("/images/" + image)
-                .then(response => response.blob())
-                .then(blob => tempFiles.push(new File([blob], image, {type: "image"})))
-                .catch(error => console.error(error))
-        )).then(() => addOptionalImage(tempFiles))
-            .catch(error => console.error(error));
-    } else {
-        console.debug("No optional images found");
-    }
+    <?php if (isset($images['optional'])) { ?>
+    // Create an array to store the File temporary
+    let tempFiles = [];
+    Promise.all(<?php echo json_encode(array_map(function ($image) {
+        return $image->getUuid();
+    }, $images['optional'])) ?>?.map(image =>
+        fetch("/images/" + image)
+            .then(response => response.blob())
+            .then(blob => tempFiles.push(new File([blob], image, {type: "image"})))
+            .catch(error => console.error(error))
+    )
+    ).then(() => addOptionalImage(tempFiles))
+        .catch(error => console.error(error));
+    <?php } ?>
 
     // preload the tags
     (<?php echo json_encode($house->getTags()); ?>)?.forEach(tag => {
