@@ -316,7 +316,7 @@ include_once($footer)
     <?php if (isset($images['optional'])) { ?>
     Promise.all(<?php echo json_encode(array_map(function ($image) {
         return $image->getUuid();
-    }, $images['optional'])) ?>?.map(image =>
+                }, $images['optional'])) ?>?.map(image =>
         fetch("/images/" + image)
             .then(response => response.blob())
             .then(blob => new File([blob], image, {type: "image"}))

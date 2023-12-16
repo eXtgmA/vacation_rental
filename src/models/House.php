@@ -142,7 +142,8 @@ class House extends BaseModel
      *
      * @return array<string>
      */
-    public function getTags(): array {
+    public function getTags(): array
+    {
         // Initialize an empty array to hold the tags
         $tags = [];
 
