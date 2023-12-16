@@ -47,7 +47,7 @@ include_once($header);
                 <?php if ($options != null) {
                     foreach ($options as $option) { ?>
                         <label class="option">
-                            <input type="checkbox">
+                            <input type="checkbox" name="option[]" value="<?php print $option->getId()?>">
                             <?php echo $option->getName()." ".$option->getPrice()."€"; ?>
                         </label>
                     <?php }
