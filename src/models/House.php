@@ -33,7 +33,7 @@ class House extends BaseModel
     /**
      * @var string
      */
-    private string $frontimage; //phpstan ignore-next-line
+    private string $frontimage;
 
 
     /**
@@ -143,7 +143,10 @@ class House extends BaseModel
             // delete all images (front, layout and other)
             if ($allImages) {
                 foreach ($allImages as $image) {
-                    $image->deleteImage();
+                    $imgPath = $image->deleteImage();
+                    if (!unlink($imgPath)) {
+                        error_log("Image could not be deleted (unlinked) from disk (path: {$imgPath} )");
+                    }
                 }
             }
             // todo : delete related features

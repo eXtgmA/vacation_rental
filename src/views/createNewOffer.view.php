@@ -19,6 +19,9 @@ function pold($string): void
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
+<?php
+echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
+?>
 <form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">

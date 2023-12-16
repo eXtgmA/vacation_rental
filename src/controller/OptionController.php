@@ -92,4 +92,12 @@ class OptionController extends BaseController
         // deletion successful
         redirect($_SESSION['previous'], 302);
     }
+
+    public function posttoggleStatus(int $id): void
+    {
+        /** @var Option $option */
+        $option = $this->find('\src\models\Option', 'id', $id, 1);
+        $option->toggleStatus();
+        header('location: /option/showall/'.$option->getHouseId(), true, 302);
+    }
 }
