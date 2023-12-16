@@ -55,7 +55,8 @@ return [
             '' => 'index',
             'create'=>'create',
             'edit'=>'edit',
-            'show'=>'show'
+            'show'=>'show',
+            'find'=>'find'
         ],
           'POST' => [
              'create' => 'create',
@@ -82,7 +83,8 @@ return [
         ],
             'POST' => [
                 'create' => 'create',
-                'delete'=>'delete']
+                'delete'=>'delete',
+                'togglestatus'=>'toggleStatus',]
         ],
     'booking' =>
         ['GET' => [

@@ -338,11 +338,48 @@ if ($result) {
         <td>Hausnummer</td>
         <td><p><?php echo $house->getHouseNumber(); ?></p></td>
     </tr>
+    <?php // sort photos
+    /** @var \src\models\Image[]|array<\src\models\Image[]> $images */
+    $images = [];
+    $result = $house->getImages();
+    if ($result != false) {
+        foreach ($result as $img) {
+            $tId = $img->getTypetableId();
+            if ($tId == 1) {
+                $images['front'] = $img;
+            } elseif ($tId == 2) {
+                $images['layout'] = $img;
+            } elseif ($tId == 4) {
+                $images['optional'][] = $img;
+            }
+        }
+    }
+    ?>
     <tr>
-        <td>Foto</td>
+        <td>Frontansicht</td>
         <td>
-            <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" style="width: 100px;height: 100px" alt="alt">
+            <img src="<?php if (isset($images['front'])) {
+                echo "/images/".$images['front']->getUuid();
+                      }?>" style="width: 100px;height: 100px" alt="alt">
         </td>
+    </tr>
+    <tr>
+        <td>Grundriss</td>
+        <td>
+            <img src="<?php if (isset($images['layout'])) {
+                echo "/images/".$images['layout']->getUuid();
+                      }?>" style="width: 100px;height: 100px" alt="alt">
+        </td>
+    </tr>
+    <tr>
+        <td>Zusatzfotos</td>
+        <?php if (isset($images['optional'])) {
+            foreach ($images['optional'] as $image) { ?>
+                <td>
+                    <img src="<?php echo "/images/".$image->getUuid();?>" style="width: 100px;height: 100px" alt="alt">
+                </td>
+            <?php }
+        } ?>
     </tr>
     <tr>
         <td>Status</td>

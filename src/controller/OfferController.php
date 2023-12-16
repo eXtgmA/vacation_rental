@@ -34,11 +34,50 @@ class OfferController extends BaseController
         $house = new House($_POST);
         $house->save();
 
-        $uuid = Image::imageToDisk($_FILES['frontimage']);
+        try {
+            // save front image
+            $uuidF = Image::imageToDisk($_FILES['front-image-input']);
+            $frontimage = new Image(['house_id' => $house->getId(), 'typetable_id' => 1, 'uuid' => $uuidF]);
+            $frontimage->save();
 
-        $frontimage = new Image(['house_id'=>$house->getId(),'typetable_id'=>1,'uuid'=>$uuid]);
-        $frontimage->save();
+            // save layout image
+            $uuidL = Image::imageToDisk($_FILES['layout-image-input']);
+            $layoutimage = new Image(['house_id' => $house->getId(), 'typetable_id' => 2, 'uuid' => $uuidL]);
+            $layoutimage->save();
 
+            // save all additional images (if exist)
+            if (isset($_FILES['optional-images'])) {
+                $fCount = count($_FILES['optional-images']['name']);
+                $oFiles = [];
+                for ($i = 0; $i < $fCount; $i++) {
+                    // translate input array format
+                    $oFiles[$i]['name'] = $_FILES['optional-images']['name'][$i];
+                    $oFiles[$i]['full_path'] = $_FILES['optional-images']['full_path'][$i];
+                    $oFiles[$i]['type'] = $_FILES['optional-images']['type'][$i];
+                    $oFiles[$i]['tmp_name'] = $_FILES['optional-images']['tmp_name'][$i];
+                    $oFiles[$i]['error'] = $_FILES['optional-images']['error'][$i];
+                    $oFiles[$i]['size'] = $_FILES['optional-images']['size'][$i];
+
+                    // save one additional image
+                    $uuidO = Image::imageToDisk($oFiles[$i]);
+                    $optionalimage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuidO]);
+                    $optionalimage->save();
+                }
+            }
+        } catch (Exception $e) {
+            try {
+                // delete house and all its images
+                $house->deleteHouse();
+            } catch (Exception $e) {
+                error_log("House and its images could not be deleted after creation process has failed");
+            }
+
+            // redirect
+            $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen. Das Haus konnte nicht angelegt werden.";
+            redirect($_SESSION['previous'], 500, $_POST);
+        }
+
+        $_SESSION['message'] = "Das Haus wurde erfolgreich angelegt und kann ab jetzt gemietet werden";
         redirect('/offer', 302);
     }
 
@@ -69,7 +108,7 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function getshow(int $id):void
+    public function getshow(int $id): void
     {
         $house = $this->find('\src\models\House', 'id', $id, 1);
         new ViewController("offerDetail", $house);
@@ -88,8 +127,12 @@ class OfferController extends BaseController
         redirect($_SESSION['previous'], 302);
     }
 
-    public function getEdit(int $houseId): void
+    public function getEdit(int $houseId = null): void
     {
+        if (!$houseId) {
+            // fallback when missing param in url
+            redirect('/dashboard', 302);
+        }
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
         new ViewController('offerEdit', $house);
     }
@@ -101,5 +144,29 @@ class OfferController extends BaseController
         $param = $_POST;
         $house->update($param);
         redirect("/offer/show/{$houseId}", 302);
+    }
+
+    /**
+     * @param array<string>$param
+     * @return void
+     */
+    public function getFind($param):void
+    {
+        //prepare search parameter
+        $destination = $param['destination'];
+        $dateStart = $param['dateStart'];
+        $dateEnd = $param['dateEnd'];
+        $persons = $param['persons'];
+
+        $query = "select * from houses where city like '%{$destination}%'";
+        $result=$this->connection()->query($query);
+        $houses = [];
+        if ($result instanceof \mysqli_result) {
+            while ($row=$result->fetch_object('\src\models\House')) {
+                $houses[] = $row;
+            }
+        }
+        $param['houses'] = $houses;
+        new ViewController('search', $param);
     }
 }

@@ -33,6 +33,9 @@ if (isset($param["houseId"])) {
             echo '<div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">';
             echo '<div class="option-buttons">';
             echo '<button class="edit-button btn-primary">Edit</button>';
+            echo "<form action='/option/togglestatus/{$option->getId()}' method='post'><button class='btn-secondary'>"
+                . ($option->isDisabled() == 1 ? 'Aktivieren' : 'Deaktivieren')
+                ."</button></form>";
             echo "<form action='/option/delete/{$option->getId()}' method='post'><button class='delete-button btn-secondary'>Delete</button></form>";
             echo '</div>';
             echo '<div class="option-image">';

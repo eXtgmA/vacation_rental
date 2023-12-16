@@ -7,6 +7,15 @@ session_start();
 //include_once('..\src\helper\autoloader.php');
 include_once('../src/helper/autoloader.php');
 
+//    when there are only 2 parameter given, we have to check for route get params
+//    []
+//    these prams start with ?
+//    []
+//    we have to strip off these data and pass it to the controller method
+//    []
+//    maybe as a named array
+//
+
 $routes = include_once('../src/routes/routes.php');
 // This page will be the entry page for all requests
 // based on the url the wanted route will be choosen and processed
@@ -16,16 +25,45 @@ $requestedMethod = ($_SERVER['REQUEST_METHOD']);
 $splittedUri = explode('/', $requestedUri);
 $splittedUri[1] != "" ? $controller = $splittedUri[1] : $controller = "dashboard";
 $id = null;
+/**
+ * @param string $getParamsString
+ * @return array<string>
+ */
+function transformGetStringToArray(string $getParamsString)
+{
+    $resultArray = [];
+//    separator is the '&'
+    $unnamedArray = explode('&', $getParamsString);
+//    now we have to explode it by the '=' and set key=> value in our result Array
+    foreach ($unnamedArray as $parameter) {
+        $keyValueArray = explode('=', $parameter);
+        $resultArray[$keyValueArray[0]] = $keyValueArray[1];
+    }
+    return $resultArray;
+}
+
+$paramArray = null; // Setting fallback value
 if (count($splittedUri) > 2) {
     $action = $splittedUri[2];
+    // check for further information eg. an id for show pages
     if (count($splittedUri)>3) {
         $id = (int)$splittedUri[3];
+    } else {
+//        action is given, check for get parameter beggining with '?'
+        $getParamsString = explode('?', $splittedUri[2], 2);
+        if (count($getParamsString)==2) {
+            $paramArray = transformGetStringToArray($getParamsString[1]);
+//            remove string from action
+            $action = $getParamsString[0];
+        }
     }
 } else {
+    // no action is given and will be set do fallback ''
     $action = '';
 }
 
-executeRoute($controller, $action, $routes, $requestedMethod, $id);
+executeRoute($controller, $action, $routes, $requestedMethod, $paramArray, $id);
+
 
 /**
  * redirect to the correct controller and action
@@ -34,9 +72,11 @@ executeRoute($controller, $action, $routes, $requestedMethod, $id);
  * @param string $action
  * @param array<string, array<string, array<string, string>>> $routes
  * @param string $requestedMethod
+ * @param array<string>|null $paramArray
+ * @param int|null $id
  * @return void
  */
-function executeRoute(string $controller, string $action, array $routes, string $requestedMethod, ?int $id): void
+function executeRoute(string $controller, string $action, array $routes, string $requestedMethod, array $paramArray = null, ?int $id): void
 {
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
@@ -49,7 +89,11 @@ function executeRoute(string $controller, string $action, array $routes, string 
         $controllerNamespace = "\\src\\controller\\$controllername";
         $controller = new $controllerNamespace();
         // trigger the function in controller
-        $controller->$controllerFunction($id);
+        if ($id) {
+            $controller->$controllerFunction($id);
+        } else {
+            $controller->$controllerFunction($paramArray);
+        }
     } else {
         new ViewController('notFound'); // redirect if no route is defined
         // todo change with exception handling
