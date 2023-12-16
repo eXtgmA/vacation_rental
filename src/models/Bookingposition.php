@@ -5,8 +5,8 @@ class Bookingposition extends BaseModel
 {
     private int $id;
 
-    private string|null $date_start;    // todo: is this type correct?
-    private string|null $date_end;      // todo: is this type correct?
+    private string $date_start;
+    private string $date_end;
     /** @var array<string> */
     private array|null $price_detail_list;
     private int $house_id;
