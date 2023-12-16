@@ -2,6 +2,12 @@
 $header = __DIR__ . "/partials/header.view.php";
 $title = "dashboard";
 $site = "dashboard";
+$houses = null;
+if (isset($param)) {
+    if($param['houses']){
+        $houses = $param['houses'];
+    }
+}
 include_once($header);
 ?>
     <link rel="stylesheet" href="/styles/dashboard.css"/>
@@ -33,38 +39,17 @@ include_once($header);
             </div>
             </form>
         </div>
-        <div id="suggestions">
-            <div id="suggestion-title">
-                <h4>Entdecke auch mal was Neues</h4>
-            </div>
-            <div id="suggestion-cards">
-                <div class="suggestion-card">
-                    <img class="card-image" src="/assets/haus1.jpg" alt="">
-                    <div class="card-content">
-                        <span class="card-location">Berlin</span>
-                        <span class="card-price">750 € / Nacht</span>
-                    </div>
-                    <span class="card-name">Haus auf grüner Wiese</span>
-                </div>
-                <div class="suggestion-card">
-                    <img class="card-image" src="/assets/haus2.jpg" alt="">
-                    <div class="card-content">
-                        <span class="card-location">München</span>
-                        <span class="card-price">100 € / Nacht</span>
-                    </div>
-                    <span class="card-name">Wohnung am Hang</span>
-                </div>
-                <div class="suggestion-card">
-                    <img class="card-image" src="/assets/haus3.jpg" alt="">
-                    <div class="card-content">
-                        <span class="card-location">Hamburg</span>
-                        <span class="card-price">50 € / Nacht</span>
-                    </div>
-                    <span class="card-name">Holzhaus umgeben von Baumaterial</span>
-                </div>
-            </div>
-        </div>
     </div>
+<?php
+foreach ($houses as $house) {
+    ?>
+<div class="card">
+    <?php print $house->getName() ?>
+</div>
+    <?php
+}
+?>
+
 <?php
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)

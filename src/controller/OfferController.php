@@ -108,7 +108,7 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function getshow(int $id):void
+    public function getshow(int $id): void
     {
         $house = $this->find('\src\models\House', 'id', $id, 1);
         new ViewController("offerDetail", $house);
@@ -127,8 +127,12 @@ class OfferController extends BaseController
         redirect($_SESSION['previous'], 302);
     }
 
-    public function getEdit(int $houseId): void
+    public function getEdit(int $houseId = null): void
     {
+        if (!$houseId) {
+            // fallback when missing param in url
+            redirect('/dashboard', 302);
+        }
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
         new ViewController('offerEdit', $house);
     }
@@ -140,5 +144,29 @@ class OfferController extends BaseController
         $param = $_POST;
         $house->update($param);
         redirect("/offer/show/{$houseId}", 302);
+    }
+
+    /**
+     * @param array<string>$param
+     * @return void
+     */
+    public function getFind($param):void
+    {
+        //prepare search parameter
+        $destination = $param['destination'];
+        $dateStart = $param['dateStart'];
+        $dateEnd = $param['dateEnd'];
+        $persons = $param['persons'];
+
+        $query = "select * from houses where city like '%{$destination}%'";
+        $result=$this->connection()->query($query);
+        $houses = [];
+        if($result instanceof \mysqli_result){
+            while ($row=$result->fetch_object('\src\models\House')) {
+                $houses[] = $row;
+            }
+        }
+        $param['houses'] = $houses;
+        new ViewController('search', $param);
     }
 }
