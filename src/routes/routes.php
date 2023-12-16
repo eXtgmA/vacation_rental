@@ -82,7 +82,8 @@ return [
         ],
             'POST' => [
                 'create' => 'create',
-                'delete'=>'delete']
+                'delete'=>'delete',
+                'togglestatus'=>'toggleStatus',]
         ],
     'booking' =>
         ['GET' => [
