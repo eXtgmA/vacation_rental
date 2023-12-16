@@ -92,7 +92,8 @@ return [
             'checkout' => 'checkout'
         ], 'POST' => [
             'create'=>'createBookingposition',
-            'checkout'=>'checkout']
+            'checkout'=>'checkout',
+            'delete' => 'deleteBookingposition']
         ],
     'cart' =>
         ['GET' => [

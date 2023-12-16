@@ -23,6 +23,10 @@ include_once($header);
             <tr>
                 <td><h3><?php echo $house->getName() ?></h3></td>
             </tr>
+            <tr>
+                <td></td>
+                <td><form action="<?php echo '/booking/delete/'.$p->getId(); ?>" method="post"><button type="submit">entfernen</button></form></td>
+            </tr>
             <td>
                 <img src="<?php echo "/images/".$house->getFrontimage();?>" style="width: 100px;height: 100px" alt="[alt]">
             </td>

@@ -5,8 +5,8 @@ class Bookingposition extends BaseModel
 {
     private int $id;
 
-    private string|null $date_start;    // todo: is this type correct?
-    private string|null $date_end;      // todo: is this type correct?
+    private string $date_start;
+    private string $date_end;
     /** @var array<string> */
     private array|null $price_detail_list;
     private int $house_id;
@@ -23,6 +23,23 @@ class Bookingposition extends BaseModel
         }
     }
 
+    /**
+     * Delete a bookingposition from database
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteBookingposition() : bool
+    {
+        try {
+            $this->delete('Bookingposition', $this->id);
+        } catch (\Exception $e) {
+            error_log("Error while deleting bookingposition ({$this->id}) from databse.");
+            $_SESSION["message"] = "Buchung konnte nicht gelöscht werden";
+            throw new \Exception($e);
+        }
+        return true;
+    }
 
     public function getId(): int
     {
@@ -81,12 +98,12 @@ class Bookingposition extends BaseModel
         $this->booking_id = $bookingId;
     }
 
-    public function getDateEnd(): ?string
+    public function getDateEnd(): string
     {
         return $this->date_end;
     }
 
-    public function setDateEnd(?string $date_end): void
+    public function setDateEnd(string $date_end): void
     {
         $this->date_end = $date_end;
     }
