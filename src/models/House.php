@@ -34,6 +34,20 @@ class House extends BaseModel
      * @var string
      */
     private string $frontimage; //phpstan ignore-next-line
+    /**
+     * @var string
+     */
+    private string $layoutImage; //phpstan ignore-next-line
+
+    /**
+     * @var array <string>
+     */
+    private array $optionalImages = [];
+
+    /**
+     * @var array <string>
+     */
+    private array $tags = [];
 
 
     /**
@@ -74,6 +88,78 @@ class House extends BaseModel
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
         $this->frontimage = $image->getUuid();
         return $this->frontimage;
+    }
+
+    public function getLayoutImage(): string
+    {
+        // get front image id from db
+        $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=2 LIMIT 1;";
+        $result = $this->connection()->query($query);
+        if (!($result instanceof \mysqli_result)) {
+            return '';
+        }
+        $row = $result->fetch_assoc();
+        // no image found => return empty string
+        if ($row == null) {
+            return '';
+        }
+        // fetch associated uuid
+        /** @var \src\models\Image $image */
+        $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
+        $this->layoutImage = $image->getUuid();
+        return $this->layoutImage;
+    }
+
+    /**
+     * @return array<string>
+     * @throws Exception
+     */
+    public function getOptionalImages(): array
+    {
+        // get optional images id from db
+        $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=4 LIMIT 3;";
+        $result = $this->connection()->query($query);
+        if (!($result instanceof \mysqli_result)) {
+            return [];
+        }
+
+        for ($i = 0; $i < $result->num_rows; $i++) {
+            $row = $result->fetch_assoc();
+            // no image found => return empty string
+            if ($row == null) {
+                return [];
+            }
+            // fetch associated uuid
+            /** @var \src\models\Image $image */
+            $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
+            $this->optionalImages[] = $image->getUuid();
+        }
+        return $this->optionalImages;
+    }
+
+    /**
+     * return all tags as an array of strings
+     *
+     * @return array<string>
+     */
+    public function getTags(): array {
+        // Initialize an empty array to hold the tags
+        $tags = [];
+
+        // Write the SQL query
+        $query = "SELECT tags.* FROM tags WHERE house_id = {$this->id}";
+
+        // Execute the query
+        $result = $this->connection()->query($query);
+
+        // Check if the query was successful
+        if ($result instanceof \mysqli_result) {
+            // Fetch the tags and add them to the array
+            while ($row = $result->fetch_assoc()) {
+                $this -> tags[] = $row['name'];
+            }
+        }
+        return $this -> tags;
     }
 
     /**
