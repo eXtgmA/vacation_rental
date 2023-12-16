@@ -33,7 +33,7 @@ class House extends BaseModel
     /**
      * @var string
      */
-    private string $frontimage; //phpstan ignore-next-line
+    private string $frontimage;
 
 
     /**

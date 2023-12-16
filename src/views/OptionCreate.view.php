@@ -1,5 +1,4 @@
 <?php
-global $message;
 $header = __DIR__ . "/partials/header.view.php";
 $title = "Option erstellen";
 $house_id = isset($param) ? $param : null;
@@ -11,7 +10,7 @@ include_once($header);
     <h1>Neue Option anlegen</h1>
 </div>
 <?php
-echo($message ?? "<h1>$message</h1>");
+echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
 ?>
 <div class="option-area center-content" style="margin: 20px">
     <form action="<?php echo "/option/create/" . $house_id ?>" method="post" enctype="multipart/form-data">

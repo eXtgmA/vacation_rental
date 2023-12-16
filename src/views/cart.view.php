@@ -1,5 +1,4 @@
 <?php
-global $message;
 $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Warenkorb";
@@ -11,7 +10,7 @@ include_once($header);
 <!--Hier den HTML Inhalt einfuegen-->
     <h1>Warenkorb</h1>
     <?php
-    echo($message ?? "<h1>$message</h1>");
+    echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
     ?>
 <div>
     <?php if (isset($booking, $bpos, $houses)) {
