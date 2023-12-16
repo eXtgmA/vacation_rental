@@ -1,4 +1,5 @@
 <?php
+global $message;
 $header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Haus anlegen";
@@ -19,6 +20,9 @@ function pold($string): void
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
+<?php
+echo($message ?? "<h1>$message</h1>");
+?>
 <form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">
