@@ -23,6 +23,23 @@ class Bookingposition extends BaseModel
         }
     }
 
+    /**
+     * Delete a bookingposition from database
+     *
+     * @return bool
+     * @throws \Exception
+     */
+    public function deleteBookingposition() : bool
+    {
+        try {
+            $this->delete('Bookingposition', $this->id);
+        } catch (\Exception $e) {
+            error_log("Error while deleting bookingposition ({$this->id}) from databse.");
+            $_SESSION["message"] = "Buchung konnte nicht gelöscht werden";
+            throw new \Exception($e);
+        }
+        return true;
+    }
 
     public function getId(): int
     {

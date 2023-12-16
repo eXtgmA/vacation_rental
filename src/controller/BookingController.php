@@ -88,4 +88,21 @@ class BookingController extends BaseController
             die();
         }
     }
+
+    public function postDeleteBookingposition(int $id): void
+    {
+        try {
+            /** @var Bookingposition $bps */
+            $bps = $this->find('\src\models\Bookingposition', 'id', $id, 1);
+            if ($bps != null) {
+                $bps->deleteBookingposition();
+            }
+        } catch (\Exception $e) {
+            error_log("Bookingposition ({$id}) could not be deleted from cart");
+            $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
+            redirect('/cart', 500);
+            die();
+        }
+        redirect('/cart', 302);
+    }
 }
