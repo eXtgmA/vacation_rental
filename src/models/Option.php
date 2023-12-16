@@ -225,6 +225,11 @@ class Option extends BaseModel
         }
     }
 
+    /**
+     * Toggle the status of an option
+     *
+     * @return void
+     */
     public function toggleStatus(): void
     {
         // get old status and invert
