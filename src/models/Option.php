@@ -225,6 +225,17 @@ class Option extends BaseModel
         }
     }
 
+    public function toggleStatus(): void
+    {
+        // get old status and invert
+        $newStatus = (int)!$this->isDisabled();
+        $query = "UPDATE options SET is_disabled = {$newStatus} WHERE id = {$this->getId()}";
+        $result = $this->connection()->query($query);
+        if (!$result) {
+            error_log("database update error: Status of option ({$this->getId()}) could not be toggled");
+        }
+    }
+
     public function getOptionImage(): string
     {
         $image = $this->find('\src\models\Image', 'id', $this->image_id, 1);
