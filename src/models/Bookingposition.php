@@ -98,12 +98,12 @@ class Bookingposition extends BaseModel
         $this->booking_id = $bookingId;
     }
 
-    public function getDateEnd(): ?string
+    public function getDateEnd(): string
     {
         return $this->date_end;
     }
 
-    public function setDateEnd(?string $date_end): void
+    public function setDateEnd(string $date_end): void
     {
         $this->date_end = $date_end;
     }
