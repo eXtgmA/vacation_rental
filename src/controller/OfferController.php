@@ -161,7 +161,7 @@ class OfferController extends BaseController
         $query = "select * from houses where city like '%{$destination}%'";
         $result=$this->connection()->query($query);
         $houses = [];
-        if($result instanceof \mysqli_result){
+        if ($result instanceof \mysqli_result) {
             while ($row=$result->fetch_object('\src\models\House')) {
                 $houses[] = $row;
             }

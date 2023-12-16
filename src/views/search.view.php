@@ -4,7 +4,7 @@ $title = "dashboard";
 $site = "dashboard";
 $houses = null;
 if (isset($param)) {
-    if($param['houses']){
+    if ($param['houses']) {
         $houses = $param['houses'];
     }
 }
