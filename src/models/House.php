@@ -26,6 +26,11 @@ class House extends BaseModel
     public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
 
     /**
+     * @var string[]
+     */
+    public static array $updateableAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+
+    /**
      * @var array<int|string, array<int|string>|string>
      */
     public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
@@ -34,21 +39,6 @@ class House extends BaseModel
      * @var string
      */
     private string $frontimage;
-    /**
-     * @var string
-     */
-    private string $layoutImage;
-
-    /**
-     * @var array <string>
-     */
-    private array $optionalImages = [];
-
-    /**
-     * @var array <string>
-     */
-    private array $tags = [];
-
 
     /**
      * @param string[] $modelData
@@ -84,7 +74,7 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
         $this->frontimage = $image->getUuid();
         return $this->frontimage;
@@ -104,10 +94,9 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
-        $this->layoutImage = $image->getUuid();
-        return $this->layoutImage;
+        return $image->getUuid();
     }
 
     /**
@@ -123,18 +112,19 @@ class House extends BaseModel
             return [];
         }
 
+        $arr = [];
         for ($i = 0; $i < $result->num_rows; $i++) {
             $row = $result->fetch_assoc();
             // no image found => return empty string
             if ($row == null) {
                 return [];
             }
-            // fetch associated uuid
-            /** @var \src\models\Image $image */
+            // fetch associated uuids into array
+            /** @var Image $image */
             $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
-            $this->optionalImages[] = $image->getUuid();
+            $arr[] = $image->getUuid();
         }
-        return $this->optionalImages;
+        return $arr;
     }
 
     /**
@@ -157,10 +147,10 @@ class House extends BaseModel
         if ($result instanceof \mysqli_result) {
             // Fetch the tags and add them to the array
             while ($row = $result->fetch_assoc()) {
-                $this -> tags[] = $row['name'];
+                $tags[] = $row['name'];
             }
         }
-        return $this -> tags;
+        return $tags;
     }
 
     /**
