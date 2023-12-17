@@ -147,10 +147,10 @@ class House extends BaseModel
         if ($result instanceof \mysqli_result) {
             // Fetch the tags and add them to the array
             while ($row = $result->fetch_assoc()) {
-                $this -> tags[] = $row['name'];
+                $tags[] = $row['name'];
             }
         }
-        return $this -> tags;
+        return $tags;
     }
 
     /**
