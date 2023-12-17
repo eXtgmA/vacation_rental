@@ -28,11 +28,14 @@ class OfferController extends BaseController
     public function postCreate(): void
     {
 //        add owner to attributes
-        $_POST['owner_id'] = $_SESSION['user'];
+        $houseInput = $_POST['base-data'];
+        $houseInput['owner_id']=$_SESSION['user'];
 //        create house with values
-        $this->validateInput('House', $_POST);
-        $house = new House($_POST);
+        $house = new House($houseInput);
+//var_dump($house);
+//die();
         $house->save();
+
 
         try {
             // save front image
@@ -153,11 +156,15 @@ class OfferController extends BaseController
     public function getFind($param):void
     {
         //prepare search parameter
-        $destination = $param['destination'];
         $dateStart = $param['dateStart'];
         $dateEnd = $param['dateEnd'];
+        $destination = $param['destination'];
         $persons = $param['persons'];
 
+//        at the moment StartDate and EndDate are required to start a search
+//        In order to do this we have to find all unbooked houses in the timespan
+//        we will create houses that are booked and unbooked
+//        then we can test the filter
         $query = "select * from houses where city like '%{$destination}%'";
         $result=$this->connection()->query($query);
         $houses = [];
