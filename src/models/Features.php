@@ -63,11 +63,11 @@ class Features extends BaseModel
      * @param string $category
      * @return array<Features>|false
      */
-    public function getFeaturesByCategory(string $category) : array|false
+    public static function getFeaturesByCategory(string $category) : array|false
     {
         try {
-            $features = $this->find('\src\models\Features', 'category', $category);
-            return $features;
+            $f = new BaseModel();
+            return $f->find('\src\models\Features', 'category', $category);
         } catch (\Exception $e) {
             error_log('Query for features by category "{$category}" failed because: ' . $e);
             return false;
