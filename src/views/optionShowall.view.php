@@ -8,7 +8,7 @@ include_once($header);
 
 
 if (isset($param["houseId"])) {
-    $house_reference = "/offer/show/" . $param["houseId"];
+    $house_reference = "/offer/edit/" . $param["houseId"];
     $houseId = $param["houseId"];
     $_SESSION['previous'] = "/option/showall/{$houseId}";
     unset($param["houseId"]);

@@ -27,7 +27,7 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
     <div id="new-offer-area">
         <div class="headline">
             <h1>Neues Haus anlegen</h1>
-            <button class="btn btn-primary" onclick="">Zurück</button>
+            <button class="btn btn-primary" type="button" onclick="openLink('/offer')">Zurück</button>
             <!--            <button class="btn btn-primary">Optionen bearbeiten</button>-->
         </div>
 
