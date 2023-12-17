@@ -144,6 +144,7 @@ class OfferController extends BaseController
         $base_data = $_POST['base-data'];
         $house->update($base_data);
 
+        // todo update images
         // todo update features
         // todo update tags
         redirect("/offer/edit/{$houseId}", 302);
