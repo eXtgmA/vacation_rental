@@ -18,7 +18,7 @@ class CartController extends BaseController
             $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
             $sql=$this->connection()->query($query);
             $booking = null; // fallback initializing
-            if($sql instanceof \mysqli_result){
+            if ($sql instanceof \mysqli_result) {
                 $booking= $sql->fetch_object('\src\models\Booking');
             }
             $param['booking'] = $booking;
