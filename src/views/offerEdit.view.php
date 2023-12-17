@@ -47,7 +47,7 @@ if ($result) {
             </div>
             <div id="postal-code-area">
                 <label class="label" for="postal-code">Postleitzahl*</label>
-                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5" value="<?php echo $house->getPostalCode(); ?>" required>
+                <input class="input-field" type="number" name="postal_code" id="postal-code" maxlength="5" value="<?php echo $house->getPostalCode(); ?>" required>
             </div>
             <div id="street-area">
                 <label class="label" for="street">Straße*</label>
@@ -56,19 +56,19 @@ if ($result) {
             </div>
             <div id="house-number-area">
                 <label class="label" for="house-number">Hausnummer*</label>
-                <input class="input-field" type="number" name="house-number" id="house-number" min="1" value="<?php echo $house->getHouseNumber(); ?>" required>
+                <input class="input-field" type="number" name="house_number" id="house-number" min="1" value="<?php echo $house->getHouseNumber(); ?>" required>
             </div>
             <div id="square-meter-area">
                 <label class="label" for="square_meter">Quadratmeter*</label>
-                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1" value="<?php echo $house->getSquareMeter(); ?>" required>
+                <input class="input-field" type="number" name="square_meter" id="square_meter" min="1" value="<?php echo $house->getSquareMeter(); ?>" required>
             </div>
             <div id="room-count-area">
                 <label class="label" for="room-count">Anzahl Räume*</label>
-                <input class="input-field" type="number" name="room-count" id="room-count" min="1" value="<?php echo $house->getRoomCount(); ?>" required>
+                <input class="input-field" type="number" name="room_count" id="room-count" min="1" value="<?php echo $house->getRoomCount(); ?>" required>
             </div>
             <div id="max-person-area">
                 <label class="label" for="max_person">Anzahl mögliche Personen*</label>
-                <input class="input-field" type="number" name="max-person" id="max_person" min="1" value="<?php echo $house->getMaxPerson(); ?>" required>
+                <input class="input-field" type="number" name="max_person" id="max_person" min="1" value="<?php echo $house->getMaxPerson(); ?>" required>
             </div>
             <div id="price-area">
                 <label class="label" for="price">Preis pro Nacht*</label>
