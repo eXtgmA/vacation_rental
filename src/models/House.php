@@ -20,18 +20,26 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
 
-    private string $frontimage;
-
-    public static string $table = 'houses';
+     public static string $table = 'houses';
     /**
      * @var string[]
      */
     public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
 
     /**
+     * @var string[]
+     */
+    public static array $updateableAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+
+    /**
      * @var array<int|string, array<int|string>|string>
      */
     public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
+
+    /**
+     * @var string
+     */
+    private string $frontimage;
 
     /**
      * @param string[] $modelData
@@ -67,7 +75,7 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
         $this->frontimage = $image->getUuid();
         return $this->frontimage;
@@ -87,7 +95,7 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
         return $image->getUuid();
     }
@@ -112,8 +120,8 @@ class House extends BaseModel
             if ($row == null) {
                 return [];
             }
-            // fetch associated uuid
-            /** @var \src\models\Image $image */
+            // fetch associated uuids into array
+            /** @var Image $image */
             $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
             $optionalImages[] = $image->getUuid();
         }

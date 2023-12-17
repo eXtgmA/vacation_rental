@@ -32,10 +32,7 @@ class OfferController extends BaseController
         $houseInput['owner_id'] = $_SESSION['user'];
 //        create house with values
         $house = new House($houseInput);
-//var_dump($house);
-//die();
         $house->save();
-
 
         try {
             // save front image
@@ -145,60 +142,30 @@ class OfferController extends BaseController
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
         /** @var House $house */
         $param = $_POST;
-        $house->update($param['base-data']);
+        $house->update($param);
         redirect("/offer/show/{$houseId}", 302);
     }
 
     /**
-     * @param array<string> $param
+     * @param array<string>$param
      * @return void
      */
-    public function getFind($param): void
+    public function getFind($param):void
     {
         //prepare search parameter
+        $destination = $param['destination'];
         $dateStart = $param['dateStart'];
         $dateEnd = $param['dateEnd'];
-        $destination = $param['destination'];
-        $persons = (int)$param['persons'];
-        $query = "
-SELECT *
-FROM houses h
-WHERE h.id NOT IN (
-    SELECT house_id
-    FROM bookingpositions b
-    WHERE b.id IN (
-        SELECT id
-        FROM bookingpositions b2
-        WHERE b2.booking_id IN (
-            SELECT id
-            FROM bookings b
-            WHERE b.is_confirmed = 1
-        )
-        AND (
-            (b2.date_start BETWEEN '{$dateStart}' AND '{$dateEnd}')
-            OR (b2.date_end BETWEEN '{$dateStart}' AND '{$dateEnd}')
-            OR ('{$dateStart}' BETWEEN b2.date_start AND b2.date_end)
-        )
-    )
-)
-and
-    city like '%{$destination}%'
-";
-        if ($persons > 0) {
-            $query .= "and max_person >= {$persons}";
-        }
+        $persons = $param['persons'];
 
-        $result = $this->connection()->query($query);
+        $query = "select * from houses where city like '%{$destination}%'";
+        $result=$this->connection()->query($query);
         $houses = [];
         if ($result instanceof \mysqli_result) {
-            while ($row = $result->fetch_object('\src\models\House')) {
+            while ($row=$result->fetch_object('\src\models\House')) {
                 $houses[] = $row;
             }
         }
-
-        $_SESSION['old_POST'] = $param;
-//        unset old data
-        $param = [];
         $param['houses'] = $houses;
         new ViewController('search', $param);
     }

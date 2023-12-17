@@ -56,18 +56,18 @@ if ($result) {
             </div>
             <div id="house-number-area">
                 <label class="label" for="house-number">Hausnummer*</label>
-                <input class="input-field" type="number" name="base-data[house_number]" id="house_number" min="1" value="<?php echo $house->getHouseNumber(); ?>" required>
+                <input class="input-field" type="number" name="base-data[house_number]" id="house-number" min="1" value="<?php echo $house->getHouseNumber(); ?>" required>
             </div>
             <div id="square-meter-area">
-                <label class="label" for="square-meter">Quadratmeter*</label>
-                <input class="input-field" type="number" name="base-data[square_meter]" id="square_meter" min="1" value="<?php echo $house->getSquareMeter(); ?>" required>
+                <label class="label" for="square_meter">Quadratmeter*</label>
+                <input class="input-field" type="number" name="base-data[square_meter]" id="square-meter" min="1" value="<?php echo $house->getSquareMeter(); ?>" required>
             </div>
             <div id="room-count-area">
                 <label class="label" for="room-count">Anzahl Räume*</label>
                 <input class="input-field" type="number" name="base-data[room_count]" id="room-count" min="1" value="<?php echo $house->getRoomCount(); ?>" required>
             </div>
             <div id="max-person-area">
-                <label class="label" for="max-person">Anzahl mögliche Personen*</label>
+                <label class="label" for="max_person">Anzahl mögliche Personen*</label>
                 <input class="input-field" type="number" name="base-data[max_person]" id="max-person" min="1" value="<?php echo $house->getMaxPerson(); ?>" required>
             </div>
             <div id="price-area">
@@ -324,8 +324,8 @@ include_once($footer)
     )).then(files => addOptionalImage(files)).catch(error => console.error(error));
     <?php } ?>
 
-    //// preload the tags
+    // preload the tags
     (<?php echo json_encode($house->getTags()); ?>)?.forEach(tag => {
-       addTag(tag);
+        addTag(tag);
     });
 </script>
