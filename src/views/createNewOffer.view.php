@@ -34,17 +34,17 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
         <h2 class="sub-headline">Details</h2>
         <div id="detail-grid">
             <div id="name-area">
-                <label class="label" for="name">Name der Anlage*</label>
+                <label class="label" for="base-data[name]">Name der Anlage*</label>
                 <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php pold('name') ?>" required
                        autofocus>
             </div>
             <div id="city-area">
-                <label class="label" for="city">Ort*</label>
+                <label class="label" for="base-data[city]">Ort*</label>
                 <input class="input-field" type="text" name="base-data[city]" id="city" value="<?php pold('city') ?>" required>
             </div>
             <div id="postal-code-area">
-                <label class="label" for="postal-code">Postleitzahl*</label>
-                <input class="input-field" type="number" name="base-data[postal-code]" id="postal-code" maxlength="5"
+                <label class="label" for="base-data[postal_code]">Postleitzahl*</label>
+                <input class="input-field" type="number" name="base-data[postal_code]" id="postal-code" maxlength="5"
                        value="<?php pold('postal_code') ?>" required>
             </div>
             <div id="street-area">
@@ -64,7 +64,7 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
             </div>
             <div id="room-count-area">
                 <label class="label" for="base-data[room_count]">Anzahl Räume*</label>
-                <input class="input-field" type="number" name="base-data[room-count]" id="room-count" min="1"
+                <input class="input-field" type="number" name="base-data[room_count]" id="room-count" min="1"
                        value="<?php pold('room_count') ?>" required>
             </div>
             <div id="max-person-area">

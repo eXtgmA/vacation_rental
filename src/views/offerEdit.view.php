@@ -324,8 +324,8 @@ include_once($footer)
     )).then(files => addOptionalImage(files)).catch(error => console.error(error));
     <?php } ?>
 
-    // preload the tags
-    (<?php echo json_encode($house->getTags()); ?>)?.forEach(tag => {
-        addTag(tag);
-    });
+    //// preload the tags
+    //(<?php //echo json_encode($house->getTags()); ?>//)?.forEach(tag => {
+    //    addTag(tag);
+    //});
 </script>
