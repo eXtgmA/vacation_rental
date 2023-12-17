@@ -138,6 +138,32 @@ class House extends BaseModel
     }
 
     /**
+     * Get all features related to this house
+     *
+     * @return array<Features>
+     */
+    public function getAllFeatures() : array
+    {
+        // query many-to-many relation in database
+        $query = "SELECT features_id FROM houses_has_features WHERE houses_id={$this->id};";
+        $result = $this->connection()->query($query);
+        if (!($result instanceof \mysqli_result)) {
+            return [];
+        }
+        // append all found house ids to array
+        $features = [];
+        while ($row = $result->fetch_assoc()) {
+            try {
+                $features[] = $this->find('src\models\Features', 'id', $row['features_id'], 1);
+            } catch (Exception $e) {
+                error_log("Feature ({$row['features_id']}) could not be retrieved because: ". $e);
+                continue;
+            }
+        }
+        return $features;
+    }
+
+    /**
      * return all tags as an array of strings
      *
      * @return array<string>
