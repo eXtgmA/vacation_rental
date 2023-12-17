@@ -50,7 +50,7 @@ class Features extends BaseModel
             if ($row == null) {
                 continue;
             }
-            $houseIds[] = $row['house_id'];
+            $houseIds[] = $row['houses_id'];
         }
         return $houseIds;
     }
