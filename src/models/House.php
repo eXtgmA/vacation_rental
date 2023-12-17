@@ -26,6 +26,11 @@ class House extends BaseModel
     public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
 
     /**
+     * @var string[]
+     */
+    public static array $updateableAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
+
+    /**
      * @var array<int|string, array<int|string>|string>
      */
     public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
