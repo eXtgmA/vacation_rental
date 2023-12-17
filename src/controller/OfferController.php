@@ -143,7 +143,10 @@ class OfferController extends BaseController
         /** @var House $house */
         $param = $_POST;
         $house->update($param);
-        redirect("/offer/show/{$houseId}", 302);
+        // todo update images
+        // todo update features
+        // todo update tags
+        redirect("/offer/edit/{$houseId}", 302);
     }
 
     /**
