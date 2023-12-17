@@ -20,7 +20,7 @@ class House extends BaseModel
     private bool $is_disabled;
     private int $owner_id;
 
-     public static string $table = 'houses';
+    public static string $table = 'houses';
     /**
      * @var string[]
      */
