@@ -191,7 +191,6 @@ and
         $result = $this->connection()->query($query);
         $houses = [];
         if ($result instanceof \mysqli_result) {
-
             while ($row = $result->fetch_object('\src\models\House')) {
                 $houses[] = $row;
             }
