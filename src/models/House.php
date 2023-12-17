@@ -31,26 +31,6 @@ class House extends BaseModel
     public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
 
     /**
-     * @var string
-     */
-    private string $frontimage;
-    /**
-     * @var string
-     */
-    private string $layoutImage;
-
-    /**
-     * @var array <string>
-     */
-    private array $optionalImages = [];
-
-    /**
-     * @var array <string>
-     */
-    private array $tags = [];
-
-
-    /**
      * @param string[] $modelData
      */
     public function __construct($modelData = null)
