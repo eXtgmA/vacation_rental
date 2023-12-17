@@ -142,6 +142,10 @@ trait DatabaseTrait
     }
 
     /**
+     * Update attributes that are allowed for updating
+     *
+     * All other attributes are ignored (even misspelled ones)
+     *
      * @param array<string> $param
      * @return void
      */
@@ -150,30 +154,37 @@ trait DatabaseTrait
         try {
             //$this is our current object
             $class = get_Class($this);
-            $allowedAttributes = $class::$allowedAttributes;
+            $updateableAttributes = $class::$updateableAttributes;
             $table = $class::$table;
-            $updateables = [];
-//            try to find the counterpart of wished attribute to set in allowed attributes
-            foreach ($param as $updatekey => $updatevalue) {
-                $found = false;
-                foreach ($allowedAttributes as $value) {
-                    if ($updatekey === $value) {
-//                        if found add to updating values
-                        $updateables[$updatekey] = $updatevalue;
-                        $found = true;
-                        break;
-                    }
-                }
-                if (!$found) {
-                    throw new Exception('Ungültiger Wert angefragt');
-                }
-            }
+            $updateables = $this->filterUpdateableAttributes($param, $updateableAttributes);
+
 //            @phpstan-ignore-next-line   cant resolve specific object in base class when called
             $query = $this->prepareUpdateQuery($table, $this->getId(), $updateables);
             $this->connection()->query($query);
         } catch (Exception $e) {
             var_dump($e->getMessage());
         }
+    }
+
+    /**
+     * @param array<string> $param
+     * @param array<string> $updateableAttributes
+     * @return array<string>
+     */
+    public function filterUpdateableAttributes($param, $updateableAttributes): array
+    {
+        // filter all attributes allowed for update
+        $updateables = [];
+        foreach ($param as $updatekey => $updatevalue) {
+            foreach ($updateableAttributes as $attr) {
+                if ($updatekey === $attr) {
+                    // if update allowed => write to
+                    $updateables[$updatekey] = $updatevalue;
+                    break;
+                }
+            }
+        }
+        return $updateables;
     }
 
     /**

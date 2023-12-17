@@ -14,19 +14,27 @@ class CartController extends BaseController
     public function getCart(): void
     {
         try {
-            // get the one and only booking where "is_confirmed" equals false
-            /** @var Booking|null $booking */
-            $booking = $this->find('\src\models\Booking', 'is_confirmed', 0, 1);
-            $param["booking"] = $booking;
+            // get the one and only booking where "is_confirmed" equals false belonging to current user
+            $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
+            $sql=$this->connection()->query($query);
+            $booking = null; // fallback initializing
+            if ($sql instanceof \mysqli_result) {
+                $booking= $sql->fetch_object('\src\models\Booking');
+            }
+            $param['booking'] = $booking;
 
+            /** @var Booking $booking */
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
+
+
                 // if no positions found show empty cart
                 if ($param["bookingpositions"] == false) {
                     new ViewController('cart');
                     die();
                 }
+
 
                 // get all houses related to all bookingpositions
                 $houseIds = [];
@@ -37,6 +45,7 @@ class CartController extends BaseController
                         $houseIds[] = $bp->getHouseId();
                     }
                 }
+
                 // check that at least one house has been fetched
                 if (empty($param["houses"])) {
                     throw new \Exception("No house loaded");
