@@ -139,11 +139,11 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
         /** @var House $house */
-        $param = $_POST;
-        $house->update($param);
-        // todo update images
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        $base_data = $_POST['base-data'];
+        $house->update($base_data);
+
         // todo update features
         // todo update tags
         redirect("/offer/edit/{$houseId}", 302);
