@@ -19,6 +19,9 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
+
+    private string $frontimage;
+
     public static string $table = 'houses';
     /**
      * @var string[]
@@ -86,8 +89,9 @@ class House extends BaseModel
         // fetch associated uuid
         /** @var \src\models\Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
-        $this->layoutImage = $image->getUuid();
-        return $this->layoutImage;
+        return $image->getUuid();
+//        $this->layoutImage = $image->getUuid();
+//        return $this->layoutImage;
     }
 
     /**
@@ -97,6 +101,7 @@ class House extends BaseModel
     public function getOptionalImages(): array
     {
         // get optional images id from db
+        $optionalImages = [];
         $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=4 LIMIT 3;";
         $result = $this->connection()->query($query);
         if (!($result instanceof \mysqli_result)) {
@@ -112,9 +117,10 @@ class House extends BaseModel
             // fetch associated uuid
             /** @var \src\models\Image $image */
             $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
-            $this->optionalImages[] = $image->getUuid();
+            $optionalImages[] = $image->getUuid();
+//            $this->optionalImages[] = $image->getUuid();
         }
-        return $this->optionalImages;
+        return $optionalImages;
     }
 
     /**
@@ -137,10 +143,10 @@ class House extends BaseModel
         if ($result instanceof \mysqli_result) {
             // Fetch the tags and add them to the array
             while ($row = $result->fetch_assoc()) {
-                $this -> tags[] = $row['name'];
+                $tags[] = $row['name'];
             }
         }
-        return $this -> tags;
+        return $tags;
     }
 
     /**
