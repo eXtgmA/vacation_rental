@@ -55,6 +55,25 @@ class Features extends BaseModel
         return $houseIds;
     }
 
+    /**
+     * Get all features related to a given category
+     *
+     * Returns false if given category doesn't exist or other errors occurred in query;
+     *
+     * @param string $category
+     * @return array<Features>|false
+     */
+    public function getFeaturesByCategory(string $category) : array|false
+    {
+        try {
+            $features = $this->find('\src\models\Features', 'category', $category);
+            return $features;
+        } catch (\Exception $e) {
+            error_log('Query for features by category "{$category}" failed because: ' . $e);
+            return false;
+        }
+    }
+
     public function getId(): int
     {
         return $this->id;
