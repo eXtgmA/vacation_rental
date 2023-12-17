@@ -65,8 +65,14 @@ class BookingController extends BaseController
     public function postCreateBookingposition(): void
     {
         try {
-            // get the one and only booking that is not confirmed
-            $booking = $this->find('\src\models\Booking', 'is_confirmed', 0, 1);
+            // get the one and only booking that is not confirmed for our actual user
+            $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
+            $sql=$this->connection()->query($query);
+            $booking = null; //fallback initializing
+            if($sql instanceof \mysqli_result){
+                $booking= $sql->fetch_object('\src\models\Booking');
+            }
+
             if ($booking == null) {
                 // if no booking found => insert new booking into database and use this one
                 $booking = new Booking(['is_confirmed' => 0, 'user_id' => $_SESSION['user'], 'booked_at' => null]);
@@ -74,6 +80,7 @@ class BookingController extends BaseController
             }
 
             $param = $_POST;
+            /** @var Booking $booking */
             $param['booking_id'] = $booking->getId();
             $param['price_detail_list']=null;
 
