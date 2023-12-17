@@ -1,0 +1,74 @@
+#layout-grid {
+    display: grid;
+    grid-template-areas:
+        "search search"
+        "filters results";
+}
+
+#layout-grid > #search-grid {
+    grid-area: search;
+    display: grid;
+    grid-template-areas:
+        "destination from-date to-date person-amount";
+}
+
+#layout-grid > #search-grid > #destination {
+    grid-area: destination;
+}
+
+#layout-grid > #search-grid > #from-date {
+    grid-area: from-date;
+}
+
+#layout-grid > #search-grid > #to-date {
+    grid-area: to-date;
+}
+
+#layout-grid > #search-grid > #person-amount {
+    grid-area: person-amount;
+}
+
+#layout-grid > #filter-grid {
+    grid-area: filters;
+    display: grid;
+    grid-template-areas:
+        "tags"
+        "feature-bath"
+        "feature-kitchen"
+        "feature-multimedia"
+        "feature-outdoor"
+        "feature-other"
+        "feature-wellness";
+}
+
+#layout-grid > #filter-grid > #tags {
+    grid-area: tags;
+}
+
+#layout-grid > #filter-grid > #feature-bath {
+    grid-area: feature-bath;
+}
+
+#layout-grid > #filter-grid > #feature-kitchen {
+    grid-area: feature-kitchen;
+}
+
+#layout-grid > #filter-grid > #feature-multimedia {
+    grid-area: feature-multimedia;
+}
+
+#layout-grid > #filter-grid > #feature-outdoor {
+    grid-area: feature-outdoor;
+}
+
+#layout-grid > #filter-grid > #feature-other {
+    grid-area: feature-other;
+}
+
+#layout-grid > #filter-grid > #feature-wellness {
+    grid-area: feature-wellness;
+}
+
+#layout-grid > #results {
+    grid-area: results;
+}
