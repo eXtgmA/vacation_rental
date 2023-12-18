@@ -24,12 +24,7 @@ class OfferController extends BaseController
     public function getCreate(): void
     {
         // get all existing features
-        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
-        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
-        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
-        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
-        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
-        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+        $param['features'] = $this->prepareFeatures();
 
         // todo : get all tags
 
@@ -179,5 +174,21 @@ class OfferController extends BaseController
         }
         $param['houses'] = $houses;
         new ViewController('search', $param);
+    }
+
+    /**
+     * Get all existing features sorted by category
+     *
+     * @return array<Features>
+     */
+    public function prepareFeatures() : array
+    {
+        $list['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $list['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $list['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $list['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $list['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $list['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+        return $list;
     }
 }
