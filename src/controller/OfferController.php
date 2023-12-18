@@ -3,6 +3,7 @@
 namespace src\controller;
 
 use Exception;
+use src\models\Features;
 use src\models\House;
 use src\models\Image;
 
@@ -22,7 +23,17 @@ class OfferController extends BaseController
 
     public function getCreate(): void
     {
-        new ViewController('createNewOffer');
+        // get all existing features
+        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+
+        // todo : get all tags
+
+        new ViewController('createNewOffer', $param);
     }
 
     public function postCreate(): void
@@ -178,16 +189,26 @@ class OfferController extends BaseController
     }
 
     /**
-     * @param array<string>$param
+     *
+     * @param array<string, array<string>> $param
      * @return void
      */
-    public function getFind($param):void
+    public function getFind($param)
     {
         //prepare search parameter
+        /** @var string $destination */
         $destination = $param['destination'];
         $dateStart = $param['dateStart'];
         $dateEnd = $param['dateEnd'];
         $persons = $param['persons'];
+
+        // get all existing features
+        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
 
         $query = "select * from houses where city like '%{$destination}%'";
         $result=$this->connection()->query($query);
