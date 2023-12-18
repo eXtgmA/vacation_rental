@@ -70,7 +70,19 @@ class OfferController extends BaseController
                     $optionalimage->save();
                 }
             }
+
+            // save all selected features
+            foreach ($_POST['features'] as $categoryName => $category) {
+                foreach ($category as $featureName) {
+                    $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                    $this->connection()->query($query);
+                }
+            }
         } catch (Exception $e) {
+            // delete all related features
+            $query = "DELETE FROM houses_has_features WHERE houses_id={$house->getId()};";
+            $this->connection()->query($query);
+
             try {
                 // delete house and all its images
                 $house->deleteHouse();
@@ -141,11 +153,18 @@ class OfferController extends BaseController
             redirect('/dashboard', 302);
         }
 
+        // get house
+        $param['house'] = $this->find('\src\models\House', 'id', $houseId, 1);
+
         // get all existing features
         $param['features'] = $this->prepareFeatures();
+        // get names of all the features related to the house
+        $param['featuresSelected'] = [];
+        foreach ($param['house']->getAllFeatures() as $feature) {
+            $param['featuresSelected'][] = $feature->getName();
+        }
 
-        $param['house'] = $this->find('\src\models\House', 'id', $houseId, 1);
-        new ViewController('offerEdit', $param);
+            new ViewController('offerEdit', $param);
     }
 
     public function postEdit(int $houseId): void

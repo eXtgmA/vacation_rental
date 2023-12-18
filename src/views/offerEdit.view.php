@@ -4,6 +4,7 @@ $header = __DIR__ . "/partials/header.view.php";
 $title = "Datailseite für ein hausobject";
 $house = $param['house'] ?? null;
 $features = $param['features'] ?? null;
+$featuresSel = $param['featuresSelected'] ?? [];
 include_once($header);
 ?>
 
@@ -124,8 +125,9 @@ if ($result) {
                     </div>
                     <?php foreach ($category as $feature) { ?>
                         <label class="feature-select">
-                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName(); ?>">
-                            <?php echo $feature->getName(); ?>
+                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName();
+                                if (in_array($feature->getName(), array_values($featuresSel))) { echo '" checked="';}?>">
+                                <?php echo $feature->getName(); ?>
                         </label>
                     <?php } ?>
                 </div>
