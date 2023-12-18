@@ -47,7 +47,7 @@ include_once($header);
                 <input id="person-amount-input-field" class="input-field" name="persons" type="number">
             </div>
             <div class="submit">
-                <button class="btn-secondary">Ferienhaus suchen</button>
+                <button class="btn-secondary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
             </div>
         </div>
         <div id="filter">
@@ -116,13 +116,14 @@ include_once($header);
                                         <span>Fläche</span>
                                         <span><?php print $house->getSquareMeter() ?></span>
                                     </div>
-                                    <hr/>
+                                    <hr class="horizontal-line"/>
                                 </div>
                                 <div class="room-count detail">
                                     <div class="text">
                                         <span>Räume</span>
                                         <span><?php print $house->getRoomCount() ?></span>
                                     </div>
+                                    <hr/>
                                 </div>
                                 <div class="city detail">
                                     <div class="text">
@@ -136,6 +137,7 @@ include_once($header);
                                         <span>Straße</span>
                                         <span><?php print $house->getStreet() . ' ' . $house->getHouseNumber() ?></span>
                                     </div>
+                                    <hr/>
                                 </div>
                                 <div class="submit">
                                     <button class="btn-primary" type="button">Ansehen</button>

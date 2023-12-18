@@ -200,6 +200,8 @@
 
         & > .sub-headline {
             font-weight: bold;
+            margin-left: 20px;
+            margin-right: 20px;
         }
 
         & .details {
@@ -224,6 +226,10 @@
 
             & .street {
                 grid-area: street;
+
+                & > hr {
+                    display: none;
+                }
             }
 
             & .square-meter {
@@ -232,6 +238,10 @@
 
             & .room-count {
                 grid-area: room-count;
+
+                & > hr {
+                    display: none;
+                }
             }
 
             & .submit {
@@ -269,8 +279,8 @@
     max-width: 220px;
     margin-top: 5px;
     margin-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 0;
+    padding-right: 0;
 
     & h3 {
         text-align: center;
@@ -307,5 +317,265 @@
     & .feature-select-list:last-child::after {
         border-right: none;
     }
+
+}
+
+/* XXXL 1600px - 1800px */
+@media (max-width: 1800px) {
+    #layout-grid {
+        width: 90%;
+    }
+}
+
+/* XXL 1400px - 1600px */
+@media (max-width: 1600px) {
+
+    #layout-grid {
+        width: 95%;
+    }
+
+    #layout-grid > #search-grid {
+        width: 90%;
+    }
+}
+
+/* XL 1200px - 1400px */
+@media (max-width: 1400px) {
+    #layout-grid > #search-grid {
+        grid-template-columns: 23% 22% 22% 10% 23%;
+    }
+
+    .result-card {
+        max-height: 500px;
+        max-width: 800px;
+        padding-bottom: 5px;
+
+        & > .card-image {
+            & img {
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+        }
+
+        & .information {
+            & .details {
+                grid-template-areas:
+                "price submit"
+                "city submit"
+                "street submit"
+                "max-person submit"
+                "square-meter submit"
+                "room-count submit";
+                grid-template-columns: 65% 35%;
+
+                & .submit {
+                    margin-top: 65px;
+                    flex-direction: row;
+
+                    & > button {
+                        width: 80%;
+                        height: 60px;
+                    }
+                }
+
+                & .street > hr {
+                    display: inherit;
+                }
+            }
+        }
+    }
+}
+
+/* XL 992px - 1200px */
+@media (max-width: 1200px) {
+
+    .optional-search-text {
+        display: none;
+    }
+
+    .result-card {
+        max-height: 800px;
+        max-width: 600px;
+        padding-bottom: 5px;
+
+        flex-direction: column;
+
+        & > .card-image {
+            & img {
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+            }
+        }
+
+        & .information {
+            & .details {
+                grid-template-areas:
+                "price city"
+                "max-person street"
+                "square-meter submit"
+                "room-count submit";
+                grid-template-columns: 50% 50%;
+
+                & .submit {
+                    margin-top: 20px;
+
+                    & > button {
+                        width: 50%;
+                        height: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Medium 768px - 992px */
+@media (max-width: 992px) {
+    .optional-search-text {
+        display: initial;
+    }
+
+    #layout-grid > #search-grid {
+        grid-template-areas:
+                "destination person-amount submit"
+                "from-date to-date submit";
+        grid-template-columns: 38% 38% 24%;
+
+        & > .submit {
+
+            & > button {
+                margin-top: 40px;
+                margin-bottom: 40px;
+            }
+        }
+    }
+
+    #layout-grid {
+        display: grid;
+        grid-template-columns: 100%;
+        grid-template-areas:
+        "search"
+        "filters"
+        "results";
+    }
+
+    #layout-grid > #filter {
+        grid-area: filters;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        & .filter-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 1rem;
+
+            .headline {
+                display: none;
+            }
+        }
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    .optional-search-text {
+        display: initial;
+    }
+
+    #layout-grid > #search-grid {
+        grid-template-areas:
+                "destination"
+                "from-date"
+                "to-date"
+                "person-amount"
+                "submit";
+        grid-template-columns: 100%;
+
+        & > .submit {
+            & > button {
+                margin-top: 0;
+                margin-bottom: 0;
+                width: 80%;
+            }
+        }
+    }
+
+    #layout-grid > #filter {
+        grid-area: filters;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        & .filter-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1rem;
+
+            .headline {
+                display: none;
+            }
+
+        }
+    }
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    #layout-grid > #filter {
+        grid-area: filters;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        & .filter-list {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            grid-gap: 1rem;
+
+            .headline {
+                display: none;
+            }
+
+
+        }
+    }
+
+    .result-card {
+        & .information {
+            & .details {
+                grid-template-areas:
+                "price"
+                "city"
+                "street"
+                "max-person"
+                "square-meter"
+                "room-count"
+                "submit";
+                grid-template-columns: 100%;
+
+                & .submit {
+                    margin-top: 20px;
+                    grid-area: submit;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    margin-bottom: 10px;
+
+                    & > button {
+                        width: 50%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
 
 }
