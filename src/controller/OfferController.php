@@ -183,7 +183,7 @@ class OfferController extends BaseController
     /**
      * Get all existing features sorted by category
      *
-     * @return array<Features>
+     * @return array<string, array<Features>|false>
      */
     public function prepareFeatures() : array
     {
