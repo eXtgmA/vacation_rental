@@ -142,8 +142,8 @@ class OfferController extends BaseController
         // update base data
         /** @var House $house */
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        $base_data = $_POST['base-data'];
-        $house->update($base_data);
+        $baseData = $_POST['base-data'];
+        $house->update($baseData);
 
         // update images
         try {
