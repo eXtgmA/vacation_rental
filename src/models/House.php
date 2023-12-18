@@ -19,6 +19,7 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
+
     public static string $table = 'houses';
     /**
      * @var string[]
@@ -106,13 +107,13 @@ class House extends BaseModel
     public function getOptionalImages(): array
     {
         // get optional images id from db
+        $optionalImages = [];
         $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=4 LIMIT 3;";
         $result = $this->connection()->query($query);
         if (!($result instanceof \mysqli_result)) {
             return [];
         }
 
-        $arr = [];
         for ($i = 0; $i < $result->num_rows; $i++) {
             $row = $result->fetch_assoc();
             // no image found => return empty string
@@ -122,9 +123,9 @@ class House extends BaseModel
             // fetch associated uuids into array
             /** @var Image $image */
             $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
-            $arr[] = $image->getUuid();
+            $optionalImages[] = $image->getUuid();
         }
-        return $arr;
+        return $optionalImages;
     }
 
     /**

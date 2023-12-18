@@ -39,10 +39,10 @@ class OfferController extends BaseController
     public function postCreate(): void
     {
 //        add owner to attributes
-        $_POST['owner_id'] = $_SESSION['user'];
+        $houseInput = $_POST['base-data'];
+        $houseInput['owner_id'] = $_SESSION['user'];
 //        create house with values
-        $this->validateInput('House', $_POST);
-        $house = new House($_POST);
+        $house = new House($houseInput);
         $house->save();
 
         try {
@@ -153,8 +153,8 @@ class OfferController extends BaseController
         // update base data
         /** @var House $house */
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        $base_data = $_POST['base-data'];
-        $house->update($base_data);
+        $baseData = $_POST['base-data'];
+        $house->update($baseData);
 
         // update images
         try {
