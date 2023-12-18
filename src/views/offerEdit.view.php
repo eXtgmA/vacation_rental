@@ -32,7 +32,8 @@ if ($result) {
             <h1>Bearbeiten des Ferienhauses <span style="font-style: italic"><?php echo $house->getName() ?></span></h1>
             <div>
                 <button class="btn btn-secondary" type="button" onclick="openLink('/offer')" style="margin-right: 20px">Zurück</button>
-                <button class="btn btn-primary" type="button" onclick="openLink('<?php echo "/option/showall/" . $house->getId(); ?>')">Optionen bearbeiten</button>
+                <button class="btn btn-primary" type="button" onclick="openLink('<?php echo "/option/showall/" . $house->getId(); ?>')" style="margin-right: 20px">Optionen bearbeiten</button>
+                <button class="btn-primary" type="submit">Speichern</button>
             </div>
         </div>
 
