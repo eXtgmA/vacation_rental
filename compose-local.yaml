@@ -21,6 +21,6 @@ services:
       MARIADB_PASSWORD: 1234
       MARIADB_DATABASE: vacation_rental_db
     volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./database/db_dump.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "3306:3306"

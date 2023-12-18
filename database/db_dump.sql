@@ -377,6 +377,120 @@ VALUES (27, 'Massagesessel', 'Wellness');
 COMMIT;
 
 
+-- -----------------------------------------------------
+-- Data for table `vacation_rental_db`.`house`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `vacation_rental_db`;
+INSERT INTO vacation_rental_db.houses (name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES ('Modernes Ferienhaus mit Garten & Terrasse, 300m zum Strand', 'Die Ferienhaus \'Tu Hus in Linde Eck\' steht in zweiter Reihe und ist ruhig gelegen. Bei einer Größe von 55 m², bietet es Platz für drei Personen. Ein Wohnzimmer, 2 Schlafzimmer (Doppelbett und Einzelbett) sowie Küche, Bad/WC und eine Südterrasse. Der Parkplatz befindet sich direkt am Haus.
+
+Das Bad ist mit einer Barriere freien Dusche ausgestattet. Die moderne Einbauküche besitzt einen großen Geschirrspüler, Backofen, Mikrowelle, Cerankochfeld und einen Kühlschrank mit Gefrierfach. (Kinderbesteck vorhanden). So steht einer Selbstversorgung nichts im Wege.
+Im unmittelbaren Umfeld kann man aber auch verschiedene Restaurants aufsuchen. Gerne geben wir Ihnen da auch persönlich einige Empfehlungen.
+
+Das Wohnzimmer ist mit einem Kamin ausgestattet und zur Unterhaltung finden sie einen Flachbildschirm sowie den passenden Blue Ray DVD Player (Full HD) und eine Stereoanlage mit ipod Station und MP3 Player.
+
+DSL steht Ihnen selbstverständlich kostenfrei zur Verfügung.
+
+
+Zum Haus gehört ein Abstellraum für Fahrräder sowie Gartenmöbel, ein Sonnenschirm und ein Grill. Einen Windschutz für den Strand stellen wir Ihnen frei zur Verfügung.
+
+Der Strand, das Ortszentrum, der Bäcker sowie Einkaufsmöglichkeiten sind innerhalb von 5 - 10min. zu erreichen.
+Für die Kleinen, findet sich der öffentliche Spielplatz vor der Tür. Falls sie keine eigenen Fahrräder mitbringen möchten, der nächste Fahrradverleih liegt nur 50 m entfernt.
+Heil- und Kuranwendungen, sowie Sauna Besuche, können Sie ganzjährig im nahen Kurmittelzentrum nutzen - auch hier geben wir Ihnen gerne einige Empfehlungen.', 44, 3, '46684', 'Kiel', 'Wiesenstraße', 4, 45, 4, 0, 2);
+INSERT INTO vacation_rental_db.houses (name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES ('Kleine gemütliche Ferienwohnung mit gepflegtem grünen Grundstück', 'Für einen gemütlichen Abend steht Ihnen ein Fernseher zur Verfügung.
+Genießen Sie Ihre Ferien in vollen Zügen, bei schönem Wetter auch gerne draußen auf der Terrasse. Für unsere Gäste steht ein PKW - Stellplatz zur Verfügung.
+Das ist auch toll: Bettwäsche und Geschirrhandtücher sind inklusive.
+Haustiere sind bei uns leider nicht erlaubt. Das Rauchen ist in dieser Ferienwohnung ebenfalls nicht gestattet.', 58, 2, '87795', 'Dortmund', 'Waldweg', 2, 65, 2, 0, 2);
+INSERT INTO vacation_rental_db.houses (name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES ('Wellnessresidenz Störtebeker WG 9 Nähe zum Strand', 'Exklusiv eingerichtete Ferienwohnug über zwei Etagen (49qm) für 2 Personen. Die Wohnung verfügt über 1 Wohn- und Essraum mit anschließendem Südbalkon und hochwertiger Küchenzeile (inkl. Geschirrspüler), 1 Schlafzimmer mit Doppelbett, 1 geräumiges Badezimmer mit Dusche/WC und anschließendem Südbalkon sowie allem Komfort wie Fußbodenheizung, Fernseher in Wohn- und Schlafzimmer und die Nutzung des hauseigenen Wellnessbereichs. (Bitte die dann vor Ort geltenden Öffnungszeiten beachten)
+
+Zu den bereits o.g. Ausstattungsmerkmalen, bietet die Wohnung noch folgende Highlights:
+
+1 Schlafzimmer mit Doppelbett und TV
+Bad mit Dusche
+Fußbodenheizung
+1 Babyreisebett (Länge 1,20m) ist vorhanden, Matratze muss mitgebracht werden
+2 Balkone:
+Südbalkon mit Tisch und Stühle
+Ostbalkon mit Liegen
+1 Tiefgaragenstellplatz
+Fahrradkeller
+Nichtraucherwohnung
+Mückengitter
+Waschmaschinennutzung gegen Gebühr
+Handtücher und Bettwäsche vorhanden, können aber auch selbst mitgebracht werden
+(Gebühr entfällt)', 88, 7, '48755', 'Helgoland', 'Alterweg', 7, 85, 7, 0, 2);
+INSERT INTO vacation_rental_db.houses (name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES ('Gemütliche Ferienwohnung mit Lehmputzen', 'Ferienwohnung Seeigel, 30qm, Wohnzimmer, 1 Schlafzimmer, Küche, Bad, TV, WLAN, Terrasse mit Gartenmöbeln, Lehmputze, Parkplatz 20m vom Haus, waldnahes, ruhiges Grundstück, alter Baumbestand, zum Nordstrand 1,5km ( mit dem Fahrrad 5min.), zum Weststrand im Nationalpark 6km ( 30min mit dem Fahrrad)
+
+Die Mehrzahl meiner Gäste hatte eine glückliche Zeit. In seltenen Fällen gab es Enttäuschungen. Ob die Ferienwohnung Seeigel für Sie das richtige Urlaubsdomizil ist, hängt auch von ihren persönlichen Ansprüchen und Erwartungen ab.
+
+Um es gleich vorwegzunehmen – ja, es gibt hier auch Spinnen. Vielleicht etwas mehr als woanders, was mit der wunderschönen 200-jährigen Eiche direkt am Haus zusammenhängt.
+
+Die ursprünglich als Blitzableiter gepflanzte Eiche ist in gut 2 Jahrhunderten zu einem beeindruckenden Baum mit Charakter herangewachsen. Manche Gäste erinnert sie an den Zauberwald in“ Herr der Ringe“.
+Ihre märchenhafte Erscheinung verdankt sie einer Wucherung in 2-3 m Höhe, mit der sie laut Auskunft mehrerer Förster gut leben kann. In manchen Jahren nisten Ringeltauben in den oberen Stockwerken der Krone.
+Mit seiner rauen Rinde bietet die Eiche einer Vielzahl an Käfern, Insekten und auch Spinnen einen willkommenen Lebensraum. Die wenigen Meter bis zum Haus sind für sie kein Hindernis. So gut es geht entferne ich bei jeder Endreinigung die in den Wohnungen befindlichen Spinnen und Spinnweben. Sie vollständig und auf Dauer zu entfernen ist allerdings eine unlösbare Aufgabe. Ich habe es schon mit einem Ultraschall-Störsender versucht, angeblich mit hoher Wirksamkeit gegenüber den in Europa heimischen Spinnen. Es hat nicht funktioniert.
+
+Das Grundstück ist nicht eingezäunt und hat eine natürliche Begrenzung durch den Wald und alte Dünen, gut zu erkennen an den Dünenkiefern mit ihrem eigenwilligen Wuchs. Die offizielle Straße und die Zufahrt Schmiedeberge 18 sind ausgefahrene Sandwege, bei Trockenheit staubig und bei Regen matschig.
+
+Fahrradverleih 400m, Bäcker 800m, Edeka 1km, nächster Strand 1,7km. Den Westrand, der zu den schönsten Stränden Europas zählt, erreicht man in 20-30min mit dem Fahrrad (6km). Der Weg dorthin führt durch einen der letzten Urwälder Europas. Durch den schnellen Wechsel von Wald- und Seeluft bei der Fahrt zum Strand genießen Sie intensiv die Vorzüge des Reizklimas, das für seine belebende und heilende Wirkung bekannt ist.', 80, 3, '4', 'Bremen', 'Bahnhof', 3, 22, 4, 0, 2);
+INSERT INTO vacation_rental_db.houses (name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES ('modernes Ferienhaus mit Charme', 'Niedliches Ferienhaus mit 2 Schlafgelegenheiten im Zentrum vom Ostseebad Prerow. Verleben Sie Ihren Urlaub in entspannter, moderner Atmosphäre. Das Haus ist mit allem Komfort der heutigen Zeit eingerichtet. In der Küche finden Sie Spülmaschine, Herd, Backofen und Mikrowelle. Das Badezimmer besitzt eine ebenerdige Dusche. Das im Obergeschoß befindliche Schlafzimmer verfügt über ein Doppelbett. Im Wohnzimmer, welches mit dem Bad und der Küche sich im Erdgeschoss befindet, ist mit einer Couch ausgestattet.
+
+2021 fanden die derzeit letzten Renovierungsarbeiten statt.
+', 29, 4, '57224', 'Hamburg', 'Brunnegasse', 7, 58, 7, 0, 2);
+
+
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('1_front.jpg', 1, 1);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('1_layout.png', 1, 2);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('1_other_1.jpg', 1, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('1_other_2.jpg', 1, 4);
+
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('2_front.jpg', 2, 1);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('2_layout.png', 2, 2);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('2_other_1.jpg', 2, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('2_other_2.jpg', 2, 4);
+
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('3_front.jpg', 3, 1);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('3_layout.jpg', 3, 2);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('3_other_1.jpg', 3, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('3_other_2.jpg', 3, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('3_other_3.jpg', 3, 4);
+
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('4_front.jpg', 4, 1);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('4_layout.jpg', 4, 2);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('4_other_1.jpg', 4, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('4_other_2.jpg', 4, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('4_other_3.jpg', 4, 4);
+
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('5_front.jpg', 5, 1);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('5_layout.jpg', 5, 2);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('5_other_1.jpg', 5, 4);
+INSERT INTO vacation_rental_db.images (uuid, house_id, typetable_id) VALUES ('5_other_2.jpg', 5, 4);
+
+
+-- features
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (1, 1);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (1, 3);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (1, 5);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (1, 7);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (2, 3);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (2, 13);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (2, 12);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (2, 18);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (3, 21);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (3, 19);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (3, 1);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (3, 25);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (4, 22);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (4, 10);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (4, 4);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (4, 17);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 24);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 21);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 14);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 15);
+
+COMMIT;
+
+
 SET SQL_MODE = @OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS = @OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS = @OLD_UNIQUE_CHECKS;
