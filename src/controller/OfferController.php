@@ -3,8 +3,10 @@
 namespace src\controller;
 
 use Exception;
+use src\models\Features;
 use src\models\House;
 use src\models\Image;
+use src\models\Tag;
 
 class OfferController extends BaseController
 {
@@ -22,7 +24,17 @@ class OfferController extends BaseController
 
     public function getCreate(): void
     {
-        new ViewController('createNewOffer');
+        // get all existing features
+        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+
+        // todo : get all tags
+
+        new ViewController('createNewOffer', $param);
     }
 
     public function postCreate(): void
@@ -33,6 +45,9 @@ class OfferController extends BaseController
 //        create house with values
         $house = new House($houseInput);
         $house->save();
+
+        $tags = $_POST['tags'];
+        $this->storeTags($tags, $house->getId());
 
         try {
             // save front image
@@ -139,6 +154,8 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
+        $this->updateTags($houseId, $_POST['tags']);
+
         // update base data
         /** @var House $house */
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
@@ -178,12 +195,15 @@ class OfferController extends BaseController
     }
 
     /**
-     * @param array<string>$param
+     *
+     * @param array<string, array<string>> $param
      * @return void
      */
-    public function getFind($param):void
+    public function getFind($param)
     {
         //prepare search parameter
+        /** @var string $destination */
+        $destination = $param['destination'];
         $dateStart = $param['dateStart'];
         $dateEnd = $param['dateEnd'];
         $destination = $param['destination'];
@@ -216,6 +236,14 @@ and
             $query .= "and max_person >= {$persons}";
         }
 
+        // get all existing features
+        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+
         $result = $this->connection()->query($query);
         $houses = [];
         if ($result instanceof \mysqli_result) {
@@ -223,11 +251,62 @@ and
                 $houses[] = $row;
             }
         }
-
         $_SESSION['old_POST'] = $param;
 //        unset old data
         $param = [];
         $param['houses'] = $houses;
         new ViewController('search', $param);
+    }
+
+    /**
+     * @param int $houseId
+     * @return void
+     * @throws Exception
+     */
+    public function updateTags(int $houseId, string $postedTags): void
+    {
+//      getting old tags
+        $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
+//       extract only the name
+        $tempTags = [];
+        foreach ($oldTags as $tag) {
+            $tempTags[] = $tag->getName();
+        }
+//        --------------------------------------------------
+//        preparing new tags
+        $tags = $postedTags;
+        $tags = explode(',', $tags);
+        $tags = array_unique($tags);
+
+//        --------------------------------------------------
+//       In old array but not in new (has to be removed)
+        $tagsToRemove = array_diff($tempTags, $tags);
+        $tagsToRemove = "'" . implode("','", $tagsToRemove) . "'";
+        $query = "delete from tags where house_id = {$houseId} and name in ({$tagsToRemove})";
+        $this->connection()->query($query);
+
+//       in new array but not in old (has to be removec)
+        $newTagsToStore = array_diff($tags, $tempTags);
+        foreach ($newTagsToStore as $tag) {
+            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+            $newTag->save();
+        }
+    }
+
+    /**
+     * @param string $postedTags
+     * @param int $houseId
+     * @return void
+     */
+    public function storeTags(string $postedTags, int $houseId)
+    {
+        $tags = $postedTags;
+        $tags = explode(',', $tags);
+        $tags = array_unique($tags);
+
+        foreach ($tags as $tag) {
+            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+            $newTag->save();
+        }
     }
 }
