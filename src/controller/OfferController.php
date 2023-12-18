@@ -189,12 +189,14 @@ class OfferController extends BaseController
     }
 
     /**
-     * @param array<string>$param
+     *
+     * @param array<string, array<string>> $param
      * @return void
      */
-    public function getFind($param):void
+    public function getFind($param)
     {
         //prepare search parameter
+        /** @var string $destination */
         $destination = $param['destination'];
         $dateStart = $param['dateStart'];
         $dateEnd = $param['dateEnd'];
