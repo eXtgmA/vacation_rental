@@ -1,7 +1,7 @@
 <?php
 namespace src\models;
 
-class Features extends BaseModel
+class Feature extends BaseModel
 {
     private int $id;
     private string $name;
@@ -56,13 +56,13 @@ class Features extends BaseModel
      * Returns false if given category doesn't exist or other errors occurred in query;
      *
      * @param string $category
-     * @return array<Features>|false
+     * @return array<Feature>|false
      */
     public static function getFeaturesByCategory(string $category) : array|false
     {
         try {
             $f = new BaseModel();
-            return $f->find('\src\models\Features', 'category', $category);
+            return $f->find('\src\models\Feature', 'category', $category);
         } catch (\Exception $e) {
             error_log('Query for features by category "{$category}" failed because: ' . $e);
             return false;
