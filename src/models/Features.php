@@ -21,14 +21,9 @@ class Features extends BaseModel
     public static array $rules = ['name'=>['string'], 'category'=>['string'] ];
 
 
-    /**
-     * @param array<int|string> $modelData
-     */
-    public function __construct($modelData = null)
+    public function __construct()
     {
-        if ($modelData) {
-            parent::createFromModelData($modelData);
-        }
+        parent::__construct();
     }
 
     /**
