@@ -2,7 +2,8 @@
 $header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Datailseite für ein hausobject";
-$house = isset($param) ? $param : null;
+$house = $param['house'] ?? null;
+$features = $param['features'] ?? null;
 include_once($header);
 ?>
 
@@ -114,162 +115,20 @@ if ($result) {
         </div>
 
         <h2 class="sub-headline">Ausstattung</h2>
-        <!-- TODO: Ask Björn for best structure to post the feature list -->
         <div id="feature-grid">
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Outdoor</h3>
+            <?php foreach ($features as $categoryName => $category) { ?>
+                <div class="feature-select-list">
+                    <div class="feature-topic">
+                        <h3 class="sub-headline"><?php echo $categoryName; ?></h3>
+                    </div>
+                    <?php foreach ($category as $feature) { ?>
+                        <label class="feature-select">
+                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName(); ?>">
+                            <?php echo $feature->getName(); ?>
+                        </label>
+                    <?php } ?>
                 </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Pool
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Garten
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Terrasse
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Balkon
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Grill
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Parkplatz
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Garage
-                </label>
-            </div>
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Wellness</h3>
-                </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Sauna
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Whirlpool
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Fitnessraum
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Solarium
-                </label>
-            </div>
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Bad</h3>
-                </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Badewanne
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Dusche
-                </label>
-            </div>
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Multimedia</h3>
-                </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    TV
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Radio
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Internet
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Telefon
-                </label>
-            </div>
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Küche</h3>
-                </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Kühlschrank
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Gefrierschrank
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Backofen
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Mikrowelle
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Geschirrspüler
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Kaffeemaschine
-                </label>
-            </div>
-            <div class="feature-select-list">
-                <div class="feature-topic">
-                    <h3 class="sub-headline">Sonstiges</h3>
-                </div>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Klimaanlage
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Heizung
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Waschmaschine
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Trockner
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Bügeleisen
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Bügelbrett
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Kinderbett
-                </label>
-                <label class="feature-select">
-                    <input type="checkbox">
-                    Hochstuhl
-                </label>
-            </div>
+            <?php } ?>
         </div>
 
         <h2 class="sub-headline">Tags</h2>

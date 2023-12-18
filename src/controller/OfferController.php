@@ -139,8 +139,12 @@ class OfferController extends BaseController
             // fallback when missing param in url
             redirect('/dashboard', 302);
         }
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        new ViewController('offerEdit', $house);
+
+        // get all existing features
+        $param['features'] = $this->prepareFeatures();
+
+        $param['house'] = $this->find('\src\models\House', 'id', $houseId, 1);
+        new ViewController('offerEdit', $param);
     }
 
     public function postEdit(int $houseId): void
