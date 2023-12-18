@@ -2,12 +2,7 @@
 $header = __DIR__ . "/partials/header.view.php";
 $title = "dashboard";
 $site = "dashboard";
-$houses = null;
-if (isset($param)) {
-    if ($param['houses']) {
-        $houses = $param['houses'];
-    }
-}
+$houses = $param['houses'] ?? [];
 
 /**
  * @param string $string
@@ -89,67 +84,71 @@ include_once($header);
             <div class="headline">
                 <h2>Ergebnisse</h2>
             </div>
-            <?php foreach ($houses as $house) { ?>
-                <div class="result">
-                    <div class="result-card">
-                        <div class="card-image">
-                            <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
-                        </div>
-                        <div class="information">
-                            <div class="sub-headline">
-                                <h3><?php print $house->getName() ?></h3>
+            <?php if (!empty($houses)) {
+                foreach ($houses as $house) { ?>
+                    <div class="result">
+                        <div class="result-card">
+                            <div class="card-image">
+                                <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
                             </div>
-                            <div class="details">
-                                <div class="price detail">
-                                    <div class="text">
-                                        <span>Preis</span>
-                                        <span><?php print $house->getPrice() ?></span>
-                                    </div>
-                                    <hr/>
+                            <div class="information">
+                                <div class="sub-headline">
+                                    <h3><?php print $house->getName() ?></h3>
                                 </div>
-                                <div class="max-person detail">
-                                    <div class="text">
-                                        <span>Max. Personen</span>
-                                        <span><?php print $house->getMaxPerson() ?></span>
+                                <div class="details">
+                                    <div class="price detail">
+                                        <div class="text">
+                                            <span>Preis</span>
+                                            <span><?php print $house->getPrice() ?></span>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
-                                </div>
-                                <div class="square-meter detail">
-                                    <div class="text">
-                                        <span>Fläche</span>
-                                        <span><?php print $house->getSquareMeter() ?></span>
+                                    <div class="max-person detail">
+                                        <div class="text">
+                                            <span>Max. Personen</span>
+                                            <span><?php print $house->getMaxPerson() ?></span>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr class="horizontal-line"/>
-                                </div>
-                                <div class="room-count detail">
-                                    <div class="text">
-                                        <span>Räume</span>
-                                        <span><?php print $house->getRoomCount() ?></span>
+                                    <div class="square-meter detail">
+                                        <div class="text">
+                                            <span>Fläche</span>
+                                            <span><?php print $house->getSquareMeter() ?></span>
+                                        </div>
+                                        <hr class="horizontal-line"/>
                                     </div>
-                                    <hr/>
-                                </div>
-                                <div class="city detail">
-                                    <div class="text">
-                                        <span>Stadt</span>
-                                        <span><?php print $house->getPostalCode() . ' ' . $house->getCity() ?></span>
+                                    <div class="room-count detail">
+                                        <div class="text">
+                                            <span>Räume</span>
+                                            <span><?php print $house->getRoomCount() ?></span>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
-                                </div>
-                                <div class="street detail">
-                                    <div class="text">
-                                        <span>Straße</span>
-                                        <span><?php print $house->getStreet() . ' ' . $house->getHouseNumber() ?></span>
+                                    <div class="city detail">
+                                        <div class="text">
+                                            <span>Stadt</span>
+                                            <span><?php print $house->getPostalCode() . ' ' . $house->getCity() ?></span>
+                                        </div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
-                                </div>
-                                <div class="submit">
-                                    <button class="btn-primary" type="button">Ansehen</button>
+                                    <div class="street detail">
+                                        <div class="text">
+                                            <span>Straße</span>
+                                            <span><?php print $house->getStreet() . ' ' . $house->getHouseNumber() ?></span>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                    <div class="submit">
+                                        <button class="btn-primary" type="button">Ansehen</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            <?php } ?>
+                <?php }
+            } else {
+                echo "<span>Es tut uns leid, aber zu Ihrer Auswahl wurden keine Ferienhäuser gefunden.</span>";
+            } ?>
         </div>
     </div>
 </form>
