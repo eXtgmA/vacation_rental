@@ -8,7 +8,7 @@ if (!isset($_SESSION)) { // avoid double opening sessions
 array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
 
 // auto redirect to login page, if the user tries to access a page that requires login
-if (!isset($_SESSION['user']) && !in_array($_SERVER['REQUEST_URI'], ['/login', '/register', '/', '/dashboard', '/impressum'])) {
+if (!isset($_SESSION['user']) && !in_array(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), ['/login', '/register', '/', '/dashboard', '/impressum', '/offer/find'])) {
     $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
     header('location: /login', true, 302);
 }
