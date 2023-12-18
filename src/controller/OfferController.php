@@ -200,8 +200,38 @@ class OfferController extends BaseController
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
             redirect('/offer/edit/'.$houseId, 302);
         }
+        // update features
+        $houseFeatures = $house->getAllFeatures();
+        if (isset($_POST['features'])) {
+            foreach ($_POST['features'] as $categoryName => $category) {
+                foreach ($category as $fIndex => $featureName) {
+                    $found = false;
+                    foreach ($houseFeatures as $key => $houseFeature) {
+                        // if exists in db => stop search for this name
+                        if ($houseFeature->getName() == $featureName) {
+                            $found = true;
+                            // keep track of found features
+                            unset($houseFeatures[$key]);
+                            break;
+                        }
+                    }
+                    // add house-feature relation to db if user just selected the feature
+                    if (!$found) {
+                        // if feature has not been found in existing house-feature relations list => it will be added
+                        $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                        $this->connection()->query($query);
+                    }
+                }
+            }
+        }
+        // remove house-feature relation from db if user deselected it
+        if (count($houseFeatures) > 0) {
+            foreach ($houseFeatures as $houseFeature) {
+                $query = "DELETE FROM houses_has_features WHERE houses_id={$house->getId()} AND features_id={$houseFeature->getId()};";
+                $this->connection()->query($query);
+            }
+        }
 
-        // todo update features
         // todo update tags
         redirect("/offer/edit/{$houseId}", 302);
     }
