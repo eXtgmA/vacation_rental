@@ -34,10 +34,10 @@ class OfferController extends BaseController
     public function postCreate(): void
     {
 //        add owner to attributes
-        $_POST['owner_id'] = $_SESSION['user'];
+        $houseInput = $_POST['base-data'];
+        $houseInput['owner_id'] = $_SESSION['user'];
 //        create house with values
-        $this->validateInput('House', $_POST);
-        $house = new House($_POST);
+        $house = new House($houseInput);
         $house->save();
 
         try {
@@ -149,11 +149,42 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        // update base data
         /** @var House $house */
-        $param = $_POST;
-        $house->update($param);
-        redirect("/offer/show/{$houseId}", 302);
+        $house = $this->find('\src\models\House', 'id', $houseId, 1);
+        $baseData = $_POST['base-data'];
+        $house->update($baseData);
+
+        // update images
+        try {
+            // update front image
+            if ($_FILES['front-image-input']['name'] != '') {
+                /** @var Image $image */
+                $image = $this->find('\src\models\Image', 'uuid', $house->getFrontImage(), 1);
+                if ($image != null) {
+                    $image->updateImage($_FILES['front-image-input']);
+                }
+            }
+            // update layout image
+            if ($_FILES['layout-image-input']['name'] != '') {
+                /** @var Image $image */
+                $image = $this->find('\src\models\Image', 'uuid', $house->getLayoutImage(), 1);
+                if ($image != null) {
+                    $image->updateImage($_FILES['layout-image-input']);
+                }
+            }
+            // update optional images
+            if ($_FILES['optional-images']['name'][0] != '') {
+                // todo : update the correct optional image (needs order for images)
+            }
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
+            redirect('/offer/edit/'.$houseId, 302);
+        }
+
+        // todo update features
+        // todo update tags
+        redirect("/offer/edit/{$houseId}", 302);
     }
 
     /**

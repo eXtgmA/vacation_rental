@@ -14,6 +14,11 @@ class Image extends BaseModel
     public static array $allowedAttributes = ['uuid','house_id','typetable_id'];
 
     /**
+     * @var array|string[]
+     */
+    public static array $updateableAttributes = ['uuid','typetable_id'];
+
+    /**
      * @var string
      */
     public static string $table = 'images';
@@ -70,7 +75,6 @@ class Image extends BaseModel
         return $imageName;
     }
 
-//    todo delete
     /**
      * @param string[] $file
      * @param int $houseId
@@ -113,6 +117,34 @@ class Image extends BaseModel
             var_dump($e);
         }
         return $imageName;
+    }
+
+    /**
+     * @param array<string> $file
+     * @return bool
+     * @throws \Exception
+     */
+    public function updateImage(array $file) : bool
+    {
+        $path = __DIR__ . "/../../public/images/" . $this->uuid;
+        // delete image from disk
+        if (file_exists($path)) {
+            unlink($path);
+        }
+
+        // save new image to disk
+        try {
+            $this->uuid = Image::imageToDisk($file);
+        } catch (\Exception $e) {
+            error_log("Image could not be saved to disk, because:\n" . $e);
+            throw new \Exception($e);
+        }
+
+        // update db entry with new uuid
+        $param['uuid'] = $this->uuid;
+        $this->update($param);
+
+        return true;
     }
 
     /**

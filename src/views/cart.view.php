@@ -4,6 +4,7 @@ $header=__DIR__."/partials/header.view.php";
 $title = "Warenkorb";
 $booking = $param["booking"] ?? null;
 $bpos = $param["bookingpositions"] ?? null;
+
 $houses = $param["houses"] ?? null;
 include_once($header);
 ?>

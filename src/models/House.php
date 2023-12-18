@@ -19,11 +19,17 @@ class House extends BaseModel
     private int $room_count;
     private bool $is_disabled;
     private int $owner_id;
+
     public static string $table = 'houses';
     /**
      * @var string[]
      */
     public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
+
+    /**
+     * @var string[]
+     */
+    public static array $updateableAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled'];
 
     /**
      * @var array<int|string, array<int|string>|string>
@@ -34,21 +40,6 @@ class House extends BaseModel
      * @var string
      */
     private string $frontimage;
-    /**
-     * @var string
-     */
-    private string $layoutImage;
-
-    /**
-     * @var array <string>
-     */
-    private array $optionalImages = [];
-
-    /**
-     * @var array <string>
-     */
-    private array $tags = [];
-
 
     /**
      * @param string[] $modelData
@@ -84,7 +75,7 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
         $this->frontimage = $image->getUuid();
         return $this->frontimage;
@@ -104,10 +95,9 @@ class House extends BaseModel
             return '';
         }
         // fetch associated uuid
-        /** @var \src\models\Image $image */
+        /** @var Image $image */
         $image = $this->find('\src\models\Image', 'id', $row["id"], 1);
-        $this->layoutImage = $image->getUuid();
-        return $this->layoutImage;
+        return $image->getUuid();
     }
 
     /**
@@ -117,6 +107,7 @@ class House extends BaseModel
     public function getOptionalImages(): array
     {
         // get optional images id from db
+        $optionalImages = [];
         $query = "SELECT id FROM images WHERE house_id={$this->id} && typetable_id=4 LIMIT 3;";
         $result = $this->connection()->query($query);
         if (!($result instanceof \mysqli_result)) {
@@ -129,12 +120,12 @@ class House extends BaseModel
             if ($row == null) {
                 return [];
             }
-            // fetch associated uuid
-            /** @var \src\models\Image $image */
+            // fetch associated uuids into array
+            /** @var Image $image */
             $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
-            $this->optionalImages[] = $image->getUuid();
+            $optionalImages[] = $image->getUuid();
         }
-        return $this->optionalImages;
+        return $optionalImages;
     }
 
     /**
@@ -183,10 +174,10 @@ class House extends BaseModel
         if ($result instanceof \mysqli_result) {
             // Fetch the tags and add them to the array
             while ($row = $result->fetch_assoc()) {
-                $this -> tags[] = $row['name'];
+                $tags[] = $row['name'];
             }
         }
-        return $this -> tags;
+        return $tags;
     }
 
     /**

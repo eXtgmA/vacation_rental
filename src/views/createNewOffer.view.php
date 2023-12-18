@@ -36,51 +36,51 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
         <div id="detail-grid">
             <div id="name-area">
                 <label class="label" for="name">Name der Anlage*</label>
-                <input class="input-field" type="text" name="name" id="name" value="<?php pold('name') ?>" required
+                <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php pold('name') ?>" required
                        autofocus>
             </div>
             <div id="city-area">
                 <label class="label" for="city">Ort*</label>
-                <input class="input-field" type="text" name="city" id="city" value="<?php pold('city') ?>" required>
+                <input class="input-field" type="text" name="base-data[city]" id="city" value="<?php pold('city') ?>" required>
             </div>
             <div id="postal-code-area">
                 <label class="label" for="postal-code">Postleitzahl*</label>
-                <input class="input-field" type="number" name="postal-code" id="postal-code" maxlength="5"
+                <input class="input-field" type="number" name="base-data[postal_code]" id="postal-code" maxlength="5"
                        value="<?php pold('postal_code') ?>" required>
             </div>
             <div id="street-area">
                 <label class="label" for="street">Straße*</label>
-                <input class="input-field" type="text" name="street" id="street" value="<?php pold('street') ?>"
+                <input class="input-field" type="text" name="base-data[street]" id="street" value="<?php pold('street') ?>"
                        required>
             </div>
             <div id="house-number-area">
                 <label class="label" for="house-number">Hausnummer*</label>
-                <input class="input-field" type="number" name="house-number" id="house-number" min="1"
+                <input class="input-field" type="number" name="base-data[house_number]" id="house-number" min="1"
                        value="<?php pold('house_number') ?>" required>
             </div>
             <div id="square-meter-area">
-                <label class="label" for="square_meter">Quadratmeter*</label>
-                <input class="input-field" type="number" name="square-meter" id="square_meter" min="1"
+                <label class="label" for="square-meter">Quadratmeter*</label>
+                <input class="input-field" type="number" name="base-data[square_meter]" id="square-meter" min="1"
                        value="<?php pold('square_meter') ?>" required>
             </div>
             <div id="room-count-area">
                 <label class="label" for="room-count">Anzahl Räume*</label>
-                <input class="input-field" type="number" name="room-count" id="room-count" min="1"
+                <input class="input-field" type="number" name="base-data[room_count]" id="room-count" min="1"
                        value="<?php pold('room_count') ?>" required>
             </div>
             <div id="max-person-area">
-                <label class="label" for="max_person">Anzahl mögliche Personen*</label>
-                <input class="input-field" type="number" name="max-person" id="max_person" min="1"
+                <label class="label" for="max-person">Anzahl mögliche Personen*</label>
+                <input class="input-field" type="number" name="base-data[max_person]" id="max-person" min="1"
                        value="<?php pold('max_person') ?>" required>
             </div>
             <div id="price-area">
                 <label class="label" for="price">Preis pro Nacht*</label>
-                <input class="input-field" type="number" name="price" id="price" min="1"
+                <input class="input-field" type="number" name="base-data[price]" id="price" min="1"
                        value="<?php pold('price') ?>" required>
             </div>
             <div id="description-area">
                 <label class="label" for="description">Beschreibung*</label>
-                <textarea class="input-field" name="description" id="description" cols="30" required
+                <textarea class="input-field" name="base-data[description]" id="description" cols="30" required
                           rows="10"><?php pold('description') ?></textarea>
             </div>
         </div>
