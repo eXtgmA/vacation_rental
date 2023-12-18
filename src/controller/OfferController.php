@@ -130,7 +130,7 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function getshow(int $id): void
+    public function getDetail(int $id): void
     {
         $house = $this->find('\src\models\House', 'id', $id, 1);
         new ViewController("offerDetail", $house);
