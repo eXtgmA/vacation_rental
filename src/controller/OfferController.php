@@ -200,11 +200,28 @@ class OfferController extends BaseController
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
             redirect('/offer/edit/'.$houseId, 302);
         }
+
         // update features
+        $this->updateFeatures($house);
+
+        // todo update tags
+        redirect("/offer/edit/{$houseId}", 302);
+    }
+
+    /**
+     * Insert newly selected features and delete deselected ones (relative to a given house)
+     *
+     * It uses the array $_POST['features'] for data input
+     *
+     * @param House $house
+     * @return void
+     */
+    public function updateFeatures(House $house) : void
+    {
         $houseFeatures = $house->getAllFeatures();
         if (isset($_POST['features'])) {
-            foreach ($_POST['features'] as $categoryName => $category) {
-                foreach ($category as $fIndex => $featureName) {
+            foreach ($_POST['features'] as $category) {
+                foreach ($category as $featureName) {
                     $found = false;
                     foreach ($houseFeatures as $key => $houseFeature) {
                         // if exists in db => stop search for this name
@@ -231,9 +248,6 @@ class OfferController extends BaseController
                 $this->connection()->query($query);
             }
         }
-
-        // todo update tags
-        redirect("/offer/edit/{$houseId}", 302);
     }
 
     /**

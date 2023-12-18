@@ -276,7 +276,6 @@ class House extends BaseModel
 
             // if all ok, commit to db
             $this->connection()->commit();
-
         } catch (Exception $e) {
             $this->connection()->rollback();
             $_SESSION['message'] = "Haus konnte nicht gelöscht werden";
