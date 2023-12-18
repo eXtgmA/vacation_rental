@@ -185,21 +185,6 @@ include_once($header);
     </div>
 </div>
 <?php
-if ($houses) {
-    foreach ($houses as $house) {
-        ?>
-        <div class="card">
-            <?php print $house->getName() ?>
-            <?php print $house->getCity() ?>
-            <a href="/booking/create/<?php echo $house->getId() ?>">Buch mich</a>
-        </div>
-        <?php
-    }
-}
-
-?>
-
-<?php
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
