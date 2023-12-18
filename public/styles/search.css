@@ -1,15 +1,39 @@
 #layout-grid {
     display: grid;
+    grid-template-columns: 20% 80%;
     grid-template-areas:
         "search search"
         "filters results";
+
+    width: 80%;
+    margin: 2% auto;
+
 }
 
 #layout-grid > #search-grid {
     grid-area: search;
     display: grid;
     grid-template-areas:
-        "destination from-date to-date person-amount";
+        "destination from-date to-date person-amount submit";
+    grid-template-columns: 24% 22% 22% 10% 22%;
+
+    width: 80%;
+    margin: auto;
+
+    & > .search-input {
+        padding: 10px;
+    }
+
+    & > .submit {
+        display: inline-block;
+        margin: 20px 10px 10px;
+
+        & > button {
+            margin-top: 8px;
+        }
+    }
+
+
 }
 
 #layout-grid > #search-grid > #destination {
@@ -28,47 +52,246 @@
     grid-area: person-amount;
 }
 
-#layout-grid > #filter-grid {
+#layout-grid > #search-grid > .submit {
+    grid-area: submit;
+}
+
+#layout-grid > #filter {
     grid-area: filters;
-    display: grid;
-    grid-template-areas:
-        "tags"
-        "feature-bath"
-        "feature-kitchen"
-        "feature-multimedia"
-        "feature-outdoor"
-        "feature-other"
-        "feature-wellness";
-}
+    display: flex;
+    flex-direction: column;
 
-#layout-grid > #filter-grid > #tags {
-    grid-area: tags;
-}
 
-#layout-grid > #filter-grid > #feature-bath {
-    grid-area: feature-bath;
-}
+    & > #tags {
+        /*padding-top: 0px;*/
+        /*padding-bottom: 0px;*/
+        /*padding-left: 5px;*/
+        /*padding-right: 5px;*/
 
-#layout-grid > #filter-grid > #feature-kitchen {
-    grid-area: feature-kitchen;
-}
+        & .input-icon {
+            position: relative;
+            display: inline-block;
+        }
 
-#layout-grid > #filter-grid > #feature-multimedia {
-    grid-area: feature-multimedia;
-}
+        & .input-icon input {
+            margin-top: 10px;
+            padding-left: 30px;
+        }
 
-#layout-grid > #filter-grid > #feature-outdoor {
-    grid-area: feature-outdoor;
-}
+        & .input-icon .icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
 
-#layout-grid > #filter-grid > #feature-other {
-    grid-area: feature-other;
-}
+        & > #tag-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            margin: 5px auto 1rem;
+            width: 80%;
 
-#layout-grid > #filter-grid > #feature-wellness {
-    grid-area: feature-wellness;
+            .tag-pill {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--color-secondary);
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 10px;
+                transition: all 0.3s ease;
+                min-width: 30px;
+                cursor: pointer;
+                margin: 5px 2px 2px;
+
+                & .tag-text {
+                    display: inline-block;
+                }
+
+                & .delete-text {
+                    display: none;
+                    color: #fff;
+                }
+
+                &:hover, &:focus {
+                    background-color: var(--color-secondary-3);
+
+                    & .delete-text {
+                        margin-left: 8px;
+                        display: block;
+                    }
+                }
+            }
+        }
+
+
+    }
 }
 
 #layout-grid > #results {
     grid-area: results;
+
+    display: flex;
+    flex-direction: column;
+}
+
+#layout-grid > #results > .result {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+.result-card {
+    max-height: 300px;
+    max-width: 1200px;
+    width: 1200px;
+
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    margin: 2% auto;
+
+    display: flex;
+    flex-direction: row;
+
+    & > .card-image {
+        flex: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        & img {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+
+            max-width: 100%;
+            min-width: 100%;
+            max-height: 300px;
+            min-height: 100px;
+            object-fit: cover;
+        }
+    }
+
+    & .information {
+        flex: 70%;
+
+        display: flex;
+        flex-direction: column;
+
+        margin-left: 10px;
+        margin-right: 10px;
+
+        & > .headline {
+            font-weight: bold;
+        }
+
+        & .details {
+            display: grid;
+            grid-template-areas:
+                "price city"
+                "max-person street"
+                "square-meter submit"
+                "room-count submit";
+
+            & .price {
+                grid-area: price;
+            }
+
+            & .city {
+                grid-area: city;
+            }
+
+            & .max-person {
+                grid-area: max-person;
+            }
+
+            & .street {
+                grid-area: street;
+            }
+
+            & .square-meter {
+                grid-area: square-meter;
+            }
+
+            & .room-count {
+                grid-area: room-count;
+            }
+
+            & .submit {
+                margin-top: 20px;
+                grid-area: submit;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                & > button {
+                    width: 50%;
+                    height: 80%;
+                }
+            }
+
+            & .detail {
+                margin-left: 20px;
+                margin-right: 20px;
+
+                & .text {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+
+                    margin-top: 7px;
+                    margin-bottom: 7px;
+                }
+            }
+        }
+    }
+}
+
+.card {
+    max-width: 220px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+
+    & h3 {
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        font-style: italic;
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    & .feature-select-list {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        padding: 0 1rem;
+
+        & .feature-select {
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    & .feature-select-list::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 180px;
+        border-right: 1px solid #000;
+    }
+
+    & .feature-select-list:last-child::after {
+        border-right: none;
+    }
+
 }

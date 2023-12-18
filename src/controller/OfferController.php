@@ -200,6 +200,14 @@ class OfferController extends BaseController
         $dateEnd = $param['dateEnd'];
         $persons = $param['persons'];
 
+        // get all existing features
+        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
+        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
+        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
+        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
+        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
+        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+
         $query = "select * from houses where city like '%{$destination}%'";
         $result=$this->connection()->query($query);
         $houses = [];
