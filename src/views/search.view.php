@@ -51,36 +51,41 @@ include_once($header);
             </div>
         </div>
         <div id="filter">
-            <h2 class="sub-headline">Filter</h2>
-            <div id="tags" class="card">
-                <h3 style="margin-bottom: 0px">Tags</h3>
-                <div id="tag-grid">
-                    <div class="input-icon">
-                        <i class="fa fa-magnifying-glass icon"></i>
-                        <input class="input-field" type="text" placeholder="Tag-Namen">
+            <div class="filter-list">
+                <div class="headline">
+                    <h2>Filter</h2>
+                </div>
+                <div id="tags" class="card">
+                    <h3 style="margin-bottom: 0px">Tags</h3>
+                    <div id="tag-grid">
+                        <div class="input-icon">
+                            <i class="fa fa-magnifying-glass icon"></i>
+                            <input class="input-field" type="text" placeholder="Tag-Namen">
+                        </div>
                     </div>
                 </div>
 
+                <?php foreach ($features as $categoryName => $category) { ?>
+                    <div class="card">
+                        <div class="feature-topic">
+                            <h3><?php echo $categoryName; ?></h3>
+                        </div>
+                        <div class="feature-select-list">
+                            <?php foreach ($category as $feature) { ?>
+                                <label class="feature-select">
+                                    <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>">
+                                    <?php echo $feature->getName(); ?>
+                                </label>
+                            <?php } ?>
+                        </div>
+                    </div>
+                <?php } ?>
             </div>
-            <?php foreach ($features as $categoryName => $category) { ?>
-                <div class="card">
-                    <div class="feature-topic">
-                        <h3><?php echo $categoryName; ?></h3>
-                        <!--                        <h3 class="sub-headline">--><?php //echo $categoryName; ?><!--</h3>-->
-                    </div>
-                    <div class="feature-select-list">
-                        <?php foreach ($category as $feature) { ?>
-                            <label class="feature-select">
-                                <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>">
-                                <?php echo $feature->getName(); ?>
-                            </label>
-                        <?php } ?>
-                    </div>
-                </div>
-            <?php } ?>
         </div>
         <div id="results">
-            <h2>Ergebnisse</h2>
+            <div class="headline">
+                <h2>Ergebnisse</h2>
+            </div>
             <?php foreach ($houses as $house) { ?>
                 <div class="result">
                     <div class="result-card">
@@ -88,7 +93,7 @@ include_once($header);
                             <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
                         </div>
                         <div class="information">
-                            <div class="headline">
+                            <div class="sub-headline">
                                 <h3><?php print $house->getName() ?></h3>
                             </div>
                             <div class="details">
@@ -158,15 +163,15 @@ include_once($header);
             <div id="from-date-search" class="search-input" style="display: inline-block">
                 <label id="from-date-label" for="from-date-input-field"
                        style="display: block;text-align: left">Anreise</label>
-                <input id="from-date-input-field" class="input-field" name="dateStart" type="date" value="<?php pold('dateStart')?>">
+                <input id="from-date-input-field" class="input-field" name="dateStart" type="date" value="<?php pold('dateStart') ?>">
             </div>
             <div id="to-date-search" class="search-input" style="display: inline-block">
                 <label id="to-date-label" for="to-date-label-input-field" style="display: block;text-align: left">Abreise</label>
-                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date" value="<?php pold('dateEnd')?>">
+                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date" value="<?php pold('dateEnd') ?>">
             </div>
             <div id="person-amount-search" class="search-input" style="display: inline-block">
                 <label id="person-amount-label" for="person-amount-input-field" style="display: block;text-align: left">Personen</label>
-                <input id="person-amount-input-field" class="input-field" name="persons" type="number" value="<?php pold('persons')?>">
+                <input id="person-amount-input-field" class="input-field" name="persons" type="number" value="<?php pold('persons') ?>">
             </div>
             <div style="margin: 10px">
                 <button class="btn-secondary">Ferienhaus suchen</button>
@@ -178,11 +183,11 @@ include_once($header);
 if ($houses) {
     foreach ($houses as $house) {
         ?>
-<div class="card">
-        <?php print $house->getName() ?>
-        <?php print $house->getCity() ?>
-    <a href="/booking/create/<?php echo $house->getId()?>">Buch mich</a>
-</div>
+        <div class="card">
+            <?php print $house->getName() ?>
+            <?php print $house->getCity() ?>
+            <a href="/booking/create/<?php echo $house->getId() ?>">Buch mich</a>
+        </div>
         <?php
     }
 }
