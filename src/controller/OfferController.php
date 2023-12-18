@@ -52,7 +52,7 @@ class OfferController extends BaseController
             $layoutimage->save();
 
             // save all additional images (if exist)
-            if (isset($_FILES['optional-images'])) {
+            if ($_FILES['optional-images']['name'][0] != '') {
                 $fCount = count($_FILES['optional-images']['name']);
                 $oFiles = [];
                 for ($i = 0; $i < $fCount; $i++) {
@@ -80,7 +80,8 @@ class OfferController extends BaseController
 
             // redirect
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen. Das Haus konnte nicht angelegt werden.";
-            redirect($_SESSION['previous'], 500, $_POST);
+            redirect($_SESSION['previous'], 302, $_POST);
+            die();
         }
 
         $_SESSION['message'] = "Das Haus wurde erfolgreich angelegt und kann ab jetzt gemietet werden";
