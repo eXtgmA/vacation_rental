@@ -50,7 +50,7 @@ function addTag(tag) {
         newTagElement.className = "tag-pill";
         newTagElement.tabIndex = 0;
         newTagElement.innerHTML = `<span class="tag-text">${tagText}</span>
-                                       <span class="delete-text"> <i class="fa-solid fa-xmark"></i></span>`;
+                                   <span class="delete-text"> <i class="fa-solid fa-xmark"></i></span>`;
 
         // Append tag to hidden input
         appendTagInputElement(tagText);
@@ -74,3 +74,53 @@ function addTag(tag) {
         });
     }
 }
+
+
+const filterList = document.getElementById("filter-list");
+const collapseButton = document.getElementById("collapse-filter-btn");
+
+function refreshFilterList() {
+    if (window.innerWidth > 992) {
+        // show filter list
+        filterList.style.display = "inherit";
+        filterList.style.maxHeight = filterList.scrollHeight + "px";
+        // hide button
+        collapseButton.style.display = "none";
+        collapseButton.textContent = "Filter schließen";
+
+    }
+    if (window.innerWidth < 992) {
+        // hide filter list
+        filterList.style.display = "none";
+        filterList.style.maxHeight = null;
+        // show button
+        collapseButton.style.display = "inherit";
+        collapseButton.textContent = "Filter öffnen";
+    }
+}
+
+/**
+ * hide / show filter list on resize
+ */
+window.addEventListener('resize', refreshFilterList, false);
+
+/**
+ * toggle filter list on click
+ */
+collapseButton.addEventListener("click", function () {
+    // this.classList.toggle("active");
+    if (filterList.style.maxHeight) {
+        this.textContent = "Filter öffnen";
+
+        filterList.style.maxHeight = null;
+        filterList.style.display = "none";
+    } else {
+        this.textContent = "Filter schließen";
+
+        filterList.style.display = "inherit";
+        filterList.style.maxHeight = filterList.scrollHeight + "px";
+    }
+});
+
+// initial check
+refreshFilterList();

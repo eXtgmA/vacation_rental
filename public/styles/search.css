@@ -76,13 +76,11 @@
 #layout-grid > #filter {
     grid-area: filters;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-direction: column;
 
     & .filter-list {
         display: flex;
         flex-direction: column;
-
         & > #tags {
             & .input-icon {
                 position: relative;
@@ -320,6 +318,53 @@
 
 }
 
+.collapse-btn {
+    display: none;
+    width: 80%;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 2px 20px;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+        background-color: var(--color-secondary-3);
+    }
+
+    &:disabled {
+        background-color: var(--color-secondary-1);
+        cursor: not-allowed;
+    }
+
+    &:focus {
+        outline: none;
+        padding: 0px 18px;
+        border: 2px solid var(--color-secondary-4);
+    }
+
+    & .active {
+        display: none;
+    }
+    & .inactive {
+        display: block;
+    }
+}
+
+.collapse-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+}
+
+
 /* XXXL 1600px - 1800px */
 @media (max-width: 1800px) {
     #layout-grid {
@@ -460,11 +505,6 @@
     }
 
     #layout-grid > #filter {
-        grid-area: filters;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-
         & .filter-list {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -493,6 +533,9 @@
         grid-template-columns: 100%;
 
         & > .submit {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
             & > button {
                 margin-top: 0;
                 margin-bottom: 0;
@@ -502,11 +545,6 @@
     }
 
     #layout-grid > #filter {
-        grid-area: filters;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-
         & .filter-list {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -515,7 +553,6 @@
             .headline {
                 display: none;
             }
-
         }
     }
 }
@@ -523,14 +560,9 @@
 /* X-Small < 576px */
 @media (max-width: 576px) {
     #layout-grid > #filter {
-        grid-area: filters;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-
         & .filter-list {
             display: grid;
-            grid-template-columns: repeat(1, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             grid-gap: 1rem;
 
             .headline {

@@ -47,39 +47,42 @@ include_once($header);
                 <input id="person-amount-input-field" class="input-field" name="persons" type="number">
             </div>
             <div class="submit">
-                <button class="btn-secondary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
+                <button class="btn-primary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
             </div>
         </div>
         <div id="filter">
-            <div class="filter-list">
-                <div class="headline">
-                    <h2>Filter</h2>
-                </div>
-                <div id="tags" class="card">
-                    <h3 style="margin-bottom: 0px">Tags</h3>
-                    <div id="tag-grid">
-                        <div class="input-icon">
-                            <i class="fa fa-magnifying-glass icon"></i>
-                            <input class="input-field" type="text" placeholder="Tag-Namen">
+            <button class="collapse-btn" type="button" id="collapse-filter-btn">Filter öffnen</button>
+            <div class="collapse-content" id="filter-list">
+                <div class="filter-list">
+                    <div class="headline">
+                        <h2>Filter</h2>
+                    </div>
+                    <div id="tags" class="card">
+                        <h3 style="margin-bottom: 0">Tags</h3>
+                        <div id="tag-grid">
+                            <div class="input-icon">
+                                <i class="fa fa-magnifying-glass icon"></i>
+                                <input class="input-field" type="text" placeholder="Tag-Namen">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <?php foreach ($features as $categoryName => $category) { ?>
-                    <div class="card">
-                        <div class="feature-topic">
-                            <h3><?php echo $categoryName; ?></h3>
+                    <?php foreach ($features as $categoryName => $category) { ?>
+                        <div class="card">
+                            <div class="feature-topic">
+                                <h3><?php echo $categoryName; ?></h3>
+                            </div>
+                            <div class="feature-select-list">
+                                <?php foreach ($category as $feature) { ?>
+                                    <label class="feature-select">
+                                        <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>">
+                                        <?php echo $feature->getName(); ?>
+                                    </label>
+                                <?php } ?>
+                            </div>
                         </div>
-                        <div class="feature-select-list">
-                            <?php foreach ($category as $feature) { ?>
-                                <label class="feature-select">
-                                    <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>">
-                                    <?php echo $feature->getName(); ?>
-                                </label>
-                            <?php } ?>
-                        </div>
-                    </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
         </div>
         <div id="results">
