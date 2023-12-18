@@ -3,7 +3,7 @@
 namespace src\controller;
 
 use Exception;
-use src\models\Features;
+use src\models\Feature;
 use src\models\House;
 use src\models\Image;
 use src\models\Tag;
@@ -25,12 +25,7 @@ class OfferController extends BaseController
     public function getCreate(): void
     {
         // get all existing features
-        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
-        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
-        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
-        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
-        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
-        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+        $param['features'] = $this->prepareFeatures();
 
         // todo : get all tags
 
@@ -61,7 +56,7 @@ class OfferController extends BaseController
             $layoutimage->save();
 
             // save all additional images (if exist)
-            if (isset($_FILES['optional-images'])) {
+            if ($_FILES['optional-images']['name'][0] != '') {
                 $fCount = count($_FILES['optional-images']['name']);
                 $oFiles = [];
                 for ($i = 0; $i < $fCount; $i++) {
@@ -79,7 +74,18 @@ class OfferController extends BaseController
                     $optionalimage->save();
                 }
             }
+
+            // save all selected features
+            foreach ($_POST['features'] as $categoryName => $category) {
+                foreach ($category as $featureName) {
+                    $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                    $this->connection()->query($query);
+                }
+            }
         } catch (Exception $e) {
+            // delete all related features
+            $house->resetRelatedFeatures();
+
             try {
                 // delete house and all its images
                 $house->deleteHouse();
@@ -89,7 +95,8 @@ class OfferController extends BaseController
 
             // redirect
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen. Das Haus konnte nicht angelegt werden.";
-            redirect($_SESSION['previous'], 500, $_POST);
+            redirect($_SESSION['previous'], 302, $_POST);
+            die();
         }
 
         $_SESSION['message'] = "Das Haus wurde erfolgreich angelegt und kann ab jetzt gemietet werden";
@@ -148,8 +155,19 @@ class OfferController extends BaseController
             // fallback when missing param in url
             redirect('/dashboard', 302);
         }
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        new ViewController('offerEdit', $house);
+
+        // get house
+        $param['house'] = $this->find('\src\models\House', 'id', $houseId, 1);
+
+        // get all existing features
+        $param['features'] = $this->prepareFeatures();
+        // get names of all the features related to the house
+        $param['featuresSelected'] = [];
+        foreach ($param['house']->getAllFeatures() as $feature) {
+            $param['featuresSelected'][] = $feature->getName();
+        }
+
+            new ViewController('offerEdit', $param);
     }
 
     public function postEdit(int $houseId): void
@@ -189,9 +207,53 @@ class OfferController extends BaseController
             redirect('/offer/edit/'.$houseId, 302);
         }
 
-        // todo update features
+        // update features
+        $this->updateFeatures($house);
+
         // todo update tags
         redirect("/offer/edit/{$houseId}", 302);
+    }
+
+    /**
+     * Insert newly selected features and delete deselected ones (relative to a given house)
+     *
+     * It uses the array $_POST['features'] for data input
+     *
+     * @param House $house
+     * @return void
+     */
+    public function updateFeatures(House $house) : void
+    {
+        $houseFeatures = $house->getAllFeatures();
+        if (isset($_POST['features'])) {
+            foreach ($_POST['features'] as $category) {
+                foreach ($category as $featureName) {
+                    $found = false;
+                    foreach ($houseFeatures as $key => $houseFeature) {
+                        // if exists in db => stop search for this name
+                        if ($houseFeature->getName() == $featureName) {
+                            $found = true;
+                            // keep track of found features
+                            unset($houseFeatures[$key]);
+                            break;
+                        }
+                    }
+                    // add house-feature relation to db if user just selected the feature
+                    if (!$found) {
+                        // if feature has not been found in existing house-feature relations list => it will be added
+                        $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                        $this->connection()->query($query);
+                    }
+                }
+            }
+        }
+        // remove house-feature relation from db if user deselected it
+        if (count($houseFeatures) > 0) {
+            foreach ($houseFeatures as $houseFeature) {
+                $query = "DELETE FROM houses_has_features WHERE houses_id={$house->getId()} AND features_id={$houseFeature->getId()};";
+                $this->connection()->query($query);
+            }
+        }
     }
 
     /**
@@ -239,12 +301,7 @@ and
         }
 
         // get all existing features
-        $param['features']['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
-        $param['features']['Wellness'] =   Features::getFeaturesByCategory('Wellness');
-        $param['features']['Bad'] =        Features::getFeaturesByCategory('Bad');
-        $param['features']['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
-        $param['features']['Küche'] =      Features::getFeaturesByCategory('Küche');
-        $param['features']['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+        $param['features'] = $this->prepareFeatures();
 
         $result = $this->connection()->query($query);
         $houses = [];
@@ -310,5 +367,21 @@ and
             $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
             $newTag->save();
         }
+    }
+
+    /**
+     * Get all existing features sorted by category
+     *
+     * @return array<string, array<Feature>|false>
+     */
+    public function prepareFeatures() : array
+    {
+        $list['Outdoor'] =    Feature::getFeaturesByCategory('Outdoor');
+        $list['Wellness'] =   Feature::getFeaturesByCategory('Wellness');
+        $list['Bad'] =        Feature::getFeaturesByCategory('Bad');
+        $list['Multimedia'] = Feature::getFeaturesByCategory('Multimedia');
+        $list['Küche'] =      Feature::getFeaturesByCategory('Küche');
+        $list['Sonstiges'] =  Feature::getFeaturesByCategory('Sonstiges');
+        return $list;
     }
 }

@@ -131,7 +131,7 @@ class House extends BaseModel
     /**
      * Get all features related to this house
      *
-     * @return array<Features>
+     * @return array<Feature>
      */
     public function getAllFeatures() : array
     {
@@ -145,13 +145,24 @@ class House extends BaseModel
         $features = [];
         while ($row = $result->fetch_assoc()) {
             try {
-                $features[] = $this->find('src\models\Features', 'id', $row['features_id'], 1);
+                $features[] = $this->find('src\models\Feature', 'id', $row['features_id'], 1);
             } catch (Exception $e) {
                 error_log("Feature ({$row['features_id']}) could not be retrieved because: ". $e);
                 continue;
             }
         }
         return $features;
+    }
+
+    /**
+     * Reset related features to none
+     *
+     * @return void
+     */
+    public function resetRelatedFeatures() : void
+    {
+        $query = "DELETE FROM houses_has_features WHERE houses_id={$this->id};";
+        $this->connection()->query($query);
     }
 
     /**
@@ -244,6 +255,7 @@ class House extends BaseModel
                     $option->deleteOption();
                 }
             }
+
             // delete all images (front, layout and other)
             if ($allImages) {
                 foreach ($allImages as $image) {
@@ -253,10 +265,15 @@ class House extends BaseModel
                     }
                 }
             }
-            // todo : delete related features
+
+            // reset related features
+            $this->resetRelatedFeatures();
+
             // todo : delete related tags
+
             // delete house itself
             $this->delete(model: 'House', id: $this->id);
+
             // if all ok, commit to db
             $this->connection()->commit();
         } catch (Exception $e) {
