@@ -3,7 +3,7 @@
 namespace src\controller;
 
 use Exception;
-use src\models\Features;
+use src\models\Feature;
 use src\models\House;
 use src\models\Image;
 use src\models\Tag;
@@ -340,16 +340,16 @@ class OfferController extends BaseController
     /**
      * Get all existing features sorted by category
      *
-     * @return array<string, array<Features>|false>
+     * @return array<string, array<Feature>|false>
      */
     public function prepareFeatures() : array
     {
-        $list['Outdoor'] =    Features::getFeaturesByCategory('Outdoor');
-        $list['Wellness'] =   Features::getFeaturesByCategory('Wellness');
-        $list['Bad'] =        Features::getFeaturesByCategory('Bad');
-        $list['Multimedia'] = Features::getFeaturesByCategory('Multimedia');
-        $list['Küche'] =      Features::getFeaturesByCategory('Küche');
-        $list['Sonstiges'] =  Features::getFeaturesByCategory('Sonstiges');
+        $list['Outdoor'] =    Feature::getFeaturesByCategory('Outdoor');
+        $list['Wellness'] =   Feature::getFeaturesByCategory('Wellness');
+        $list['Bad'] =        Feature::getFeaturesByCategory('Bad');
+        $list['Multimedia'] = Feature::getFeaturesByCategory('Multimedia');
+        $list['Küche'] =      Feature::getFeaturesByCategory('Küche');
+        $list['Sonstiges'] =  Feature::getFeaturesByCategory('Sonstiges');
         return $list;
     }
 }

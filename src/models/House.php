@@ -131,7 +131,7 @@ class House extends BaseModel
     /**
      * Get all features related to this house
      *
-     * @return array<Features>
+     * @return array<Feature>
      */
     public function getAllFeatures() : array
     {
@@ -145,7 +145,7 @@ class House extends BaseModel
         $features = [];
         while ($row = $result->fetch_assoc()) {
             try {
-                $features[] = $this->find('src\models\Features', 'id', $row['features_id'], 1);
+                $features[] = $this->find('src\models\Feature', 'id', $row['features_id'], 1);
             } catch (Exception $e) {
                 error_log("Feature ({$row['features_id']}) could not be retrieved because: ". $e);
                 continue;
