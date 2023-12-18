@@ -5,6 +5,7 @@ namespace src\controller;
 use Exception;
 use src\models\House;
 use src\models\Image;
+use src\models\Tag;
 
 class OfferController extends BaseController
 {
@@ -33,6 +34,9 @@ class OfferController extends BaseController
 //        create house with values
         $house = new House($houseInput);
         $house->save();
+
+        $tags = $_POST['tags'];
+        $this->storeTags($tags,$house->getId());
 
         try {
             // save front image
@@ -139,6 +143,8 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
+        $this->updateTags($houseId,$_POST['tags']);
+
         // update base data
         /** @var House $house */
         $house = $this->find('\src\models\House', 'id', $houseId, 1);
@@ -199,5 +205,57 @@ class OfferController extends BaseController
         }
         $param['houses'] = $houses;
         new ViewController('search', $param);
+    }
+
+    /**
+     * @param int $houseId
+     * @return void
+     * @throws Exception
+     */
+    public function updateTags(int $houseId,string $postedTags): void
+    {
+//      getting old tags
+        $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
+//       extract only the name
+        $tempTags = [];
+        foreach ($oldTags as $tag) {
+            $tempTags[] = $tag->getName();
+        }
+//        --------------------------------------------------
+//        preparing new tags
+        $tags = $postedTags;
+        $tags = explode(',', $tags);
+        $tags = array_unique($tags);
+
+//        --------------------------------------------------
+//       In old array but not in new (has to be removed)
+        $tagsToRemove = array_diff($tempTags, $tags);
+        $tagsToRemove = "'" . implode("','", $tagsToRemove) . "'";
+        $query = "delete from tags where house_id = {$houseId} and name in ({$tagsToRemove})";
+        $this->connection()->query($query);
+
+//       in new array but not in old (has to be removec)
+        $newTagsToStore = array_diff($tags, $tempTags);
+        foreach ($newTagsToStore as $tag) {
+            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+            $newTag->save();
+        }
+    }
+
+    /**
+     * @param string $postedTags
+     * @param int $houseId
+     * @return void
+     */
+    public function storeTags(string $postedTags, int $houseId)
+    {
+        $tags = $postedTags;
+        $tags = explode(',', $tags);
+        $tags = array_unique($tags);
+
+        foreach ($tags as $tag) {
+            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+            $newTag->save();
+        }
     }
 }
