@@ -155,6 +155,17 @@ class House extends BaseModel
     }
 
     /**
+     * Reset related features to none
+     *
+     * @return void
+     */
+    public function resetRelatedFeatures() : void
+    {
+        $query = "DELETE FROM houses_has_features WHERE houses_id={$this->id};";
+        $this->connection()->query($query);
+    }
+
+    /**
      * return all tags as an array of strings
      *
      * @return array<string>
@@ -244,6 +255,7 @@ class House extends BaseModel
                     $option->deleteOption();
                 }
             }
+
             // delete all images (front, layout and other)
             if ($allImages) {
                 foreach ($allImages as $image) {
@@ -253,12 +265,18 @@ class House extends BaseModel
                     }
                 }
             }
-            // todo : delete related features
+
+            // reset related features
+            $this->resetRelatedFeatures();
+
             // todo : delete related tags
+
             // delete house itself
             $this->delete(model: 'House', id: $this->id);
+
             // if all ok, commit to db
             $this->connection()->commit();
+
         } catch (Exception $e) {
             $this->connection()->rollback();
             $_SESSION['message'] = "Haus konnte nicht gelöscht werden";

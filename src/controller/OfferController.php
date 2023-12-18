@@ -80,8 +80,7 @@ class OfferController extends BaseController
             }
         } catch (Exception $e) {
             // delete all related features
-            $query = "DELETE FROM houses_has_features WHERE houses_id={$house->getId()};";
-            $this->connection()->query($query);
+            $house->resetRelatedFeatures();
 
             try {
                 // delete house and all its images
