@@ -36,7 +36,7 @@ class OfferController extends BaseController
         $house->save();
 
         $tags = $_POST['tags'];
-        $this->storeTags($tags,$house->getId());
+        $this->storeTags($tags, $house->getId());
 
         try {
             // save front image
@@ -143,7 +143,7 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
-        $this->updateTags($houseId,$_POST['tags']);
+        $this->updateTags($houseId, $_POST['tags']);
 
         // update base data
         /** @var House $house */
@@ -212,7 +212,7 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function updateTags(int $houseId,string $postedTags): void
+    public function updateTags(int $houseId, string $postedTags): void
     {
 //      getting old tags
         $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
