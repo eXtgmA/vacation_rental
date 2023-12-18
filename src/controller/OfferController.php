@@ -300,9 +300,6 @@ and
             $query .= "and max_person >= {$persons}";
         }
 
-        // get all existing features
-        $param['features'] = $this->prepareFeatures();
-
         $result = $this->connection()->query($query);
         $houses = [];
         if ($result instanceof \mysqli_result) {
@@ -313,6 +310,7 @@ and
         $_SESSION['old_POST'] = $param;
 //        unset old data
         $param = [];
+        $param['features'] = $this->prepareFeatures();
         $param['houses'] = $houses;
         new ViewController('search', $param);
     }
