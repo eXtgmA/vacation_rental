@@ -79,11 +79,13 @@ return [
         ['GET' => [
             '' => 'index',
             'create'=>'create',
-            'showall'=>'showall'
+            'showall'=>'showall',
+            'edit'=>'edit'
         ],
             'POST' => [
                 'create' => 'create',
                 'delete'=>'delete',
+                'edit' => 'edit',
                 'togglestatus'=>'toggleStatus',]
         ],
     'booking' =>

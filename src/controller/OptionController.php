@@ -78,6 +78,36 @@ class OptionController extends BaseController
         new ViewController("optionShowall", $allOptions);
     }
 
+    public function getEdit(int $optionId): void
+    {
+        if (!$optionId) {
+            // fallback when missing param in url
+            redirect('/dashboard', 302);
+        }
+
+        // get option
+        $param['option'] = $this->find('\src\models\Option', 'id', $optionId, 1);
+        new ViewController("optionEdit", $param);
+    }
+
+    public function postEdit(int $optionId): void
+    {
+        if (!$optionId) {
+            // fallback when missing param in url
+            redirect('/dashboard', 302);
+        }
+
+        // update option data
+        /** @var Option $option */
+        $option = $this->find('\src\models\Option', 'id', $optionId, 1);
+        $option->update($_POST);
+
+        // update image
+        $this->updateImage($option, $_FILES['option-image-input']);
+
+        redirect("/option/edit/{$optionId}", 302);
+    }
+
     public function postDelete(int $optionId): void
     {
         try {
@@ -99,5 +129,31 @@ class OptionController extends BaseController
         $option = $this->find('\src\models\Option', 'id', $id, 1);
         $option->toggleStatus();
         header('location: /option/showall/'.$option->getHouseId(), true, 302);
+    }
+
+    /**
+     * Update option image
+     *
+     * @param Option $option
+     * @param array<string> $imgInput
+     * @return void
+     */
+    public function updateImage(Option $option, array $imgInput): void
+    {
+        // update image
+        if ($imgInput['name'] != '') {
+            try {
+                /** @var Image $image */
+                $image = $this->find('\src\models\Image', 'uuid', $option->getOptionImage(), 1);
+                if ($image != null) {
+                    $image->updateImage($imgInput);
+                }
+            } catch (\Exception $e) {
+                error_log("Image of option could not be updated because: ". $e);
+                $_SESSION['message'] = "Das Bild konnte nicht geändert werden";
+                redirect("/option/edit/{$option->getId()}", 302);
+                die();
+            }
+        }
     }
 }
