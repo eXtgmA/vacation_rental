@@ -162,7 +162,6 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
-        $this->updateTags($houseId, $_POST['tags']);
 
         // update base data
         /** @var House $house */
@@ -170,27 +169,49 @@ class OfferController extends BaseController
         $baseData = $_POST['base-data'];
         $house->update($baseData);
 
-        // update images
+        $this->updateImages($house, $_FILES);
+
+        $this->updateFeatures($house);
+
+        $this->updateTags($houseId, $_POST['tags']);
+
+        redirect("/offer/edit/{$houseId}", 302);
+    }
+
+    /**
+     * Add new images and delete removed ones
+     *
+     * It uses the following keys for data input
+     * - 'front-image-input'
+     * - 'layout-image-input'
+     * - 'optional-images'
+     *
+     * @param House $house
+     * @param array<array<string>> $postedFiles
+     * @return void
+     */
+    public function updateImages(House $house, array $postedFiles) : void
+    {
         try {
             // update front image
-            if ($_FILES['front-image-input']['name'] != '') {
+            if ($postedFiles['front-image-input']['name'] != '') {
                 /** @var Image $image */
                 $image = $this->find('\src\models\Image', 'uuid', $house->getFrontImage(), 1);
                 if ($image != null) {
-                    $image->updateImage($_FILES['front-image-input']);
+                    $image->updateImage($postedFiles['front-image-input']);
                 }
             }
             // update layout image
-            if ($_FILES['layout-image-input']['name'] != '') {
+            if ($postedFiles['layout-image-input']['name'] != '') {
                 /** @var Image $image */
                 $image = $this->find('\src\models\Image', 'uuid', $house->getLayoutImage(), 1);
                 if ($image != null) {
-                    $image->updateImage($_FILES['layout-image-input']);
+                    $image->updateImage($postedFiles['layout-image-input']);
                 }
             }
             // update optional images
             $oldImages = $house->getOptionalImages();
-            if ($_FILES['optional-images']['name'][0] != '') {
+            if ($postedFiles['optional-images']['name'][0] != '') {
                 $newImages = $this->translateOptionalImagesInput();
                 foreach ($newImages as $newImage) {
                     $found = false;
@@ -210,7 +231,7 @@ class OfferController extends BaseController
                     }
                 }
             }
-            // delete deselected images from db and disk
+            // delete deselected optional images from db and disk
             if (count($oldImages) > 0) {
                 foreach ($oldImages as $oldImage) {
                     $imgPath = $oldImage->deleteImage();
@@ -219,14 +240,8 @@ class OfferController extends BaseController
             }
         } catch (Exception $e) {
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
-            redirect('/offer/edit/'.$houseId, 302);
+            redirect('/offer/edit/'.$house->getId(), 302);
         }
-
-        // update features
-        $this->updateFeatures($house);
-
-        // todo update tags
-        redirect("/offer/edit/{$houseId}", 302);
     }
 
     /**
