@@ -209,6 +209,8 @@
                 "max-person street"
                 "square-meter submit"
                 "room-count submit";
+            grid-template-columns: 50% 50%;
+
 
             & .price {
                 grid-area: price;
