@@ -77,7 +77,7 @@ return [
         ],
     'option' =>
         ['GET' => [
-            '' => 'index',
+//            '' => 'index',
             'create'=>'create',
             'showall'=>'showall',
             'edit'=>'edit'

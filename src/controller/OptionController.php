@@ -13,15 +13,18 @@ class OptionController extends BaseController
         parent::__construct();
     }
 
-    public function getIndex(int $id): void
-    {
-        $option = new Option();
-        $option = $option->getOption($id);
-        new ViewController('showOneOption');
-    }
+//    public function getIndex(int $id): void
+//    {
+//        var_dump('hier');
+//        die();
+//        $option = new Option();
+//        $option = $option->getOption($id);
+//        new ViewController('showOneOption');
+//    }
 
-    public function getCreate(int $houseId) : void
+    public function getCreate(int $houseId = null) : void
     {
+        $this->forceParam($houseId, 'House');
         new ViewController("OptionCreate", $houseId);
     }
 
@@ -59,18 +62,19 @@ class OptionController extends BaseController
         redirect("/option/showall/".$houseId, 302);
     }
 
-    public function getShowall(int $houseId) : void
+    public function getShowall(int $houseId = null) : void
     {
+        $house = $this->forceParam($houseId, 'house');
         // todo: check if house is owned by user (see above in postCreate() )
         // initialize house
-        try {
-            /** @var House $house */
-            $house = $this->find('\src\models\House', 'id', $houseId, 1);
-        } catch (\Exception $e) {
-            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
-            redirect($_SESSION['previous'], 500);
-            die();
-        }
+//        try {
+//            /** @var House $house */
+//            $house = $this->find('\src\models\House', 'id', $houseId, 1);
+//        } catch (\Exception $e) {
+//            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
+//            redirect($_SESSION['previous'], 500);
+//            die();
+//        }
         // get all options related to house from db
         /** @var mixed[] $allOptions */
         $allOptions = $house->getAllOptions();
@@ -108,12 +112,14 @@ class OptionController extends BaseController
         redirect("/option/edit/{$optionId}", 302);
     }
 
-    public function postDelete(int $optionId): void
+    public function postDelete(int $optionId = null): void
     {
+        /** @var Option $option */
+        $option=$this->forceParam($optionId, 'option');
+        // todo check if rest is needed, maybe more params to function
         try {
             // delete option (related image included)
-            /** @var Option $option */
-            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
+//            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
@@ -126,7 +132,8 @@ class OptionController extends BaseController
     public function posttoggleStatus(int $id): void
     {
         /** @var Option $option */
-        $option = $this->find('\src\models\Option', 'id', $id, 1);
+        $option=$this->forceParam($id, 'option');
+//        $option = $this->find('\src\models\Option', 'id', $id, 1);
         $option->toggleStatus();
         header('location: /option/showall/'.$option->getHouseId(), true, 302);
     }
