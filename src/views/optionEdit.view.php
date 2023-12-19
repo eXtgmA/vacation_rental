@@ -52,3 +52,11 @@ $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
 <script src="/scripts/option-create.js"></script>
+
+<script>
+    // preload the frontImage
+    fetch("<?php echo "/images/" . $option->getOptionImage() ?>")
+        .then(response => response.blob())
+        .then(blob => uploadFile(new File([blob], "<?php echo $option->getOptionImage() ?>", {type: "image"}), container, dropArea, selectElement))
+        .catch(error => console.error(error));
+</script>
