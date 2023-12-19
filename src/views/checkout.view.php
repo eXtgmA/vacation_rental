@@ -43,11 +43,20 @@ include_once($header);
             </tr>
             <tr>
                 <td>Optionen</td>
-                <td><?php print_r($p->getPriceDetailList()); ?></td> <!-- todo : expand list in detail -->
+                <td>
+                <?php $pdl = json_decode($p->getPriceDetailList(), true);
+                if (!empty($pdl)) {
+                    echo "<table>";
+                    foreach ($pdl['options'] as $name => $price) { // @phpstan-ignore-line?>
+                        <tr><td><?php echo $name." => ".$price."€" ?></td></tr>
+                    <?php }
+                    echo "</table>";
+                } ?>
+                </td>
             </tr>
             <tr>
                 <td>Preis</td>
-                <td>XXXX,xx Euro<?php // echo $p["price_detail_list"]["price"]; ?></td> <!-- todo : get price from list -->
+                <td><?php echo ($pdl["price"] ?? "Price not calculated!")."€"; // @phpstan-ignore-line?></td> <!-- todo : get price from list (and delete stan-ignore) -->
             </tr>
             <?php
         }
