@@ -189,9 +189,35 @@ class OfferController extends BaseController
                 }
             }
             // update optional images
+            $oldImages = $house->getOptionalImages();
             if ($_FILES['optional-images']['name'][0] != '') {
-                // todo : update the correct optional image (needs order for images)
+                $newImages = $this->translateOptionalImagesInput();
+                foreach ($newImages as $newImage) {
+                    $found = false;
+                    foreach ($oldImages as $key => $oldImage) {
+                        if ($newImage['name'] == $oldImage->getUuid()) {
+                            $found = true;
+                            // keep track of found images
+                            unset($oldImages[$key]);
+                            break;
+                        }
+                    }
+                    if (!$found) {
+                        // save new image to db and disk
+                        $uuid = Image::imageToDisk($newImage);
+                        $optionalImage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuid]);
+                        $optionalImage->save();
+                    }
+                }
             }
+            // delete deselected images from db and disk
+            if (count($oldImages) > 0) {
+                foreach ($oldImages as $oldImage) {
+                    $imgPath = $oldImage->deleteImage();
+                    unlink($imgPath);
+                }
+            }
+
         } catch (Exception $e) {
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
             redirect('/offer/edit/'.$houseId, 302);
