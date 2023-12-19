@@ -45,13 +45,16 @@ include_once($header);
                 <td>Optionen</td>
                 <td>
                 <?php $pdl = json_decode($p->getPriceDetailList(), true);
+                $optionSum = 0;
                 if (!empty($pdl)) {
                     echo "<table>";
-                    foreach ($pdl['options'] as $name => $price) { // @phpstan-ignore-line?>
-                        <tr><td><?php echo $name." => ".$price."€" ?></td></tr>
-                    <?php }
+                    foreach ($pdl['options'] as $name => $price) { // @phpstan-ignore-line
+                        echo "<tr><td>" . $name." => ".$price."€" . "</td></tr>";
+                        $optionSum += $price;
+                    }
                     echo "</table>";
-                } ?>
+                }
+                echo "Summe der Optionen => {$optionSum}€"; ?>
                 </td>
             </tr>
             <tr>
