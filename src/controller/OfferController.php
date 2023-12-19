@@ -57,21 +57,11 @@ class OfferController extends BaseController
 
             // save all additional images (if exist)
             if ($_FILES['optional-images']['name'][0] != '') {
-                $fCount = count($_FILES['optional-images']['name']);
-                $oFiles = [];
-                for ($i = 0; $i < $fCount; $i++) {
-                    // translate input array format
-                    $oFiles[$i]['name'] = $_FILES['optional-images']['name'][$i];
-                    $oFiles[$i]['full_path'] = $_FILES['optional-images']['full_path'][$i];
-                    $oFiles[$i]['type'] = $_FILES['optional-images']['type'][$i];
-                    $oFiles[$i]['tmp_name'] = $_FILES['optional-images']['tmp_name'][$i];
-                    $oFiles[$i]['error'] = $_FILES['optional-images']['error'][$i];
-                    $oFiles[$i]['size'] = $_FILES['optional-images']['size'][$i];
-
-                    // save one additional image
-                    $uuidO = Image::imageToDisk($oFiles[$i]);
-                    $optionalimage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuidO]);
-                    $optionalimage->save();
+                $newImages = $this->translateOptionalImagesInput();
+                foreach ($newImages as $image) {
+                    $uuidO = Image::imageToDisk($image);
+                    $optionalImage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuidO]);
+                    $optionalImage->save();
                 }
             }
 
@@ -381,5 +371,26 @@ and
         $list['Küche'] =      Feature::getFeaturesByCategory('Küche');
         $list['Sonstiges'] =  Feature::getFeaturesByCategory('Sonstiges');
         return $list;
+    }
+
+    /**
+     * Translates input of $_FILE[] into an array of files
+     *
+     * @return array
+     */
+    public function translateOptionalImagesInput() : array
+    {
+        $fCount = count($_FILES['optional-images']['name']);
+        $oFiles = [];
+        for ($i = 0; $i < $fCount; $i++) {
+            // translate input array format
+            $oFiles[$i]['name'] = $_FILES['optional-images']['name'][$i];
+            $oFiles[$i]['full_path'] = $_FILES['optional-images']['full_path'][$i];
+            $oFiles[$i]['type'] = $_FILES['optional-images']['type'][$i];
+            $oFiles[$i]['tmp_name'] = $_FILES['optional-images']['tmp_name'][$i];
+            $oFiles[$i]['error'] = $_FILES['optional-images']['error'][$i];
+            $oFiles[$i]['size'] = $_FILES['optional-images']['size'][$i];
+        }
+        return $oFiles;
     }
 }
