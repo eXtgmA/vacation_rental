@@ -171,7 +171,7 @@ class OfferController extends BaseController
 
         $this->updateImages($house, $_FILES);
 
-        $this->updateFeatures($house);
+        $this->updateFeatures($house, $_POST['features']);
 
         $this->updateTags($houseId, $_POST['tags']);
 
@@ -250,30 +250,29 @@ class OfferController extends BaseController
      * It uses the array $_POST['features'] for data input
      *
      * @param House $house
+     * @param array<array<string>> $postedFeatures
      * @return void
      */
-    public function updateFeatures(House $house) : void
+    public function updateFeatures(House $house, array $postedFeatures) : void
     {
         $houseFeatures = $house->getAllFeatures();
-        if (isset($_POST['features'])) {
-            foreach ($_POST['features'] as $category) {
-                foreach ($category as $featureName) {
-                    $found = false;
-                    foreach ($houseFeatures as $key => $houseFeature) {
-                        // if exists in db => stop search for this name
-                        if ($houseFeature->getName() == $featureName) {
-                            $found = true;
-                            // keep track of found features
-                            unset($houseFeatures[$key]);
-                            break;
-                        }
+        foreach ($postedFeatures as $category) {
+            foreach ($category as $featureName) {
+                $found = false;
+                foreach ($houseFeatures as $key => $houseFeature) {
+                    // if exists in db => stop search for this name
+                    if ($houseFeature->getName() == $featureName) {
+                        $found = true;
+                        // keep track of found features
+                        unset($houseFeatures[$key]);
+                        break;
                     }
-                    // add house-feature relation to db if user just selected the feature
-                    if (!$found) {
-                        // if feature has not been found in existing house-feature relations list => it will be added
-                        $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
-                        $this->connection()->query($query);
-                    }
+                }
+                // add house-feature relation to db if user just selected the feature
+                if (!$found) {
+                    // if feature has not been found in existing house-feature relations list => it will be added
+                    $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                    $this->connection()->query($query);
                 }
             }
         }
