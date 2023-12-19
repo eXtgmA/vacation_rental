@@ -57,21 +57,11 @@ class OfferController extends BaseController
 
             // save all additional images (if exist)
             if ($_FILES['optional-images']['name'][0] != '') {
-                $fCount = count($_FILES['optional-images']['name']);
-                $oFiles = [];
-                for ($i = 0; $i < $fCount; $i++) {
-                    // translate input array format
-                    $oFiles[$i]['name'] = $_FILES['optional-images']['name'][$i];
-                    $oFiles[$i]['full_path'] = $_FILES['optional-images']['full_path'][$i];
-                    $oFiles[$i]['type'] = $_FILES['optional-images']['type'][$i];
-                    $oFiles[$i]['tmp_name'] = $_FILES['optional-images']['tmp_name'][$i];
-                    $oFiles[$i]['error'] = $_FILES['optional-images']['error'][$i];
-                    $oFiles[$i]['size'] = $_FILES['optional-images']['size'][$i];
-
-                    // save one additional image
-                    $uuidO = Image::imageToDisk($oFiles[$i]);
-                    $optionalimage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuidO]);
-                    $optionalimage->save();
+                $newImages = $this->translateOptionalImagesInput();
+                foreach ($newImages as $image) {
+                    $uuidO = Image::imageToDisk($image);
+                    $optionalImage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuidO]);
+                    $optionalImage->save();
                 }
             }
 
@@ -172,7 +162,6 @@ class OfferController extends BaseController
 
     public function postEdit(int $houseId): void
     {
-        $this->updateTags($houseId, $_POST['tags']);
 
         // update base data
         /** @var House $house */
@@ -180,38 +169,79 @@ class OfferController extends BaseController
         $baseData = $_POST['base-data'];
         $house->update($baseData);
 
-        // update images
+        $this->updateImages($house, $_FILES);
+
+        $this->updateFeatures($house, $_POST['features']);
+
+        $this->updateTags($houseId, $_POST['tags']);
+
+        redirect("/offer/edit/{$houseId}", 302);
+    }
+
+    /**
+     * Add new images and delete removed ones
+     *
+     * It uses the following keys for data input
+     * - 'front-image-input'
+     * - 'layout-image-input'
+     * - 'optional-images'
+     *
+     * @param House $house
+     * @param array<array<string>> $postedFiles
+     * @return void
+     */
+    public function updateImages(House $house, array $postedFiles) : void
+    {
         try {
             // update front image
-            if ($_FILES['front-image-input']['name'] != '') {
+            if ($postedFiles['front-image-input']['name'] != '') {
                 /** @var Image $image */
                 $image = $this->find('\src\models\Image', 'uuid', $house->getFrontImage(), 1);
                 if ($image != null) {
-                    $image->updateImage($_FILES['front-image-input']);
+                    $image->updateImage($postedFiles['front-image-input']);
                 }
             }
             // update layout image
-            if ($_FILES['layout-image-input']['name'] != '') {
+            if ($postedFiles['layout-image-input']['name'] != '') {
                 /** @var Image $image */
                 $image = $this->find('\src\models\Image', 'uuid', $house->getLayoutImage(), 1);
                 if ($image != null) {
-                    $image->updateImage($_FILES['layout-image-input']);
+                    $image->updateImage($postedFiles['layout-image-input']);
                 }
             }
             // update optional images
-            if ($_FILES['optional-images']['name'][0] != '') {
-                // todo : update the correct optional image (needs order for images)
+            $oldImages = $house->getOptionalImages();
+            if ($postedFiles['optional-images']['name'][0] != '') {
+                $newImages = $this->translateOptionalImagesInput();
+                foreach ($newImages as $newImage) {
+                    $found = false;
+                    foreach ($oldImages as $key => $oldImage) {
+                        if ($newImage['name'] == $oldImage->getUuid()) {
+                            $found = true;
+                            // keep track of found images
+                            unset($oldImages[$key]);
+                            break;
+                        }
+                    }
+                    if (!$found) {
+                        // save new image to db and disk
+                        $uuid = Image::imageToDisk($newImage);
+                        $optionalImage = new Image(['house_id' => $house->getId(), 'typetable_id' => 4, 'uuid' => $uuid]);
+                        $optionalImage->save();
+                    }
+                }
+            }
+            // delete deselected optional images from db and disk
+            if (count($oldImages) > 0) {
+                foreach ($oldImages as $oldImage) {
+                    $imgPath = $oldImage->deleteImage();
+                    unlink($imgPath);
+                }
             }
         } catch (Exception $e) {
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
-            redirect('/offer/edit/'.$houseId, 302);
+            redirect('/offer/edit/'.$house->getId(), 302);
         }
-
-        // update features
-        $this->updateFeatures($house);
-
-        // todo update tags
-        redirect("/offer/edit/{$houseId}", 302);
     }
 
     /**
@@ -220,30 +250,29 @@ class OfferController extends BaseController
      * It uses the array $_POST['features'] for data input
      *
      * @param House $house
+     * @param array<array<string>> $postedFeatures
      * @return void
      */
-    public function updateFeatures(House $house) : void
+    public function updateFeatures(House $house, array $postedFeatures) : void
     {
         $houseFeatures = $house->getAllFeatures();
-        if (isset($_POST['features'])) {
-            foreach ($_POST['features'] as $category) {
-                foreach ($category as $featureName) {
-                    $found = false;
-                    foreach ($houseFeatures as $key => $houseFeature) {
-                        // if exists in db => stop search for this name
-                        if ($houseFeature->getName() == $featureName) {
-                            $found = true;
-                            // keep track of found features
-                            unset($houseFeatures[$key]);
-                            break;
-                        }
+        foreach ($postedFeatures as $category) {
+            foreach ($category as $featureName) {
+                $found = false;
+                foreach ($houseFeatures as $key => $houseFeature) {
+                    // if exists in db => stop search for this name
+                    if ($houseFeature->getName() == $featureName) {
+                        $found = true;
+                        // keep track of found features
+                        unset($houseFeatures[$key]);
+                        break;
                     }
-                    // add house-feature relation to db if user just selected the feature
-                    if (!$found) {
-                        // if feature has not been found in existing house-feature relations list => it will be added
-                        $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
-                        $this->connection()->query($query);
-                    }
+                }
+                // add house-feature relation to db if user just selected the feature
+                if (!$found) {
+                    // if feature has not been found in existing house-feature relations list => it will be added
+                    $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                    $this->connection()->query($query);
                 }
             }
         }
@@ -381,5 +410,26 @@ and
         $list['Küche'] =      Feature::getFeaturesByCategory('Küche');
         $list['Sonstiges'] =  Feature::getFeaturesByCategory('Sonstiges');
         return $list;
+    }
+
+    /**
+     * Translates input of $_FILE[] into an array of files
+     *
+     * @return array<array<string>>
+     */
+    public function translateOptionalImagesInput() : array
+    {
+        $fCount = count($_FILES['optional-images']['name']);
+        $oFiles = [];
+        for ($i = 0; $i < $fCount; $i++) {
+            // translate input array format
+            $oFiles[$i]['name'] = $_FILES['optional-images']['name'][$i];
+            $oFiles[$i]['full_path'] = $_FILES['optional-images']['full_path'][$i];
+            $oFiles[$i]['type'] = $_FILES['optional-images']['type'][$i];
+            $oFiles[$i]['tmp_name'] = $_FILES['optional-images']['tmp_name'][$i];
+            $oFiles[$i]['error'] = $_FILES['optional-images']['error'][$i];
+            $oFiles[$i]['size'] = $_FILES['optional-images']['size'][$i];
+        }
+        return $oFiles;
     }
 }
