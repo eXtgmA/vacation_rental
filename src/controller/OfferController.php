@@ -217,7 +217,6 @@ class OfferController extends BaseController
                     unlink($imgPath);
                 }
             }
-
         } catch (Exception $e) {
             $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
             redirect('/offer/edit/'.$houseId, 302);
@@ -402,7 +401,7 @@ and
     /**
      * Translates input of $_FILE[] into an array of files
      *
-     * @return array
+     * @return array<array<string>>
      */
     public function translateOptionalImagesInput() : array
     {
