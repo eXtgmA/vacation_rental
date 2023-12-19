@@ -108,9 +108,9 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function posttoggleStatus(int $houseId=null): void
+    public function posttoggleStatus(int $houseId = null): void
     {
-        $house=$this->forceParam($houseId,'House');
+        $house=$this->forceParam($houseId, 'House');
         $house->toggleStatus();
         header('location: /offer', true, 302);
     }
@@ -120,9 +120,9 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function getshow($houseId=null): void
+    public function getshow($houseId = null): void
     {
-        $house=$this->forceParam($houseId,'House');
+        $house=$this->forceParam($houseId, 'House');
         new ViewController("offerDetail", $house);
     }
 
@@ -130,9 +130,9 @@ class OfferController extends BaseController
      * @param int|null $houseId
      * @return void
      */
-    public function postDelete($houseId=null): void
+    public function postDelete($houseId = null): void
     {
-        $house=$this->forceParam($houseId,'House');
+        $house=$this->forceParam($houseId, 'House');
         try {
             /** @var House $house */
             $house->deleteHouse();
@@ -150,7 +150,7 @@ class OfferController extends BaseController
      */
     public function getEdit($houseId = null): void
     {
-        $param['house']=$this->forceParam($houseId,'House');
+        $param['house']=$this->forceParam($houseId, 'House');
 
         // get all existing features
         $param['features'] = $this->prepareFeatures();
@@ -170,7 +170,7 @@ class OfferController extends BaseController
      */
     public function postEdit($houseId): void
     {
-        $house=$this->forceParam($houseId,'House');
+        $house=$this->forceParam($houseId, 'House');
 
         // update base data
         /** @var House $house */
@@ -178,7 +178,7 @@ class OfferController extends BaseController
         $house->update($baseData);
 
         $this->updateImages($house, $_FILES);
-        if(!$_POST['features']){
+        if (!$_POST['features']) {
             $_POST['features'] = [];
         };
         $this->updateFeatures($house, $_POST['features']);

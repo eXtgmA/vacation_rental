@@ -22,7 +22,7 @@ class OptionController extends BaseController
 //        new ViewController('showOneOption');
 //    }
 
-    public function getCreate(int $houseId=null) : void
+    public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
         new ViewController("OptionCreate", $houseId);
@@ -62,9 +62,9 @@ class OptionController extends BaseController
         redirect("/option/showall/".$houseId, 302);
     }
 
-    public function getShowall(int $houseId=null) : void
+    public function getShowall(int $houseId = null) : void
     {
-        $house = $this->forceParam($houseId,'house');
+        $house = $this->forceParam($houseId, 'house');
         // todo: check if house is owned by user (see above in postCreate() )
         // initialize house
 //        try {
@@ -82,7 +82,7 @@ class OptionController extends BaseController
         new ViewController("optionShowall", $allOptions);
     }
 
-    public function postDelete(int $optionId=null): void
+    public function postDelete(int $optionId = null): void
     {
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');

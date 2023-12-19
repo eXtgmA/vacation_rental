@@ -29,7 +29,7 @@ class BookingController extends BaseController
 //        new ViewController('bookingDetail', $booking); // todo : specify filename
 //    }
 
-    public function getCreateBookingposition(int $houseId=null): void
+    public function getCreateBookingposition(int $houseId = null): void
     {
         $house=$this->forceParam($houseId, 'house');
 
@@ -85,7 +85,7 @@ class BookingController extends BaseController
         }
     }
 
-    public function postDeleteBookingposition(int $id=null): void
+    public function postDeleteBookingposition(int $id = null): void
     {
         $bps=$this->forceParam($id, 'bookingposition');
         try {

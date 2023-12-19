@@ -44,7 +44,7 @@ class BaseController
     {
         $class = '\src\models\\' . $class;
         $object=$this->find($class, 'id', $idParam, 1);
-        if(!$object){
+        if (!$object) {
             new ViewController('notFound');
             die();
         }
@@ -56,11 +56,11 @@ class BaseController
      * @param string $class
      * @throws \Exception
      */
-    protected function forceParam(int $idParam=null, string $class)//@phpstan-ignore-line
+    protected function forceParam(int $idParam = null, string $class)//@phpstan-ignore-line
     {
         $this->notFoundOnMissingParam($idParam);
         /** @var int $idParam */
-        $result=$this->notFoundOnMissingObject($idParam,$class);
+        $result=$this->notFoundOnMissingObject($idParam, $class);
         return $result;
     }
 }
