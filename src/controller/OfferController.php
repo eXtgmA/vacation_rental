@@ -104,33 +104,37 @@ class OfferController extends BaseController
     }
 
     /**
-     * @param int $id
+     * @param int $houseId
      * @return void
      * @throws Exception
      */
-    public function posttoggleStatus(int $id): void
+    public function posttoggleStatus(int $houseId = null): void
     {
-        $house = $this->find('\src\models\House', 'id', $id, 1);
+        $house=$this->forceParam($houseId, 'House');
         $house->toggleStatus();
         header('location: /offer', true, 302);
     }
 
     /**
-     * @param $id
+     * @param int|null $houseId
      * @return void
      * @throws Exception
      */
-    public function getshow(int $id): void
+    public function getshow($houseId = null): void
     {
-        $house = $this->find('\src\models\House', 'id', $id, 1);
+        $house=$this->forceParam($houseId, 'House');
         new ViewController("offerDetail", $house);
     }
 
-    public function postDelete(int $houseId): void
+    /**
+     * @param int|null $houseId
+     * @return void
+     */
+    public function postDelete($houseId = null): void
     {
+        $house=$this->forceParam($houseId, 'House');
         try {
             /** @var House $house */
-            $house = $this->find('\src\models\House', 'id', $houseId, 1);
             $house->deleteHouse();
         } catch (Exception $e) {
             $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
@@ -139,15 +143,14 @@ class OfferController extends BaseController
         redirect($_SESSION['previous'], 302);
     }
 
-    public function getEdit(int $houseId = null): void
+    /**
+     * @param int|null$houseId
+     * @return void
+     * @throws Exception
+     */
+    public function getEdit($houseId = null): void
     {
-        if (!$houseId) {
-            // fallback when missing param in url
-            redirect('/dashboard', 302);
-        }
-
-        // get house
-        $param['house'] = $this->find('\src\models\House', 'id', $houseId, 1);
+        $param['house']=$this->forceParam($houseId, 'House');
 
         // get all existing features
         $param['features'] = $this->prepareFeatures();
@@ -160,17 +163,24 @@ class OfferController extends BaseController
             new ViewController('offerEdit', $param);
     }
 
-    public function postEdit(int $houseId): void
+    /**
+     * @param int $houseId
+     * @return void
+     * @throws Exception
+     */
+    public function postEdit($houseId): void
     {
+        $house=$this->forceParam($houseId, 'House');
 
         // update base data
         /** @var House $house */
-        $house = $this->find('\src\models\House', 'id', $houseId, 1);
         $baseData = $_POST['base-data'];
         $house->update($baseData);
 
         $this->updateImages($house, $_FILES);
-
+        if (!$_POST['features']) {
+            $_POST['features'] = [];
+        };
         $this->updateFeatures($house, $_POST['features']);
 
         $this->updateTags($houseId, $_POST['tags']);

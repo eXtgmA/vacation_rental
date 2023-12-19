@@ -48,8 +48,9 @@ class CheckoutController extends BaseController
         new ViewController('checkout', $param);
     }
 
-    public function postCheckout(int $bookingId): void
+    public function postCheckout(int $bookingId = null): void
     {
+        $this->forceParam($bookingId, 'booking');
         // todo : check if the booking is owned by the current user
         try {
             // confirm booking and save timestamp
