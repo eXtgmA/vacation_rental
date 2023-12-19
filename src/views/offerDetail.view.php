@@ -217,4 +217,25 @@ $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
 
+
+<div class="option-modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">
+            <div class="option-image">
+                <img src="/images/haus3.jpg" alt="alt">
+            </div>
+            <div class="option-name">
+                <h3>Option Name</h3>
+            </div>
+            <div class="option-price">
+                <span class="option-price-label">Preis: </span>
+                <span class="option-price-value">5€</span>
+            </div>
+            <div class="option-description">
+                <p>bisschen Text</p>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/scripts/offer-detail.js"></script>

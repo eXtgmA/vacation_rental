@@ -269,30 +269,9 @@
     grid-area: options;
 
     & .options {
-        margin: auto;
-        margin-top: 1%;
+        margin: 1% auto auto;
 
         width: 95%;
-
-        display: grid;
-        /*grid-template-columns: 50% 50%;*/
-        grid-template-columns: repeat(3, 1fr);
-        /*grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));*/
-
-
-        /*.headline {*/
-        /*    display: flex;*/
-        /*    justify-content: space-between;*/
-        /*    margin: 1rem auto;*/
-        /*    width: 80%;*/
-
-        /*    & button {*/
-        /*        margin-block-start: 0.67em;*/
-        /*        margin-block-end: 0.67em;*/
-        /*        height: 50px;*/
-        /*    }*/
-        /*}*/
-
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -310,62 +289,13 @@
             position: relative;
         }
 
-        .new-card {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            border: 2px dashed #ccc;
-            cursor: pointer;
-        }
-
-        .new-card .plus-icon {
-            font-size: 50px;
-            color: #ccc;
-        }
-
-        .new-card:hover {
-            border-color: var(--color-primary-4);
-        }
-
-        .new-card:hover .plus-icon {
-            color: var(--color-primary-4);
-        }
-
-        .option-buttons {
-            display: none;
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-
         .option-card:hover {
-
-            > *:not(.option-buttons) {
-                filter: blur(2px);
-            }
-
-            & .option-buttons {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 9999;
-            }
-        }
-
-        .edit-button, .delete-button {
-            margin: 10px;
-        }
-
-        .disabled > *:not(.option-buttons) {
-            opacity: 0.5;
-            cursor: not-allowed;
+            margin: 0;
+            border: 1px solid #777;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 var(--color-primary);
+            transform: scale(1.05);
+            cursor: pointer;
         }
 
         .option-image img {
@@ -416,7 +346,62 @@
 }
 
 
+.option-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 
+    display: none;
 
+    & .modal-content {
+        min-width: 200px;
+        max-width: 200px;
+        min-height: 400px;
+        max-height: 400px;
+        position: relative;
+        margin: 0 auto;
 
+        & img {
+            width: 100%;
+            height: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .option-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+
+            & .option-price-label {
+                font-size: 1.2rem;
+                font-weight: 400;
+            }
+
+            & .option-price-value {
+                font-weight: 600;
+            }
+        }
+    }
+
+    & .close-button {
+        position: absolute;
+        right: 20px;
+        top: 5px;
+        font-size: 30px;
+        color: #000000;
+        cursor: pointer;
+    }
+}
