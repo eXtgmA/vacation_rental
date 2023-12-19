@@ -17,6 +17,7 @@ if (!isset($_SESSION['user']) && !in_array(parse_url($_SERVER['REQUEST_URI'], PH
 <!doctype html>
 <html lang="de">
 <head>
+    <link rel="icon" href="/assets/logo.png" type="image/png">
 
     <link rel="stylesheet" href="/styling.css"/>
     <link rel="stylesheet" href="/fa/css/all.min.css" type="text/css" />
