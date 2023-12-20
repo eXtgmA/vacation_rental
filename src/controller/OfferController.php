@@ -349,7 +349,14 @@ and
         $_SESSION['old_POST'] = $param;
 //        unset old data
         $param = [];
+
+        // prepare displaying all features
         $param['features'] = $this->prepareFeatures();
+
+        // prefill filter (features and tags) with old data
+        $param['featuresSelected'] = $_GET['features'] ?? [];
+        $param['tagsSelected'] = $_GET['tags'] ?? '';
+
         $param['houses'] = $houses;
         new ViewController('search', $param);
     }
