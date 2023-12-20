@@ -47,8 +47,9 @@ class BookingController extends BaseController
             }
         }
 
-        // todo fetch all bookings for a house (then translate into days)
-        $param["bookedDays"] = null; // (array of days)
+        // fetch all booked dates
+        $param["bookedDays"] = $house->getBookedDates();
+
         new ViewController('bookingCreate', $param);
     }
 

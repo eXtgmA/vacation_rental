@@ -28,7 +28,7 @@ include_once($header);
             <div class="occupancy-calendar">
                 <div id="calendar-occupancy" class="calendar"></div>
                 <script>
-                    drawCalendar("calendar-occupancy", currentMonth, currentYear, bookedDays);
+                    drawCalendar("calendar-occupancy", currentMonth, currentYear, <?php echo $param['bookedDays'] ?? '""'; ?>);
                 </script>
             </div>
         </div>
