@@ -351,8 +351,8 @@ class House extends BaseModel
         /** @var array<string> $oldBookedDays */
         $oldBookedDays = json_decode($this->getBookedDates(), true);
 
-        $dateStart = date_create($_POST['date_start']);
-        $dateEnd = date_create($_POST['date_end']);
+        $dateStart = date_create($start);
+        $dateEnd = date_create($end);
         $newDays = [];
         if ($dateStart && $dateEnd) {
             // make a period of time between those days
