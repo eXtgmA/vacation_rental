@@ -55,6 +55,10 @@ class BookingController extends BaseController
 
     public function postCreateBookingposition(): void
     {
+        if ($_POST['date_start'] >= $_POST['date_end']) {
+            $_SESSION['message'] = "Das Anreisedatum muss vor dem Abreisedatum liegen";
+            redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
+        }
         try {
             // get the one and only booking that is not confirmed for our actual user
             $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";

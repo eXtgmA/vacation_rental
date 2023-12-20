@@ -6,14 +6,13 @@ $options = $param["options"] ?? null;
 $bookedDays = $param["bookedDays"] ?? null;
 include_once($header);
 ?>
-<?php
-//echo($message ?? "<h1>$message</h1>");
-?>
     <link rel="stylesheet" href="/styles/booking-create.css"/>
     <script src="/scripts/calendar-widget.js"></script>
 
     <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
-
+<?php
+echo($message ?? "Da ist wohl ein Fehler passiert!");
+?>
     <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
     <form action="/booking/create/" method="post" id="booking-form">
 
