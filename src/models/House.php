@@ -2,6 +2,8 @@
 
 namespace src\models;
 
+use DateInterval;
+use DatePeriod;
 use Exception;
 
 class House extends BaseModel
@@ -303,6 +305,38 @@ class House extends BaseModel
             return false;
         }
         return $images;
+    }
+
+    /**
+     * Get all booked dates as json encoded string
+     *
+     * @return string
+     */
+    public function getBookedDates() : string
+    {
+        $query = "SELECT date_start, date_end FROM bookingpositions WHERE house_id={$this->id} AND booking_id IN (SELECT id FROM bookings b WHERE b.is_confirmed = 1)";
+        $result = $this->connection()->query($query);
+        $dates = [];
+        if ($result instanceof \mysqli_result) {
+            while ($row = $result->fetch_assoc()) {
+                // get start and end date
+                $date_start = date_create($row['date_start']);
+                $date_end = date_create($row['date_end']);
+                if ($date_start && $date_end) {
+                    // make a period of time between those days
+                    $interval = DateInterval::createFromDateString('1 day');
+                    $daterange = new DatePeriod($date_start, $interval, $date_end);
+                    // append every day of the period to the array $bookedDays
+                    foreach ($daterange as $date) {
+                        $dates[] = $date->format('Y-m-d');
+                    }
+                    // include end date
+                    $dates[] = $date_end->format('Y-m-d');
+                }
+            }
+        }
+        // return json string with content or an empty string
+        return (!empty($dates)) ? (json_encode($dates) ?: "") : "";
     }
 
 
