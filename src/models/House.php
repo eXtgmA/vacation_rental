@@ -339,6 +339,35 @@ class House extends BaseModel
         return (!empty($dates)) ? (json_encode($dates) ?: "") : "";
     }
 
+    /**
+     * Check if time frame is available or not (start and end date inclusive)
+     *
+     * @param string $start
+     * @param string $end
+     * @return bool
+     */
+    public function isTimeFrameAvailable(string $start, string $end) : bool
+    {
+        /** @var array<string> $oldBookedDays */
+        $oldBookedDays = json_decode($this->getBookedDates(), true);
+
+        $dateStart = date_create($_POST['date_start']);
+        $dateEnd = date_create($_POST['date_end']);
+        $newDays = [];
+        if ($dateStart && $dateEnd) {
+            // make a period of time between those days
+            $interval = DateInterval::createFromDateString('1 day');
+            $daterange = new DatePeriod($dateStart, $interval, $dateEnd);
+            // append every day of the period to the array $bookedDays
+            foreach ($daterange as $date) {
+                $newDays[] = $date->format('Y-m-d');
+            }
+            // include end date
+            $newDays[] = $dateEnd->format('Y-m-d');
+        }
+        return empty(array_intersect($newDays, $oldBookedDays));
+    }
+
 
     /**
      * @return int
