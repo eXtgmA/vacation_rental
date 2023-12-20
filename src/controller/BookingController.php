@@ -4,6 +4,7 @@ namespace src\controller;
 
 use src\models\Booking;
 use src\models\Bookingposition;
+use src\models\Option;
 
 class BookingController extends BaseController
 {
@@ -68,10 +69,24 @@ class BookingController extends BaseController
                 $booking->save();
             }
 
+            // prepare data for bookingposition
             $param = $_POST;
             /** @var Booking $booking */
             $param['booking_id'] = $booking->getId();
-            $param['price_detail_list']=null;
+
+            $priceList = [];
+            foreach ($_POST['option'] as $oIn) {
+                /** @var Option $option */
+                $option = $this->find('\src\models\Option', 'id', $oIn, 1);
+                if ($option != null) {
+                    // add to price_detail_list
+                    $priceList['options'][$option->getName()] = $option->getPrice();
+                }
+            }
+            // todo save gesamtpreis in price_detail_list (when calculated with JS)
+//            $priceList['price'] = $param['price'];
+            // encode price_detail_list to json string
+            $param['price_detail_list'] = json_encode($priceList);
 
             $bookingposition = new Bookingposition($param);
             $bookingposition->save();
