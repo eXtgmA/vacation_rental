@@ -46,6 +46,7 @@
         display: flex;
         justify-content: center;
     }
+
     /*display: flex;*/
     /*flex-direction: row;*/
     /*justify-content: center;*/
@@ -307,6 +308,7 @@
         margin: 1% auto auto;
 
         width: 95%;
+
         .options-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -440,5 +442,28 @@
         font-size: 30px;
         color: #000000;
         cursor: pointer;
+    }
+}
+
+
+@keyframes light-flashing-button {
+    0% {
+        border-color: var(--color-primary);
+    }
+    50% {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+    }
+    100% {
+        border-color: var(--color-primary);
+    }
+}
+
+#submit-area > .btn-primary {
+    border: 5px solid #000;
+    animation: light-flashing-button 2s linear infinite;
+
+    &:focus {
+        padding: 13px 23px
     }
 }

@@ -78,7 +78,7 @@ include_once($header);
                 <hr/>
             </div>
             <div id="submit-area">
-                <button class="btn-primary">Buchen</button>
+                <button class="btn-primary" onclick="openLink('/booking/create/<?php echo $house->getId() ?>')">Buchen</button>
             </div>
         </div>
     </div>
