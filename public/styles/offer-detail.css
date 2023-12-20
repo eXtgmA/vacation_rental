@@ -284,6 +284,11 @@
             position: relative;
         }
 
+        .option-card {
+            align-self: center;
+            justify-self: center;
+        }
+
         .option-card:hover {
             margin: 0;
             border: 1px solid #777;
