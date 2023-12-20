@@ -107,4 +107,10 @@ return [
         ], 'POST' => [
             'booking' => 'checkout']
         ],
+    'profile' =>
+        ['GET' => [
+            '' => 'edit'],
+          'POST' => [
+             'update' => 'update']
+        ]
 ];

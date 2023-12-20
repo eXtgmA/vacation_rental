@@ -9,6 +9,6 @@
  */
 function prefill(string $name) : void
 {
-    echo $_SESSION["old_POST"][$name] ?? "";
+    print $_SESSION["old_POST"][$name] ?? "";
 }
 ?>

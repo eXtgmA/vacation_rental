@@ -11,7 +11,7 @@ $site = substr((string)$siteString, 1);
     <div class="navlinks">
         <a class="<?php echo in_array($site, ['dashboard', 'offer/find']) ? 'active' : '' ?>" href="/dashboard" title="Suchen"><i class="fa fa-magnifying-glass"></i></a>
         <a class="<?php echo $site == 'cart' ? 'active' : ''; ?>" href="/cart" title="Warenkorb"><i class="fa fa-cart-shopping"></i></a>
-        <a class="<?php echo $site == 'profile' ? 'active' : ''; ?>" href="" title="Benutzer verwalten"><i class="fa fa-user"></i></a>
+        <a class="<?php echo $site == 'profile' ? 'active' : ''; ?>" href="/profile" title="Benutzer verwalten"><i class="fa fa-user"></i></a>
         <a class="<?php echo  (str_contains($site, 'offer') && !str_contains($site, 'find')) ? 'active' : ''; ?>" href="/offer" title="Haus vermieten"><i class="fa fa-hand-holding-dollar"></i></a>
         <form action="/logout" method="post">
             <button type="submit"><i class="fa fa-right-from-bracket"></i></button>

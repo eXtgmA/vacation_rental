@@ -36,6 +36,7 @@ class User extends BaseModel
      * @var string[]
      */
     public static array $requiredAttributes = ['surname', 'forename', 'password','email'];
+    public static array $updateableAttributes = ['surname', 'forename', 'password','email'];
 
 
     public static string $table = 'users';
@@ -96,6 +97,38 @@ class User extends BaseModel
             $this->save();
             // after registration the user has to log in first
             redirect('/login', 302, $_POST);
+    }
+
+    public function sendUniqueEmail($email)
+    {
+        if ($email == null) {
+            // empty mail field, do nothing
+
+            return true;
+        }
+        if ($this->email == $email) {
+            // email will be the same -> ok
+            return true;
+
+        }
+
+        $foundMail = $this->find('\src\models\user', 'email', $email, 1);
+        if ($foundMail!=null) {
+            unset($_SESSION['message']);
+            $_SESSION['message'] = 'Mailadresse schon vergeben';
+            redirect("/profile", 302);
+            die();
+        }
+    }
+
+    public function enteredValidEmail($email,$redirect)
+    {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+            return;
+        }
+        $_SESSION['message'] = 'Ungültiges Email Format';
+        redirect($redirect,302, $_POST);
+        die();
     }
 
     public function getId(): int
