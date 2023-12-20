@@ -349,7 +349,7 @@ class House extends BaseModel
     public function isTimeFrameAvailable(string $start, string $end) : bool
     {
         /** @var array<string> $oldBookedDays */
-        $oldBookedDays = json_decode($this->getBookedDates(), true);
+        $oldBookedDays = (json_decode($this->getBookedDates(), true) ?: [] );
 
         $dateStart = date_create($start);
         $dateEnd = date_create($end);
