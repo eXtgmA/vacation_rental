@@ -122,5 +122,33 @@ collapseButton.addEventListener("click", function () {
     }
 });
 
+/**
+ * Reset the filter
+ * - uncheck all checkboxes
+ * - remove all tags
+ */
+function resetFilter() {
+    // uncheck checkboxes
+    document.querySelectorAll('input[type=checkbox]').forEach(el => el.checked = false);
+    // remove tags
+    document.querySelectorAll('div[class=tag-pill]').forEach(function (el) {
+        tagGrid.removeChild(el);
+        reduceTagInputElement(el.children[0].innerHTML);
+    });
+}
+
+/**
+ * Add all given tags to the tags card
+ *
+ * @param tags
+ */
+function prefillTags(tags) {
+    const tagsArray = tags.split(",");
+    const count = tagsArray.length;
+    for (var i=0; i<count; i++) {
+        addTag(String(tagsArray[i]));
+    }
+}
+
 // initial check
 refreshFilterList();
