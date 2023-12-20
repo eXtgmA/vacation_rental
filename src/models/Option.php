@@ -25,6 +25,11 @@ class Option extends BaseModel
      */
     public static array $allowedAttributes = ['name', 'description', 'price', 'is_disabled', 'house_id', 'image_id'];
 
+    /**
+     * @var string[]
+     */
+    public static array $updateableAttributes = ['name', 'description', 'price', 'is_disabled'];
+
     public function __construct($modelData = null)
     {
         if ($modelData) {
