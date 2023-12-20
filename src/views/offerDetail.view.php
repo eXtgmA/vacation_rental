@@ -32,6 +32,9 @@ include_once($header);
             </div>
         </div>
     </div>
+    <div id="return-area">
+        <button class="btn-secondary" type="button" onclick="openLink('/offer/find')">Zurück</button>
+    </div>
     <div id="calendar-area">
         <h2>Buchungsübersicht</h2>
         <div class="calendar-container">
@@ -80,10 +83,13 @@ include_once($header);
         </div>
     </div>
 
-    <div id="description-area">
+    <div id="headline-area">
         <div class="headline">
             <h1><?php echo $house->getName() ?></h1>
         </div>
+    </div>
+
+    <div id="description-area">
         <div class="card">
             <h2>Beschreibung</h2>
             <p><?php echo $house->getDescription(); ?></p>
@@ -219,22 +225,20 @@ include_once($footer)
 
 
 <div class="option-modal">
-    <div class="modal-content">
+    <div class="modal-content card option-card">
         <span class="close-button">&times;</span>
-        <div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">
-            <div class="option-image">
-                <img src="/images/haus3.jpg" alt="alt">
-            </div>
-            <div class="option-name">
-                <h3>Option Name</h3>
-            </div>
-            <div class="option-price">
-                <span class="option-price-label">Preis: </span>
-                <span class="option-price-value">5€</span>
-            </div>
-            <div class="option-description">
-                <p>bisschen Text</p>
-            </div>
+        <div class="option-image">
+            <img src="/" alt="alt">
+        </div>
+        <div class="option-name">
+            <h3>Option Name</h3>
+        </div>
+        <div class="option-price">
+            <span class="option-price-label">Preis: </span>
+            <span class="option-price-value">5€</span>
+        </div>
+        <div class="option-description">
+            <p>bisschen Text</p>
         </div>
     </div>
 </div>

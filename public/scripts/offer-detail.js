@@ -20,7 +20,8 @@ optionCards.forEach(function(optionCard) {
 });
 
 // listeners to close the modal
-document.querySelector('.close-button').addEventListener('click', function() {
+document.querySelector('.option-modal .close-button').addEventListener('click', function(event) {
+    event.stopPropagation();
     modal.style.display = 'none';
 });
 window.addEventListener('click', function(event) {
