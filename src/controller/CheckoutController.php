@@ -28,11 +28,22 @@ class CheckoutController extends BaseController
 
                 // get all houses related to all bookingpositions
                 $houseIds = [];
-                foreach ($param["bookingpositions"] as $bp) {
+                foreach ($param["bookingpositions"] as $key => $bp) {
                     // fetch house if not already loaded
+                    $house = null;
                     if (!in_array($bp->getHouseId(), $houseIds)) {
-                        $param["houses"][$bp->getHouseId()] = $this->find('\src\models\House', 'id', $bp->getHouseId(), 1);
+                        // store house in array
+                        $house = $this->find('\src\models\House', 'id', $bp->getHouseId(), 1);
+                        $param["houses"][$house->getId()] = $house;
                         $houseIds[] = $bp->getHouseId();
+                    } else {
+                        $house = $param['houses'][$bp->getHouseId()];
+                    }
+                    // check if booking is still possible
+                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())) {
+                        // if booking is not available anymore => delete bookingposition
+                        $bp->deleteBookingposition();
+                        unset($param["bookingpositions"][$key]);
                     }
                 }
                 // check that at least one house has been fetched

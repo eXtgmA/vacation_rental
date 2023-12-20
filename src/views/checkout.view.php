@@ -3,8 +3,8 @@ $header=__DIR__."/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Kasse";
 $booking = $param["booking"] ?? null;
-$bpos = $param["bookingpositions"] ?? null;
-$houses = $param["houses"] ?? null;
+$bpos = $param["bookingpositions"] ?? [];
+$houses = $param["houses"] ?? [];
 include_once($header);
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
@@ -13,7 +13,7 @@ include_once($header);
     echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
     ?>
 <div>
-    <?php if (isset($booking, $bpos, $houses)) {
+    <?php if (isset($booking) && !empty($bpos) && !empty($houses)) {
         echo "<table>";
         /** @var \src\models\Bookingposition $p */
         foreach ($bpos as $key => $p) {
