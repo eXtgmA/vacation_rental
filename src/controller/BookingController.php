@@ -4,6 +4,7 @@ namespace src\controller;
 
 use src\models\Booking;
 use src\models\Bookingposition;
+use src\models\House;
 use src\models\Option;
 
 class BookingController extends BaseController
@@ -55,10 +56,22 @@ class BookingController extends BaseController
 
     public function postCreateBookingposition(): void
     {
+        // make sure the start date is truly before the end date
         if ($_POST['date_start'] >= $_POST['date_end']) {
             $_SESSION['message'] = "Das Anreisedatum muss vor dem Abreisedatum liegen";
             redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
+            die();
         }
+
+        // prevent to book on top of already booked days
+        /** @var House $house */
+        $house = $this->find('\src\models\House', 'id', $_POST['house_id'], 1);
+        if (!$house->isTimeFrameAvailable($_POST['date_start'], $_POST['date_end'])) {
+            $_SESSION['message'] = "Ausgebucht! Bitte wählen Sie ein anderes Zeitfenster.";
+            redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
+            die();
+        }
+
         try {
             // get the one and only booking that is not confirmed for our actual user
             $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
