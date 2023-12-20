@@ -1,41 +1,25 @@
 #detail-grid {
     display: grid;
-    /*grid-template-columns: 70% 30%;*/
     grid-template-columns: 70% 30%;
     grid-template-rows: auto auto auto 3% auto;
-    /*grid-template-rows: 1fr 1fr 1fr;*/
     grid-template-areas:
     "images return"
     "images calendar"
     "images information"
     "headline options"
     "description options";
-    /*grid-gap: 1%;*/
-    /*"images calendar"*/
-    /*"images information"*/
-    /*"description options";*/
-    /*"images images information"*/ /*"images images description"*/ /*"calendar options description";*/
-    /*"images calendar"*/
-    /*grid-column-gap: 3rem;*/
-    /*grid-row-gap: 1rem;*/
-    /*margin: 1rem auto;*/
-    /*width: 80%;*/
 }
 
 #detail-grid > #return-area {
     grid-area: return;
     display: flex;
-    /*flex-direction: row;*/
     justify-content: flex-end;
     align-items: center;
     margin: auto 2%;
-    /*margin-right: 30px;*/
-    /*margin-bottom: 30px;*/
 
     & > button {
         width: 50%;
         height: 50%;
-        /*margin: auto;*/
     }
 }
 
@@ -46,13 +30,6 @@
         display: flex;
         justify-content: center;
     }
-
-    /*display: flex;*/
-    /*flex-direction: row;*/
-    /*justify-content: center;*/
-    /*align-items: center;*/
-    /*margin-right: 30px;*/
-    /*margin-bottom: 30px;*/
 
     & > h1 {
         font-size: 2.5rem;
@@ -65,25 +42,18 @@
     grid-area: images;
 
     & .carousel {
-        /*width: 500px;*/
         width: 100%;
-        /*height: 500px;*/
-        /*height: 100%;*/
         position: relative;
     }
 
     & #preview-container {
         margin-right: 30px;
         margin-bottom: 30px;
-        /*width: 100%;*/
-        /*height: 50%;*/
-        /*background-repeat: no-repeat;*/
         background-size: cover;
 
         display: flex;
         flex-direction: row;
         justify-content: center;
-
 
         &::before {
             content: "";
@@ -98,17 +68,11 @@
         #preview {
             position: relative;
             z-index: 2;
-
             border-bottom-left-radius: 7px;
             border-bottom-right-radius: 7px;
-
-
-            /*width: 100%;*/
             height: 500px;
             object-fit: cover;
         }
-
-
     }
 
     & #thumbnails {
@@ -128,9 +92,7 @@
             margin-right: 1%;
 
             & img {
-                /*width: 20%;*/
                 cursor: pointer;
-
                 height: 100px;
                 object-fit: cover;
                 width: 100%;
@@ -142,9 +104,7 @@
                 top: 0;
                 left: 0;
                 width: 100%;
-                /*height: 100%;*/
                 height: 100px;
-
                 background: rgba(0, 0, 0, 0.5);
                 color: #fff;
                 font-size: 3em;
@@ -165,6 +125,12 @@
 
 #detail-grid > #calendar-area {
     grid-area: calendar;
+
+    h2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
 
     .calendar-container {
         display: flex;
@@ -189,18 +155,12 @@
         "person street"
         "square-meter room"
         "submit submit";
-        /*grid-column-gap: 3rem;*/
-        /*grid-row-gap: 1rem;*/
-        /*margin: 1rem auto;*/
-        /*width: 80%;*/
 
         background-color: white;
         border-radius: 10px;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        /*width: 330px;*/ /* todo ab 1500px */
         width: 400px;
         padding: 10px;
-        /*margin: 0 auto 2%;*/
 
         .information {
             width: 95%;
@@ -286,10 +246,9 @@
         }
 
         & .feature-list {
-            /*font-size: 16px;*/
             display: flex;
             flex-direction: row;
-            /*align-items: center;*/
+            flex-wrap: wrap;
 
             & .feature-select {
                 font-size: 16px;
@@ -314,7 +273,6 @@
             grid-template-columns: repeat(2, 1fr);
             grid-gap: 1rem;
             margin: 1rem auto;
-            /*width: 80%;*/
         }
 
         .card {
@@ -466,4 +424,126 @@
     &:focus {
         padding: 13px 23px
     }
+}
+
+/* XXL 1600px - 1740px */
+@media (max-width: 1740px) {
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* XXL 1400px - 1500px */
+@media (max-width: 1500px) {
+    #detail-grid > #information-area #information-grid {
+        width: 330px;
+    }
+}
+
+
+/* XXL 1400px - 1600px */
+@media (max-width: 1250px) {
+    #detail-grid {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "images images"
+            "headline headline"
+            "information calendar"
+            "description options";
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        padding: 10px;
+        width: 95%;
+    }
+}
+
+/* XL 1200px - 1400px */
+@media (max-width: 1100px) {
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 90%;
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    #detail-grid {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto auto auto auto;
+        grid-template-areas:
+            "images"
+            "headline"
+            "information"
+            "calendar"
+            "description"
+            "options"
+            "return";
+    }
+
+    #detail-grid > #headline-area {
+        width: 95%;
+        margin: auto;
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 95%;
+    }
+
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    #detail-grid > #headline-area {
+        width: 90%;
+        margin: auto;
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #detail-grid > #image-area .carousel #preview-container {
+        margin-right: 0;
+        margin-bottom: 0;
+
+        & #preview {
+            width: 100%;
+        }
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 90%;
+    }
+
+    #detail-grid > #information-area #information-grid {
+        width: 90%;
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+
 }
