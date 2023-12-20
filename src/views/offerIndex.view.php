@@ -3,6 +3,7 @@ $header = __DIR__ . "/partials/header.view.php";
 $title = "Meine Häuser";
 $page = 'offerindex';
 $_SESSION['previous'] = '/offer';
+$houses = $param['houses'] ?? [];
 include_once($header);
 ?>
     <link rel="stylesheet" href="/styles/offer.css"/>
@@ -16,8 +17,8 @@ include_once($header);
     <button class="btn-primary" onclick="openLink('/offer/create')">Neues Haus anlegen</button>
 </div>
 <?php
-if (isset($param)) {
-    foreach ($param as $house) {
+if (isset($houses)) {
+    foreach ($houses as $house) {
         ?>
         <div class="offer-card">
             <div class="card-image">
@@ -49,7 +50,7 @@ if (isset($param)) {
             <div class="card-calendars">
                 <div id="calendar-<?php print $house->getId() ?>" class="calendar">
                     <script>
-                        drawCalendar("calendar-<?php echo $house->getId() ?>", currentMonth, currentYear, bookedDays);
+                        drawCalendar("calendar-<?php echo $house->getId() ?>", currentMonth, currentYear, <?php echo $param['bookedDays'][$house->getID()] ?? '""'; ?>);
                     </script>
                 </div>
             </div>

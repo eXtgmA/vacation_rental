@@ -17,9 +17,14 @@ class OfferController extends BaseController
 
     public function getIndex(mixed $formdata = null): void
     {
+        // get all houses
         $houses = $this->getAllHousesBelongingToTheCurrentUser();
-        // Return the House Data to our View
-        new ViewController('offerIndex', $houses);
+        $param['houses'] = $houses ?? [];
+        // prepare calendar input (get all booked days)
+        foreach ($param['houses'] as $house) {
+            $param['bookedDays'][$house->getId()] = $house->getBookedDates(); // @phpstan-ignore-line
+        }
+        new ViewController('offerIndex', $param);
     }
 
     public function getCreate(): void
