@@ -20,19 +20,19 @@ class RegisterController extends BaseController
         $user=new User($input);
         $_SESSION['old_POST'] = $_POST;
 
-        if($_POST['forename']==null){
+        if ($_POST['forename']==null) {
             $_SESSION['message'] = "Vorname ist ein Pflichtfeld";
-            redirect("/register",302);
+            redirect("/register", 302);
             die();
         }
-        if($_POST['password']==null){
+        if ($_POST['password']==null) {
             $_SESSION['message'] = "Passwort ist ein Pflichtfeld";
-            redirect("/register",302);
+            redirect("/register", 302);
             die();
         }
-        if($_POST['surname']==null){
+        if ($_POST['surname']==null) {
             $_SESSION['message'] = "Nachname ist ein Pflichtfeld";
-            redirect("/register",302);
+            redirect("/register", 302);
             die();
         }
 
@@ -42,7 +42,7 @@ class RegisterController extends BaseController
             $_SESSION['message'] = 'Emailkonto bereits vergeben';
             redirect("/register", 302);
         }
-        $user->enteredValidEmail($_POST['email'],"/register");
+        $user->enteredValidEmail($_POST['email'], "/register");
         $user->register();
 
         redirect("/login", 302);

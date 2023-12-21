@@ -13,24 +13,24 @@ class ProfileController extends BaseController
         parent::__construct();
     }
 
-    public function getEdit()
+    public function getEdit() : void
     {
         $id = $_SESSION['user'];
         $user = $this->find('\src\models\User', 'id', $id, 1);
-        return new ViewController('profile', $user);
+        new ViewController('profile', $user);
     }
 
-    public function postUpdate()
+    public function postUpdate() : void
     {
 
         /** @var User $user */
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
-        $user->enteredValidEmail($_POST['email'],"/profile");
+        $user->enteredValidEmail($_POST['email'], "/profile");
         $user->sendUniqueEmail($_POST['email']);
 
         if ($_POST['password']) {
             $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        }else{
+        } else {
             $_POST['password'] =$user->getPassword();
         }
         $user->update($_POST);
@@ -82,12 +82,9 @@ class ProfileController extends BaseController
             }
         } catch (\Exception $e) {
             $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
-            redirect('/profile',302);
+            redirect('/profile', 302);
             die();
         }
         new ViewController('history', $param);
     }
-
-
-
 }

@@ -36,6 +36,9 @@ class User extends BaseModel
      * @var string[]
      */
     public static array $requiredAttributes = ['surname', 'forename', 'password','email'];
+    /**
+     * @var string[]
+     */
     public static array $updateableAttributes = ['surname', 'forename', 'password','email'];
 
 
@@ -99,17 +102,20 @@ class User extends BaseModel
             redirect('/login', 302, $_POST);
     }
 
-    public function sendUniqueEmail($email)
+    /**
+     * @param $email
+     * @return void
+     * @throws Exception
+     */
+    public function sendUniqueEmail(string $email) : void
     {
         if ($email == null) {
             // empty mail field, do nothing
-
-            return true;
+            return;
         }
         if ($this->email == $email) {
             // email will be the same -> ok
-            return true;
-
+            return;
         }
 
         $foundMail = $this->find('\src\models\user', 'email', $email, 1);
@@ -121,13 +127,18 @@ class User extends BaseModel
         }
     }
 
-    public function enteredValidEmail($email,$redirect)
+    /**
+     * @param string $email
+     * @param string $redirect
+     * @return void
+     */
+    public function enteredValidEmail(string $email, string $redirect) : void
     {
-        if(filter_var($email, FILTER_VALIDATE_EMAIL)){
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return;
         }
         $_SESSION['message'] = 'Ungültiges Email Format';
-        redirect($redirect,302, $_POST);
+        redirect($redirect, 302, $_POST);
         die();
     }
 
