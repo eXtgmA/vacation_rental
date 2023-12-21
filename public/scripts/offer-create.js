@@ -284,3 +284,17 @@ optionalImageDropArea.addEventListener("drop", function (e) {
 
 // Handle the change event of the optional image input field
 optionalImageSelectElement.addEventListener("change", (e) => addOptionalImage(e.target.files), false);
+
+
+/**
+ * Add all given tags to the tags card
+ *
+ * @param tags
+ */
+function prefillTags(tags) {
+    const tagsArray = tags.split(",");
+    const count = tagsArray.length;
+    for (var i=0; i<count; i++) {
+        addTag(String(tagsArray[i]));
+    }
+}
