@@ -1,9 +1,13 @@
 <?php
 $header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
-$title = "Registrieren";
-$page = 'register';
+$title = "Profil";
+$page = 'profile';
 $user = $param ?? null;
+if ($user == null) {
+    new \src\controller\ViewController("notFound");
+    die();
+}
 include_once($header);
 ?>
 <h1> Willkommen <?php print $user->getForename(); ?></h1>
