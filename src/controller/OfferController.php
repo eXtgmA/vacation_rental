@@ -309,13 +309,13 @@ class OfferController extends BaseController
     {
         //prepare search parameter
         /** @var string $destination */
-        $destination = $param['destination'];
+        $destination = $param['destination'] ?? '';
         /** @var string $dateStart */
-        $dateStart = $param['dateStart'];
+        $dateStart = $param['dateStart'] ?? '';
         /** @var string $dateEnd */
-        $dateEnd = $param['dateEnd'];
+        $dateEnd = $param['dateEnd'] ?? '';
         /** @var string $persons */
-        $persons = (int)$param['persons'];
+        $persons = (int)($param['persons'] ?? 0);
         $query = "
 SELECT *
 FROM houses h
