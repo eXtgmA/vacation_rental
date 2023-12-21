@@ -26,6 +26,7 @@ include_once($header);
                 <button type="submit" class="btn-secondary">Absenden</button>
                 <div>
 </form>
+<button class="btn btn-primary" type="button" onclick="openLink('/profile/history')" style="margin-right: 20px">Buchungsverlauf</button>
 <?php
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer);

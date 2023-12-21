@@ -109,7 +109,8 @@ return [
         ],
     'profile' =>
         ['GET' => [
-            '' => 'edit'],
+            '' => 'edit',
+            'history' => 'history'],
           'POST' => [
              'update' => 'update']
         ]
