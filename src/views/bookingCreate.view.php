@@ -6,14 +6,13 @@ $options = $param["options"] ?? null;
 $bookedDays = $param["bookedDays"] ?? null;
 include_once($header);
 ?>
-<?php
-//echo($message ?? "<h1>$message</h1>");
-?>
     <link rel="stylesheet" href="/styles/booking-create.css"/>
     <script src="/scripts/calendar-widget.js"></script>
 
     <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
-
+<?php
+echo($message ?? "Da ist wohl ein Fehler passiert!");
+?>
     <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
     <form action="/booking/create/" method="post" id="booking-form">
 
@@ -28,7 +27,7 @@ include_once($header);
             <div class="occupancy-calendar">
                 <div id="calendar-occupancy" class="calendar"></div>
                 <script>
-                    drawCalendar("calendar-occupancy", currentMonth, currentYear, bookedDays);
+                    drawCalendar("calendar-occupancy", currentMonth, currentYear, <?php echo $param['bookedDays'] ?? '""'; ?>);
                 </script>
             </div>
         </div>
@@ -36,10 +35,10 @@ include_once($header);
             <h3>Buchungszeitraum</h3>
             <label class="label" for="date_start">Von</label>
             <input class="input-field" type="date" id="date_start" name="date_start"
-                   value="<?php prefill('date_end') ?>" required>
+                   value="<?php prefill('date_start') ?>" required>
             <label class="label" for="date_end">Bis</label>
-            <input class="input-field" type="date" id="date_end" name="date_end" value="<?php prefill('date_end') ?>"
-                   required>
+            <input class="input-field" type="date" id="date_end" name="date_end"
+                   value="<?php prefill('date_end') ?>" required>
         </div>
         <div class="options-area">
             <h3>Zusatzoptionen</h3>
