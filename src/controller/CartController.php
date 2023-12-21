@@ -28,21 +28,30 @@ class CartController extends BaseController
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
 
-
                 // if no positions found show empty cart
                 if ($param["bookingpositions"] == false) {
                     new ViewController('cart');
                     die();
                 }
 
+                $_SESSION['availabilityError'] = [];
 
                 // get all houses related to all bookingpositions
                 $houseIds = [];
                 foreach ($param["bookingpositions"] as $bp) {
                     // fetch house if not already loaded
+                    $house = null;
                     if (!in_array($bp->getHouseId(), $houseIds)) {
-                        $param["houses"][$bp->getHouseId()] = $this->find('\src\models\House', 'id', $bp->getHouseId(), 1);
+                        $house = $this->find('\src\models\House', 'id', $bp->getHouseId(), 1);
+                        $param["houses"][$bp->getHouseId()] = $house;
                         $houseIds[] = $bp->getHouseId();
+                    } else {
+                        $house = $param["houses"][$bp->getHouseId()];
+                    }
+                    // check if booking is still possible
+                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())) {
+                        // if booking is not available anymore => let user know about it
+                        $_SESSION['availabilityError'][] = $bp->getId();
                     }
                 }
 
