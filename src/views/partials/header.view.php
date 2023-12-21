@@ -30,6 +30,7 @@ if (!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impre
     <title><?php echo $title;?></title>
 </head>
 <body>
+<script src="/scripts/notification.js"></script>
 <?php
 if (isset($_SESSION['user'])) {
     include_once('navbar.view.php');
