@@ -154,8 +154,8 @@ input[type="checkbox"] {
 .notification-popup {
     display: none;
     position: fixed;
-    top: 20px;
-    right: 20px;
+    bottom: 20px;
+    left: 20px;
     background-color: var(--color-secondary);
     color: #fff;
     font-size: 1.2rem;
@@ -165,8 +165,18 @@ input[type="checkbox"] {
     border: 1px solid var(--color-secondary-3);
     box-shadow: 0 0 2px 2px var(--color-secondary-3) inset;
 
-    p {
+    & p {
         margin: 10px;
         max-width: 330px;
+    }
+
+    & #close-notification {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
     }
 }

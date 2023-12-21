@@ -1,4 +1,8 @@
 <?php
+
+use src\models\House;
+use src\models\Option;
+
 $header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Datailseite für ein hausobject";
@@ -125,10 +129,10 @@ include_once($header);
         <div class="options">
             <div class="options-grid">
                 <?php
-                /** @var array $param */
+                /** @var House $param */
                 /** @var Option $option */
                 if ($param != null) {
-                    foreach ($param->getAllOptions() as $option) {
+                    foreach ($param->getAllOptions() as $option) { // @phpstan-ignore-line
                         echo '<div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">';
                         echo '  <div class="option-image">';
                         echo '    <img src="/images/' . $option->getOptionImage() . '" alt="alt">';
