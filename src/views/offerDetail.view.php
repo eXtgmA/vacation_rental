@@ -22,7 +22,7 @@ include_once($header);
             <div id="thumbnails">
                 <?php foreach (array_filter($images, function ($image) {
                     return $image->getTypetableId() != 3;
-                }) as $image): ?>
+                }) as $image) : ?>
                     <div class="thumbnail"
                          onclick="document.getElementById('preview').src = this.querySelector('img').src; document.getElementById('preview-container').style.backgroundImage = 'url(' + this.querySelector('img').src + ')';">
                         <img src="<?php echo "/images/" . $image->getUuid(); ?>">
