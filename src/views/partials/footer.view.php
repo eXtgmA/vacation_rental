@@ -13,3 +13,4 @@ if (isset($_SESSION['old_POST'])) {
 // unset possible messages
 unset($_SESSION['message']);
 ?>
+<script src="/scripts/converter.js"></script>
