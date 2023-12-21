@@ -81,6 +81,16 @@
     & .filter-list {
         display: flex;
         flex-direction: column;
+
+        & > button {
+            margin-bottom: 5px;
+            padding: 5px;
+
+            &:focus {
+                padding: 3px;
+            }
+        }
+
         & > #tags {
             & .input-icon {
                 position: relative;
@@ -353,6 +363,7 @@
     & .active {
         display: none;
     }
+
     & .inactive {
         display: block;
     }
@@ -538,6 +549,7 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
+
             & > button {
                 margin-top: 0;
                 margin-bottom: 0;

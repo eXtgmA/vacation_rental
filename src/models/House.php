@@ -101,7 +101,9 @@ class House extends BaseModel
     }
 
     /**
-     * @return array<string>
+     * Get all optional image objects in array
+     *
+     * @return array<Image>
      * @throws Exception
      */
     public function getOptionalImages(): array
@@ -121,9 +123,8 @@ class House extends BaseModel
                 return [];
             }
             // fetch associated uuids into array
-            /** @var Image $image */
-            $image = $this->find('\src\models\Image', 'id', $row["id"], 3);
-            $optionalImages[] = $image->getUuid();
+            /** @var array<Image> $optionalImages */
+            $optionalImages[] = $this->find('\src\models\Image', 'id', $row["id"], 3);
         }
         return $optionalImages;
     }
