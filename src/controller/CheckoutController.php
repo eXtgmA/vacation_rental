@@ -37,7 +37,7 @@ class CheckoutController extends BaseController
                         $param["houses"][$house->getId()] = $house;
                         $houseIds[] = $bp->getHouseId();
                     } else {
-                        $house = $param['houses'][$bp->getHouseId()];
+                        $house = $param['houses'][$bp->getHouseId()]; // @phpstan-ignore-line
                     }
                     // check if booking is still possible
                     if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())) {

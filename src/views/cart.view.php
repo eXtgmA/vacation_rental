@@ -20,13 +20,13 @@ include_once($header);
             ?>
             <tr>
                 <td><h3><?php echo $house->getName() ?></h3></td>
-                <?php if (in_array($p->getId(),$availabilityError)) {
+                <?php if (in_array($p->getId(), $availabilityError)) {
                     echo "<td><h3 style='color: red'>Ausgebucht! Wird beim Verlassen der Seite aus dem Warenkorb gelöscht!</h3></td>";
                 }?>
             </tr>
             <tr>
                 <td></td>
-                <?php if (!in_array($p->getId(),$availabilityError)) { ?>
+                <?php if (!in_array($p->getId(), $availabilityError)) { ?>
                 <td><form action="<?php echo '/booking/delete/'.$p->getId(); ?>" method="post"><button type="submit">entfernen</button></form></td>
                     <!-- todo : make this card a link to /booking/create/$p->getHouseId() -->
                 <?php } ?>
