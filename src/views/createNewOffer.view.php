@@ -5,24 +5,18 @@ $title = "Haus anlegen";
 $page = 'createhouse';
 $_SESSION['previous'] = $_SERVER['REQUEST_URI'];
 $features = $param['features'] ?? null;
-/**
- * @param string $string
- * @return void
- */
-function pold($string): void
-{
-    $old = $_SESSION['old_POST'] ?? null;
-    if (isset($old)) {
-        print $old[$string] ?? '';
-    }
-}
+$oldTagsSelected = $_SESSION['old_POST']['tags'];
 
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
-<?php
-echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
-?>
+
+<?php if (isset($message)) { ?>
+    <script>
+        showNotification("<?php echo $message; ?>", 20000);
+    </script>
+<?php } ?>
+
 <form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">
@@ -36,52 +30,52 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
         <div id="detail-grid">
             <div id="name-area">
                 <label class="label" for="name">Name der Anlage*</label>
-                <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php pold('name') ?>" required
+                <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php echo $_SESSION['old_POST']['base-data']['name'] ?? ""; ?>" required
                        autofocus>
             </div>
             <div id="city-area">
                 <label class="label" for="city">Ort*</label>
-                <input class="input-field" type="text" name="base-data[city]" id="city" value="<?php pold('city') ?>" required>
+                <input class="input-field" type="text" name="base-data[city]" id="city" value="<?php echo $_SESSION['old_POST']['base-data']['city'] ?? ""; ?>" required>
             </div>
             <div id="postal-code-area">
                 <label class="label" for="postal-code">Postleitzahl*</label>
                 <input class="input-field" type="number" name="base-data[postal_code]" id="postal-code" maxlength="5"
-                       value="<?php pold('postal_code') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['postal_code'] ?? ""; ?>" required>
             </div>
             <div id="street-area">
                 <label class="label" for="street">Straße*</label>
-                <input class="input-field" type="text" name="base-data[street]" id="street" value="<?php pold('street') ?>"
+                <input class="input-field" type="text" name="base-data[street]" id="street" value="<?php echo $_SESSION['old_POST']['base-data']['street'] ?? ""; ?>"
                        required>
             </div>
             <div id="house-number-area">
                 <label class="label" for="house-number">Hausnummer*</label>
                 <input class="input-field" type="number" name="base-data[house_number]" id="house-number" min="1"
-                       value="<?php pold('house_number') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['house_number'] ?? ""; ?>" required>
             </div>
             <div id="square-meter-area">
                 <label class="label" for="square-meter">Quadratmeter*</label>
                 <input class="input-field" type="number" name="base-data[square_meter]" id="square-meter" min="1"
-                       value="<?php pold('square_meter') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['square_meter'] ?? ""; ?>" required>
             </div>
             <div id="room-count-area">
                 <label class="label" for="room-count">Anzahl Räume*</label>
                 <input class="input-field" type="number" name="base-data[room_count]" id="room-count" min="1"
-                       value="<?php pold('room_count') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['room_count'] ?? ""; ?>" required>
             </div>
             <div id="max-person-area">
                 <label class="label" for="max-person">Anzahl mögliche Personen*</label>
                 <input class="input-field" type="number" name="base-data[max_person]" id="max-person" min="1"
-                       value="<?php pold('max_person') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['max_person'] ?? ""; ?>" required>
             </div>
             <div id="price-area">
                 <label class="label" for="price">Preis pro Nacht*</label>
                 <input class="input-field" type="number" name="base-data[price]" id="price" min="1"
-                       value="<?php pold('price') ?>" required>
+                       value="<?php echo $_SESSION['old_POST']['base-data']['price'] ?? ""; ?>" required>
             </div>
             <div id="description-area">
                 <label class="label" for="description">Beschreibung*</label>
                 <textarea class="input-field" name="base-data[description]" id="description" cols="30" required
-                          rows="10"><?php pold('description') ?></textarea>
+                          rows="10"><?php echo $_SESSION['old_POST']['base-data']['description'] ?? ""; ?></textarea>
             </div>
         </div>
 
@@ -133,7 +127,10 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
                     </div>
                     <?php foreach ($category as $feature) { ?>
                         <label class="feature-select">
-                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName(); ?>">
+                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName(); ?>"
+                                <?php if (in_array($feature->getName(), ($_SESSION['old_POST']['features'][$categoryName] ?? []))) {
+                                    echo ' checked';
+                                }?>>
                             <?php echo $feature->getName(); ?>
                         </label>
                     <?php } ?>
@@ -166,3 +163,7 @@ include_once($footer)
 ?>
 
 <script src="/scripts/offer-create.js"></script>
+
+<script>
+    prefillTags("<?php echo $oldTagsSelected ?>");
+</script>
