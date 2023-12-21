@@ -4,7 +4,7 @@ namespace src\controller;
 
 use src\models\Booking;
 use src\models\Bookingposition;
-use src\models\House;
+use src\models\Option;
 
 class BookingController extends BaseController
 {
@@ -30,20 +30,10 @@ class BookingController extends BaseController
 //        new ViewController('bookingDetail', $booking); // todo : specify filename
 //    }
 
-    public function getCreateBookingposition(int $houseId): void
+    public function getCreateBookingposition(int $houseId = null): void
     {
-        try {
-            // fetch a house object by id
-            /** @var \src\models\House $house */
-            $house = $this->find('\src\models\House', 'id', $houseId, 1);
-            if ($house == null) {
-                throw new \Exception();
-            }
-        } catch (\Exception $e) {
-            $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
-            redirect('/dashboard', 302); // todo : check redirect path
-            die();
-        }
+        $house=$this->forceParam($houseId, 'house');
+
         $param["house"] = $house;
 
         // fetch all options related to the given house
@@ -79,10 +69,24 @@ class BookingController extends BaseController
                 $booking->save();
             }
 
+            // prepare data for bookingposition
             $param = $_POST;
             /** @var Booking $booking */
             $param['booking_id'] = $booking->getId();
-            $param['price_detail_list']=null;
+
+            $priceList = [];
+            foreach ($_POST['option'] as $oIn) {
+                /** @var Option $option */
+                $option = $this->find('\src\models\Option', 'id', $oIn, 1);
+                if ($option != null) {
+                    // add to price_detail_list
+                    $priceList['options'][$option->getName()] = $option->getPrice();
+                }
+            }
+            // todo save gesamtpreis in price_detail_list (when calculated with JS)
+//            $priceList['price'] = $param['price'];
+            // encode price_detail_list to json string
+            $param['price_detail_list'] = json_encode($priceList);
 
             $bookingposition = new Bookingposition($param);
             $bookingposition->save();
@@ -96,14 +100,12 @@ class BookingController extends BaseController
         }
     }
 
-    public function postDeleteBookingposition(int $id): void
+    public function postDeleteBookingposition(int $id = null): void
     {
+        $bps=$this->forceParam($id, 'bookingposition');
         try {
             /** @var Bookingposition $bps */
-            $bps = $this->find('\src\models\Bookingposition', 'id', $id, 1);
-            if ($bps != null) {
                 $bps->deleteBookingposition();
-            }
         } catch (\Exception $e) {
             error_log("Bookingposition ({$id}) could not be deleted from cart");
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";

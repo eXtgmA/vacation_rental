@@ -32,7 +32,7 @@ if (isset($param["houseId"])) {
         foreach ($param as $option) {
             echo '<div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">';
             echo '<div class="option-buttons">';
-            echo '<button class="edit-button btn-primary">Edit</button>';
+            echo "<button class='edit-button btn-primary' onclick='openLink(\"/option/edit/" . $option->getId() ."\")'>Edit</button></form>";
             echo "<form action='/option/togglestatus/{$option->getId()}' method='post'><button class='btn-secondary'>"
                 . ($option->isDisabled() == 1 ? 'Aktivieren' : 'Deaktivieren')
                 ."</button></form>";

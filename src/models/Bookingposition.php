@@ -7,8 +7,7 @@ class Bookingposition extends BaseModel
 
     private string $date_start;
     private string $date_end;
-    /** @var array<string> */
-    private array|null $price_detail_list;
+    private string $price_detail_list;
     private int $house_id;
     private int $booking_id;
     /** @var string[] */
@@ -62,18 +61,18 @@ class Bookingposition extends BaseModel
     }
 
     /**
-     * @return array<string>|null
+     * @return string
      */
-    public function getPriceDetailList(): array | null
+    public function getPriceDetailList(): string
     {
         return $this->price_detail_list;
     }
 
     /**
-     * @param array<string> $priceDetailList
+     * @param string $priceDetailList
      * @return void
      */
-    public function setPriceDetailList(array|null $priceDetailList): void
+    public function setPriceDetailList(string $priceDetailList): void
     {
         $this->price_detail_list = $priceDetailList;
     }

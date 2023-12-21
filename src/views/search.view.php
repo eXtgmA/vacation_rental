@@ -16,7 +16,9 @@ function pold($string): void
     }
 }
 
-$features = $param['features'] ?? null;
+$features = $param['features'] ?? [];
+$featuresSel = $param['featuresSelected'] ?? [];
+$tagsSel = $param['tagsSelected'] ?? '';
 
 include_once($header);
 ?>
@@ -52,6 +54,7 @@ include_once($header);
                     <div class="headline">
                         <h2>Filter</h2>
                     </div>
+                    <button type="button" class="btn-secondary" onclick="resetFilter()">Reset Filter</button>
                     <div id="tags" class="card">
                         <h3 style="margin-bottom: 0">Tags</h3>
                         <div id="tag-grid">
@@ -70,7 +73,10 @@ include_once($header);
                             <div class="feature-select-list">
                                 <?php foreach ($category as $feature) { ?>
                                     <label class="feature-select">
-                                        <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>">
+                                        <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>"
+                                            <?php if (in_array($feature->getName(), array_values(($featuresSel[$categoryName] ?? [] )))) {
+                                                echo ' checked';
+                                            }?>>
                                         <?php echo $feature->getName(); ?>
                                     </label>
                                 <?php } ?>
@@ -158,3 +164,7 @@ include_once($footer)
 ?>
 
 <script src="/scripts/search.js"></script>
+
+<script>
+    prefillTags("<?php echo $tagsSel ?>");
+</script>
