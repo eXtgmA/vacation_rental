@@ -6,7 +6,7 @@ $site = substr((string)$siteString, 1);
 <link rel="stylesheet" href="/styles/navbar.css"/>
 <div class="navparent">
     <div class="logo">
-        <img src="/assets/logo.png" alt="logo">
+        <img src="/assets/logo.png" onclick="openLink('/')" alt="logo">
     </div>
     <div class="navlinks">
         <a class="<?php echo in_array($site, ['dashboard', 'offer/find']) ? 'active' : '' ?>" href="/dashboard" title="Suchen"><i class="fa fa-magnifying-glass"></i></a>

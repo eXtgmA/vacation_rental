@@ -17,7 +17,7 @@ echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
         <div class="card ">
             <div id="option-image">
                 <div id="image-drop-area">
-                    <p style="margin: 10px">Bild in den markierten Bereich ziehen oder </p>
+                    <p style="margin: 10px">Bild in den markierten Bereich ziehen oder </p><!--         todo : drag'n'drop is not working! (Marvin) -->
                     <input type="file" id="option-image-input" accept="image/*" name="optionimage">
                     <label for="option-image-input" id="select-image-label">Bild auswählen</label>
                 </div>

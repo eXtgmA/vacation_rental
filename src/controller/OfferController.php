@@ -120,7 +120,7 @@ class OfferController extends BaseController
      * @return void
      * @throws Exception
      */
-    public function getshow($houseId = null): void
+    public function getDetail($houseId = null): void
     {
         $house=$this->forceParam($houseId, 'House');
         new ViewController("offerDetail", $house);

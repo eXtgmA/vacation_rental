@@ -55,7 +55,7 @@ return [
             '' => 'index',
             'create'=>'create',
             'edit'=>'edit',
-            'show'=>'show',
+            'detail'=>'detail',
             'find'=>'find'
         ],
           'POST' => [

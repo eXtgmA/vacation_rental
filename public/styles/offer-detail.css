@@ -1,0 +1,554 @@
+#detail-grid {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto auto auto 3% auto;
+    grid-template-areas:
+    "images return"
+    "images calendar"
+    "images information"
+    "headline options"
+    "description options";
+}
+
+#detail-grid > #return-area {
+    grid-area: return;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: auto 2%;
+
+    & > button {
+        width: 50%;
+        height: 50%;
+    }
+}
+
+#detail-grid > #headline-area {
+    grid-area: headline;
+
+    .headline {
+        display: flex;
+        justify-content: center;
+    }
+
+    & > h1 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: var(--color-text-headline);
+    }
+}
+
+#detail-grid > #image-area {
+    grid-area: images;
+
+    & .carousel {
+        width: 100%;
+        position: relative;
+    }
+
+    & #preview-container {
+        margin-right: 30px;
+        margin-bottom: 30px;
+        background-size: cover;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        #preview {
+            position: relative;
+            z-index: 2;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            height: 500px;
+            object-fit: cover;
+        }
+    }
+
+    & #thumbnails {
+        width: 100%;
+        height: 20%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        & .thumbnail {
+            position: relative;
+            width: 18%;
+            cursor: pointer;
+            margin-left: 1%;
+            margin-right: 1%;
+
+            & img {
+                cursor: pointer;
+                height: 100px;
+                object-fit: cover;
+                width: 100%;
+                position: relative;
+            }
+
+            & .overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100px;
+                background: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                font-size: 3em;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            &:hover .overlay {
+                opacity: 1;
+            }
+        }
+    }
+}
+
+
+#detail-grid > #calendar-area {
+    grid-area: calendar;
+
+    h2 {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .calendar-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+#detail-grid > #information-area {
+    grid-area: information;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    #information-grid {
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 25% 25% 25% 25%;
+        grid-template-areas:
+        "price city"
+        "person street"
+        "square-meter room"
+        "submit submit";
+
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        padding: 10px;
+
+        .information {
+            width: 95%;
+            margin: 0 auto;
+
+            .information-key {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+
+                .additional-text {
+                    display: none;
+                }
+            }
+
+            .information-value {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                font-weight: bold;
+            }
+
+            hr {
+                margin: 0;
+                border: 0;
+                border-top: 1px solid #eee;
+                width: 100%;
+            }
+        }
+
+
+        & > #price-area {
+            grid-area: price;
+        }
+
+        & > #city-area {
+            grid-area: city;
+        }
+
+        & > #person-area {
+            grid-area: person;
+        }
+
+        & > #street-area {
+            grid-area: street;
+        }
+
+        & > #square-meter-area {
+            grid-area: square-meter;
+        }
+
+        & > #room-area {
+            grid-area: room;
+        }
+
+        & > #submit-area {
+            grid-area: submit;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+
+            & > button {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+}
+
+#detail-grid > #description-area {
+    grid-area: description;
+
+    .card {
+        margin: auto;
+        margin-top: 1%;
+
+        width: 95%;
+
+        & p {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        & .feature-list {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+
+            & .feature-select {
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+#detail-grid > #options-area {
+    grid-area: options;
+
+    & .options {
+        margin: 1% auto auto;
+
+        width: 95%;
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-gap: 1rem;
+            margin: 1rem auto;
+        }
+
+        .card {
+            margin: 0 auto;
+            min-width: 200px;
+            max-width: 200px;
+            min-height: 400px;
+            max-height: 400px;
+            position: relative;
+        }
+
+        .option-card {
+            align-self: center;
+            justify-self: center;
+        }
+
+        .option-card:hover {
+            margin: 0;
+            border: 1px solid #777;
+            border-radius: 5px;
+            box-shadow: 0 8px 16px 0 var(--color-primary);
+            transform: scale(1.05);
+            cursor: pointer;
+        }
+
+        .option-image img {
+            width: 100%;
+            height: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .option-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+
+            & .option-price-label {
+                font-size: 1.2rem;
+                font-weight: 400;
+            }
+
+            & .option-price-value {
+                font-weight: 600;
+            }
+        }
+
+        .option-description {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5rem;
+            font-style: italic;
+
+            &::after {
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 30px;
+                background: linear-gradient(to bottom, transparent, white);
+            }
+        }
+    }
+}
+
+
+.option-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    z-index: 3;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    display: none;
+
+    & .modal-content {
+        min-width: 200px;
+        max-width: 400px;
+        width: auto;
+        min-height: 400px;
+        position: relative;
+        margin: 2% auto 0;
+
+        padding: 5px;
+
+        & img {
+            width: 100%;
+            height: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .option-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 1.2rem;
+
+            & .option-price-label {
+                font-size: 1.2rem;
+                font-weight: 400;
+            }
+
+            & .option-price-value {
+                font-weight: 600;
+            }
+        }
+    }
+
+    & .close-button {
+        position: absolute;
+        right: 20px;
+        top: 5px;
+        font-size: 30px;
+        color: #000000;
+        cursor: pointer;
+    }
+}
+
+
+@keyframes light-flashing-button {
+    0% {
+        border-color: var(--color-primary);
+    }
+    50% {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+    }
+    100% {
+        border-color: var(--color-primary);
+    }
+}
+
+#submit-area > .btn-primary {
+    border: 5px solid #000;
+    animation: light-flashing-button 2s linear infinite;
+
+    &:focus {
+        padding: 13px 23px
+    }
+}
+
+/* XXL 1600px - 1740px */
+@media (max-width: 1740px) {
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* XXL 1400px - 1500px */
+@media (max-width: 1500px) {
+    #detail-grid > #information-area #information-grid {
+        width: 330px;
+    }
+}
+
+
+/* XXL 1400px - 1600px */
+@media (max-width: 1250px) {
+    #detail-grid {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto auto auto auto;
+        grid-template-areas:
+            "images images"
+            "headline headline"
+            "information calendar"
+            "description options";
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        padding: 10px;
+        width: 95%;
+    }
+}
+
+/* XL 1200px - 1400px */
+@media (max-width: 1100px) {
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 90%;
+    }
+}
+
+/* Small 576px - 768px */
+@media (max-width: 768px) {
+    #detail-grid {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto auto auto auto;
+        grid-template-areas:
+            "images"
+            "headline"
+            "information"
+            "calendar"
+            "description"
+            "options"
+            "return";
+    }
+
+    #detail-grid > #headline-area {
+        width: 95%;
+        margin: auto;
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 95%;
+    }
+
+}
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    #detail-grid > #headline-area {
+        width: 90%;
+        margin: auto;
+    }
+
+    #detail-grid > #options-area .options .options-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    #detail-grid > #image-area .carousel #preview-container {
+        margin-right: 0;
+        margin-bottom: 0;
+
+        & #preview {
+            width: 100%;
+        }
+    }
+
+    #detail-grid > #description-area .card {
+        margin-top: 3%;
+        padding: 5px;
+        width: 90%;
+    }
+
+    #detail-grid > #information-area #information-grid {
+        width: 90%;
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+
+}

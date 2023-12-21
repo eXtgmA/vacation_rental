@@ -8,7 +8,7 @@ if (!isset($_SESSION)) { // avoid double opening sessions
 array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
 
 // auto redirect to login page, if the user tries to access a page that requires login
-if (!isset($_SESSION['user']) && !in_array(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), ['/login', '/register', '/', '/dashboard', '/impressum', '/offer/find'])) {
+if (!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impressum|(offer/(find|(detail/\d*))))$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH))) {
     $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
     header('location: /login', true, 302);
 }
@@ -17,6 +17,7 @@ if (!isset($_SESSION['user']) && !in_array(parse_url($_SERVER['REQUEST_URI'], PH
 <!doctype html>
 <html lang="de">
 <head>
+    <link rel="icon" href="/assets/logo.png" type="image/png">
 
     <link rel="stylesheet" href="/styling.css"/>
     <link rel="stylesheet" href="/fa/css/all.min.css" type="text/css" />
@@ -29,6 +30,7 @@ if (!isset($_SESSION['user']) && !in_array(parse_url($_SERVER['REQUEST_URI'], PH
     <title><?php echo $title;?></title>
 </head>
 <body>
+<script src="/scripts/notification.js"></script>
 <?php
 if (isset($_SESSION['user'])) {
     include_once('navbar.view.php');

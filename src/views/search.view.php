@@ -105,7 +105,7 @@ include_once($header);
                                     <div class="price detail">
                                         <div class="text">
                                             <span>Preis</span>
-                                            <span><?php print $house->getPrice() ?></span>
+                                            <span><?php print $house->getPrice() ?>€</span>
                                         </div>
                                         <hr/>
                                     </div>
@@ -119,7 +119,7 @@ include_once($header);
                                     <div class="square-meter detail">
                                         <div class="text">
                                             <span>Fläche</span>
-                                            <span><?php print $house->getSquareMeter() ?></span>
+                                            <span><?php print $house->getSquareMeter() ?>m²</span>
                                         </div>
                                         <hr class="horizontal-line"/>
                                     </div>
@@ -145,7 +145,7 @@ include_once($header);
                                         <hr/>
                                     </div>
                                     <div class="submit">
-                                        <button class="btn-primary" type="button">Ansehen</button>
+                                        <button class="btn-primary" type="button" onclick="openLink('/offer/detail/<?php echo $house->getId() ?>')">Ansehen</button>
                                     </div>
                                 </div>
                             </div>
