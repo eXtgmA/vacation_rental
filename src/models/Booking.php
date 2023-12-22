@@ -33,6 +33,39 @@ class Booking extends BaseModel
         }
     }
 
+    /**
+     * Check all bookingpositions to a given house if time frame is already reserved in cart or not (start and end date inclusive)
+     *
+     * @param string $start
+     * @param string $end
+     * @param int $houseId
+     * @return bool
+     */
+    public function isTimeFrameAvailableInCart(string $start, string $end, int $houseId) : bool
+    {
+        $bps = $this->getAllBookingpositions();
+        if (!empty($bps)) {
+            foreach ($bps as $p) {
+                if ($houseId == $p->getHouseId()) {
+                    $dateStartNew = date_create($start);
+                    $dateEndNew = date_create($end);
+                    $dateStartOld = date_create($p->getDateStart());
+                    $dateEndOld = date_create($p->getDateEnd());
+                    if ($dateStartNew && $dateEndNew && $dateStartOld && $dateEndOld) { // check if dates correctly initialized (for phpstan)
+                        // not available if time periods are overlapping
+                        if ($dateStartNew <= $dateEndOld && $dateEndNew >= $dateStartOld) {
+                            return false;
+                        }
+                    } else {
+                        // unexpected error (dates of booking contain bad data)
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     public function getId(): int
     {
         return $this->id;
