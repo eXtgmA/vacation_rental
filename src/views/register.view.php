@@ -16,11 +16,11 @@ include_once($header);
         <label id="register-surname-input-label" class="label" for="register-surname-input-field">Nachname</label>
         <input id="register-surname-input-field" class="input-field" type="text" name="surname"
                value='<?php prefill("surname"); ?>'>
-        <label id="register-password-input-label" class="label" for="register-password-input-field">Password</label>
+        <label id="register-password-input-label" class="label" for="register-password-input-field">Passwort</label>
         <input id="register-password-input-field" class="input-field" type="password" name="password"
                value='<?php prefill("password"); ?>' oninput="showPasswordRepeat()">
         <div id="repeat-password" style="display:none">
-            <label id="register-password-repeat-input-label" class="label" for="register-password-repeat-input-field">Password
+            <label id="register-password-repeat-input-label" class="label" for="register-password-repeat-input-field">Passwort
                 bestätigen</label>
             <input id="register-password-repeat-input-field" class="input-field" type="password" name="password_confirm"
                    value='<?php prefill("password_confirm"); ?>' oninput="checkEqual()">
