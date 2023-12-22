@@ -84,6 +84,13 @@ class OptionController extends BaseController
         new ViewController("optionShowall", $allOptions);
     }
 
+    /**
+     * @param int|null $optionId
+     * @return void
+     * @throws \Exception
+     *
+     * Deliver detail/edit page for a specific option belonging to a house
+     */
     public function getEdit(int $optionId = null): void
     {
         $this->forceParam($optionId, 'option');
@@ -98,8 +105,11 @@ class OptionController extends BaseController
         new ViewController("optionEdit", $param);
     }
 
-    public function postEdit(int $optionId): void
+    public function postEdit(int $optionId=null): void
     {
+        $this->forceParam($optionId, 'option');
+        $this->isUserAllowedHere($optionId,'option','/offer');
+
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
