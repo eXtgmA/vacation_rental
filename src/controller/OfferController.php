@@ -46,6 +46,11 @@ class OfferController extends BaseController
         new ViewController('createNewOffer', $param);
     }
 
+    /**
+     * @return void
+     *
+     * Post process of creating a new house
+     */
     public function postCreate(): void
     {
 //        add owner to attributes
@@ -121,6 +126,8 @@ class OfferController extends BaseController
      * @param int $houseId
      * @return void
      * @throws Exception
+     *
+     * toggling a house between active and inactive
      */
     public function posttoggleStatus(int $houseId = null): void
     {
