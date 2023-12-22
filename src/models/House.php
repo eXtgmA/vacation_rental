@@ -194,19 +194,19 @@ class House extends BaseModel
         return $tags;
     }
 
-    /**
-     * @param int $houseId
-     * @param string[] $frontimage
-     * @return void
-     * @throws Exception
-     */
-    public function setFrontimage(int $houseId, array $frontimage): void
-    {
-
-        $type = 1;
-        $newImage = new Image();
-        $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
-    }
+//    /**
+//     * @param int $houseId
+//     * @param string[] $frontimage
+//     * @return void
+//     * @throws Exception
+//     */
+//    public function setFrontimage(int $houseId, array $frontimage): void
+//    {
+//
+//        $type = 1;
+//        $newImage = new Image();
+//        $this->frontimage = $newImage->postsave($frontimage, $houseId, $type);
+//    }
 
     /**
      * @param string[] $param

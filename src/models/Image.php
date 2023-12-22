@@ -75,49 +75,51 @@ class Image extends BaseModel
         return $imageName;
     }
 
-    /**
-     * @param string[] $file
-     * @param int $houseId
-     * @param int|null $typeId
-     * @return string
-     * @throws \Exception
-     */
-    public function postsave(array $file, int $houseId, int $typeId = null,): string
-    {
-        if ($file['tmp_name'] == "") {
-            header('location: /image', true, 302);
-        }
-        // create random binary string in length of 40 Chars -> translate to HEX
-        $randomId = bin2hex(random_bytes(15));
-        // Uploaded file is in "tmp_name" (php standard)
-        $image = $file['tmp_name'];
-        // get the uploaded file extension
-        $mimetype = mime_content_type($image);
-        $extension = '';
-        if ($mimetype) {
-            $exploded = explode('/', $mimetype);
-            if (count($exploded) == 2) {
-                $extension = $exploded[1];
-            }
-        } else {
-            throw new \Exception('Bilderdaten nicht korrekt');
-        }
-        // creating saving path
-        $path = __DIR__ . "/../../public/images/";
-        // putting path and storage name together
-        $imageName = $randomId . "." . $extension;
-        try {
-            // saving process
-            move_uploaded_file($image, $path . $imageName);
-            // save to db
-            $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
-
-//            $this->store($query);
-        } catch (\Exception $e) {
-            var_dump($e);
-        }
-        return $imageName;
-    }
+//    /**
+//     * @param string[] $file
+//     * @param int $houseId
+//     * @param int|null $typeId
+//     * @return string
+//     * @throws \Exception
+//     */
+//    public function postsave(array $file, int $houseId, int $typeId = null,): string
+//    {
+//        if ($file['tmp_name'] == "") {
+//            error_log("Tried to save an image, that does not exist (no temp_name found)");
+//            throw new \Exception("Hochladen der Bilder fehlgeschlagen");
+//        }
+//        // create random binary string in length of 40 Chars -> translate to HEX
+//        $randomId = bin2hex(random_bytes(15));
+//        // Uploaded file is in "tmp_name" (php standard)
+//        $image = $file['tmp_name'];
+//        // get the uploaded file extension
+//        $mimetype = mime_content_type($image);
+//        $extension = '';
+//        if ($mimetype) {
+//            $exploded = explode('/', $mimetype);
+//            if (count($exploded) == 2) {
+//                $extension = $exploded[1];
+//            }
+//        } else {
+//            error_log("Image could not be saved, because mimetype was not correct");
+//            throw new \Exception('Bilderdaten nicht korrekt');
+//        }
+//        // creating saving path
+//        $path = __DIR__ . "/../../public/images/";
+//        // putting path and storage name together
+//        $imageName = $randomId . "." . $extension;
+//        try {
+//            // saving process
+//            move_uploaded_file($image, $path . $imageName);
+//            // save to db
+//            $query = ("insert into images (uuId,house_id, typetable_id) values('{$imageName}',{$houseId},{$typeId}) ");
+//
+////            $this->store($query);
+//        } catch (\Exception $e) {
+//            var_dump($e);
+//        }
+//        return $imageName;
+//    }
 
     /**
      * @param array<string> $file
