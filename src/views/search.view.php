@@ -1,7 +1,7 @@
 <?php
 $header = __DIR__ . "/partials/header.view.php";
-$title = "dashboard";
-$site = "dashboard";
+$title = "Ferienhaussuche";
+$site = "search";
 $houses = $param['houses'] ?? [];
 
 $features = $param['features'] ?? [];

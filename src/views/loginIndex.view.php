@@ -1,7 +1,7 @@
 <?php
 $header = __DIR__ . "//partials/header.view.php";
 // Titel der Seite eintragen
-$title = "login";
+$title = "Anmelden";
 $page = "login";
 $_SESSION['previous']='/login';
 include_once($header);

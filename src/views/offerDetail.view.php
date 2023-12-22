@@ -5,8 +5,8 @@ use src\models\Option;
 
 $header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
-$title = "Datailseite für ein hausobject";
-$house = isset($param) ? $param : null;
+$title = "Ferienhaus Details";
+$house = $param ?? null;
 
 $images = $house->getImages();
 $mainImage = $images[0];

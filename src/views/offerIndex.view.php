@@ -22,7 +22,7 @@ if (isset($houses)) {
         ?>
         <div class="offer-card">
             <div class="card-image">
-                <img src="/images/<?php print $house->getFrontImage() ?>" alt="alt">
+                <img src="/images/<?php print $house->getFrontImage() ?>" alt="Frontansicht des Ferienhauses">
             </div>
             <div class="card-details">
                 <h2 class="card-title"><?php print $house->getName() ?></h2>
