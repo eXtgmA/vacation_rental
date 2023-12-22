@@ -1,13 +1,21 @@
 .headline {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
     margin: 1rem auto;
     width: 80%;
 
-    & button {
-        margin-block-start: 0.67em;
-        margin-block-end: 0.67em;
-        height: 50px;
+    & .buttons {
+        flex: fit-content;
+        display: flex;
+        justify-content: flex-end;
+        align-items: flex-start;
+
+        & button {
+            margin-block-start: 0.67em;
+            margin-block-end: 0.67em;
+            height: 50px;
+        }
     }
 }
 
@@ -303,7 +311,11 @@
 /* Large 992px - 1200px*/
 @media (max-width: 1200px) {
     .headline {
+        flex-direction: column-reverse;
         width: 95%;
+    }
+
+    .headline {
     }
 
     .sub-headline {
@@ -426,6 +438,15 @@
 @media (max-width: 576px) {
     .headline {
         width: 95%;
+
+        & .buttons {
+            flex-direction: column;
+
+            & button {
+                width: 100%;
+                height: 50px;
+            }
+        }
     }
 
     .sub-headline {
