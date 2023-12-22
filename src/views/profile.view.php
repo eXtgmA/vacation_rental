@@ -30,7 +30,7 @@ include_once($header);
         <label id="register-email-input-label" class="label" for="register-email-input-field">E-Mail</label>
         <input id="register-email-input-field" class="input-field" type="text" name="email" value="<?php print $user->getEmail() ?>">
         <br/>
-        <label id="register-password-input-label" class="label" for="register-password-input-field">Password</label>
+        <label id="register-password-input-label" class="label" for="register-password-input-field">Passwort</label>
         <input id="register-password-input-field" class="input-field" type="password" name="password">
         <button type="submit" class="btn-secondary">Absenden</button>
     </form>
