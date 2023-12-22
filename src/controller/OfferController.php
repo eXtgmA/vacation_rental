@@ -202,7 +202,9 @@ class OfferController extends BaseController
      */
     public function postEdit($houseId): void
     {
+
         $house=$this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId,'house','/offer');
 
         // update base data
         /** @var House $house */
