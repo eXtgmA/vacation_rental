@@ -95,7 +95,10 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
     </div>
     <div class="pre-footer">
         <button class="btn-secondary" type="button" onclick="openLink('/cart')">zurück zum Warenkorb</button>
-        <button class="btn-primary" type="button" onclick="openLink('/checkout/booking/<?php echo $booking->getId() ?>')">Bezahlen</button>
+        <form action='<?php echo "/checkout/booking/".$booking->getId(); ?>' method='post'>
+            <input type="hidden" id="gesamtpreis" name="gesamtpreis" value=""> <!-- todo : calculate value with JS (sum of all prices) -->
+            <button class="btn-primary" type="submit">Bezahlen</button>
+        </form>
     </div>
 <?php } else {
     // if no booking exists
