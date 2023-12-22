@@ -34,14 +34,14 @@ class OptionController extends BaseController
         $user = new User();
 //        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
 //            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
+//            $_SESSION['message'] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
 //            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
 //        }
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Foto(s) wurde(n) nicht korrekt übergeben";
+            $_SESSION['message'] = "Hochladen des Bildes fehlgeschlagen";
             redirect($_SESSION['previous'], 302, $_POST);
             die();
         }
@@ -53,6 +53,7 @@ class OptionController extends BaseController
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
+        // if validation fails => redirect to previous page with notification
         $this->validateInput('Option', $_POST);
         // save option
         $option=new Option($option);
@@ -109,6 +110,7 @@ class OptionController extends BaseController
         // update image
         $this->updateImage($option, $_FILES['option-image-input']);
 
+        $_SESSION['message'] = "Änderungen gespeichert";
         redirect("/option/edit/{$optionId}", 302);
     }
 
@@ -123,9 +125,12 @@ class OptionController extends BaseController
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
-            redirect($_SESSION['previous'], 500);
+            $_SESSION['message'] = "Löschen fehlgeschlagen";
+            redirect($_SESSION['previous'], 302);
+            die();
         }
         // deletion successful
+        $_SESSION['message'] = "Option gelöscht";
         redirect($_SESSION['previous'], 302);
     }
 

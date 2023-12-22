@@ -118,6 +118,7 @@ class BookingController extends BaseController
         }
     }
 
+    // todo : check if postDeleteBookingposition() is not needed
     public function postDeleteBookingposition(int $id = null): void
     {
         $bps=$this->forceParam($id, 'bookingposition');
@@ -126,7 +127,7 @@ class BookingController extends BaseController
                 $bps->deleteBookingposition();
         } catch (\Exception $e) {
             error_log("Bookingposition ({$id}) could not be deleted from cart");
-            $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
+            $_SESSION['message'] = "Die Position konnte nicht gelöscht werden";
             redirect('/cart', 500);
             die();
         }

@@ -64,13 +64,10 @@ class Option extends BaseModel
         } catch (Exception $e) {
             // if error, rollback
             $this->connection()->rollback();
-            error_log("Error while deleting option ({$this->id}) from databse.");
-            $_SESSION["message"] = "Option konnte nicht gelöscht werden";
-            throw new Exception($e);
+            error_log("Error while deleting option ({$this->id}) from database.");
+            throw new Exception("Option konnte nicht gelöscht werden");
         }
-        $_SESSION["message"] = "Option wurde erfolgreich gelöscht";
         return true;
-        // redirection to next page has to be executed by caller
     }
 
 //    /**

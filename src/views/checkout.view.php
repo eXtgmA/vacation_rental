@@ -15,7 +15,6 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
 
 ?>
     <link rel="stylesheet" href="/styles/checkout.css"/>
-<?php echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line ?>
     <div class="headline">
         <h1>Kasse</h1>
     </div>

@@ -10,9 +10,6 @@ include_once($header);
     <script src="/scripts/calendar-widget.js"></script>
 
     <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
-<?php if ($message) {
-    print "<h3>$message</h3>";
-}?>
     <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
     <form action="/booking/create/" method="post" id="booking-form">
 
