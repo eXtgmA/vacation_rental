@@ -11,9 +11,6 @@ include_once($header);
 
 <div class="page-header">
     <h1 style="">Eigene Häuser verwalten</h1>
-    <?php
-    isset($message) ? print $message :print "";
-    ?>
     <button class="btn-primary" onclick="openLink('/offer/create')">Neues Haus anlegen</button>
 </div>
 <?php
@@ -22,16 +19,13 @@ if (isset($houses)) {
         ?>
         <div class="offer-card">
             <div class="card-image">
-                <img src="/images/<?php print $house->getFrontImage() ?>" alt="alt">
+                <img src="/images/<?php print $house->getFrontImage() ?>" alt="Frontansicht des Ferienhauses">
             </div>
             <div class="card-details">
                 <h2 class="card-title"><?php print $house->getName() ?></h2>
                 <hr style="width: 80%"/>
                 <p><?php print $house->getStreet() . " " . $house->getHouseNumber() . ", " . $house->getPostalCode() . " " . $house->getCity() ?></p>
                 <div class="button-container">
-                    <button class="btn-primary" onclick="openLink('/booking/create/<?php echo $house->getId() ?>')">
-                        Buchen <!-- todo : remove buchen-button after implementing search-result page -->
-                    </button>
                     <button class="btn-primary" onclick="openLink('/offer/edit/<?php echo $house->getId() ?>')">
                         Bearbeiten
                     </button>

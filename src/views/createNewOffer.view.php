@@ -4,26 +4,21 @@ $header = __DIR__ . "/partials/header.view.php";
 $title = "Haus anlegen";
 $page = 'createhouse';
 $_SESSION['previous'] = $_SERVER['REQUEST_URI'];
-$features = $param['features'] ?? null;
-$oldTagsSelected = $_SESSION['old_POST']['tags'];
+$features = $param['features'] ?? [];
+$oldTagsSelected = $_SESSION['old_POST']['tags'] ?? '';
 
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
-
-<?php if (isset($message)) { ?>
-    <script>
-        showNotification("<?php echo $message; ?>", 20000);
-    </script>
-<?php } ?>
 
 <form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">
         <div class="headline">
             <h1>Neues Haus anlegen</h1>
-            <button class="btn btn-primary" type="button" onclick="openLink('/offer')">Zurück</button>
-            <!--            <button class="btn btn-primary">Optionen bearbeiten</button>-->
+            <div class="buttons">
+                <button class="btn btn-primary" type="button" onclick="openLink('/offer')">Zurück</button>
+            </div>
         </div>
 
         <h2 class="sub-headline">Details</h2>
@@ -127,10 +122,10 @@ include_once($header);
                     </div>
                     <?php foreach ($category as $feature) { ?>
                         <label class="feature-select">
-                            <input type="checkbox" name="<?php echo 'features['.$categoryName.'][]" value="'.$feature->getName(); ?>"
+                            <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>"
                                 <?php if (in_array($feature->getName(), ($_SESSION['old_POST']['features'][$categoryName] ?? []))) {
                                     echo ' checked';
-                                }?>>
+                                } ?>>
                             <?php echo $feature->getName(); ?>
                         </label>
                     <?php } ?>

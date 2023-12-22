@@ -15,7 +15,6 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
 
 ?>
     <link rel="stylesheet" href="/styles/checkout.css"/>
-<?php echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line ?>
     <div class="headline">
         <h1>Kasse</h1>
     </div>
@@ -95,7 +94,9 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
     </div>
     <div class="pre-footer">
         <button class="btn-secondary" type="button" onclick="openLink('/cart')">zurück zum Warenkorb</button>
-        <button class="btn-primary" type="button" onclick="openLink('/checkout/booking/<?php echo $booking->getId() ?>')">Bezahlen</button>
+        <form action='<?php echo "/checkout/booking/".$booking->getId(); ?>' method='post'>
+            <button class="btn-primary" type="submit">Bezahlen</button>
+        </form>
     </div>
 <?php } else {
     // if no booking exists

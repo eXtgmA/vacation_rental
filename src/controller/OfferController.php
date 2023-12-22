@@ -15,7 +15,14 @@ class OfferController extends BaseController
         parent::__construct();
     }
 
-    public function getIndex(mixed $formdata = null): void
+    /**
+     * @return void
+     * @throws Exception
+     *
+     * Returning all the Houses a user owns and want to offer
+     *
+     */
+    public function getIndex(): void
     {
         // get all houses
         $houses = $this->getAllHousesBelongingToTheCurrentUser();
@@ -27,16 +34,23 @@ class OfferController extends BaseController
         new ViewController('offerIndex', $param);
     }
 
+    /**
+     * @return void
+     *
+     * deliver the creation page for a new house (offer)
+     */
     public function getCreate(): void
     {
         // get all existing features
         $param['features'] = $this->prepareFeatures();
-
-        // todo : get all tags
-
         new ViewController('createNewOffer', $param);
     }
 
+    /**
+     * @return void
+     *
+     * Post process of creating a new house
+     */
     public function postCreate(): void
     {
 //        add owner to attributes
@@ -112,6 +126,8 @@ class OfferController extends BaseController
      * @param int $houseId
      * @return void
      * @throws Exception
+     *
+     * toggling a house between active and inactive
      */
     public function posttoggleStatus(int $houseId = null): void
     {
@@ -124,6 +140,9 @@ class OfferController extends BaseController
      * @param int|null $houseId
      * @return void
      * @throws Exception
+     *
+     * deliver the details page for a customer NOT THE LANDLORD
+     * This page is shown in booking process
      */
     public function getDetail($houseId = null): void
     {
@@ -134,17 +153,23 @@ class OfferController extends BaseController
     /**
      * @param int|null $houseId
      * @return void
+     *
+     * delete a specific house
+     * this includes deleting all images from db and disk
      */
     public function postDelete($houseId = null): void
     {
         $house=$this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
         try {
             /** @var House $house */
             $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
-            redirect($_SESSION['previous'], 500);
+            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)'; // todo : change message text after deciding if houses can be deleted
+            redirect($_SESSION['previous'], 302);
+            die();
         }
+        $_SESSION['message'] = "Die Ferienwohnung wurde erfolgreich gelöscht";
         redirect($_SESSION['previous'], 302);
     }
 
@@ -152,12 +177,14 @@ class OfferController extends BaseController
      * @param int|null$houseId
      * @return void
      * @throws Exception
+     *
+     * Return edit page for a specific house
+     * used by the landlord to manage his house
      */
     public function getEdit($houseId = null): void
     {
-        // todo userallowed
         $param['house']=$this->forceParam($houseId, 'House');
-
+        $this->isUserAllowedHere($houseId, 'House', '/offer');
         // get all existing features
         $param['features'] = $this->prepareFeatures();
         // get names of all the features related to the house
@@ -166,32 +193,34 @@ class OfferController extends BaseController
             $param['featuresSelected'][] = $feature->getName();
         }
 
-            new ViewController('offerEdit', $param);
+        new ViewController('offerEdit', $param);
     }
 
     /**
      * @param int $houseId
      * @return void
      * @throws Exception
+     *
+     * post process for updating a specific house
      */
     public function postEdit($houseId): void
     {
-        // todo userallowed
-
         $house=$this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
 
         // update base data
         /** @var House $house */
         $baseData = $_POST['base-data'];
         $house->update($baseData);
 
-        $this->updateImages($house, $_FILES);
         if (!$_POST['features']) {
             $_POST['features'] = [];
         };
         $this->updateFeatures($house, $_POST['features']);
-
         $this->updateTags($houseId, $_POST['tags']);
+
+        // update images last, because redirect on failure is included
+        $this->updateImages($house, $_FILES);
 
         redirect("/offer/edit/{$houseId}", 302);
     }
@@ -208,7 +237,7 @@ class OfferController extends BaseController
      * @param array<array<string>> $postedFiles
      * @return void
      */
-    public function updateImages(House $house, array $postedFiles) : void
+    private function updateImages(House $house, array $postedFiles) : void
     {
         // todo userallowed
 
@@ -259,21 +288,21 @@ class OfferController extends BaseController
                 }
             }
         } catch (Exception $e) {
-            $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
+            $_SESSION['message'] = "Manche Bilder konnten nicht übernommen werden";
             redirect('/offer/edit/'.$house->getId(), 302);
+            die();
         }
     }
 
     /**
      * Insert newly selected features and delete deselected ones (relative to a given house)
-     *
      * It uses the array $_POST['features'] for data input
      *
      * @param House $house
      * @param array<array<string>> $postedFeatures
      * @return void
      */
-    public function updateFeatures(House $house, array $postedFeatures) : void
+    private function updateFeatures(House $house, array $postedFeatures) : void
     {
         // todo userallowed
 
@@ -308,9 +337,11 @@ class OfferController extends BaseController
     }
 
     /**
-     *
      * @param array<string, array<mixed>> $param
      * @return void
+     *
+     * deliver the search form to the user
+     * If there are prefilled search parameters keep fields filled out
      */
     public function getFind($param)
     {
@@ -378,7 +409,7 @@ and
      * @return void
      * @throws Exception
      */
-    public function updateTags(int $houseId, string $postedTags): void
+    private function updateTags(int $houseId, string $postedTags): void
     {
         // todo userallowed
 
@@ -414,8 +445,10 @@ and
      * @param string $postedTags
      * @param int $houseId
      * @return void
+     *
+     *actual storing process in db
      */
-    public function storeTags(string $postedTags, int $houseId)
+    private function storeTags(string $postedTags, int $houseId)
     {
         // todo userallowed
 
@@ -434,7 +467,7 @@ and
      *
      * @return array<string, array<Feature>|false>
      */
-    public function prepareFeatures() : array
+    private function prepareFeatures() : array
     {
         $list['Outdoor'] =    Feature::getFeaturesByCategory('Outdoor');
         $list['Wellness'] =   Feature::getFeaturesByCategory('Wellness');
@@ -450,7 +483,7 @@ and
      *
      * @return array<array<string>>
      */
-    public function translateOptionalImagesInput() : array
+    private function translateOptionalImagesInput() : array
     {
         $fCount = count($_FILES['optional-images']['name']);
         $oFiles = [];

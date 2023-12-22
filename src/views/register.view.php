@@ -8,7 +8,6 @@ include_once($header);
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="card" style="margin: 5% auto">
     <h1>Neuer Account</h1>
-    <h3><?php isset($message) ? print $message : print ''; ?></h3>
     <form action="/register" method="post" oninput="showButton()">
         <label id="register-forname-input-label" class="label" for="register-forname-input-field">Vorname</label>
         <input id="register-forname-input-field" class="input-field" type="text" name="forename"
@@ -28,6 +27,7 @@ include_once($header);
         <label id="register-email-input-label" class="label" for="register-email-input-field">E-Mail</label>
         <input id="register-email-input-field" class="input-field" type="text" name="email"
                value='<?php prefill("email"); ?>'>
+        <br/>
         <button id="sendButton" class="btn-secondary" type="submit" disabled>Registrieren</button>
     </form>
 </div>

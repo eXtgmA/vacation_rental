@@ -37,13 +37,14 @@ class LoginController extends BaseController
                 redirect($redirect_url, 302);
             } else {
                 // Redirect to landing page
-                redirect("dashboard", 302);
+                redirect("/dashboard", 302);
             }
-            exit;
+            die();
         } else {
-            $_SESSION['message'] = 'Ungültige Mailadresse';
+            $_SESSION['message'] = 'Ungültige E-Mail-Adresse';
             $previous = $_SESSION['previous'];
             redirect($previous, 302);
+            die();
         }
     }
 }
