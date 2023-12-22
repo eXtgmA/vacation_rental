@@ -64,10 +64,10 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
             <div class="item-options <?php echo !empty($pdl) ? '' : 'hide' ?>">
                 <?php if (!empty($pdl)) { ?>
                     <h3>Optionen</h3>
-                    <?php foreach ($pdl['options'] as $name => $price) { ?>
+                    <?php foreach ($pdl['options'] as $name => $price) { //@phpstan-ignore-line ?>
                         <div class="option">
-                            <span class="option-key"><?php echo $name ?></span>
-                            <span class="option-value"><?php echo $price ?>€</span>
+                            <span class="option-key"><?php echo $name //@phpstan-ignore-line ?></span>
+                            <span class="option-value"><?php echo $price //@phpstan-ignore-line ?>€</span>
 
                         </div>
                         <?php $optionSum += $price ?>
@@ -83,7 +83,7 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
             <div class="item-price">
                 <div class="price">
                     <span class="price-label">Preis:</span>
-                    <span class="price-value"><?php echo $pdl["price"] ?? "Price not calculated!" ?>€</span><!-- todo : get price from list (and delete stan-ignore) -->
+                    <span class="price-value"><?php echo $pdl["price"] ?? "Price not calculated!" //@phpstan-ignore-line ?>€</span><!-- todo : get price from list (and delete stan-ignore) -->
                 </div>
             </div>
         </div>
