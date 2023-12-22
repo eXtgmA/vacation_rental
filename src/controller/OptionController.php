@@ -34,7 +34,7 @@ class OptionController extends BaseController
         $user = new User();
 //        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
 //            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
+//            $_SESSION['message'] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
 //            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
 //        }
         // save image to disk and db

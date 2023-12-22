@@ -164,7 +164,7 @@ class Image extends BaseModel
             $this->delete('Image', $this->id);
         } catch (\Exception $e) {
             error_log("Error while deleting image ({$this->id}) from databse.");
-            $_SESSION["message"] = "Image konnte nicht gelöscht werden";
+            $_SESSION['message'] = "Image konnte nicht gelöscht werden";
             throw new \Exception($e);
         }
         return $path;
