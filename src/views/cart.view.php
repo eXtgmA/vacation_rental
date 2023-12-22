@@ -8,10 +8,10 @@ $houses = $param["houses"] ?? [];
 $availabilityError = $_SESSION['availabilityError'] ?? [];
 include_once($header);
 ?>
-<link rel="stylesheet" href="/styles/cart.css"/>
-<div class="headline">
-    <h1>Warenkorb</h1>
-</div>
+    <link rel="stylesheet" href="/styles/cart.css"/>
+    <div class="headline">
+        <h1>Warenkorb</h1>
+    </div>
 <?php if (isset($booking, $bpos, $houses)) { ?>
     <?php foreach ($bpos as $key => $p) { ?>
         <?php $house = $houses[$p->getHouseId()] ?>
@@ -73,10 +73,14 @@ include_once($header);
             </div>
         </div>
     <?php } ?>
+    <div class="price-footer">
+        <button type="submit" class="btn-primary" onclick="openLink('/checkout')">Zur Kasse</button>
+    </div>
+<?php } else { ?>
+    <div>
+        <h2 style="display: flex; justify-content: center">Der Warenkorb ist leer</h2>
+    </div>
 <?php } ?>
-<div class="pre-footer">
-    <button type="submit" class="btn-primary" onclick="openLink('/checkout')">Zur Kasse</button>
-</div>
 
 <?php
 $footer = __DIR__ . "/partials/footer.view.php";
