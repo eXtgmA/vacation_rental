@@ -4,8 +4,8 @@ $header = __DIR__ . "/partials/header.view.php";
 $title = "Haus anlegen";
 $page = 'createhouse';
 $_SESSION['previous'] = $_SERVER['REQUEST_URI'];
-$features = $param['features'] ?? null;
-$oldTagsSelected = $_SESSION['old_POST']['tags'];
+$features = $param['features'] ?? [];
+$oldTagsSelected = $_SESSION['old_POST']['tags'] ?? '';
 
 include_once($header);
 ?>

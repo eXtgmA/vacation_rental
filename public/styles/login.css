@@ -9,3 +9,34 @@
     margin-top: 20px;
     font-style: italic;
 }
+
+.headline {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 0 auto;
+
+    & button {
+        margin: auto;
+    }
+}
+
+
+/* X-Small < 576px */
+@media (max-width: 576px) {
+    .headline {
+        flex-direction: column;
+        justify-content: center;
+
+        & button {
+            width: 100%;
+        }
+    }
+}
+
+/* Mobile */
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 812px)
+and (-webkit-min-device-pixel-ratio: 3) {
+}

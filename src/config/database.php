@@ -26,6 +26,6 @@ function getConnection(): mysqli
     if ($connection === false) {
         throw new Exception('Failed to connect to the database.');
     }
-
+    $connection->set_charset("utf8mb4");
     return $connection;
 }
