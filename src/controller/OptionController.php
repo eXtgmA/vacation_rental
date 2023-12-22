@@ -13,9 +13,18 @@ class OptionController extends BaseController
         parent::__construct();
     }
 
+    /**
+     * @param int|null $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * deliver creation page for a new Option
+     * redirect user to offers if he tries to edit/create an option for non belonging house
+     */
     public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId,'house','offer');
         new ViewController("OptionCreate", $houseId);
     }
 
