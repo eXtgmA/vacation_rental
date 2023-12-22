@@ -71,8 +71,6 @@ class User extends BaseModel
                 // if everything is ok perform login and set user as active user for the session
                 // session_start();
                 $_SESSION['user'] = $user->getId();
-                redirect("/dashboard", 302);
-                die();
             } else {
                 error_log('"' . $user->getEmail() . '" tried to login with wrong password');
                 throw new Exception('login fehlgeschlagen');
