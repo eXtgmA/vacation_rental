@@ -295,7 +295,7 @@ class OfferController extends BaseController
      * @param array<array<string>> $postedFeatures
      * @return void
      */
-    public function updateFeatures(House $house, array $postedFeatures) : void
+    private function updateFeatures(House $house, array $postedFeatures) : void
     {
         $houseFeatures = $house->getAllFeatures();
         foreach ($postedFeatures as $category) {
@@ -328,9 +328,11 @@ class OfferController extends BaseController
     }
 
     /**
-     *
      * @param array<string, array<mixed>> $param
      * @return void
+     *
+     * deliver the search form to the user
+     * If there are prefilled search parameters keep fields filled out
      */
     public function getFind($param)
     {
@@ -398,7 +400,7 @@ and
      * @return void
      * @throws Exception
      */
-    public function updateTags(int $houseId, string $postedTags): void
+    private function updateTags(int $houseId, string $postedTags): void
     {
 //      getting old tags
         $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
@@ -432,8 +434,10 @@ and
      * @param string $postedTags
      * @param int $houseId
      * @return void
+     *
+     *actual storing process in db
      */
-    public function storeTags(string $postedTags, int $houseId)
+    private function storeTags(string $postedTags, int $houseId)
     {
         $tags = $postedTags;
         $tags = explode(',', $tags);
@@ -450,7 +454,7 @@ and
      *
      * @return array<string, array<Feature>|false>
      */
-    public function prepareFeatures() : array
+    private function prepareFeatures() : array
     {
         $list['Outdoor'] =    Feature::getFeaturesByCategory('Outdoor');
         $list['Wellness'] =   Feature::getFeaturesByCategory('Wellness');
@@ -466,7 +470,7 @@ and
      *
      * @return array<array<string>>
      */
-    public function translateOptionalImagesInput() : array
+    private function translateOptionalImagesInput() : array
     {
         $fCount = count($_FILES['optional-images']['name']);
         $oFiles = [];
