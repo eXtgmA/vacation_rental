@@ -76,6 +76,7 @@ class ProfileController extends BaseController
                     }
                     // check that at least one house has been fetched
                     if (empty($param["houses"])) {
+                        error_log("For displaying the booking history of user ({$_SESSION['user']}) a house was expected to load, but no house found.");
                         throw new \Exception("No house loaded");
                     }
                 }

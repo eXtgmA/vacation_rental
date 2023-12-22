@@ -166,8 +166,7 @@ class OfferController extends BaseController
         foreach ($param['house']->getAllFeatures() as $feature) {
             $param['featuresSelected'][] = $feature->getName();
         }
-
-            new ViewController('offerEdit', $param);
+        new ViewController('offerEdit', $param);
     }
 
     /**

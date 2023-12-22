@@ -222,7 +222,7 @@ class House extends BaseModel
     /**
      * Get all options associated with this house
      *
-     * Returns false if no options found
+     * Returns false if error in database
      *
      * @return array<Option>|false
      */
@@ -289,7 +289,7 @@ class House extends BaseModel
     /**
      * Get all images associated with this house
      *
-     * Returns false if no image found
+     * Returns false if error in database
      *
      * @return array<Image>|false
      */

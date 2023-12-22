@@ -59,6 +59,7 @@ class Image extends BaseModel
                 $extension = $exploded[1];
             }
         } else {
+            error_log("Image could not be saved, because mimetype was not correct");
             throw new \Exception('Bilderdaten nicht korrekt');
         }
         // creating saving path
