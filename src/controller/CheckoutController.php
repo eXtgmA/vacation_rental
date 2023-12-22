@@ -70,7 +70,8 @@ class CheckoutController extends BaseController
     public function postCheckout(int $bookingId = null): void
     {
         $this->forceParam($bookingId, 'booking');
-        // todo : check if the booking is owned by the current user
+        // todo : check if the booking is owned by the current user userallowed
+
         try {
             // confirm booking and save timestamp
             $query = "UPDATE bookings SET is_confirmed=1, booked_at=CURRENT_TIMESTAMP() WHERE id={$bookingId};";

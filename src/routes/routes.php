@@ -40,13 +40,9 @@ return [
     'dashboard' =>
         ['GET' => [
             '' => 'index'],
-//          'POST' => [
-//             'routeAction' => 'methodName']
         ],
     'logout' =>
         [
-//            'GET' => [
-//            'routeAction' => 'methodName'],
             'POST' => [
                 '' => 'logout']
         ],
@@ -77,7 +73,6 @@ return [
         ],
     'option' =>
         ['GET' => [
-//            '' => 'index',
             'create'=>'create',
             'showall'=>'showall',
             'edit'=>'edit'

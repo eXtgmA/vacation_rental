@@ -13,15 +13,6 @@ class OptionController extends BaseController
         parent::__construct();
     }
 
-//    public function getIndex(int $id): void
-//    {
-//        var_dump('hier');
-//        die();
-//        $option = new Option();
-//        $option = $option->getOption($id);
-//        new ViewController('showOneOption');
-//    }
-
     public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
@@ -30,13 +21,8 @@ class OptionController extends BaseController
 
     public function postCreate(int $houseId) : void
     {
-        // todo: check if house is owned by user
+        // todo: check if house is owned by user userallowed
         $user = new User();
-//        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
-//            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
-//            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
-//        }
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
@@ -65,16 +51,7 @@ class OptionController extends BaseController
     public function getShowall(int $houseId = null) : void
     {
         $house = $this->forceParam($houseId, 'house');
-        // todo: check if house is owned by user (see above in postCreate() )
-        // initialize house
-//        try {
-//            /** @var House $house */
-//            $house = $this->find('\src\models\House', 'id', $houseId, 1);
-//        } catch (\Exception $e) {
-//            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
-//            redirect($_SESSION['previous'], 500);
-//            die();
-//        }
+        // todo: check if house is owned by user (see above in postCreate() userallowed
         // get all options related to house from db
         /** @var mixed[] $allOptions */
         $allOptions = $house->getAllOptions();
@@ -84,6 +61,7 @@ class OptionController extends BaseController
 
     public function getEdit(int $optionId): void
     {
+        //todo userallowed
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
@@ -96,6 +74,8 @@ class OptionController extends BaseController
 
     public function postEdit(int $optionId): void
     {
+        //todo userallowed
+
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
@@ -114,12 +94,12 @@ class OptionController extends BaseController
 
     public function postDelete(int $optionId = null): void
     {
+        //todo userallowed
+
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');
         // todo check if rest is needed, maybe more params to function
         try {
-            // delete option (related image included)
-//            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
@@ -133,7 +113,6 @@ class OptionController extends BaseController
     {
         /** @var Option $option */
         $option=$this->forceParam($id, 'option');
-//        $option = $this->find('\src\models\Option', 'id', $id, 1);
         $option->toggleStatus();
         header('location: /option/showall/'.$option->getHouseId(), true, 302);
     }
@@ -147,6 +126,8 @@ class OptionController extends BaseController
      */
     public function updateImage(Option $option, array $imgInput): void
     {
+        //todo userallowed
+
         // update image
         if ($imgInput['name'] != '') {
             try {
