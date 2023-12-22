@@ -1,1 +1,1 @@
-php .\phpstan.phar analyse --configuration=phpstan.neon --level=max --no-progress
+php .\phpstan.phar analyse --configuration=phpstan.neon --level=max --no-progress --memory-limit 1G

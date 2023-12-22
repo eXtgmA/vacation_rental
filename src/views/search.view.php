@@ -1,7 +1,7 @@
 <?php
 $header = __DIR__ . "/partials/header.view.php";
-$title = "dashboard";
-$site = "dashboard";
+$title = "Ferienhaussuche";
+$site = "search";
 $houses = $param['houses'] ?? [];
 
 $features = $param['features'] ?? [];
@@ -81,7 +81,7 @@ include_once($header);
             <?php if (!empty($houses)) {
                 foreach ($houses as $house) { ?>
                     <div class="result">
-                        <div class="result-card">
+                        <div class="result-card" onclick="openLink('/offer/detail/<?php echo $house->getId() ?>')">
                             <div class="card-image">
                                 <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
                             </div>

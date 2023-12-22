@@ -1,6 +1,6 @@
 <?php
 $header = __DIR__ . "/partials/header.view.php";
-$title = "dashboard";
+$title = "Ferienhausvermietung";
 $site = "dashboard";
 include_once($header);
 ?>
