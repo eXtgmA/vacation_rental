@@ -21,7 +21,7 @@ include_once($header);
     <div id="image-area">
         <div class="carousel">
             <div id="preview-container" class="preview" style="background-image: url('<?php echo "/images/" . $mainImage->getUuid(); ?>')">
-                <img id="preview" src="<?php echo "/images/" . $mainImage->getUuid(); ?>" alt="Main Image"/>
+                <img id="preview" src="<?php echo "/images/" . $mainImage->getUuid(); ?>" alt="Großes Bild von dem Ferienhaus"/>
             </div>
             <div id="thumbnails">
                 <?php foreach (array_filter($images, function ($image) {
