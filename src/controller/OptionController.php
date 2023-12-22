@@ -13,15 +13,6 @@ class OptionController extends BaseController
         parent::__construct();
     }
 
-//    public function getIndex(int $id): void
-//    {
-//        var_dump('hier');
-//        die();
-//        $option = new Option();
-//        $option = $option->getOption($id);
-//        new ViewController('showOneOption');
-//    }
-
     public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
