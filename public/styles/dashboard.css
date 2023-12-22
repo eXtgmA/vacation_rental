@@ -90,6 +90,22 @@
   text-align: right;
 }
 
+/* X-Small < 576px */
+@media (max-width: 576px) {
+  #suggestion-cards {
+    flex-direction: column;
+  }
+
+  .suggestion-card {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .suggestion-card .card-image {
+    height: 150px;
+  }
+}
+
 /* Mobile View */
 @media only screen
 and (min-device-width: 375px)
