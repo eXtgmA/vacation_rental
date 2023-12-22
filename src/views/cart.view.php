@@ -65,11 +65,15 @@ include_once($header);
                 <span class="information-value"><?php echo $house->getRoomCount() ?></span>
                 <hr/>
             </div>
-            <div class="item-edit">
-                <button type="button" class="btn-secondary">Bearbeiten</button>
+            <div class="item-edit">             <!-- todo : set width of button like class="item-edit" in form below -->
+                <form action="<?php // echo "/booking/edit/".$p->getId(); ?>" method="post"> <!-- todo : create edit page for bookingpositions -->
+                    <button type="button" class="btn-secondary">Bearbeiten</button>
+                </form>
             </div>
             <div class="item-delete">
-                <button type="button" class="btn-secondary">Entfernen</button>
+                <form action="<?php echo "/booking/delete/".$p->getId(); ?>" method="post">
+                    <button type="submit" class="btn-secondary">Entfernen</button>
+                </form>
             </div>
         </div>
     <?php } ?>
