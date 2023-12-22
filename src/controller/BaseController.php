@@ -19,13 +19,15 @@ class BaseController
     protected function redirectIfNotLoggedIn(): void
     {
         if (!isset($_SESSION['user'])) {
-            header('location: /dashboard', true, 302);
+            redirect('/dashboard', 302);
+            die();
         }
     }
     protected function redirectIfLoggedIn(): void
     {
         if (isset($_SESSION['user'])) {
-            header('location: /dashboard', true, 302);
+            redirect('/dashboard', 302);
+            die();
         }
     }
 

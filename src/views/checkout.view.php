@@ -10,7 +10,8 @@ include_once($header);
 // auto redirect if there is nothing in the cart
 if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
     $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
-    header('location: /dashboard', true, 302);
+    redirect('/dashboard', 302);
+    die();
 }
 
 ?>

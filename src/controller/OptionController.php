@@ -154,7 +154,7 @@ class OptionController extends BaseController
         /** @var Option $option */
         $option=$this->forceParam($id, 'option');
         $option->toggleStatus();
-        header('location: /option/showall/'.$option->getHouseId(), true, 302);
+        redirect('/option/showall/'.$option->getHouseId(), 302);
     }
 
     /**
