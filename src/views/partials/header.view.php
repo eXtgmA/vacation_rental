@@ -4,8 +4,6 @@ $title = $title ?? "no title";
 if (!isset($_SESSION)) { // avoid double opening sessions
    // session_start();
 }
-// create the variable $message if there are existing messages
-array_key_exists('message', $_SESSION)?$message=$_SESSION['message']:$message=null;
 
 // auto redirect to login page, if the user tries to access a page that requires login
 if (!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impressum|(offer/(find|(detail/\d*))))$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '')) {
@@ -32,6 +30,13 @@ if (!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impre
 <body>
 <script src="/scripts/notification.js"></script>
 <?php
+// display an error message
+if (array_key_exists('message', $_SESSION)) { ?>
+    <script>
+        showNotification("<?php echo $_SESSION['message']; ?>");
+    </script>
+<?php }
+
 if (isset($_SESSION['user'])) {
     include_once('navbar.view.php');
 } else {

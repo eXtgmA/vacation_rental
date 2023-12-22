@@ -40,11 +40,12 @@ class OptionController extends BaseController
     {
         $this->forceParam($houseId, 'house');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
+
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Foto(s) wurde(n) nicht korrekt übergeben";
+            $_SESSION['message'] = "Hochladen des Bildes fehlgeschlagen";
             redirect($_SESSION['previous'], 302, $_POST);
             die();
         }
@@ -56,6 +57,7 @@ class OptionController extends BaseController
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
+        // if validation fails => redirect to previous page with notification
         $this->validateInput('Option', $_POST);
         // save option
         $option=new Option($option);
@@ -123,6 +125,7 @@ class OptionController extends BaseController
         // update image
         $this->updateImage($option, $_FILES['option-image-input']);
 
+        $_SESSION['message'] = "Änderungen gespeichert";
         redirect("/option/edit/{$optionId}", 302);
     }
 
@@ -137,9 +140,12 @@ class OptionController extends BaseController
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
-            redirect($_SESSION['previous'], 500);
+            $_SESSION['message'] = "Löschen fehlgeschlagen";
+            redirect($_SESSION['previous'], 302);
+            die();
         }
         // deletion successful
+        $_SESSION['message'] = "Option gelöscht";
         redirect($_SESSION['previous'], 302);
     }
 

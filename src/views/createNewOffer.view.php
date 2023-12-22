@@ -11,12 +11,6 @@ include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer-create.css"/>
 
-<?php if (isset($message)) { ?>
-    <script>
-        showNotification("<?php echo $message; ?>", 20000);
-    </script>
-<?php } ?>
-
 <form action="/offer/create" method="post" enctype="multipart/form-data" id="create-offer-form">
 
     <div id="new-offer-area">

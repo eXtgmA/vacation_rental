@@ -36,7 +36,7 @@ class ProfileController extends BaseController
         $user->update($_POST);
 
 
-        $_SESSION['message'] = 'Daten wurden erfolgreich gespeichert';
+        $_SESSION['message'] = 'Änderungen gespeichert';
         redirect("/profile", 302);
     }
 
@@ -76,12 +76,13 @@ class ProfileController extends BaseController
                     }
                     // check that at least one house has been fetched
                     if (empty($param["houses"])) {
+                        error_log("For displaying the booking history of user ({$_SESSION['user']}) a house was expected to load, but no house found.");
                         throw new \Exception("No house loaded");
                     }
                 }
             }
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
+            $_SESSION['message'] = "Fehler beim Laden Ihrer Buchungsdaten";
             redirect('/profile', 302);
             die();
         }

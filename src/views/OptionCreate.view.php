@@ -9,9 +9,6 @@ include_once($header);
 <div class="center-content">
     <h1>Neue Option anlegen</h1>
 </div>
-<?php
-echo($message ?? "<h1>$message</h1>"); // @phpstan-ignore-line
-?>
 <div class="option-area center-content" style="margin: 20px">
     <form action="<?php echo "/option/create/" . $house_id ?>" method="post" enctype="multipart/form-data">
         <div class="card ">
