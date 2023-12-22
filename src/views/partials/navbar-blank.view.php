@@ -3,7 +3,7 @@ $siteString = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $site = substr((string)$siteString, 1);
 ?>
 <link rel="stylesheet" href="/styles/navbar.css"/>
-<div class="navparent">
+<div class="navbar">
     <div class="logo">
         <img src="/assets/logo.png" alt="logo">
     </div>

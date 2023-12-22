@@ -1,26 +1,27 @@
-.navparent {
+.navbar {
     display: flex;
     height: 80px;
     justify-content: space-between;
     align-items: center;
     background: var(--color-primary);
+    z-index: 999;
 }
 
-.navparent img {
+.navbar img {
     height: 80px;
     display: inline-flex;
     cursor: pointer;
 }
 
-.navparent .navlinks {
+.navbar .navlinks {
     display: flex;
     align-items: center;
     gap: 30px;
     margin-right: 15px;
 }
 
-.navparent .navlinks a,
-.navparent .navlinks button {
+.navbar .navlinks a,
+.navbar .navlinks button {
     text-align: center;
     color: white;
     display: inline-block;
@@ -32,7 +33,7 @@
 
     &:hover {
         display: inline-block;
-        color: var(--frontcolor);
+        color: var(--color-secondary);
         cursor: pointer;
     }
 
@@ -56,13 +57,17 @@
 
 .hamburger-menu {
     display: none;
+
+    & i {
+        cursor: pointer;
+    }
 }
 
 @media (max-width: 600px) {
-    .navparent .navlinks {
+    .navbar .navlinks {
         display: none;
     }
-    .navparent .hamburger-menu .hamburger-navlinks {
+    .navbar .hamburger-menu .hamburger-navlinks {
         display: none;
         position: absolute;
         top: 80px;
@@ -76,6 +81,7 @@
         border-bottom-right-radius: 10px;
         padding-top: 10px;
         padding-bottom: 10px;
+        z-index: 9999;
 
         & a, & button {
             text-decoration: none;
