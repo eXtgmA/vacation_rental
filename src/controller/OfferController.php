@@ -43,9 +43,6 @@ class OfferController extends BaseController
     {
         // get all existing features
         $param['features'] = $this->prepareFeatures();
-
-        // todo : get all tags
-
         new ViewController('createNewOffer', $param);
     }
 
