@@ -140,6 +140,9 @@ class OfferController extends BaseController
      * @param int|null $houseId
      * @return void
      * @throws Exception
+     *
+     * deliver the details page for a customer NOT THE LANDLORD
+     * This page is shown in booking process
      */
     public function getDetail($houseId = null): void
     {
@@ -150,10 +153,14 @@ class OfferController extends BaseController
     /**
      * @param int|null $houseId
      * @return void
+     *
+     * delete a specific house
+     * this includes deleting all images from db and disk
      */
     public function postDelete($houseId = null): void
     {
         $house=$this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId,'house', '/offer');
         try {
             /** @var House $house */
             $house->deleteHouse();
@@ -168,6 +175,9 @@ class OfferController extends BaseController
      * @param int|null$houseId
      * @return void
      * @throws Exception
+     *
+     * Return edit page for a specific house
+     * used by the landlord to manage his house
      */
     public function getEdit($houseId = null): void
     {
@@ -180,7 +190,6 @@ class OfferController extends BaseController
         foreach ($param['house']->getAllFeatures() as $feature) {
             $param['featuresSelected'][] = $feature->getName();
         }
-
             new ViewController('offerEdit', $param);
     }
 
@@ -188,6 +197,8 @@ class OfferController extends BaseController
      * @param int $houseId
      * @return void
      * @throws Exception
+     *
+     * post process for updating a specific house
      */
     public function postEdit($houseId): void
     {
