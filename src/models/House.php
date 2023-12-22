@@ -232,7 +232,7 @@ class House extends BaseModel
             /** @var Option[] $options */
             $options = $this->find('\src\models\Option', 'house_id', $this->id);
         } catch (Exception $e) {
-            $_SESSION['message'] = "Keine Optionen vorhanden";
+            // error in find queue
             return false;
         }
         return $options;
@@ -281,10 +281,8 @@ class House extends BaseModel
             $this->connection()->commit();
         } catch (Exception $e) {
             $this->connection()->rollback();
-            $_SESSION['message'] = "Haus konnte nicht gelöscht werden";
-            throw new Exception($e);
+            throw new Exception("Das Haus konnte nicht gelöscht werden");
         }
-        $_SESSION['message'] = "Haus erfolgreich gelöscht";
         return true;
     }
 
@@ -301,7 +299,7 @@ class House extends BaseModel
             /** @var Image[] $images */
             $images = $this->find('\src\models\Image', 'house_id', $this->id);
         } catch (Exception $e) {
-            $_SESSION['message'] = "Keine Fotos vorhanden";
+            // error in find queue
             return false;
         }
         return $images;

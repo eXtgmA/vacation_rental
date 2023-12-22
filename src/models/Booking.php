@@ -28,7 +28,7 @@ class Booking extends BaseModel
         try {
             return $this->find('\src\models\Bookingposition', 'booking_id', $this->id);
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Keine Positionen vorhanden";
+            // if error in find queue
             return false;
         }
     }

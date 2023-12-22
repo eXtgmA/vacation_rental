@@ -145,6 +145,7 @@ class OfferController extends BaseController
             $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
             redirect($_SESSION['previous'], 500);
         }
+        $_SESSION['message'] = "Die Ferienwohnung wurde erfolgreich gelöscht";
         redirect($_SESSION['previous'], 302);
     }
 
@@ -254,7 +255,7 @@ class OfferController extends BaseController
                 }
             }
         } catch (Exception $e) {
-            $_SESSION['message'] = "Manche Fotos konnten nicht ausgetauscht werden";
+            $_SESSION['message'] = "Manche Bilder konnten nicht übernommen werden";
             redirect('/offer/edit/'.$house->getId(), 302);
         }
     }

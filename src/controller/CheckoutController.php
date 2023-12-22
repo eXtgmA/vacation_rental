@@ -60,7 +60,7 @@ class CheckoutController extends BaseController
                 }
             }
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
+            // no bookings found
             new ViewController('checkout');
             die();
         }

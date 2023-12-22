@@ -36,7 +36,7 @@ class ProfileController extends BaseController
         $user->update($_POST);
 
 
-        $_SESSION['message'] = 'Daten wurden erfolgreich gespeichert';
+        $_SESSION['message'] = 'Änderungen gespeichert';
         redirect("/profile", 302);
     }
 
@@ -81,7 +81,7 @@ class ProfileController extends BaseController
                 }
             }
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Buchungsdaten wurden nicht gefunden";
+            $_SESSION['message'] = "Fehler beim Laden Ihrer Buchungsdaten";
             redirect('/profile', 302);
             die();
         }

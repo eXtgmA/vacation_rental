@@ -43,9 +43,8 @@ class Image extends BaseModel
 
 
         if ($file['tmp_name'] == "") {
-            $_SESSION['message'] = "Fehler, kein Bild gewählt";
-            $previous = $_SESSION['previous'];
-            redirect($previous, 302, $_POST);
+            error_log("Tried to save an image, that does not exist (no temp_name found)");
+            throw new \Exception("Hochladen der Bilder fehlgeschlagen");
         }
         // create random binary string in length of 40 Chars -> translate to HEX
         $randomId = bin2hex(random_bytes(15));
@@ -163,9 +162,8 @@ class Image extends BaseModel
             // delete image from database
             $this->delete('Image', $this->id);
         } catch (\Exception $e) {
-            error_log("Error while deleting image ({$this->id}) from databse.");
-            $_SESSION['message'] = "Image konnte nicht gelöscht werden";
-            throw new \Exception($e);
+            error_log("Error while deleting image ({$this->id}) from database.");
+            throw new \Exception("Image konnte nicht von der Datenbank gelöscht werden");
         }
         return $path;
         // image has to be removed from disk by the caller using the returned path
