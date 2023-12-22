@@ -24,7 +24,7 @@ class OptionController extends BaseController
     public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
-        $this->isUserAllowedHere($houseId,'house','offer');
+        $this->isUserAllowedHere($houseId, 'house', 'offer');
         new ViewController("OptionCreate", $houseId);
     }
 
@@ -38,8 +38,8 @@ class OptionController extends BaseController
      */
     public function postCreate(int $houseId) : void
     {
-        $this->forceParam($houseId,'house');
-        $this->isUserAllowedHere($houseId,'house','/offer');
+        $this->forceParam($houseId, 'house');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
@@ -105,10 +105,10 @@ class OptionController extends BaseController
         new ViewController("optionEdit", $param);
     }
 
-    public function postEdit(int $optionId=null): void
+    public function postEdit(int $optionId = null): void
     {
         $this->forceParam($optionId, 'option');
-        $this->isUserAllowedHere($optionId,'option','/offer');
+        $this->isUserAllowedHere($optionId, 'option', '/offer');
 
         if (!$optionId) {
             // fallback when missing param in url
