@@ -142,8 +142,9 @@ class OfferController extends BaseController
             /** @var House $house */
             $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)';
-            redirect($_SESSION['previous'], 500);
+            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)'; // todo : change message text after deciding if houses can be deleted
+            redirect($_SESSION['previous'], 302);
+            die();
         }
         $_SESSION['message'] = "Die Ferienwohnung wurde erfolgreich gelöscht";
         redirect($_SESSION['previous'], 302);
@@ -183,13 +184,15 @@ class OfferController extends BaseController
         $baseData = $_POST['base-data'];
         $house->update($baseData);
 
-        $this->updateImages($house, $_FILES);
         if (!$_POST['features']) {
             $_POST['features'] = [];
         };
         $this->updateFeatures($house, $_POST['features']);
 
         $this->updateTags($houseId, $_POST['tags']);
+
+        // update images last, because redirect on failure is included
+        $this->updateImages($house, $_FILES);
 
         redirect("/offer/edit/{$houseId}", 302);
     }
@@ -257,6 +260,7 @@ class OfferController extends BaseController
         } catch (Exception $e) {
             $_SESSION['message'] = "Manche Bilder konnten nicht übernommen werden";
             redirect('/offer/edit/'.$house->getId(), 302);
+            die();
         }
     }
 

@@ -68,7 +68,6 @@ class Option extends BaseModel
             throw new Exception("Option konnte nicht gelöscht werden");
         }
         return true;
-        // redirection to next page has to be executed by caller
     }
 
 //    /**
