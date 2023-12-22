@@ -16,9 +16,9 @@ $site = substr((string)$siteString, 1);
             <button type="submit"><i class="fa fa-right-from-bracket"></i></button>
         </form>
     </div>
-    <div class="sandwich-menu">
+    <div class="hamburger-menu">
         <i class="fa fa-bars"></i>
-        <div class="sandwich-navlinks">
+        <div class="hamburger-navlinks">
             <a class="<?php echo in_array($site, ['', 'dashboard', 'offer/find']) ? 'active' : ''; ?>" href="/dashboard" title="Suchen"><i class="fa fa-magnifying-glass"></i> Suchen</a>
             <a class="<?php echo in_array($site, ['cart', 'checkout']) ? 'active' : ''; ?>" href="/cart" title="Warenkorb"><i class="fa fa-cart-shopping"></i> Warenkorb</a>
             <a class="<?php echo $site == 'profile' ? 'active' : ''; ?>" href="" title="Benutzer verwalten"><i class="fa fa-user"></i> Benutzer verwalten</a>

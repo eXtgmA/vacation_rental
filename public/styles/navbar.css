@@ -9,6 +9,7 @@
 .navparent img {
     height: 80px;
     display: inline-flex;
+    cursor: pointer;
 }
 
 .navparent .navlinks {
@@ -53,7 +54,7 @@
     }
 }
 
-.sandwich-menu {
+.hamburger-menu {
     display: none;
 }
 
@@ -61,7 +62,7 @@
     .navparent .navlinks {
         display: none;
     }
-    .navparent .sandwich-menu .sandwich-navlinks {
+    .navparent .hamburger-menu .hamburger-navlinks {
         display: none;
         position: absolute;
         top: 80px;
@@ -102,7 +103,7 @@
         }
     }
 
-    .sandwich-menu {
+    .hamburger-menu {
         font-size: 24px;
         display: block;
         padding: 15px;
