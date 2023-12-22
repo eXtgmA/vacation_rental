@@ -18,6 +18,7 @@ include_once($header);
                    required>
         <label id="login-password-input-label" class="label" for="login-password-input-field">Passwort</label>
         <input id="login-password-input-field" class="input-field" type="password" name="password" required>
+        <br/>
         <button class="btn-secondary" type="submit">Login</button>
         <span id="register-account">Noch keinen Account?<br/><a href="/register">neuen Anlegen</a>
         </span>

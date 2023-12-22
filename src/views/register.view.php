@@ -28,6 +28,7 @@ include_once($header);
         <label id="register-email-input-label" class="label" for="register-email-input-field">E-Mail</label>
         <input id="register-email-input-field" class="input-field" type="text" name="email"
                value='<?php prefill("email"); ?>'>
+        <br/>
         <button id="sendButton" class="btn-secondary" type="submit" disabled>Registrieren</button>
     </form>
 </div>
