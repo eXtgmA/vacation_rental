@@ -50,6 +50,7 @@ class BaseController
      */
     protected function notFoundOnMissingObject(int $idParam, string $class): object
     {
+        $class = ucfirst($class);
         $class = '\src\models\\' . $class;
         $object = $this->find($class, 'id', $idParam, 1);
         if (!$object) {
