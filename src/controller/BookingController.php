@@ -33,7 +33,7 @@ class BookingController extends BaseController
 
     public function getCreateBookingposition(int $houseId = null): void
     {
-        $house=$this->forceParam($houseId, 'house');
+        $house=$this->forceParam($houseId, 'House');
 
         $param["house"] = $house;
 
