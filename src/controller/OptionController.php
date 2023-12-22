@@ -131,12 +131,12 @@ class OptionController extends BaseController
 
     public function postDelete(int $optionId = null): void
     {
+        //todo userallowed
+
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');
         // todo check if rest is needed, maybe more params to function
         try {
-            // delete option (related image included)
-//            $option = $this->find('\src\models\Option', 'id', $optionId, 1);
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
@@ -153,7 +153,6 @@ class OptionController extends BaseController
     {
         /** @var Option $option */
         $option=$this->forceParam($id, 'option');
-//        $option = $this->find('\src\models\Option', 'id', $id, 1);
         $option->toggleStatus();
         header('location: /option/showall/'.$option->getHouseId(), true, 302);
     }
@@ -167,6 +166,8 @@ class OptionController extends BaseController
      */
     public function updateImage(Option $option, array $imgInput): void
     {
+        //todo userallowed
+
         // update image
         if ($imgInput['name'] != '') {
             try {

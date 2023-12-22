@@ -205,7 +205,6 @@ class OfferController extends BaseController
      */
     public function postEdit($houseId): void
     {
-
         $house=$this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
 
@@ -240,6 +239,8 @@ class OfferController extends BaseController
      */
     private function updateImages(House $house, array $postedFiles) : void
     {
+        // todo userallowed
+
         try {
             // update front image
             if ($postedFiles['front-image-input']['name'] != '') {
@@ -303,6 +304,8 @@ class OfferController extends BaseController
      */
     private function updateFeatures(House $house, array $postedFeatures) : void
     {
+        // todo userallowed
+
         $houseFeatures = $house->getAllFeatures();
         foreach ($postedFeatures as $category) {
             foreach ($category as $featureName) {
@@ -408,6 +411,8 @@ and
      */
     private function updateTags(int $houseId, string $postedTags): void
     {
+        // todo userallowed
+
 //      getting old tags
         $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
 //       extract only the name
@@ -445,6 +450,8 @@ and
      */
     private function storeTags(string $postedTags, int $houseId)
     {
+        // todo userallowed
+
         $tags = $postedTags;
         $tags = explode(',', $tags);
         $tags = array_unique($tags);
