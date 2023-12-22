@@ -109,7 +109,6 @@ class BookingController extends BaseController
             $bookingposition = new Bookingposition($param);
             $bookingposition->save();
 
-            $_SESSION['message'] = "Buchungsposition erfolgreich angelegt";
             redirect('/cart', 302);
         } catch (\Exception $e) {
             $_SESSION['message'] = "Hoppla, da ist wohl etwas schief gelaufen";
@@ -118,7 +117,6 @@ class BookingController extends BaseController
         }
     }
 
-    // todo : check if postDeleteBookingposition() is not needed
     public function postDeleteBookingposition(int $id = null): void
     {
         $bps=$this->forceParam($id, 'bookingposition');
