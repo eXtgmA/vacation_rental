@@ -9,6 +9,7 @@ $title = "Ferienhaus Details";
 $house = $param ?? null;
 
 $images = $house->getImages();
+$bookedDays = $house->getBookedDates();
 $mainImage = $images[0];
 
 include_once($header);
@@ -45,7 +46,7 @@ include_once($header);
             <div id="calendar-detail" class="calendar"></div>
         </div>
         <script>
-            drawCalendar("calendar-detail", currentMonth, currentYear, bookedDays);
+            drawCalendar("calendar-detail", currentMonth, currentYear, <?php echo $bookedDays ?? '""' ?>);
         </script>
     </div>
 
