@@ -133,7 +133,7 @@ class OfferController extends BaseController
     {
         $house=$this->forceParam($houseId, 'House');
         $house->toggleStatus();
-        header('location: /offer', true, 302);
+        redirect("/offer", 302);
     }
 
     /**
