@@ -160,7 +160,7 @@ class OfferController extends BaseController
     public function postDelete($houseId = null): void
     {
         $house=$this->forceParam($houseId, 'House');
-        $this->isUserAllowedHere($houseId,'house', '/offer');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
         try {
             /** @var House $house */
             $house->deleteHouse();
@@ -204,7 +204,7 @@ class OfferController extends BaseController
     {
 
         $house=$this->forceParam($houseId, 'House');
-        $this->isUserAllowedHere($houseId,'house','/offer');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
 
         // update base data
         /** @var House $house */
