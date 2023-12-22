@@ -15,7 +15,14 @@ class OfferController extends BaseController
         parent::__construct();
     }
 
-    public function getIndex(mixed $formdata = null): void
+    /**
+     * @return void
+     * @throws Exception
+     *
+     * Returning all the Houses a user owns and want to offer
+     *
+     */
+    public function getIndex(): void
     {
         // get all houses
         $houses = $this->getAllHousesBelongingToTheCurrentUser();
@@ -27,6 +34,11 @@ class OfferController extends BaseController
         new ViewController('offerIndex', $param);
     }
 
+    /**
+     * @return void
+     *
+     * deliver the creation page for a new house (offer)
+     */
     public function getCreate(): void
     {
         // get all existing features
