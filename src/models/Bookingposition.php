@@ -49,7 +49,7 @@ class Bookingposition extends BaseModel
         $this->id = $id;
     }
 
-    public function getDateStart(): string | null
+    public function getDateStart(): string
     {
         return $this->date_start;
     }

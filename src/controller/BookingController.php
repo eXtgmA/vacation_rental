@@ -81,10 +81,18 @@ class BookingController extends BaseController
                 $booking= $sql->fetch_object('\src\models\Booking');
             }
 
+            /** @var Booking $booking */
             if ($booking == null) {
                 // if no booking found => insert new booking into database and use this one
                 $booking = new Booking(['is_confirmed' => 0, 'user_id' => $_SESSION['user'], 'booked_at' => null]);
                 $booking->save();
+            } else {
+                // prevent user from booking the same house in the same time frame multiple times
+                if (!$booking->isTimeFrameAvailableInCart($_POST['date_start'], $_POST['date_end'], $house->getId())) {
+                    $_SESSION['message'] = "Sie haben bereits eine Buchung für diesen Zeitraum im Warenkorb.";
+                    redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
+                    die();
+                }
             }
 
             // prepare data for bookingposition
