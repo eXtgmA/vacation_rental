@@ -12,7 +12,9 @@ include_once($header);
 ?>
 <script>
     if (<?php isset($message) ? print "true" : print "false"; ?>)
-        showNotification("<?php if (isset($message)) echo $message ?>");
+        showNotification("<?php if (isset($message)) {
+            echo $message;
+                          } ?>");
 </script>
 <div class="headline">
     <h1>Willkommen <?php print $user->getForename(); ?></h1>
