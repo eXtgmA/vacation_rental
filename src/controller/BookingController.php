@@ -93,12 +93,14 @@ class BookingController extends BaseController
             $param['booking_id'] = $booking->getId();
 
             $priceList = [];
-            foreach ($_POST['option'] as $oIn) {
-                /** @var Option $option */
-                $option = $this->find('\src\models\Option', 'id', $oIn, 1);
-                if ($option != null) {
-                    // add to price_detail_list
-                    $priceList['options'][$option->getName()] = $option->getPrice();
+            if (isset($_POST['option'])) {
+                foreach ($_POST['option'] as $oIn) {
+                    /** @var Option $option */
+                    $option = $this->find('\src\models\Option', 'id', $oIn, 1);
+                    if ($option != null) {
+                        // add to price_detail_list
+                        $priceList['options'][$option->getName()] = $option->getPrice();
+                    }
                 }
             }
             // todo save gesamtpreis in price_detail_list (when calculated with JS)

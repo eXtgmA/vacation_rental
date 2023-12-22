@@ -85,10 +85,12 @@ class OfferController extends BaseController
             }
 
             // save all selected features
-            foreach ($_POST['features'] as $categoryName => $category) {
-                foreach ($category as $featureName) {
-                    $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
-                    $this->connection()->query($query);
+            if (isset($_POST['features'])) {
+                foreach ($_POST['features'] as $categoryName => $category) {
+                    foreach ($category as $featureName) {
+                        $query = "INSERT INTO houses_has_features (houses_id, features_id) VALUES ( {$house->getId()}, (SELECT id FROM features WHERE name='{$featureName}' LIMIT 1) );";
+                        $this->connection()->query($query);
+                    }
                 }
             }
         } catch (Exception $e) {
