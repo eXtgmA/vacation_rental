@@ -65,20 +65,18 @@ class OptionController extends BaseController
         redirect("/option/showall/".$houseId, 302);
     }
 
+    /**
+     * @param int|null $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * indexpage for all Options belongign to a house
+     */
     public function getShowall(int $houseId = null) : void
     {
         $house = $this->forceParam($houseId, 'house');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
-        // todo: check if house is owned by user (see above in postCreate() )
-        // initialize house
-//        try {
-//            /** @var House $house */
-//            $house = $this->find('\src\models\House', 'id', $houseId, 1);
-//        } catch (\Exception $e) {
-//            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
-//            redirect($_SESSION['previous'], 500);
-//            die();
-//        }
+
         // get all options related to house from db
         /** @var mixed[] $allOptions */
         $allOptions = $house->getAllOptions();
