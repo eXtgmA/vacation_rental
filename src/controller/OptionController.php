@@ -28,15 +28,18 @@ class OptionController extends BaseController
         new ViewController("OptionCreate", $houseId);
     }
 
+    /**
+     * @param int $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * creating process of a new house belonging option
+     * includiing storage process of images in db and disk
+     */
     public function postCreate(int $houseId) : void
     {
-        // todo: check if house is owned by user
-        $user = new User();
-//        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
-//            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
-//            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
-//        }
+        $this->forceParam($houseId,'house');
+        $this->isUserAllowedHere($houseId,'house','/offer');
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
