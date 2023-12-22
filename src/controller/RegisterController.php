@@ -12,6 +12,7 @@ class RegisterController extends BaseController
 
     public function getform(mixed $formdata = null): void
     {
+        $this->redirectIfLoggedIn();
         new ViewController('register');
     }
     public function postform(): void

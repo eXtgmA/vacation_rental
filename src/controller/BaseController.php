@@ -22,6 +22,12 @@ class BaseController
             header('location: /dashboard', true, 302);
         }
     }
+    protected function redirectIfLoggedIn(): void
+    {
+        if (isset($_SESSION['user'])) {
+            header('location: /dashboard', true, 302);
+        }
+    }
 
     /**
      * @param int|null $idParam

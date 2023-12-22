@@ -18,6 +18,7 @@ class LoginController extends BaseController
      */
     public function getLogin(mixed $formdata = null): void
     {
+        $this->redirectIfLoggedIn();
         new ViewController('loginIndex');
     }
 
