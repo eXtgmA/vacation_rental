@@ -1,11 +1,18 @@
 <?php
-$header=__DIR__."/partials/header.view.php";
+$header = __DIR__ . "/partials/header.view.php";
 // Titel der Seite eintragen
 $title = "Kasse";
 $booking = $param["booking"] ?? null;
 $bpos = $param["bookingpositions"] ?? [];
 $houses = $param["houses"] ?? [];
 include_once($header);
+
+// auto redirect if there is nothing in the cart
+if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
+    $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
+    header('location: /dashboard', true, 302);
+}
+
 ?>
 <!--Hier den HTML Inhalt einfuegen-->
     <h1>Kasse</h1>
