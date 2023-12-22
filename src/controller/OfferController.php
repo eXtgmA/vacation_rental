@@ -216,7 +216,6 @@ class OfferController extends BaseController
             $_POST['features'] = [];
         };
         $this->updateFeatures($house, $_POST['features']);
-
         $this->updateTags($houseId, $_POST['tags']);
 
         redirect("/offer/edit/{$houseId}", 302);
@@ -234,7 +233,7 @@ class OfferController extends BaseController
      * @param array<array<string>> $postedFiles
      * @return void
      */
-    public function updateImages(House $house, array $postedFiles) : void
+    private function updateImages(House $house, array $postedFiles) : void
     {
         try {
             // update front image
@@ -290,7 +289,6 @@ class OfferController extends BaseController
 
     /**
      * Insert newly selected features and delete deselected ones (relative to a given house)
-     *
      * It uses the array $_POST['features'] for data input
      *
      * @param House $house
