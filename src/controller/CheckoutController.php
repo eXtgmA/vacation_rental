@@ -14,7 +14,6 @@ class CheckoutController extends BaseController
     public function getCheckout(): void
     {
         try {
-
             // get the one and only booking where "is_confirmed" equals false belonging to current user
             $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
             $sql = $this->connection()->query($query);
