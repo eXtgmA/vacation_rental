@@ -12,6 +12,6 @@ class LogoutController extends BaseController
     {
         unset($_SESSION['user']);
         session_unset();
-        header('location: /', true, 302); // Redirect to landing page
+        redirect("/dashboard", 302);
     }
 }

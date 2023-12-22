@@ -57,10 +57,12 @@ class CartController extends BaseController
 
                 // check that at least one house has been fetched
                 if (empty($param["houses"])) {
+                    error_log("While loading the cart (booking position id {$booking->getId()}) a house was expected to load, but no house found.");
                     throw new \Exception("No house loaded");
                 }
             }
         } catch (\Exception $e) {
+            error_log("Cart could not be filled with data. Internal error.");
             $_SESSION['message'] = "Ein unerwarteter Fehler ist aufgetreten";
             new ViewController('cart');
             die();

@@ -71,19 +71,25 @@ class User extends BaseModel
                 // if everything is ok perform login and set user as active user for the session
                 // session_start();
                 $_SESSION['user'] = $user->getId();
-                header("location: {$_SERVER['HTTP_ORIGIN']}/dashboard", true, 302);
+                redirect("/dashboard", 302);
+                die();
             } else {
                 error_log('"' . $user->getEmail() . '" tried to login with wrong password');
-
                 throw new Exception('login fehlgeschlagen');
             }
         } catch (Exception $exception) {
-                session_unset();
+            // save redirect path
+            $redirectBack = $_SESSION['redirect_back'] ?? '';
+            // restart session
+            session_unset();
             if (!isset($_SESSION)) {
                 session_start();
-            };
-                $_SESSION['message'] = $exception->getMessage();
-                redirect('/login', 302, $_POST);
+            }
+            // paste saved redirect path into new session and error provide message for failed login
+            $_SESSION['redirect_back'] = $redirectBack;
+            $_SESSION['message'] = "Login ist fehlgeschlagen";
+            redirect('/login', 302, $_POST);
+            die();
         }
     }
 
@@ -137,7 +143,7 @@ class User extends BaseModel
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return;
         }
-        $_SESSION['message'] = 'Ungültiges Email Format';
+        $_SESSION['message'] = 'E-Mail-Adresse ist falsch geschrieben';
         redirect($redirect, 302, $_POST);
         die();
     }

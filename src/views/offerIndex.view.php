@@ -11,9 +11,6 @@ include_once($header);
 
 <div class="page-header">
     <h1 style="">Eigene Häuser verwalten</h1>
-    <?php
-    isset($message) ? print $message :print "";
-    ?>
     <button class="btn-primary" onclick="openLink('/offer/create')">Neues Haus anlegen</button>
 </div>
 <?php

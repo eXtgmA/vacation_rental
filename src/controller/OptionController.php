@@ -13,35 +13,39 @@ class OptionController extends BaseController
         parent::__construct();
     }
 
-//    public function getIndex(int $id): void
-//    {
-//        var_dump('hier');
-//        die();
-//        $option = new Option();
-//        $option = $option->getOption($id);
-//        new ViewController('showOneOption');
-//    }
-
+    /**
+     * @param int|null $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * deliver creation page for a new Option
+     * redirect user to offers if he tries to edit/create an option for non belonging house
+     */
     public function getCreate(int $houseId = null) : void
     {
         $this->forceParam($houseId, 'House');
+        $this->isUserAllowedHere($houseId, 'house', 'offer');
         new ViewController("OptionCreate", $houseId);
     }
 
+    /**
+     * @param int $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * creating process of a new house belonging option
+     * includiing storage process of images in db and disk
+     */
     public function postCreate(int $houseId) : void
     {
-        // todo: check if house is owned by user
-        $user = new User();
-//        if (!$user->isHouseOwned($_SESSION["user"], $_REQUEST["house_id"])) { // todo: activate after implementing function
-//            error_log("User (" . $_SESSION["user"] . ") tried to access house (" . $_REQUEST["house_id"] . ") to change an option, but is not the owner.");
-//            $_SESSION["message"] = "Sie sind nicht berechtigt diese Optionen anzulegen.";
-//            header("location: {$_SERVER['HTTP_ORIGIN']}/option/create", true, 403);
-//        }
+        $this->forceParam($houseId, 'house');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
+
         // save image to disk and db
         try {
             $uuid = Image::imageToDisk($_FILES['optionimage']);
         } catch (\Exception $e) {
-            $_SESSION['message'] = "Foto(s) wurde(n) nicht korrekt übergeben";
+            $_SESSION['message'] = "Hochladen des Bildes fehlgeschlagen";
             redirect($_SESSION['previous'], 302, $_POST);
             die();
         }
@@ -53,6 +57,7 @@ class OptionController extends BaseController
         $option = $_POST;
         $option['house_id'] = $houseId;
         $option['image_id'] = $image->getId();
+        // if validation fails => redirect to previous page with notification
         $this->validateInput('Option', $_POST);
         // save option
         $option=new Option($option);
@@ -62,19 +67,18 @@ class OptionController extends BaseController
         redirect("/option/showall/".$houseId, 302);
     }
 
+    /**
+     * @param int|null $houseId
+     * @return void
+     * @throws \Exception
+     *
+     * indexpage for all Options belongign to a house
+     */
     public function getShowall(int $houseId = null) : void
     {
         $house = $this->forceParam($houseId, 'house');
-        // todo: check if house is owned by user (see above in postCreate() )
-        // initialize house
-//        try {
-//            /** @var House $house */
-//            $house = $this->find('\src\models\House', 'id', $houseId, 1);
-//        } catch (\Exception $e) {
-//            $_SESSION['message'] = "Das gewählte Haus existiert nicht";
-//            redirect($_SESSION['previous'], 500);
-//            die();
-//        }
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
+
         // get all options related to house from db
         /** @var mixed[] $allOptions */
         $allOptions = $house->getAllOptions();
@@ -82,8 +86,17 @@ class OptionController extends BaseController
         new ViewController("optionShowall", $allOptions);
     }
 
-    public function getEdit(int $optionId): void
+    /**
+     * @param int|null $optionId
+     * @return void
+     * @throws \Exception
+     *
+     * Deliver detail/edit page for a specific option belonging to a house
+     */
+    public function getEdit(int $optionId = null): void
     {
+        $this->forceParam($optionId, 'option');
+        $this->isUserAllowedHere($optionId, 'option', '/offer');
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
@@ -94,8 +107,11 @@ class OptionController extends BaseController
         new ViewController("optionEdit", $param);
     }
 
-    public function postEdit(int $optionId): void
+    public function postEdit(int $optionId = null): void
     {
+        $this->forceParam($optionId, 'option');
+        $this->isUserAllowedHere($optionId, 'option', '/offer');
+
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
@@ -109,6 +125,7 @@ class OptionController extends BaseController
         // update image
         $this->updateImage($option, $_FILES['option-image-input']);
 
+        $_SESSION['message'] = "Änderungen gespeichert";
         redirect("/option/edit/{$optionId}", 302);
     }
 
@@ -123,9 +140,12 @@ class OptionController extends BaseController
             $option->deleteOption();
         } catch (\Exception $e) {
             // database error during deletion
-            redirect($_SESSION['previous'], 500);
+            $_SESSION['message'] = "Löschen fehlgeschlagen";
+            redirect($_SESSION['previous'], 302);
+            die();
         }
         // deletion successful
+        $_SESSION['message'] = "Option gelöscht";
         redirect($_SESSION['previous'], 302);
     }
 

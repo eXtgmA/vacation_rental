@@ -9,7 +9,6 @@ include_once($header);
 <link rel="stylesheet" href="/styles/login.css"/>
 <div class="card" style="margin: 10% auto">
     <h1>Anmelden</h1>
-    <h3><?php isset($message)?print ($message):print ''?></h3>
 
     <form action="/login" method="post">
         <label id="login-password-input-label" class="label" for="login-email-input-field">Email</label>
