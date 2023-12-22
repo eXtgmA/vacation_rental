@@ -65,6 +65,7 @@ class OptionController extends BaseController
     public function getShowall(int $houseId = null) : void
     {
         $house = $this->forceParam($houseId, 'house');
+        $this->isUserAllowedHere($houseId, 'house', '/offer');
         // todo: check if house is owned by user (see above in postCreate() )
         // initialize house
 //        try {
@@ -82,8 +83,10 @@ class OptionController extends BaseController
         new ViewController("optionShowall", $allOptions);
     }
 
-    public function getEdit(int $optionId): void
+    public function getEdit(int $optionId = null): void
     {
+        $this->forceParam($optionId, 'option');
+        $this->isUserAllowedHere($optionId, 'option', '/offer');
         if (!$optionId) {
             // fallback when missing param in url
             redirect('/dashboard', 302);
