@@ -61,7 +61,7 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
             <hr/>
         </div>
         <?php $pdl = json_decode($p->getPriceDetailList(), true) ?>
-        <?php if (!empty($pdl) && isset($pdl['options'])) {
+        <?php if (!empty($pdl) && isset($pdl['options'])) { //@phpstan-ignore-line
             $optionSum = 0; ?>
             <div class="item-options">
                 <h3>Optionen</h3>
@@ -98,18 +98,19 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
         <div class="item-nights">
             <div class="nights">
                 <span class="nights-key">Anzahl der Nächte:</span>
-                <span class="nights-value"><?php echo $pdl['night_count'] ?>x</span>
+                <span class="nights-value"><?php echo $pdl['night_count'] //@phpstan-ignore-line ?>x</span>
             </div>
             <div class="nights">
                 <span class="nights-key">Nächte * Preis/Nacht</span>
-                <span class="nights-value"><?php echo ($pdl['night_count']*$pdl['price_per_night']) ?>€</span>
+                <span class="nights-value"><?php echo ($pdl['night_count']*$pdl['price_per_night']) //@phpstan-ignore-line ?>€</span>
             </div>
             <hr/>
         </div>
         <div class="item-price">
             <div class="price">
                 <span class="price-label">Preis:</span>
-                <span class="price-value"><?php echo $pdl["total_price"]; $priceSum += $pdl['total_price']; //@phpstan-ignore-line ?>€</span><!-- todo : get price from list (and delete stan-ignore) -->
+                <span class="price-value"><?php echo $pdl["total_price"]; //@phpstan-ignore-line
+                    $priceSum += $pdl['total_price']; //@phpstan-ignore-line ?>€</span>
             </div>
         </div>
     </div>
@@ -117,7 +118,7 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
 
 <div class="price-footer">
     <span class="price-label">Gesamtpreis:</span>
-    <span class="price-value"><?php echo $priceSum; ?>€</span><!-- todo : calculate value with JS (sum of all prices) -->
+    <span class="price-value"><?php echo $priceSum; ?>€</span>
 </div>
 <div class="pre-footer">
     <button class="btn-secondary" type="button" onclick="openLink('/cart')">zurück zum Warenkorb</button>

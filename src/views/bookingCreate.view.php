@@ -52,7 +52,7 @@ include_once($header);
                 <?php }
             } else {
                 echo "<p>keine vorhanden</p>";
-            } ?> <!-- todo post logic for checkboxes -->
+            } ?>
         </div>
     </div>
     <div class="cost-summary-area">
