@@ -83,7 +83,11 @@ include_once($header);
                 <hr/>
             </div>
             <div id="submit-area">
-                <button class="btn-primary" onclick="openLink('/booking/create/<?php echo $house->getId() ?>')">Buchen</button>
+                <?php if ($house->getIsDisabled()) { ?>
+                    <button class="btn-primary" disabled style="border: none; animation: none">Buchen nicht möglich</button>
+                <?php } else { ?>
+                    <button class="btn-primary" onclick="openLink('/booking/create/<?php echo $house->getId(); ?>')">Buchen</button>
+                <?php } ?>
             </div>
         </div>
     </div>
