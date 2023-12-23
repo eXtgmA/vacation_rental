@@ -48,7 +48,7 @@ class CheckoutController extends BaseController
                         $house = $param['houses'][$bp->getHouseId()]; // @phpstan-ignore-line
                     }
                     // check if booking is still possible
-                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())) {
+                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())  || $house->getIsDisabled()) {
                         // if booking is not available anymore => delete bookingposition
                         $bp->deleteBookingposition();
                         unset($param["bookingpositions"][$key]);
