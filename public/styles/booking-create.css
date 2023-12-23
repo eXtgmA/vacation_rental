@@ -71,6 +71,17 @@
         text-align: center;
         font-size: 24px;
         font-weight: bold;
+
+        #total-price {
+            width: 80%;
+            background: none;
+            border: none;
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            outline: none;
+            text-align: end;
+        }
     }
 }
 
