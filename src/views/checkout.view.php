@@ -5,6 +5,7 @@ $title = "Kasse";
 $booking = $param["booking"] ?? null;
 $bpos = $param["bookingpositions"] ?? [];
 $houses = $param["houses"] ?? [];
+$priceSum = 0;
 include_once($header);
 
 // auto redirect if there is nothing in the cart
@@ -53,21 +54,21 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
                     <span class="information-value date-value"><?php echo $p->getDateEnd() ?></span>
                 </div>
                 <div class="information price">
+                    <span class="information-key">Preis / Nacht:</span>
                     <span class="information-value"><?php echo $house->getPrice(); ?>€</span>
                 </div>
             </div>
             <hr/>
         </div>
         <?php $pdl = json_decode($p->getPriceDetailList(), true) ?>
-        <?php $optionSum = 0; ?>
-        <div class="item-options <?php echo !empty($pdl) ? '' : 'hide' ?>">
-            <?php if (!empty($pdl)) { ?>
+        <?php if (!empty($pdl) && isset($pdl['options'])) { //@phpstan-ignore-line
+            $optionSum = 0; ?>
+            <div class="item-options">
                 <h3>Optionen</h3>
                 <?php foreach ($pdl['options'] as $name => $price) { //@phpstan-ignore-line ?>
                     <div class="option">
                         <span class="option-key"><?php echo $name //@phpstan-ignore-line ?></span>
                         <span class="option-value"><?php echo $price //@phpstan-ignore-line ?>€</span>
-
                     </div>
                     <?php $optionSum += $price ?>
                 <?php } ?>
@@ -77,12 +78,39 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
                     <span class="option-value"><?php echo $optionSum ?>€</span>
                 </div>
                 <hr/>
-            <?php } ?>
+            </div>
+        <?php } else { ?>
+            <!-- if no options are provided -->
+            <div class="item-options <?php echo !empty($pdl) ? '' : 'hide' ?>">
+                <h3>Optionen</h3>
+                    <div class="option">
+                        <span class="option-key">keine ausgewählt</span>
+                        <span class="option-value">0€</span>
+                    </div>
+                <hr/>
+                <div class="option-sum option">
+                    <span class="option-key">Summe der Optionen</span>
+                    <span class="option-value">0€</span>
+                </div>
+                <hr/>
+            </div>
+        <?php } ?>
+        <div class="item-nights">
+            <div class="nights">
+                <span class="nights-key">Anzahl der Nächte:</span>
+                <span class="nights-value"><?php echo $pdl['night_count'] //@phpstan-ignore-line ?>x</span>
+            </div>
+            <div class="nights">
+                <span class="nights-key">Nächte * Preis/Nacht</span>
+                <span class="nights-value"><?php echo ($pdl['night_count']*$pdl['price_per_night']) //@phpstan-ignore-line ?>€</span>
+            </div>
+            <hr/>
         </div>
         <div class="item-price">
             <div class="price">
                 <span class="price-label">Preis:</span>
-                <span class="price-value"><?php echo $pdl["price"] ?? "Price not calculated!" //@phpstan-ignore-line ?>€</span><!-- todo : get price from list (and delete stan-ignore) -->
+                <span class="price-value"><?php echo $pdl["total_price"]; //@phpstan-ignore-line
+                    $priceSum += $pdl['total_price']; //@phpstan-ignore-line ?>€</span>
             </div>
         </div>
     </div>
@@ -90,7 +118,7 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
 
 <div class="price-footer">
     <span class="price-label">Gesamtpreis:</span>
-    <span class="price-value">XXXX,XX€</span><!-- todo : calculate value with JS (sum of all prices) -->
+    <span class="price-value"><?php echo $priceSum; ?>€</span>
 </div>
 <div class="pre-footer">
     <button class="btn-secondary" type="button" onclick="openLink('/cart')">zurück zum Warenkorb</button>

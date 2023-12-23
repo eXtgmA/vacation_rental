@@ -13,6 +13,7 @@
         "image location"
         "image duration"
         "image option"
+        "image nights"
         "image price";
     grid-template-columns: 1fr 2fr;
     grid-template-rows: auto 4em 4em max-content auto;
@@ -106,6 +107,32 @@
         }
 
         & .option-value {
+            font-weight: bold;
+            font-size: 1.2rem;
+
+        }
+    }
+}
+
+#cart-entry-grid > .item-nights {
+    grid-area: nights;
+    width: 75%;
+    margin-left: auto;
+    margin-right: 0;
+
+    & .nights {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        margin-left: 1em;
+        margin-right: 1em;
+
+
+        & .nights-key {
+        }
+
+        & .nights-value {
             font-weight: bold;
             font-size: 1.2rem;
 
@@ -213,6 +240,12 @@
             margin-right: 0;
         }
 
+        & .item-nights {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+
         & .item-price {
             width: 100%;
             margin-left: 0;
@@ -241,6 +274,7 @@
         "location"
         "duration"
         "option"
+        "nights"
         "price";
         grid-template-columns: 1fr;
     }

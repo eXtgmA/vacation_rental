@@ -101,6 +101,7 @@ class BookingController extends BaseController
             $param['booking_id'] = $booking->getId();
 
             $priceList = [];
+            // prepare option names with prices
             if (isset($_POST['option'])) {
                 foreach ($_POST['option'] as $oIn) {
                     /** @var Option $option */
@@ -111,8 +112,11 @@ class BookingController extends BaseController
                     }
                 }
             }
-            // todo save gesamtpreis in price_detail_list (when calculated with JS)
-//            $priceList['price'] = $param['price'];
+            // prepare price data
+            $priceList['price_per_night'] = $param['price_per_night'];
+            $priceList['night_count'] = $param['night_count'];
+            $priceList['total_price'] = $param['total_price'];
+
             // encode price_detail_list to json string
             $param['price_detail_list'] = json_encode($priceList);
 
