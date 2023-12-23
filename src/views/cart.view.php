@@ -15,10 +15,18 @@ include_once($header);
 <?php if (isset($booking, $bpos, $houses)) { ?>
     <?php foreach ($bpos as $key => $p) { ?>
         <?php $house = $houses[$p->getHouseId()] ?>
-        <div class="" id="cart-entry-grid">
-            <div class="item-headline">
-                <h2><?php echo $house->getName() ?></h2>
-            </div>
+            <?php if (in_array($p->getId(), $availabilityError)) { ?>
+            <div class="" id="cart-entry-grid" style="background-color: lightgray; cursor: pointer" onclick="openLink('/booking/create/<?php echo $p->getHouseId() ?>')"> <!-- todo : set onclick link to /booking/edit/$p->getHouseId() -->
+                <div class="item-headline" style="flex-direction: column">
+                    <h2 style='color: red;'>Ausgebucht! Wird beim Verlassen der Seite aus dem Warenkorb gelöscht!</h2>
+                    <h2><?php echo $house->getName() ?></h2>
+                </div>
+            <?php } else { ?>
+            <div class="" id="cart-entry-grid">
+                <div class="item-headline">
+                    <h2><?php echo $house->getName() ?></h2>
+                </div>
+            <?php } ?>
             <div class="item-image">
                 <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
             </div>
@@ -65,12 +73,23 @@ include_once($header);
                 <span class="information-value"><?php echo $house->getRoomCount() ?></span>
                 <hr/>
             </div>
-            <div class="item-edit">
-                <button type="button" class="btn-secondary">Bearbeiten</button>
-            </div>
-            <div class="item-delete">
-                <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/".$p->getId(); ?>')">Entfernen</button>
-            </div>
+            <?php if (in_array($p->getId(), $availabilityError)) { ?>
+                <!-- booking is not available anymore and will be deleted -->
+                <div class="item-edit">
+                    <button type="button" class="btn-secondary" disabled>Bearbeiten</button>
+                </div>
+                <div class="item-delete">
+                    <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/".$p->getId(); ?>')" disabled>Entfernen</button>
+                </div>
+                <?php $p->deleteBookingposition(); ?>
+            <?php } else { ?>
+                <div class="item-edit">
+                    <button type="button" class="btn-secondary">Bearbeiten</button>
+                </div>
+                <div class="item-delete">
+                    <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/".$p->getId(); ?>')">Entfernen</button>
+                </div>
+            <?php } ?>
         </div>
     <?php } ?>
     <div class="price-footer">

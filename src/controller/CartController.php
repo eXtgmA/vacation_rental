@@ -49,7 +49,7 @@ class CartController extends BaseController
                         $house = $param["houses"][$bp->getHouseId()]; // @phpstan-ignore-line
                     }
                     // check if booking is still possible
-                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd())) {
+                    if (!$house->isTimeFrameAvailable($bp->getDateStart(), $bp->getDateEnd()) || $house->getIsDisabled()) {
                         // if booking is not available anymore => let user know about it
                         $_SESSION['availabilityError'][] = $bp->getId();
                     }
