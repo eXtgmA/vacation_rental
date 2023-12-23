@@ -1,4 +1,5 @@
 let priceElement = document.getElementById("total-price");
+let nightCountElement = document.getElementById("night-count")
 
 let dateStartElement = document.getElementById("date_start");
 let dateEndElement = document.getElementById("date_end");
@@ -28,6 +29,7 @@ function calculateTotalPrice() {
         // multiply by number of nights
         totalPrice += numberOfNights * pricePerNight;
 
+        nightCountElement.value = numberOfNights;
 
     } else {
         console.debug("dateEnd or dateStart is not a Date object");

@@ -19,7 +19,8 @@ include_once($header);
     </div>
     <div class="price-area">
         <p>Preis pro Nacht: <?php print $house->getPrice(); ?>€</p>
-        <input type="hidden" id="price-per-night" name="pricePerNight" value=<?php echo $house->getPrice(); ?>>
+        <input type="hidden" id="price-per-night" name="price_per_night" value=<?php echo $house->getPrice(); ?>>
+        <input type="hidden" id="night-count" name="night_count" value="">
     </div>
     <div class="occupancy-area">
         <h3>Buchungsauslastung</h3>
@@ -60,7 +61,7 @@ include_once($header);
         <div class="cost-summary">
             <div class="card cost-value">
                 <div style="width: 100%">
-                    <input type="text" name="price" id="total-price" disabled></input>
+                    <input type="text" name="total_price" id="total-price">
                     <span>€</span>
                 </div>
             </div>
