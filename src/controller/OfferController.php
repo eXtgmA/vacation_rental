@@ -379,6 +379,8 @@ WHERE h.id NOT IN (
 )
 and
     city like '%{$destination}%'
+and
+    is_disabled = 0
 ";
         if ($persons > 0) {
             $query .= "and max_person >= {$persons}";
