@@ -35,6 +35,9 @@ class BookingController extends BaseController
     {
         $house=$this->forceParam($houseId, 'House');
 
+        // redirect if house is disabled
+        $this->redirectIfHouseIsDisabled($house);
+
         $param["house"] = $house;
 
         // fetch all options related to the given house
@@ -63,9 +66,13 @@ class BookingController extends BaseController
             die();
         }
 
-        // prevent to book on top of already booked days
         /** @var House $house */
         $house = $this->find('\src\models\House', 'id', $_POST['house_id'], 1);
+
+        // prevent booking of disabled houses
+        $this->redirectIfHouseIsDisabled($house);
+
+        // prevent to book on top of already booked days
         if (!$house->isTimeFrameAvailable($_POST['date_start'], $_POST['date_end'])) {
             $_SESSION['message'] = "Ausgebucht! Bitte wählen Sie ein anderes Zeitfenster.";
             redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
@@ -140,5 +147,15 @@ class BookingController extends BaseController
             die();
         }
         redirect('/cart', 302);
+    }
+
+    public function redirectIfHouseIsDisabled(House $house) : void
+    {
+        // redirect if house is disabled
+        if ($house->getIsDisabled()) {
+            $_SESSION['message'] = "Die gewählte Ferienwohnung steht aktuell nicht zur Verfügung.";
+            redirect("/offer/find", 302);
+            die();
+        }
     }
 }
