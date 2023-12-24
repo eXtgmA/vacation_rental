@@ -26,7 +26,7 @@ class House extends BaseModel
     /**
      * @var string[]
      */
-    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled','owner_id' ];
+    public static array $allowedAttributes = ['name', 'description', 'price', 'max_person', 'postal_code', 'city', 'street', 'house_number', 'square_meter', 'room_count', 'is_disabled', 'owner_id'];
 
     /**
      * @var string[]
@@ -36,7 +36,7 @@ class House extends BaseModel
     /**
      * @var array<int|string, array<int|string>|string>
      */
-    public static array $rules = ['name'=>['string'], 'description'=>['string'], 'price'=>['double'], 'max_person'=>['integer'], 'postal_code'=>['integer'], 'city'=>['string'], 'street'=>['string'], 'house_number'=>['integer'], 'square_meter'=>['integer'], 'room_count'=>['integer'], 'is_disabled'=>['integer'],'owner_id' ];
+    public static array $rules = ['name' => ['string'], 'description' => ['string'], 'price' => ['double'], 'max_person' => ['integer'], 'postal_code' => ['integer'], 'city' => ['string'], 'street' => ['string'], 'house_number' => ['integer'], 'square_meter' => ['integer'], 'room_count' => ['integer'], 'is_disabled' => ['integer'], 'owner_id'];
 
     /**
      * @var string
@@ -52,6 +52,46 @@ class House extends BaseModel
         if ($modelData) {
             parent::createFromModelData($modelData);
         }
+    }
+
+    /**
+     * preparing features ','
+     *  separated string
+     * @return string
+     */
+    public function getAllFeaturesString(): string
+    {
+        $features = $this->getAllFeatures();
+        $featuresString = "";
+        foreach ($features as $feature) {
+            $featuresString .= $feature->getName() . ',';
+        }
+        return $featuresString;
+    }
+
+    /**
+     * preparing options features and tags to a ','
+     * separated string
+     * @return string
+     */
+    public function getAllTagsString(): string
+    {
+        $options = $this->getAllOptions();
+        $optionsString = "";
+        if ($options) {
+            foreach ($options as $option) {
+                $optionsString .= $option->getName() . ',';
+            }
+        }
+        $tags = $this->getTags();
+        $tagString = "";
+        foreach ($tags as $tag) {
+            $tagString .= $tag . ',';
+        }
+
+        $featuresString = $this->getAllFeaturesString();
+        $string = $tagString . $optionsString . $featuresString;
+        return trim($string, ',');
     }
 
     public function toggleStatus(): void
@@ -136,7 +176,7 @@ class House extends BaseModel
      *
      * @return array<Feature>
      */
-    public function getAllFeatures() : array
+    public function getAllFeatures(): array
     {
         // query many-to-many relation in database
         $query = "SELECT features_id FROM houses_has_features WHERE houses_id={$this->id};";
@@ -150,7 +190,7 @@ class House extends BaseModel
             try {
                 $features[] = $this->find('src\models\Feature', 'id', $row['features_id'], 1);
             } catch (Exception $e) {
-                error_log("Feature ({$row['features_id']}) could not be retrieved because: ". $e);
+                error_log("Feature ({$row['features_id']}) could not be retrieved because: " . $e);
                 continue;
             }
         }
@@ -162,7 +202,7 @@ class House extends BaseModel
      *
      * @return void
      */
-    public function resetRelatedFeatures() : void
+    public function resetRelatedFeatures(): void
     {
         $query = "DELETE FROM houses_has_features WHERE houses_id={$this->id};";
         $this->connection()->query($query);
@@ -226,7 +266,7 @@ class House extends BaseModel
      *
      * @return array<Option>|false
      */
-    public function getAllOptions() : array|false
+    public function getAllOptions(): array|false
     {
         try {
             /** @var Option[] $options */
@@ -245,7 +285,7 @@ class House extends BaseModel
      * @return bool
      * @throws Exception
      */
-    public function deleteHouse() : bool
+    public function deleteHouse(): bool
     {
         $this->connection()->begin_transaction();
         // get all options and images
@@ -293,7 +333,7 @@ class House extends BaseModel
      *
      * @return array<Image>|false
      */
-    public function getImages() : array|false
+    public function getImages(): array|false
     {
         try {
             /** @var Image[] $images */
@@ -310,7 +350,7 @@ class House extends BaseModel
      *
      * @return string
      */
-    public function getBookedDates() : string
+    public function getBookedDates(): string
     {
         $query = "SELECT date_start, date_end FROM bookingpositions WHERE house_id={$this->id} AND booking_id IN (SELECT id FROM bookings b WHERE b.is_confirmed = 1)";
         $result = $this->connection()->query($query);
@@ -344,10 +384,10 @@ class House extends BaseModel
      * @param string $end
      * @return bool
      */
-    public function isTimeFrameAvailable(string $start, string $end) : bool
+    public function isTimeFrameAvailable(string $start, string $end): bool
     {
         /** @var array<string> $oldBookedDays */
-        $oldBookedDays = (json_decode($this->getBookedDates(), true) ?: [] );
+        $oldBookedDays = (json_decode($this->getBookedDates(), true) ?: []);
 
         $dateStart = date_create($start);
         $dateEnd = date_create($end);

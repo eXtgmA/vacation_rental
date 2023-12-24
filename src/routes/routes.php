@@ -52,13 +52,15 @@ return [
             'create'=>'create',
             'edit'=>'edit',
             'detail'=>'detail',
-            'find'=>'find'
+            'find'=>'find',
+            'filter'=>'filter'
         ],
           'POST' => [
              'create' => 'create',
               'edit'=>'edit',
               'togglestatus'=>'toggleStatus',
-              'delete'=>'delete'],
+              'delete'=>'delete',
+              'storefilter'=>'storeFilter'],
 
         ],
     'image' =>

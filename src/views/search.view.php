@@ -16,20 +16,25 @@ include_once($header);
         <div id="search-grid">
             <div id="destination" class="search-input" style="display: inline-block;text-align: left">
                 <label id="destination-label" style="display: block" for="destination-input-field">Reiseziel</label>
-                <input id="destination-input-field" placeholder="Rügen" class="input-field" name="destination" type="text" value="<?php prefill('destination') ?>">
+                <input id="destination-input-field" placeholder="Rügen" class="input-field" name="destination"
+                       type="text" value="<?php prefill('destination') ?>">
             </div>
             <div id="from-date" class="search-input" style="display: inline-block">
                 <label id="from-date-label" for="from-date-input-field"
                        style="display: block;text-align: left">Anreise</label>
-                <input id="from-date-input-field" class="input-field" name="dateStart" type="date" value="<?php prefill('dateStart') ?>">
+                <input id="from-date-input-field" class="input-field" name="dateStart" type="date"
+                       value="<?php prefill('dateStart') ?>">
             </div>
             <div id="to-date" class="search-input" style="display: inline-block">
                 <label id="to-date-label" for="to-date-label-input-field" style="display: block;text-align: left">Abreise</label>
-                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date" value="<?php prefill('dateEnd') ?>">
+                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date"
+                       value="<?php prefill('dateEnd') ?>">
             </div>
             <div id="person-amount" class="search-input" style="display: inline-block">
-                <label id="person-amount-label" for="person-amount-input-field" style="display: block; text-align: left">Personen</label>
-                <input id="person-amount-input-field" placeholder="2" class="input-field" name="persons" type="number" value="<?php prefill('persons') ?>">
+                <label id="person-amount-label" for="person-amount-input-field"
+                       style="display: block; text-align: left">Personen</label>
+                <input id="person-amount-input-field" placeholder="2" class="input-field" name="persons" type="number"
+                       value="<?php prefill('persons') ?>">
             </div>
             <div class="submit">
                 <button class="btn-primary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
@@ -42,10 +47,10 @@ include_once($header);
                     <div class="headline">
                         <h2>Filter</h2>
                     </div>
-                    <button type="button" class="btn-secondary" onclick="resetFilter()">Reset Filter</button>
+                    <button type="button" class="btn-secondary" onclick="clearFilter()">Reset Filter</button>
                     <div id="tags" class="card">
                         <h3 style="margin-bottom: 0">Tags</h3>
-                        <div id="tag-grid">
+                        <div id="tag-grid" onchange="filterResults()">
                             <div class="input-icon">
                                 <i class="fa fa-magnifying-glass icon"></i>
                                 <input class="input-field" type="text" placeholder="Tag-Namen">
@@ -61,10 +66,11 @@ include_once($header);
                             <div class="feature-select-list">
                                 <?php foreach ($category as $feature) { ?>
                                     <label class="feature-select">
-                                        <input type="checkbox" name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>"
-                                            <?php if (in_array($feature->getName(), array_values(($featuresSel[$categoryName] ?? [] )))) {
+                                        <input type="checkbox" onchange="useCheckbox()" class="feature-name"
+                                               name="<?php echo 'features[' . $categoryName . '][]" value="' . $feature->getName(); ?>"
+                                            <?php if (in_array($feature->getName(), array_values(($featuresSel[$categoryName] ?? [])))) {
                                                 echo ' checked';
-                                            }?>>
+                                            } ?>>
                                         <?php echo $feature->getName(); ?>
                                     </label>
                                 <?php } ?>
@@ -87,7 +93,7 @@ include_once($header);
                             </div>
                             <div class="information">
                                 <div class="sub-headline">
-                                    <h3><?php print $house->getName() ?></h3>
+                                    <h3 id="name"><?php print $house->getName() ?></h3>
                                 </div>
                                 <div class="details">
                                     <div class="price detail">
@@ -133,7 +139,16 @@ include_once($header);
                                         <hr/>
                                     </div>
                                     <div class="submit">
-                                        <button class="btn-primary" type="button" onclick="openLink('/offer/detail/<?php echo $house->getId() ?>')">Ansehen</button>
+                                        <button class="btn-primary" type="button"
+                                                onclick="openLink('/offer/detail/<?php echo $house->getId() ?>')">
+                                            Ansehen
+                                        </button>
+                                    </div>
+                                    <div class="tags" style="display: none">
+                                        <?php echo $house->getAllTagsString() ?>
+                                    </div>
+                                    <div class="features" style="display: none">
+                                        <?php echo $house->getAllFeaturesString() ?>
                                     </div>
                                 </div>
                             </div>
@@ -153,6 +168,3 @@ include_once($footer)
 
 <script src="/scripts/search.js"></script>
 
-<script>
-    prefillTags("<?php echo $tagsSel ?>");
-</script>
