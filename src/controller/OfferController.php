@@ -502,4 +502,37 @@ and
         }
         return $oFiles;
     }
+
+    /**
+     * storing filters to session
+     * @return void
+     */
+    public function postStoreFilter():void
+    {
+        // because we aren't using the regular form we have to manually pick end encode our data
+        $rawData = file_get_contents("php://input");
+        if ($rawData != false) {
+            /** @var array<array<string>> $postData */
+            $postData = json_decode($rawData, true);
+
+            $features = $postData['features'];
+            $tags = $postData['tags'];
+
+            $_SESSION['filter'] = ['tags'=>$tags, 'features'=>$features];
+            echo json_encode(['message' => 'Daten erfolgreich erhalten und verarbeitet.']);
+            die();
+        }
+        echo json_encode(['message' => 'Etwas lief beim speichern schief']);
+    }
+
+    /**
+     * returning the stored session filter to js
+     * @return void
+     */
+    public function getFilter()
+    {
+        // because we aren't using the regular form we have to manually pick end encode our data
+        $filter = $_SESSION['filter'];
+        echo json_encode(['filter'=>$filter,'message' => 'Daten erfolgreich erhalten und verarbeitet.']);
+    }
 }
