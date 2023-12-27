@@ -21,8 +21,8 @@ include_once($header);
                 <input id="from-date-input-field" class="input-field" name="dateStart" type="date">
             </div>
             <div id="to-date-search" class="search-input" style="display: inline-block">
-                <label id="to-date-label" for="to-date-label-input-field" style="display: block;text-align: left">Abreise</label>
-                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date">
+                <label id="to-date-label" for="to-date-input-field" style="display: block;text-align: left">Abreise</label>
+                <input id="to-date-input-field" class="input-field" name="dateEnd" type="date">
             </div>
             <div id="person-amount-search" class="search-input" style="display: inline-block">
                 <label id="person-amount-label" for="person-amount-input-field" style="display: block;text-align: left">Personen</label>
@@ -69,3 +69,5 @@ include_once($header);
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
+
+<script src="/scripts/date-check.js"></script>
