@@ -388,9 +388,11 @@ and
 
         $result = $this->connection()->query($query);
         $houses = [];
+        $houseCount = 0;
         if ($result instanceof \mysqli_result) {
             while ($row = $result->fetch_object('\src\models\House')) {
                 $houses[] = $row;
+                $houseCount++;
             }
         }
         $_SESSION['old_POST'] = $param;
@@ -404,6 +406,7 @@ and
         $param['featuresSelected'] = $_GET['features'] ?? [];
         $param['tagsSelected'] = $_GET['tags'] ?? '';
 
+        $param['houseCount'] = $houseCount;
         $param['houses'] = $houses;
         new ViewController('search', $param);
     }

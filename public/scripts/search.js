@@ -183,6 +183,7 @@ function filterResults() {
     let checkedFeatures = Array.from(features).filter(function (checkbox) {
         return checkbox.checked;
     });
+    let resultCount = 0;
 
     // test for every house
     for (i = 0; i < houses.length; i++) {
@@ -210,8 +211,10 @@ function filterResults() {
             house.style.display = 'none' // hide house if it doesnt fit in filter
         } else {
             house.style.display = 'block' // show house if it fits in the filter
+            resultCount++;
         }
     }
+    document.getElementById("filter-result-count").innerHTML = String(resultCount);
 }
 
 function generateArrayFromTags(tags) {

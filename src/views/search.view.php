@@ -3,6 +3,7 @@ $header = __DIR__ . "/partials/header.view.php";
 $title = "Ferienhaussuche";
 $site = "search";
 $houses = $param['houses'] ?? [];
+$houseCount = $param['houseCount'] ?? 0;
 
 $features = $param['features'] ?? [];
 $featuresSel = $param['featuresSelected'] ?? [];
@@ -82,7 +83,9 @@ include_once($header);
         </div>
         <div id="results">
             <div class="headline">
-                <h2>Ergebnisse</h2>
+                <h2>Ergebnisse <span class="result-stats"
+                    >(<span id="filter-result-count"><?php echo $houseCount ?? "0"; ?></span>/<?php echo $houseCount ?? "0"; ?>)</span>
+                </h2>
             </div>
             <?php if (!empty($houses)) {
                 foreach ($houses as $house) { ?>
