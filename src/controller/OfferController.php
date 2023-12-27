@@ -46,6 +46,11 @@ class OfferController extends BaseController
         new ViewController('createNewOffer', $param);
     }
 
+
+    function sanitizeInput(&$item, $key) {
+        $item = htmlspecialchars($item, ENT_QUOTES, 'UTF-8');
+    }
+
     /**
      * @return void
      *
@@ -53,7 +58,8 @@ class OfferController extends BaseController
      */
     public function postCreate(): void
     {
-//        add owner to attributes
+        array_walk_recursive($_POST, array($this,"sanitizeInput"));
+
         $houseInput = $_POST['base-data'];
         $houseInput['owner_id'] = $_SESSION['user'];
 //        create house with values
