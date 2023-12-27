@@ -160,6 +160,10 @@
     flex-direction: column;
 }
 
+.result-stats {
+    font-size: 0.6em;
+}
+
 #layout-grid > #results > .result {
     display: flex;
     flex-direction: row;
