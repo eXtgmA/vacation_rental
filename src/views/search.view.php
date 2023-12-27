@@ -26,8 +26,8 @@ include_once($header);
                        value="<?php prefill('dateStart') ?>">
             </div>
             <div id="to-date" class="search-input" style="display: inline-block">
-                <label id="to-date-label" for="to-date-label-input-field" style="display: block;text-align: left">Abreise</label>
-                <input id="to-date-label-input-field" class="input-field" name="dateEnd" type="date"
+                <label id="to-date-label" for="to-date-input-field" style="display: block;text-align: left">Abreise</label>
+                <input id="to-date-input-field" class="input-field" name="dateEnd" type="date"
                        value="<?php prefill('dateEnd') ?>">
             </div>
             <div id="person-amount" class="search-input" style="display: inline-block">
@@ -167,4 +167,5 @@ include_once($footer)
 ?>
 
 <script src="/scripts/search.js"></script>
+<script src="/scripts/date-check.js"></script>
 
