@@ -113,7 +113,7 @@
             & > .suggestion-card {
                 flex: 33%;
                 padding-bottom: 5px;
-                margin: 1px;
+                margin: 0.05em;
                 display: flex;
                 flex-direction: column;
                 transition: transform 0.3s ease-in-out;
@@ -126,6 +126,8 @@
                     border-radius: 5px;
                     box-shadow: 0 8px 16px 0 var(--color-primary);
                     transform: scale(1.05);
+                    z-index: 999;
+                    background-color: white;
                 }
 
                 & > .card-image {
@@ -188,6 +190,7 @@
         & #video-background {
             & #search-form {
                 margin: 10% auto;
+                width: 98%;
 
                 & > #search {
                     padding: 10px !important;
@@ -199,12 +202,6 @@
             flex-direction: column;
             justify-content: center;
             align-content: center;
-
-            & > .suggestion-card {
-                /*margin: auto;*/
-                margin-top: 2%;
-                margin-bottom: 2%;
-            }
         }
 
         & #search-button > button {
