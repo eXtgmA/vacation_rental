@@ -11,7 +11,9 @@ include_once($header);
 
 <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
 
+<button class="btn-secondary" type="button" onclick="openLink('<?php echo "/offer/detail/".$house->getId(); ?>')">Zurück</button> <!-- todo : make me pretty (Marvin) -->
 <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
+
 <form action="/booking/create/" method="post" id="booking-form">
 
     <div class="description-area">
@@ -35,10 +37,10 @@ include_once($header);
         <h3>Buchungszeitraum</h3>
         <label class="label" for="date_start">Von</label>
         <input class="input-field" type="date" id="date_start" name="date_start"
-               value="<?php prefill('date_start') ?>" required>
+               value="<?php echo $_SESSION['search-data']['dateStart'] ?? ''; ?>" required>
         <label class="label" for="date_end">Bis</label>
         <input class="input-field" type="date" id="date_end" name="date_end"
-               value="<?php prefill('date_end') ?>" required>
+               value="<?php echo $_SESSION['search-data']['dateEnd'] ?? ''; ?>" required>
     </div>
     <div class="options-area">
         <h3>Zusatzoptionen</h3>
