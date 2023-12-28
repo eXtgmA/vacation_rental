@@ -16,7 +16,7 @@ include_once($header);
     <?php foreach ($bpos as $key => $p) { ?>
         <?php $house = $houses[$p->getHouseId()] ?>
             <?php if (in_array($p->getId(), $availabilityError)) { ?>
-            <div class="" id="cart-entry-grid" style="background-color: lightgray; cursor: pointer" onclick="openLink('/booking/create/<?php echo $p->getHouseId() ?>')"> <!-- todo : set onclick link to /booking/edit/$p->getHouseId() -->
+            <div class="" id="cart-entry-grid" style="background-color: lightgray; cursor: pointer" onclick="openLink('/booking/create/<?php echo $p->getHouseId() ?>')">
                 <div class="item-headline" style="flex-direction: column">
                     <h2 style='color: red;'>Ausgebucht! Wird beim Verlassen der Seite aus dem Warenkorb gelöscht!</h2>
                     <h2><?php echo $house->getName() ?></h2>
@@ -24,11 +24,11 @@ include_once($header);
             <?php } else { ?>
             <div class="" id="cart-entry-grid">
                 <div class="item-headline">
-                    <h2><?php echo $house->getName() ?></h2>
+                    <h2 onclick="openLink('/offer/detail/<?php echo $p->getHouseId() ?>')" style="cursor: pointer"><?php echo $house->getName() ?></h2>
                 </div>
             <?php } ?>
             <div class="item-image">
-                <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
+                <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]" onclick="openLink('/offer/detail/<?php echo $p->getHouseId() ?>')" style="cursor: pointer">
             </div>
             <div class="item-total-price">
                 <p><?php echo json_decode($p->getPriceDetailList(), true)['total_price'] //@phpstan-ignore-line ?>€</p>
