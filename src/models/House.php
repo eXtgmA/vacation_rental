@@ -312,7 +312,8 @@ class House extends BaseModel
             // reset related features
             $this->resetRelatedFeatures();
 
-            // todo : delete related tags
+            // delete related tags
+            $this->deleteRelatedTags();
 
             // delete house itself
             $this->delete(model: 'House', id: $this->id);
@@ -404,6 +405,17 @@ class House extends BaseModel
             $newDays[] = $dateEnd->format('Y-m-d');
         }
         return empty(array_intersect($newDays, $oldBookedDays));
+    }
+
+    /**
+     * Delete all tags that are related to this house
+     *
+     * @return void
+     */
+    public function deleteRelatedTags() : void
+    {
+        $query = "DELETE FROM tags WHERE house_id={$this->id};";
+        $this->connection()->query($query);
     }
 
 
