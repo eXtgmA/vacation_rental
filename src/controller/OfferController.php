@@ -165,9 +165,15 @@ class OfferController extends BaseController
         $this->isUserAllowedHere($houseId, 'house', '/offer');
         try {
             /** @var House $house */
+            // prevent deleting houses that have dependencies in db (bookings)
+            if ($house->getBookedDates() != "") {
+                throw new Exception("Dependencies in database prevent deletion of house ({$houseId})");
+            }
             $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)'; // todo : change message text after deciding if houses can be deleted
+            // disable the house instead of deleting it
+            $house->toggleStatus(1);
+            $_SESSION['message'] = 'Die Ferienwohnung kann nicht gelöscht werden, da sie bereits mindestens einmal gebucht wurde. Sie wurde stattdessen deaktiviert.';
             redirect($_SESSION['previous'], 302);
             die();
         }

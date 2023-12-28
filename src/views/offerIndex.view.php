@@ -34,11 +34,14 @@ if (isset($houses)) {
                             <?php $house->getIsDisabled() == 1 ? print('Aktivieren') : print('Deaktivieren') ?>
                         </button>
                     </form>
-                    <form action="/offer/delete/<?php echo $house->getId(); ?>" method="post">
-                        <button type="submit" class="btn-secondary">
-                            Löschen
-                        </button>
-                    </form>
+                    <?php if ($house->getBookedDates() == "") { ?>
+                        <!-- deleting a house is only possible if no bookings exist for that house -->
+                        <form action="/offer/delete/<?php echo $house->getId(); ?>" method="post">
+                            <button type="submit" class="btn-secondary">
+                                Löschen
+                            </button>
+                        </form>
+                    <?php } ?>
                 </div>
             </div>
             <div class="card-calendars">

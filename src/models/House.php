@@ -94,12 +94,29 @@ class House extends BaseModel
         return trim($string, ',');
     }
 
-    public function toggleStatus(): void
+    /**
+     * Toggle the status of a house
+     *
+     * If $newStatus is given this value will be set as status:
+     * - value 1 disables the house
+     * - value 0 enables the house
+     *
+     * @param int|null $newStatus
+     * @return void
+     */
+    public function toggleStatus(int $newStatus = null): void
     {
-//        get old status and invert
-        $newStatus = (int)!$this->getIsDisabled();
+        if ($newStatus === null) {
+            // get old status and invert
+            $newStatus = (int)!$this->getIsDisabled();
+            // or sanitize input
+        } elseif ($newStatus > 1) {
+            $newStatus = 1;
+        } elseif ($newStatus < 0) {
+            $newStatus = 0;
+        }
+        // write to db
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-//        write to db
         $this->connection()->query($query);
     }
 
