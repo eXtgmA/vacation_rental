@@ -31,7 +31,7 @@ include_once($header);
                 <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]">
             </div>
             <div class="item-total-price">
-                <p>3000€</p> <!-- todo: use the precalculated price-->
+                <p><?php echo json_decode($p->getPriceDetailList(), true)['total_price'] //@phpstan-ignore-line ?>€</p>
             </div>
             <div class="item-date-start information">
                 <span class="information-key">Von:</span>
