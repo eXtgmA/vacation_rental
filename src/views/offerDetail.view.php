@@ -174,7 +174,7 @@ include_once($footer)
     <div class="modal-content card option-card">
         <span class="close-button">&times;</span>
         <div class="option-image">
-            <img src="/" alt="alt">
+            <img src="" alt="alt">
         </div>
         <div class="option-name">
             <h3>Option Name</h3>
