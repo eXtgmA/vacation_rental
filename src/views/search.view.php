@@ -13,11 +13,14 @@ include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/search.css"/>
 <form action="/offer/find">
-    <div id="layout-grid">
-        <div id="search-grid">
+    <div id="search">
+        <video autoplay muted playsinline id="background-video" poster="/assets/backyard.png">
+            <source src="/assets/backyard.mp4" type="video/mp4">
+        </video>
+        <div id="search-card">
             <div id="destination" class="search-input" style="display: inline-block;text-align: left">
                 <label id="destination-label" style="display: block" for="destination-input-field">Reiseziel</label>
-                <input id="destination-input-field" placeholder="Rügen" class="input-field" name="destination"
+                <input id="destination-input-field" placeholder="Reiseort eintragen" class="input-field" name="destination"
                        type="text" value="<?php prefill('destination') ?>">
             </div>
             <div id="from-date" class="search-input" style="display: inline-block">
@@ -34,22 +37,39 @@ include_once($header);
             <div id="person-amount" class="search-input" style="display: inline-block">
                 <label id="person-amount-label" for="person-amount-input-field"
                        style="display: block; text-align: left">Personen</label>
-                <input id="person-amount-input-field" placeholder="2" class="input-field" name="persons" type="number"
+                <input id="person-amount-input-field" placeholder="Zahl eintragen" class="input-field" name="persons" type="number"
                        value="<?php prefill('persons') ?>">
             </div>
             <div class="submit">
-                <button class="btn-primary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
+                <button class="btn-secondary" id="search-btn">Ferienhaus suchen</button>
             </div>
         </div>
+    </div>
+    <div id="layout">
+
         <div id="filter">
-            <button class="collapse-btn" type="button" id="collapse-filter-btn">Filter öffnen</button>
+            <div class="headline">
+                <div id="filter-fix" class="headline">
+                    <h2>Filter</h2>
+                </div>
+                <div id="filter-open" class="headline">
+                    <button type="button" title="Filter schließen" id="filter-close-btn">
+                        <i class="fa-solid fa-chevron-up"></i>
+                        <h2>Filter</h2>
+                    </button>
+                </div>
+                <div id="filter-closed"  class="headline">
+                    <button type="button" title="Filter öffnen" id="filter-open-btn">
+                        <i class="fa-solid fa-chevron-down"></i>
+                        <h2>Filter</h2>
+                        <i class="fa-solid fa-filter" style="padding: 2px; font-size: 2rem;"></i>
+                    </button>
+                </div>
+                <button type="button" class="" title="Filter löschen" onclick="clearFilter()" id="filter-reset-btn"><i class="fa-solid fa-filter-circle-xmark"></i></button>
+            </div>
             <div class="collapse-content" id="filter-list">
                 <div class="filter-list">
-                    <div class="headline">
-                        <h2>Filter</h2>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="clearFilter()">Reset Filter</button>
-                    <div id="tags" class="card">
+                    <div id="tags" class="filter-card">
                         <h3 style="margin-bottom: 0">Tags</h3>
                         <div id="tag-grid" onchange="filterResults()">
                             <div class="input-icon">
@@ -60,7 +80,7 @@ include_once($header);
                     </div>
 
                     <?php foreach ($features as $categoryName => $category) { ?>
-                        <div class="card">
+                        <div class="filter-card">
                             <div class="feature-topic">
                                 <h3><?php echo $categoryName; ?></h3>
                             </div>
@@ -83,8 +103,8 @@ include_once($header);
         </div>
         <div id="results">
             <div class="headline">
-                <h2>Ergebnisse <span class="result-stats"
-                    >(<span id="filter-result-count"><?php echo $houseCount ?? "0"; ?></span>/<?php echo $houseCount ?? "0"; ?>)</span>
+                <h2>Ergebnisse <span class="result-stats">
+                        (<span id="filter-result-count"><?php echo $houseCount ?? "0"; ?></span>/<?php echo $houseCount ?? "0"; ?>)</span>
                 </h2>
             </div>
             <?php if (!empty($houses)) {
@@ -101,43 +121,43 @@ include_once($header);
                                 <div class="details">
                                     <div class="price detail">
                                         <div class="text">
-                                            <span>Preis</span>
-                                            <span><?php print $house->getPrice() ?>€</span>
+                                            <span class="key">Preis</span>
+                                            <span class="value"><?php print $house->getPrice() ?>€</span>
                                         </div>
                                         <hr/>
                                     </div>
                                     <div class="max-person detail">
                                         <div class="text">
-                                            <span>Max. Personen</span>
-                                            <span><?php print $house->getMaxPerson() ?></span>
+                                            <span class="key">Max. Personen</span>
+                                            <span class="value"><?php print $house->getMaxPerson() ?></span>
                                         </div>
                                         <hr/>
                                     </div>
                                     <div class="square-meter detail">
                                         <div class="text">
-                                            <span>Fläche</span>
-                                            <span><?php print $house->getSquareMeter() ?>m²</span>
+                                            <span class="key">Fläche</span>
+                                            <span class="value"><?php print $house->getSquareMeter() ?>m²</span>
                                         </div>
                                         <hr class="horizontal-line"/>
                                     </div>
                                     <div class="room-count detail">
                                         <div class="text">
-                                            <span>Räume</span>
-                                            <span><?php print $house->getRoomCount() ?></span>
+                                            <span class="key">Räume</span>
+                                            <span class="value"><?php print $house->getRoomCount() ?></span>
                                         </div>
                                         <hr/>
                                     </div>
                                     <div class="city detail">
                                         <div class="text">
-                                            <span>Stadt</span>
-                                            <span><?php print $house->getPostalCode() . ' ' . $house->getCity() ?></span>
+                                            <span class="key">Stadt</span>
+                                            <span class="value"><?php print $house->getPostalCode() . ' ' . $house->getCity() ?></span>
                                         </div>
                                         <hr/>
                                     </div>
                                     <div class="street detail">
                                         <div class="text">
-                                            <span>Straße</span>
-                                            <span><?php print $house->getStreet() . ' ' . $house->getHouseNumber() ?></span>
+                                            <span class="key">Straße</span>
+                                            <span class="value"><?php print $house->getStreet() . ' ' . $house->getHouseNumber() ?></span>
                                         </div>
                                         <hr/>
                                     </div>

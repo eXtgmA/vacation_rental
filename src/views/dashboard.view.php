@@ -6,7 +6,7 @@ include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/dashboard.css"/>
 <div id="dashboard">
-    <div id="video-background">
+    <div id="search-area">
         <video autoplay muted playsinline id="background-video" poster="/assets/backyard.png">
             <source src="/assets/backyard.mp4" type="video/mp4">
         </video>

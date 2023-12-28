@@ -17,7 +17,7 @@ tagInput.addEventListener("keydown", (e) => {
 /**
  * Add tag to tag grid
  */
-function addTag(tag, safe=true) {
+function addTag(tag, safe = true) {
     let tagText = tag ?? tagInput.value.trim();
     if (tagText) {
         // Create new tag pill (the orange bordered thingy)
@@ -38,7 +38,7 @@ function addTag(tag, safe=true) {
             saveFilter()
             filterResults(); // after removing perform filter to fit to given tags excluding the newly removed
         });
-        if(safe==true){
+        if (safe === true) {
             saveFilter()
         }
     }
@@ -62,7 +62,7 @@ function resetFilter() {
 /**
  * Run this after the page is loaded completely
  */
-window.onload=function (){
+window.onload = function () {
     resetFilter()
     // onload, clear all old set tags and filter (no deleting in backend)
     getFilter()
@@ -78,7 +78,7 @@ function clearFilter() {
     // clear all set filter and tags
     resetFilter()
     // store permanent
-     saveFilter()
+    saveFilter()
 }
 
 /**
@@ -94,8 +94,8 @@ function setFilterOnLoad(data) {
     features = data['filter']['features']
     // set tags
     tags.forEach(function (tag) {
-        addTag(tag,false) // using the prepared method in search.js but send no saving of filters,
-    //     to avoid overwriting of checkboxes when adding the tag pills (f5 hardhitting)
+        addTag(tag, false) // using the prepared method in search.js but send no saving of filters,
+        //     to avoid overwriting of checkboxes when adding the tag pills (f5 hardhitting)
     })
     // set features
     // iterating through all checkboxes
@@ -226,9 +226,9 @@ function generateArrayFromTags(tags) {
     return result
 }
 
-function useCheckbox(){
+function useCheckbox() {
 //     refresh filter results after clicking
- filterResults()
+    filterResults()
 //     instantly store the filter in the backend
     saveFilter()
 }
@@ -237,51 +237,97 @@ function useCheckbox(){
 // ----------- Style of the Filter ------------------------------------------
 
 const filterList = document.getElementById("filter-list");
-const collapseButton = document.getElementById("collapse-filter-btn");
+const filterOpenButton = document.getElementById("filter-open-btn");
+const filterCloseButton = document.getElementById("filter-close-btn");
+const filterResetButton = document.getElementById("filter-reset-btn");
+const filterOpen = document.getElementById("filter-open");
+const filterClose = document.getElementById("filter-closed");
+const filterFix = document.getElementById("filter-fix");
+let prevInnerWidth = window.innerWidth;
+
 
 /**
- * hide / show filter list on resize
+ * open filter
  */
-window.addEventListener('resize', refreshFilterList, false);
+function openFilter() {
+    filterList.style.display = "inherit";
+    filterList.style.maxHeight = filterList.scrollHeight + "px";
+
+    filterOpenButton.style.display = 'none';
+    filterOpenButton.hidden = true;
+    filterCloseButton.style.display = 'inherit';
+    filterCloseButton.hidden = false;
+    filterResetButton.style.display = 'inherit';
+    filterResetButton.hidden = false;
+    filterOpen.style.display = 'inherit';
+    filterOpen.hidden = false;
+    filterClose.style.display = 'none';
+    filterClose.hidden = true;
+}
 
 /**
- * toggle filter list on click
+ * close filter
  */
-collapseButton.addEventListener("click", function () {
-    // this.classList.toggle("active");
-    if (filterList.style.maxHeight) {
-        this.textContent = "Filter öffnen";
+function closeFilter() {
+    filterList.style.maxHeight = null;
+    filterList.style.display = "none";
 
-        filterList.style.maxHeight = null;
-        filterList.style.display = "none";
-    } else {
-        this.textContent = "Filter schließen";
+    filterOpenButton.style.display = 'inherit';
+    filterOpenButton.hidden = false;
+    filterCloseButton.style.display = 'none';
+    filterCloseButton.hidden = true;
+    filterResetButton.style.display = 'none';
+    filterResetButton.hidden = true;
+    filterOpen.style.display = 'none';
+    filterOpen.hidden = true;
+    filterClose.style.display = 'inherit';
+    filterClose.hidden = false;
+}
 
-        filterList.style.display = "inherit";
-        filterList.style.maxHeight = filterList.scrollHeight + "px";
-    }
-});
+filterOpenButton.addEventListener("click", openFilter);
+filterCloseButton.addEventListener("click", closeFilter);
+
 
 /**
  * rearrange the filters appereance after resizing
  *
  */
-function refreshFilterList() {
-    if (window.innerWidth > 992) {
-        // show filter list
-        filterList.style.display = "inherit";
-        filterList.style.maxHeight = filterList.scrollHeight + "px";
-        // hide button
-        collapseButton.style.display = "none";
-        collapseButton.textContent = "Filter schließen";
+function resizeWindow(event, ignorePrevWindowSize = false) {
+    if ((ignorePrevWindowSize || prevInnerWidth <= 768) && window.innerWidth > 768) {
+        // show filter
+        openFilter();
 
-    }
-    if (window.innerWidth < 992) {
+        filterOpenButton.style.display = 'none';
+        filterOpenButton.hidden = true;
+        filterCloseButton.style.display = 'none';
+        filterCloseButton.hidden = true;
+        filterOpen.style.display = 'none';
+        filterOpen.hidden = true;
+        filterClose.style.display = 'none';
+        filterClose.hidden = true;
+        filterFix.style.display = 'inherit';
+        filterFix.hidden = false;
+
+
+    } else if ((ignorePrevWindowSize || prevInnerWidth >= 768) && window.innerWidth < 768) {
         // hide filter list
-        filterList.style.display = "none";
-        filterList.style.maxHeight = null;
-        // show button
-        collapseButton.style.display = "inherit";
-        collapseButton.textContent = "Filter öffnen";
+        closeFilter();
+
+        filterOpen.style.display = 'inherit';
+        filterOpen.hidden = false;
+        filterClose.style.display = 'inherit';
+        filterClose.hidden = false;
+        filterFix.style.display = 'none';
+        filterFix.hidden = true;
     }
+    prevInnerWidth = window.innerWidth;
 }
+
+/**
+ * hide / show filter list on resize
+ */
+window.addEventListener('resize', resizeWindow, false);
+
+
+// initial call
+resizeWindow(event, true);

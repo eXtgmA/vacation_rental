@@ -3,7 +3,7 @@
     flex-direction: column;
     min-height: 800px;
 
-    & #video-background {
+    & #search-area {
         flex: 25%;
         position: relative;
         overflow: hidden;
@@ -168,7 +168,7 @@
 
 /* Medium 768px - 992px*/
 @media (max-width: 992px) {
-    #dashboard > #video-background > #search-form > #search {
+    #dashboard > #search-area > #search-form > #search {
         grid-template-areas:
                         "destination destination destination person"
                         "from-date from-date to-date to-date";
@@ -187,7 +187,7 @@
 /* X-Small < 576px */
 @media (max-width: 576px) {
     #dashboard {
-        & #video-background {
+        & #search-area {
             & #search-form {
                 margin: 10% auto;
                 width: 98%;
@@ -217,7 +217,7 @@ and (min-device-width: 375px)
 and (max-device-width: 812px)
 and (-webkit-min-device-pixel-ratio: 3) {
     #dashboard {
-        & > #video-background {
+        & > #search-area {
             & > #title {
                 & > h1 > br {
                     display: none;
