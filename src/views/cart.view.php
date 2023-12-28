@@ -75,17 +75,11 @@ include_once($header);
             </div>
             <?php if (in_array($p->getId(), $availabilityError)) { ?>
                 <!-- booking is not available anymore and will be deleted -->
-                <div class="item-edit">
-                    <button type="button" class="btn-secondary" disabled>Bearbeiten</button>
-                </div>
                 <div class="item-delete">
-                    <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/".$p->getId(); ?>')" disabled>Entfernen</button>
+                    <button type="submit" class="btn-secondary" disabled>Entfernen</button>
                 </div>
                 <?php $p->deleteBookingposition(); ?>
             <?php } else { ?>
-                <div class="item-edit">
-                    <button type="button" class="btn-secondary">Bearbeiten</button>
-                </div>
                 <div class="item-delete">
                     <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/".$p->getId(); ?>')">Entfernen</button>
                 </div>
