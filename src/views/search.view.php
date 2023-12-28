@@ -18,24 +18,24 @@ include_once($header);
             <div id="destination" class="search-input" style="display: inline-block;text-align: left">
                 <label id="destination-label" style="display: block" for="destination-input-field">Reiseziel</label>
                 <input id="destination-input-field" placeholder="Rügen" class="input-field" name="destination"
-                       type="text" value="<?php prefill('destination') ?>">
+                       type="text" value="<?php echo $_SESSION['search-data']['destination'] ?? ''; ?>">
             </div>
             <div id="from-date" class="search-input" style="display: inline-block">
                 <label id="from-date-label" for="from-date-input-field"
                        style="display: block;text-align: left">Anreise</label>
                 <input id="from-date-input-field" class="input-field" name="dateStart" type="date"
-                       value="<?php prefill('dateStart') ?>">
+                       value="<?php echo $_SESSION['search-data']['dateStart'] ?? ''; ?>">
             </div>
             <div id="to-date" class="search-input" style="display: inline-block">
                 <label id="to-date-label" for="to-date-input-field" style="display: block;text-align: left">Abreise</label>
                 <input id="to-date-input-field" class="input-field" name="dateEnd" type="date"
-                       value="<?php prefill('dateEnd') ?>">
+                       value="<?php echo $_SESSION['search-data']['dateEnd'] ?? ''; ?>">
             </div>
             <div id="person-amount" class="search-input" style="display: inline-block">
                 <label id="person-amount-label" for="person-amount-input-field"
                        style="display: block; text-align: left">Personen</label>
                 <input id="person-amount-input-field" placeholder="2" class="input-field" name="persons" type="number"
-                       value="<?php prefill('persons') ?>">
+                       value="<?php echo $_SESSION['search-data']['persons'] ?? '0'; ?>">
             </div>
             <div class="submit">
                 <button class="btn-primary"><span class="optional-search-text">Ferienhaus</span> suchen</button>
