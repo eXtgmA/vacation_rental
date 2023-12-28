@@ -347,15 +347,18 @@ class OfferController extends BaseController
      */
     public function getFind($param)
     {
-        //prepare search parameter
+        // prepare search parameter and save them into session if they exist
+            // (data source: 1. dashboard or 2. session or 3. default )
         /** @var string $destination */
-        $destination = $param['destination'] ?? '';
+        $destination = $_SESSION['search-data']['destination'] = $param['destination'] ?? $_SESSION['search-data']['destination'] ?? '';
         /** @var string $dateStart */
-        $dateStart = $param['dateStart'] ?? '';
+        $dateStart = $_SESSION['search-data']['dateStart'] = $param['dateStart'] ?? $_SESSION['search-data']['dateStart'] ?? '';
         /** @var string $dateEnd */
-        $dateEnd = $param['dateEnd'] ?? '';
+        $dateEnd = $_SESSION['search-data']['dateEnd'] = $param['dateEnd'] ?? $_SESSION['search-data']['dateEnd'] ?? '';
         /** @var string $persons */
-        $persons = (int)($param['persons'] ?? 0);
+        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 0);
+
+        // prepare query
         $query = "
 SELECT *
 FROM houses h
@@ -385,8 +388,9 @@ and
         if ($persons > 0) {
             $query .= "and max_person >= {$persons}";
         }
-
+        // execute query
         $result = $this->connection()->query($query);
+
         $houses = [];
         $houseCount = 0;
         if ($result instanceof \mysqli_result) {
@@ -395,8 +399,8 @@ and
                 $houseCount++;
             }
         }
-        $_SESSION['old_POST'] = $param;
-//        unset old data
+
+        // unset old data
         $param = [];
 
         // prepare displaying all features
