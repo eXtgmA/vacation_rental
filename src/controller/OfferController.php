@@ -412,6 +412,8 @@ and
     }
 
     /**
+     * Add newly provided tags and delete all missing ones
+     *
      * @param int $houseId
      * @return void
      * @throws Exception
@@ -430,8 +432,13 @@ and
 //        --------------------------------------------------
 //        preparing new tags
         $tags = $postedTags;
-        $tags = explode(',', $tags);
-        $tags = array_unique($tags);
+        if (strlen($tags) == 0) {
+            // continue with empty array if empty tag string is provided
+            $tags = [];
+        } else {
+            $tags = explode(',', $tags);
+            $tags = array_unique($tags);
+        }
 
 //        --------------------------------------------------
 //       In old array but not in new (has to be removed)
@@ -449,23 +456,28 @@ and
     }
 
     /**
+     * Save all given tags for a house in database
+     *
      * @param string $postedTags
      * @param int $houseId
      * @return void
      *
      *actual storing process in db
      */
-    private function storeTags(string $postedTags, int $houseId)
+    private function storeTags(string $postedTags, int $houseId) : void
     {
         // todo userallowed
 
         $tags = $postedTags;
-        $tags = explode(',', $tags);
-        $tags = array_unique($tags);
+        // only add tags if there is at least one tag provided
+        if (strlen($tags) > 0) {
+            $tags = explode(',', $tags);
+            $tags = array_unique($tags);
 
-        foreach ($tags as $tag) {
-            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
-            $newTag->save();
+            foreach ($tags as $tag) {
+                $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+                $newTag->save();
+            }
         }
     }
 
