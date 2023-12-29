@@ -133,9 +133,9 @@ class OptionController extends BaseController
 
     public function postDelete(int $optionId = null): void
     {
-        //todo userallowed
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');
+        $this->isUserAllowedHere($optionId, 'option', '/offer');
         // todo check if rest is needed, maybe more params to function
         try {
             $option->deleteOption();
