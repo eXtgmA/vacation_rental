@@ -97,5 +97,10 @@ include_once($header);
 
 <?php
 $footer = __DIR__ . "/partials/footer.view.php";
-include_once($footer)
+include_once($footer);
+
+// unset availabilityError in session
+if (isset($_SESSION['availabilityError'])) {
+    unset($_SESSION['availabilityError']);
+}
 ?>
