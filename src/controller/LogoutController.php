@@ -11,6 +11,7 @@ class LogoutController extends BaseController
     public function postLogout(mixed $formdata = null): void
     {
         unset($_SESSION['user']);
+        $_SESSION['filter'] = ['tags'=>[], 'features'=>[]];
         session_unset();
         redirect("/dashboard", 302);
     }
