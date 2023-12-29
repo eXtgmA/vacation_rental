@@ -70,6 +70,7 @@ class CheckoutController extends BaseController
 
     public function postCheckout(int $bookingId = null): void
     {
+        $this->sanitize($_POST);
         $this->forceParam($bookingId, 'booking');
         // todo : check if the booking is owned by the current user userallowed
 

@@ -22,7 +22,7 @@ class ProfileController extends BaseController
 
     public function postUpdate() : void
     {
-
+        $this->sanitize($_POST);
         /** @var User $user */
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         $user->enteredValidEmail($_POST['email'], "/profile");
