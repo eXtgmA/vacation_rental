@@ -363,7 +363,7 @@ class OfferController extends BaseController
         /** @var string $dateEnd */
         $dateEnd = $_SESSION['search-data']['dateEnd'] = $param['dateEnd'] ?? $_SESSION['search-data']['dateEnd'] ?? '';
         /** @var string $persons */
-        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 0);
+        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 2);
 
         // prepare query
         $query = "

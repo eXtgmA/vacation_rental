@@ -29,7 +29,7 @@ include_once($header);
                 </div>
                 <div id="person-amount-search" class="search-input">
                     <label id="person-amount-label" for="person-amount-input-field">Personen</label>
-                    <input id="person-amount-input-field" class="input-field" name="persons" type="number">
+                    <input id="person-amount-input-field" class="input-field" name="persons" type="number" value="2">
                 </div>
             </div>
             <div id="search-button">
