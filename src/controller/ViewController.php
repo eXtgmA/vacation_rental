@@ -13,7 +13,7 @@ class ViewController extends BaseController
     public function __construct(string $viewName, mixed $param = null)
     {
         $this->param = $param;
-        parent::__construct();
+//        parent::__construct();
         include_once(__DIR__ . "/../views/{$viewName}.view.php");
     }
 }
