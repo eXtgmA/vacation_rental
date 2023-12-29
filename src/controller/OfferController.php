@@ -249,8 +249,6 @@ class OfferController extends BaseController
      */
     private function updateImages(House $house, array $postedFiles) : void
     {
-        // todo userallowed
-
         try {
             // update front image
             if ($postedFiles['front-image-input']['name'] != '') {
@@ -314,8 +312,6 @@ class OfferController extends BaseController
      */
     private function updateFeatures(House $house, array $postedFeatures) : void
     {
-        // todo userallowed
-
         $houseFeatures = $house->getAllFeatures();
         foreach ($postedFeatures as $category) {
             foreach ($category as $featureName) {
@@ -438,8 +434,6 @@ and
      */
     private function updateTags(int $houseId, string $postedTags): void
     {
-        // todo userallowed
-
 //      getting old tags
         $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
 //       extract only the name
@@ -484,8 +478,6 @@ and
      */
     private function storeTags(string $postedTags, int $houseId) : void
     {
-        // todo userallowed
-
         $tags = $postedTags;
         // only add tags if there is at least one tag provided
         if (strlen($tags) > 0) {
