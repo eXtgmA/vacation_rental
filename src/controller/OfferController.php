@@ -171,9 +171,15 @@ class OfferController extends BaseController
         $this->isUserAllowedHere($houseId, 'house', '/offer');
         try {
             /** @var House $house */
+            // prevent deleting houses that have dependencies in db (bookings)
+            if ($house->getBookedDates() != "") {
+                throw new Exception("Dependencies in database prevent deletion of house ({$houseId})");
+            }
             $house->deleteHouse();
         } catch (Exception $e) {
-            $_SESSION['message'] = 'Haus konnte nicht gelöscht werden. Gibt es Buchungen ? (->bookingpositions)'; // todo : change message text after deciding if houses can be deleted
+            // disable the house instead of deleting it
+            $house->toggleStatus(1);
+            $_SESSION['message'] = 'Die Ferienwohnung kann nicht gelöscht werden, da sie bereits mindestens einmal gebucht wurde. Sie wurde stattdessen deaktiviert.';
             redirect($_SESSION['previous'], 302);
             die();
         }
@@ -353,15 +359,18 @@ class OfferController extends BaseController
      */
     public function getFind($param)
     {
-        //prepare search parameter
+        // prepare search parameter and save them into session if they exist
+            // (data source: 1. dashboard or 2. session or 3. default )
         /** @var string $destination */
-        $destination = $param['destination'] ?? '';
+        $destination = $_SESSION['search-data']['destination'] = $param['destination'] ?? $_SESSION['search-data']['destination'] ?? '';
         /** @var string $dateStart */
-        $dateStart = $param['dateStart'] ?? '';
+        $dateStart = $_SESSION['search-data']['dateStart'] = $param['dateStart'] ?? $_SESSION['search-data']['dateStart'] ?? '';
         /** @var string $dateEnd */
-        $dateEnd = $param['dateEnd'] ?? '';
+        $dateEnd = $_SESSION['search-data']['dateEnd'] = $param['dateEnd'] ?? $_SESSION['search-data']['dateEnd'] ?? '';
         /** @var string $persons */
-        $persons = (int)($param['persons'] ?? 0);
+        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 0);
+
+        // prepare query
         $query = "
 SELECT *
 FROM houses h
@@ -391,8 +400,9 @@ and
         if ($persons > 0) {
             $query .= "and max_person >= {$persons}";
         }
-
+        // execute query
         $result = $this->connection()->query($query);
+
         $houses = [];
         $houseCount = 0;
         if ($result instanceof \mysqli_result) {
@@ -401,8 +411,8 @@ and
                 $houseCount++;
             }
         }
-        $_SESSION['old_POST'] = $param;
-//        unset old data
+
+        // unset old data
         $param = [];
 
         // prepare displaying all features
@@ -418,6 +428,8 @@ and
     }
 
     /**
+     * Add newly provided tags and delete all missing ones
+     *
      * @param int $houseId
      * @return void
      * @throws Exception
@@ -436,8 +448,13 @@ and
 //        --------------------------------------------------
 //        preparing new tags
         $tags = $postedTags;
-        $tags = explode(',', $tags);
-        $tags = array_unique($tags);
+        if (strlen($tags) == 0) {
+            // continue with empty array if empty tag string is provided
+            $tags = [];
+        } else {
+            $tags = explode(',', $tags);
+            $tags = array_unique($tags);
+        }
 
 //        --------------------------------------------------
 //       In old array but not in new (has to be removed)
@@ -455,23 +472,28 @@ and
     }
 
     /**
+     * Save all given tags for a house in database
+     *
      * @param string $postedTags
      * @param int $houseId
      * @return void
      *
      *actual storing process in db
      */
-    private function storeTags(string $postedTags, int $houseId)
+    private function storeTags(string $postedTags, int $houseId) : void
     {
         // todo userallowed
 
         $tags = $postedTags;
-        $tags = explode(',', $tags);
-        $tags = array_unique($tags);
+        // only add tags if there is at least one tag provided
+        if (strlen($tags) > 0) {
+            $tags = explode(',', $tags);
+            $tags = array_unique($tags);
 
-        foreach ($tags as $tag) {
-            $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
-            $newTag->save();
+            foreach ($tags as $tag) {
+                $newTag = new Tag(['name' => $tag, 'house_id' => $houseId]);
+                $newTag->save();
+            }
         }
     }
 

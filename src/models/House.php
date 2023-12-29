@@ -94,12 +94,29 @@ class House extends BaseModel
         return trim($string, ',');
     }
 
-    public function toggleStatus(): void
+    /**
+     * Toggle the status of a house
+     *
+     * If $newStatus is given this value will be set as status:
+     * - value 1 disables the house
+     * - value 0 enables the house
+     *
+     * @param int|null $newStatus
+     * @return void
+     */
+    public function toggleStatus(int $newStatus = null): void
     {
-//        get old status and invert
-        $newStatus = (int)!$this->getIsDisabled();
+        if ($newStatus === null) {
+            // get old status and invert
+            $newStatus = (int)!$this->getIsDisabled();
+            // or sanitize input
+        } elseif ($newStatus > 1) {
+            $newStatus = 1;
+        } elseif ($newStatus < 0) {
+            $newStatus = 0;
+        }
+        // write to db
         $query = "update houses set is_disabled = {$newStatus}  where id = {$this->getId()}";
-//        write to db
         $this->connection()->query($query);
     }
 
@@ -312,7 +329,8 @@ class House extends BaseModel
             // reset related features
             $this->resetRelatedFeatures();
 
-            // todo : delete related tags
+            // delete related tags
+            $this->deleteRelatedTags();
 
             // delete house itself
             $this->delete(model: 'House', id: $this->id);
@@ -404,6 +422,17 @@ class House extends BaseModel
             $newDays[] = $dateEnd->format('Y-m-d');
         }
         return empty(array_intersect($newDays, $oldBookedDays));
+    }
+
+    /**
+     * Delete all tags that are related to this house
+     *
+     * @return void
+     */
+    public function deleteRelatedTags() : void
+    {
+        $query = "DELETE FROM tags WHERE house_id={$this->id};";
+        $this->connection()->query($query);
     }
 
 
