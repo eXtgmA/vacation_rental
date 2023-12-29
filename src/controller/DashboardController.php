@@ -29,6 +29,7 @@ class DashboardController extends BaseController
                 $tmp['name'] = $house->getName();
                 $tmp['city'] = $house->getCity();
                 $tmp['price'] = $house->getPrice();
+                $tmp['id'] = $house->getId();
                 $tmp['image'] = "/images/".$house->getFrontImage();
                 $suggestedHouses[] = $tmp;
             }
