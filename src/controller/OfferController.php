@@ -534,11 +534,7 @@ and
      */
     public function getFilter()
     {
-        if(!isset($_SESSION['filter'])){
-            $filter = [];
-        }else{
-            $filter = $_SESSION['filter'];
-        }
+            $_SESSION['filter'] ?? [];
         // because we aren't using the regular form we have to manually pick end encode our data
         echo json_encode(['filter'=>$filter,'message' => 'Daten erfolgreich erhalten und verarbeitet.']);
     }
