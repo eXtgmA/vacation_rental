@@ -53,7 +53,7 @@ class OfferController extends BaseController
      */
     public function postCreate(): void
     {
-//        add owner to attributes
+        $this->sanitize($_POST);
         $houseInput = $_POST['base-data'];
         $houseInput['owner_id'] = $_SESSION['user'];
 //        create house with values
@@ -213,6 +213,7 @@ class OfferController extends BaseController
      */
     public function postEdit($houseId): void
     {
+        $this->sanitize($_POST);
         $house=$this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
 
@@ -534,6 +535,7 @@ and
      */
     public function postStoreFilter():void
     {
+        $this->sanitize($_POST);
         // because we aren't using the regular form we have to manually pick end encode our data
         $rawData = file_get_contents("php://input");
         if ($rawData != false) {
