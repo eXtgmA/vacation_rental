@@ -13,7 +13,7 @@
         "image date-start date-end"
         "image price city"
         "image persons street"
-        "image square-meter edit"
+        "image square-meter delete"
         "total-price room-count delete";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto 4em 4em 4em 4em 4em;
@@ -95,21 +95,6 @@
     grid-area: room-count;
 }
 
-#cart-entry-grid > .item-edit {
-    grid-area: edit;
-    display: flex;
-    justify-content: center;
-    align-content: center;
-
-    & button {
-        width: 50%;
-        min-width: 140px;
-        height: 3em;
-        margin: auto;
-    }
-
-}
-
 #cart-entry-grid > .item-delete {
     grid-area: delete;
     display: flex;
@@ -170,13 +155,6 @@
     #cart-entry-grid {
         grid-template-rows: auto 3em 3em 3em 3em 3em;
 
-        & .item-edit {
-            grid-area: edit;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
-
         & button {
             width: 50%;
             height: 2em !important;
@@ -190,13 +168,6 @@
     #cart-entry-grid {
         width: 90%;
         grid-template-rows: auto 3em 3em 3em 3em 3em;
-
-        & .item-edit {
-            grid-area: edit;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-        }
 
         & button {
             width: 140px !important;
@@ -217,7 +188,7 @@
         "persons street"
         "square-meter room-count"
         "total-price total-price "
-        "edit delete";
+        "delete delete";
 
         & > .item-image {
             margin-bottom: auto;
