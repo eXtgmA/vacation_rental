@@ -347,6 +347,11 @@ class OfferController extends BaseController
      */
     public function getFind($param)
     {
+        // get-url parameter have to be decoded
+        array_walk_recursive($param, function (&$item) {
+            $item = urldecode($item);
+        });
+
         //prepare search parameter
         /** @var string $destination */
         $destination = $param['destination'] ?? '';
