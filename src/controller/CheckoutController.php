@@ -72,7 +72,7 @@ class CheckoutController extends BaseController
     {
         $this->sanitize($_POST);
         $this->forceParam($bookingId, 'booking');
-        // todo : check if the booking is owned by the current user userallowed
+        $this->isUserAllowedHere($bookingId, 'booking', '/checkout');
 
         try {
             // confirm booking and save timestamp

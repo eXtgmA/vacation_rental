@@ -105,5 +105,15 @@ class BaseController
                 redirect($back, 302);
             }
         }
+
+//        if it is a booking
+        if (strtolower($class) == 'booking') {
+            $booking = $this->find('\src\models\Booking', 'id', $id, 1);
+            if ($booking->getUserId() != $user->getId()) {
+                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
+                redirect($back, 302);
+                die();
+            }
+        }
     }
 }
