@@ -356,9 +356,11 @@ class OfferController extends BaseController
     public function getFind($param)
     {
         // get-url parameter have to be decoded
-        array_walk_recursive($param, function (&$item) {
-            $item = urldecode($item);
-        });
+        if($param!=null) {
+            array_walk_recursive($param, function (&$item) {
+                $item = urldecode($item);
+            });
+        }
         // prepare search parameter and save them into session if they exist
             // (data source: 1. dashboard or 2. session or 3. default )
         /** @var string $destination */
