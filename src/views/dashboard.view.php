@@ -2,6 +2,7 @@
 $header = __DIR__ . "/partials/header.view.php";
 $title = "Ferienhausvermietung";
 $site = "dashboard";
+$demoHouses = $param ?? [];
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/dashboard.css"/>
@@ -42,30 +43,16 @@ include_once($header);
             <h4>Entdecke auch mal was Neues</h4>
         </div>
         <div id="suggestion-cards">
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus1.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">Berlin</span>
-                    <span class="card-price">750 € / Nacht</span>
+            <?php for ($i=0; $i < 3; $i++) { ?>
+                <div class="suggestion-card">
+                    <img class="card-image" src="<?php echo $demoHouses[$i]['image'] ?? ''; ?>" alt="">
+                    <div class="card-content">
+                        <span class="card-location"><?php echo $demoHouses[$i]['city'] ?? ''; ?></span>
+                        <span class="card-price"><?php echo $demoHouses[$i]['price'] ?? ''; ?> € / Nacht</span>
+                    </div>
+                    <span class="card-name"><?php echo $demoHouses[$i]['name'] ?? ''; ?></span>
                 </div>
-                <span class="card-name">Haus auf grüner Wiese</span>
-            </div>
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus2.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">München</span>
-                    <span class="card-price">100 € / Nacht</span>
-                </div>
-                <span class="card-name">Wohnung am Hang</span>
-            </div>
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus3.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">Hamburg</span>
-                    <span class="card-price">50 € / Nacht</span>
-                </div>
-                <span class="card-name">Holzhaus umgeben von Baumaterial und vielem mehr</span>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </div>
