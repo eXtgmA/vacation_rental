@@ -38,6 +38,7 @@ class OptionController extends BaseController
      */
     public function postCreate(int $houseId) : void
     {
+        $this->sanitize($_POST);
         $this->forceParam($houseId, 'house');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
 
@@ -109,6 +110,7 @@ class OptionController extends BaseController
 
     public function postEdit(int $optionId = null): void
     {
+        $this->sanitize($_POST);
         $this->forceParam($optionId, 'option');
         $this->isUserAllowedHere($optionId, 'option', '/offer');
 
@@ -132,7 +134,6 @@ class OptionController extends BaseController
     public function postDelete(int $optionId = null): void
     {
         //todo userallowed
-
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');
         // todo check if rest is needed, maybe more params to function

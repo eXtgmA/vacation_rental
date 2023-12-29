@@ -17,6 +17,7 @@ class RegisterController extends BaseController
     }
     public function postform(): void
     {
+        $this->sanitize($_POST);
         $input = $_REQUEST;
         $user=new User($input);
         $_SESSION['old_POST'] = $_POST;
