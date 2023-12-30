@@ -44,7 +44,7 @@ include_once($header);
         </div>
         <div id="suggestion-cards">
             <?php for ($i=0; $i < 3; $i++) { ?>
-                <div class="suggestion-card" onclick="openDetail(<?php print $demoHouses[$i]['id'] ?>)">
+                <div class="suggestion-card" onclick="openLink('<?php print 'offer/detail/'.(string)$demoHouses[$i]['id'] ?>')">
                     <img class="card-image" src="<?php echo $demoHouses[$i]['image'] ?? ''; ?>" alt="">
                     <div class="card-content">
                         <span class="card-location"><?php echo $demoHouses[$i]['city'] ?? ''; ?></span>
@@ -68,7 +68,4 @@ include_once($footer)
         dateStartElement.dispatchEvent(new Event('change'));
     }
 
-    function openDetail(id){
-        window.location.href='/offer/detail/'+id
-    }
 </script>
