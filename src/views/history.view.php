@@ -10,7 +10,7 @@ include_once($header);
     <link rel="stylesheet" href="/styles/history.css"/>
     <div class="headline">
         <h1>Buchungsverlauf</h1>
-        <button class="btn btn-secondary" type="button" onclick="openLink('/profile')" style="margin-right: 20px">Zurück</button>
+        <button class="btn btn-secondary" type="button" onclick="openLink('/profile')" style="margin-right: 20px">Zurück zur Profilseite</button>
     </div>
 <?php if (!empty($bookings) && !empty($bpos) && !empty($houses)) { ?>
     <?php foreach ($bookings as $booking) {
@@ -128,7 +128,10 @@ include_once($header);
         </div>
     <?php } ?>
 <?php } else { ?>
-    <h3>Sie haben noch nichts gebucht. Suchen Sie jetzt nach dem Ferienhaus Ihrer Träume! => <a href='/dashboard'>Zur Suche</a></h3>
+<div class="no-bookings">
+    <h3>Sie haben bisher noch keine Buchungen getätigt. Suchen Sie jetzt nach dem Ferienhaus Ihrer Träume! <i class="fa-solid fa-plane-departure"></i></h3>
+    <button class="btn-secondary" type="button" onclick="openLink('/dashboard')">Zur Suche</button>
+</div>
 <?php } ?>
 <!--Ende HTML Inhalt-->
 <?php
