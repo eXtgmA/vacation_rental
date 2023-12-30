@@ -30,8 +30,8 @@ class CartController extends BaseController
                 // recalculate positions
                 if ($param['bookingpositions']!=false) {
                     $this-> recalculate($param['bookingpositions']);
+                    $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
                 }
-                $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
 
                 // if no positions found show empty cart
                 if ($param["bookingpositions"] == false) {

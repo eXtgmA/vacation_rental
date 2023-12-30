@@ -28,15 +28,17 @@ class CheckoutController extends BaseController
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
+
                 if ($param['bookingpositions']!=false) {
                     $this-> recalculate($param['bookingpositions']);
+                    $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
                 }
-                $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
 
                 // if no positions found show empty cart
                 if ($param["bookingpositions"] == false) {
                     new ViewController('cart');
                     die();
+                } else {
                 }
 
                 // get all houses related to all bookingpositions
