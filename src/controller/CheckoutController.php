@@ -3,6 +3,7 @@
 namespace src\controller;
 
 use src\models\Booking;
+use src\models\Bookingposition;
 
 class CheckoutController extends BaseController
 {
@@ -27,7 +28,9 @@ class CheckoutController extends BaseController
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
-                $this-> recalculate($param['bookingpositions']);
+                if($param['bookingpositions']!=false){
+                    $this-> recalculate($param['bookingpositions']);
+                }
                 $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
 
                 // if no positions found show empty cart
@@ -87,26 +90,34 @@ class CheckoutController extends BaseController
         }
         new ViewController('checkoutSuccess');
     }
-    private function recalculate($bookingpostitions)
-    {
-        foreach ($bookingpostitions as $position) { // check each house in cart
 
-            $priceList = (json_decode($position->getPriceDetailList(), true)); // get db pricelist
+    /**
+     * @param array<Bookingposition>$bookingpostitions
+     * @return void
+     * @throws \Exception
+     */
+    private function recalculate($bookingpostitions):void
+    {
+        foreach ($bookingpostitions as $position){ // check each house in cart
+
+            $priceList=(json_decode($position->getPriceDetailList(),true)); // get db pricelist
             $house = $this->find('\src\models\House', 'id', $position->getHouseId(), 1); // fetch house
             $newPricePerNight = $house->getPrice(); // get present price per night
             $houseOptions = $house->getAllOptions(); // fetch all options
-            $nightCount = $priceList['night_count']; // get db value for Night count
+            $nightCount = $priceList['night_count']; // get db value for Night count //@phpstan-ignore-line
             $recalculatedOptions = []; // check every option for a new price / disabled / deleted // todo delete disabled
             $alloptionsPrice = 0; // get sum of all options in one position
-            foreach ($priceList['options'] as $optionName => $optionPrice) {
-                foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
+            $options = $priceList['options']; //@phpstan-ignore-line
+            /** @var array<int> $options */
+            foreach ($options as $optionName=> $optionPrice){
+                foreach ($houseOptions as $houseOption){  // compare every booked option with available options // todo change to ID
                     // if an option is deleted it wont be find and so be removed from new pricelist
 
                     // skip disabled so they wont be part of result
-                    if (!$houseOption->isDisabled()) {
+                    if(!$houseOption->isDisabled()){
 
                         // todo when someone renames an option we cant find it here anymore
-                        if ($houseOption->getName() == $optionName) {
+                        if($houseOption->getName()==$optionName){
                             $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
                             $alloptionsPrice += $recalculatedOptions[$optionName];
                             break; // stop inner loop on first hit
@@ -123,7 +134,8 @@ class CheckoutController extends BaseController
             $newList['total_price'] = $alloptionsPrice + ($nightCount * $newPricePerNight);
             // recalculate totalprice
             $updateValues['price_detail_list'] = json_encode($newList);
-            $position->update($updateValues);
+            $position->update($updateValues); //@phpstan-ignore-line
         }
+
     }
 }
