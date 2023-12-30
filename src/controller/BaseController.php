@@ -83,26 +83,36 @@ class BaseController
      */
     public function isUserAllowedHere($id, $class, $back):void
     {
-
-
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         $item = $this->find("\src\models\\$class", 'id', $id, 1);
 //      if it is a house, direct comparison is possible
         if (strtolower($class) == 'house') {
             if ($item->getOwnerId() != $user->getId()) {
+                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
                 redirect($back, 302);
                 die();
             }
         }
 
-//        if it is a option, check through house
+//        if it is an option, check through house
         if (strtolower($class) == 'option') {
             $houseId = ($item->getHouseId());
 
             $house = $this->find('\src\models\House', 'id', $houseId, 1);
             if ($house->getOwnerId() != $user->getId()) {
-                var_dump('noch das');
+                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
                 redirect($back, 302);
+                die();
+            }
+        }
+
+//        if it is a booking
+        if (strtolower($class) == 'booking') {
+            $booking = $this->find('\src\models\Booking', 'id', $id, 1);
+            if ($booking->getUserId() != $user->getId()) {
+                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
+                redirect($back, 302);
+                die();
             }
         }
     }

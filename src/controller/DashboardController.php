@@ -16,8 +16,8 @@ class DashboardController extends BaseController
         if (isset($_SESSION['search-data'])) {
             unset($_SESSION['search-data']);
         }
+        // reset session filter data
         $_SESSION['filter'] = ['tags'=>[], 'features'=>[]];
-        // todo : reset filter data
 
         // pick 3 random offers to display on the dashboard
         /** @var array<string> $suggestedHouses */
