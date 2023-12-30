@@ -48,6 +48,7 @@ class ProfileController extends BaseController
             // fetch all bookings from db
             /** @var array<Booking> $bookings */
             $bookings = $this->find('\src\models\Booking', 'user_id', $_SESSION['user']);
+            $bookings = array_reverse($bookings);
 
             // prepare output data
             $param['bookings'] = [];
