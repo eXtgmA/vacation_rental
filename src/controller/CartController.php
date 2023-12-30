@@ -88,7 +88,7 @@ class CartController extends BaseController
             $newPricePerNight = $house->getPrice(); // get present price per night
             $houseOptions = $house->getAllOptions(); // fetch all options
             $nightCount = $priceList['night_count']; // get db value for Night count //@phpstan-ignore-line
-            $recalculatedOptions = []; // check every option for a new price / disabled / deleted // todo delete disabled
+            $recalculatedOptions = []; // check every option for a new price / disabled / deleted
             $alloptionsPrice = 0; // get sum of all options in one position
             $options = $priceList['options']; //@phpstan-ignore-line
             /** @var array<int> $options */
