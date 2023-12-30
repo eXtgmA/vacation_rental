@@ -87,7 +87,7 @@ include_once($header);
                         </div>
                     <?php } else { ?>
                         <!-- if no options are provided -->
-                        <div class="item-options <?php echo !empty($pdl) ? '' : 'hide' ?>">
+                        <div class="item-options">
                             <h3>Optionen</h3>
                             <div class="option">
                                 <span class="option-key">keine ausgewählt</span>
@@ -104,19 +104,23 @@ include_once($header);
                     <div class="item-nights">
                         <div class="nights">
                             <span class="nights-key">Anzahl der Nächte:</span>
-                            <span class="nights-value"><?php echo $pdl['night_count'] //@phpstan-ignore-line ?>x</span>
+                            <span class="nights-value"><?php echo $pdl['night_count'] ?? 'unknown '; //@phpstan-ignore-line ?>x</span>
                         </div>
                         <div class="nights">
                             <span class="nights-key">Nächte * Preis/Nacht</span>
-                            <span class="nights-value"><?php echo ($pdl['night_count']*$pdl['price_per_night']) //@phpstan-ignore-line ?>€</span>
+                            <span class="nights-value"><?php if(isset($pdl['night_count'],$pdl['price_per_night'])) {
+                                    echo($pdl['night_count'] * $pdl['price_per_night']);
+                                } else {
+                                echo 'unknown ';
+                                } //@phpstan-ignore-line ?>€</span>
                         </div>
                         <hr/>
                     </div>
                     <div class="item-price">
                         <div class="price">
                             <span class="price-label">Preis:</span>
-                            <span class="price-value"><?php echo $pdl["total_price"]; //@phpstan-ignore-line
-                                $priceSum += $pdl['total_price']; //@phpstan-ignore-line ?>€</span>
+                            <span class="price-value"><?php echo $pdl["total_price"] ?? 'unknown '; //@phpstan-ignore-line
+                                $priceSum += $pdl['total_price'] ?? 0; //@phpstan-ignore-line ?>€</span>
                         </div>
                     </div>
                 </div>
