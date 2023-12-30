@@ -44,7 +44,7 @@ include_once($header);
         </div>
         <div id="suggestion-cards">
             <?php for ($i=0; $i < 3; $i++) { ?>
-                <div class="suggestion-card">
+                <div class="suggestion-card" onclick="openLink('<?php print 'offer/detail/'.(string)$demoHouses[$i]['id'] ?>')">
                     <img class="card-image" src="<?php echo $demoHouses[$i]['image'] ?? ''; ?>" alt="">
                     <div class="card-content">
                         <span class="card-location"><?php echo $demoHouses[$i]['city'] ?? ''; ?></span>
@@ -67,4 +67,5 @@ include_once($footer)
         document.getElementById('from-date-input-field').valueAsDate = new Date();
         dateStartElement.dispatchEvent(new Event('change'));
     }
+
 </script>
