@@ -27,6 +27,9 @@ class CartController extends BaseController
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
+                // recalculate positions
+                $this-> recalculate($param['bookingpositions']);
+                $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
 
                 // if no positions found show empty cart
                 if ($param["bookingpositions"] == false) {
@@ -68,5 +71,46 @@ class CartController extends BaseController
             die();
         }
         new ViewController('cart', $param);
+    }
+
+    private function recalculate($bookingpostitions)
+    {
+        foreach ($bookingpostitions as $position){ // check each house in cart
+
+            $priceList=(json_decode($position->getPriceDetailList(),true)); // get db pricelist
+            $house = $this->find('\src\models\House', 'id', $position->getHouseId(), 1); // fetch house
+            $newPricePerNight = $house->getPrice(); // get present price per night
+            $houseOptions = $house->getAllOptions(); // fetch all options
+            $nightCount = $priceList['night_count']; // get db value for Night count
+            $recalculatedOptions = []; // check every option for a new price / disabled / deleted // todo delete disabled
+            $alloptionsPrice = 0; // get sum of all options in one position
+            foreach ($priceList['options'] as $optionName=>$optionPrice){
+                foreach ($houseOptions as $houseOption){  // compare every booked option with available options // todo change to ID
+                    // if an option is deleted it wont be find and so be removed from new pricelist
+
+                    // skip disabled so they wont be part of result
+                    if(!$houseOption->isDisabled()){
+
+                    // todo when someone renames an option we cant find it here anymore
+                    if($houseOption->getName()==$optionName){
+                        $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
+                        $alloptionsPrice += $recalculatedOptions[$optionName];
+                        break; // stop inner loop on first hit
+                    }
+                    }
+
+                }
+
+            }
+            $newList = [];
+            $newList['options'] = $recalculatedOptions;
+            $newList['price_per_night'] = $newPricePerNight;
+            $newList['night_count'] = $nightCount;
+            $newList['total_price'] = $alloptionsPrice + ($nightCount * $newPricePerNight);
+            // recalculate totalprice
+            $updateValues['price_detail_list'] = json_encode($newList);
+            $position->update($updateValues);
+        }
+
     }
 }
