@@ -28,7 +28,7 @@ class CheckoutController extends BaseController
             if ($booking != null) {
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
-                if($param['bookingpositions']!=false){
+                if ($param['bookingpositions']!=false) {
                     $this-> recalculate($param['bookingpositions']);
                 }
                 $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
@@ -98,9 +98,8 @@ class CheckoutController extends BaseController
      */
     private function recalculate($bookingpostitions):void
     {
-        foreach ($bookingpostitions as $position){ // check each house in cart
-
-            $priceList=(json_decode($position->getPriceDetailList(),true)); // get db pricelist
+        foreach ($bookingpostitions as $position) { // check each house in cart
+            $priceList=(json_decode($position->getPriceDetailList(), true)); // get db pricelist
             $house = $this->find('\src\models\House', 'id', $position->getHouseId(), 1); // fetch house
             $newPricePerNight = $house->getPrice(); // get present price per night
             $houseOptions = $house->getAllOptions(); // fetch all options
@@ -109,23 +108,20 @@ class CheckoutController extends BaseController
             $alloptionsPrice = 0; // get sum of all options in one position
             $options = $priceList['options']; //@phpstan-ignore-line
             /** @var array<int> $options */
-            foreach ($options as $optionName=> $optionPrice){
-                foreach ($houseOptions as $houseOption){  // compare every booked option with available options // todo change to ID
+            foreach ($options as $optionName => $optionPrice) {
+                foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
                     // if an option is deleted it wont be find and so be removed from new pricelist
 
                     // skip disabled so they wont be part of result
-                    if(!$houseOption->isDisabled()){
-
+                    if (!$houseOption->isDisabled()) {
                         // todo when someone renames an option we cant find it here anymore
-                        if($houseOption->getName()==$optionName){
+                        if ($houseOption->getName()==$optionName) {
                             $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
                             $alloptionsPrice += $recalculatedOptions[$optionName];
                             break; // stop inner loop on first hit
                         }
                     }
-
                 }
-
             }
             $newList = [];
             $newList['options'] = $recalculatedOptions;
@@ -136,6 +132,5 @@ class CheckoutController extends BaseController
             $updateValues['price_detail_list'] = json_encode($newList);
             $position->update($updateValues); //@phpstan-ignore-line
         }
-
     }
 }
