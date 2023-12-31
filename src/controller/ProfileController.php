@@ -22,7 +22,7 @@ class ProfileController extends BaseController
 
     public function postUpdate() : void
     {
-
+        $this->sanitize($_POST);
         /** @var User $user */
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         $user->enteredValidEmail($_POST['email'], "/profile");
@@ -48,6 +48,7 @@ class ProfileController extends BaseController
             // fetch all bookings from db
             /** @var array<Booking> $bookings */
             $bookings = $this->find('\src\models\Booking', 'user_id', $_SESSION['user']);
+            $bookings = array_reverse($bookings);
 
             // prepare output data
             $param['bookings'] = [];

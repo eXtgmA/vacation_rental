@@ -12,6 +12,10 @@ class Bookingposition extends BaseModel
     private int $booking_id;
     /** @var string[] */
     public static array $allowedAttributes = ['date_start', 'date_end', 'price_detail_list', 'house_id', 'booking_id'];
+    /**
+     * @var array|string[]
+     */
+    public static array $updateableAttributes = ['date_start', 'date_end', 'price_detail_list', 'house_id', 'booking_id'];
 
     public static string $table = 'bookingpositions';
 

@@ -19,18 +19,6 @@ class BookingController extends BaseController
     {
     }
 
-//    /**
-//     * Display one booking specified by given id
-//     *
-//     * @param int $bookingId
-//     * @return void
-//     */
-//    public function getBooking(int $bookingId) : void
-//    {
-//        $booking = new Booking();
-//        new ViewController('bookingDetail', $booking); // todo : specify filename
-//    }
-
     public function getCreateBookingposition(int $houseId = null): void
     {
         $house=$this->forceParam($houseId, 'House');

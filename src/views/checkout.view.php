@@ -22,7 +22,7 @@ if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
     </div>
 <?php foreach ($bpos as $key => $p) { ?>
     <?php $house = $houses[$p->getHouseId()] ?>
-    <div class="" id="cart-entry-grid">
+    <div class="cart-entry-grid">
         <div class="item-headline">
             <h2><?php echo $house->getName() ?></h2>
         </div>

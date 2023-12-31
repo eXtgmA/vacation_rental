@@ -53,6 +53,7 @@ class OfferController extends BaseController
      */
     public function postCreate(): void
     {
+        $this->sanitize($_POST);
 //        add owner to attributes
         $houseInput = $_POST['base-data'];
         $houseInput['owner_id'] = $_SESSION['user'];
@@ -213,6 +214,7 @@ class OfferController extends BaseController
      */
     public function postEdit($houseId): void
     {
+        $this->sanitize($_POST);
         $house=$this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
 
@@ -247,8 +249,6 @@ class OfferController extends BaseController
      */
     private function updateImages(House $house, array $postedFiles) : void
     {
-        // todo userallowed
-
         try {
             // update front image
             if ($postedFiles['front-image-input']['name'] != '') {
@@ -312,8 +312,6 @@ class OfferController extends BaseController
      */
     private function updateFeatures(House $house, array $postedFeatures) : void
     {
-        // todo userallowed
-
         $houseFeatures = $house->getAllFeatures();
         foreach ($postedFeatures as $category) {
             foreach ($category as $featureName) {
@@ -353,6 +351,12 @@ class OfferController extends BaseController
      */
     public function getFind($param)
     {
+        // get-url parameter have to be decoded
+        if ($param!=null) {
+            array_walk_recursive($param, function (&$item) {
+                $item = urldecode($item);
+            });
+        }
         // prepare search parameter and save them into session if they exist
             // (data source: 1. dashboard or 2. session or 3. default )
         /** @var string $destination */
@@ -362,7 +366,7 @@ class OfferController extends BaseController
         /** @var string $dateEnd */
         $dateEnd = $_SESSION['search-data']['dateEnd'] = $param['dateEnd'] ?? $_SESSION['search-data']['dateEnd'] ?? '';
         /** @var string $persons */
-        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 0);
+        $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 2);
 
         // prepare query
         $query = "
@@ -430,8 +434,6 @@ and
      */
     private function updateTags(int $houseId, string $postedTags): void
     {
-        // todo userallowed
-
 //      getting old tags
         $oldTags = $this->find('\src\models\Tag', 'house_id', $houseId);
 //       extract only the name
@@ -476,8 +478,6 @@ and
      */
     private function storeTags(string $postedTags, int $houseId) : void
     {
-        // todo userallowed
-
         $tags = $postedTags;
         // only add tags if there is at least one tag provided
         if (strlen($tags) > 0) {
@@ -534,6 +534,7 @@ and
      */
     public function postStoreFilter():void
     {
+        $this->sanitize($_POST);
         // because we aren't using the regular form we have to manually pick end encode our data
         $rawData = file_get_contents("php://input");
         if ($rawData != false) {
@@ -557,7 +558,6 @@ and
     public function getFilter()
     {
         // because we aren't using the regular form we have to manually pick end encode our data
-        $filter = $_SESSION['filter'];
-        echo json_encode(['filter'=>$filter,'message' => 'Daten erfolgreich erhalten und verarbeitet.']);
+        echo json_encode(['filter'=> $_SESSION['filter'] ?? [],'message' => 'Daten erfolgreich erhalten und verarbeitet.']);
     }
 }

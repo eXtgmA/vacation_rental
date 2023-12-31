@@ -69,8 +69,10 @@ include_once($header);
             </div>
             <div id="description-area">
                 <label class="label" for="description">Beschreibung*</label>
-                <textarea class="input-field" name="base-data[description]" id="description" cols="30" required
-                          rows="10"><?php echo $_SESSION['old_POST']['base-data']['description'] ?? ""; ?></textarea>
+                <div class="description-input">
+                    <textarea class="input-field" name="base-data[description]" id="description" cols="30" required
+                              rows="10"><?php echo $_SESSION['old_POST']['base-data']['description'] ?? ""; ?></textarea>
+                </div>
             </div>
         </div>
 

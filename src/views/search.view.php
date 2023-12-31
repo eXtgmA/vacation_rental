@@ -39,7 +39,7 @@ include_once($header);
                 <label id="person-amount-label" for="person-amount-input-field"
                        style="display: block; text-align: left">Personen</label>
                 <input id="person-amount-input-field" placeholder="Zahl eintragen" class="input-field" name="persons" type="number"
-                       value="<?php echo $_SESSION['search-data']['persons'] ?? '0'; ?>">
+                       value="<?php echo $_SESSION['search-data']['persons'] ?? 2; ?>">
             </div>
             <div class="submit">
                 <button class="btn-secondary" id="search-btn">Ferienhaus suchen</button>

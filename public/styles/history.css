@@ -1,9 +1,62 @@
 .headline {
-    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 85%;
     margin: 0 auto;
 
     font-weight: bold;
     font-size: 2rem;
+}
+
+.booking-entry {
+    /*border: solid green;*/
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    width: 85%;
+    margin: 4% auto;
+}
+
+.booking-entry > .booking-headline {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: auto;
+    font-size: 1.4rem
+}
+
+.booking-entry > .positions {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    height: auto;
+    font-weight: bold;
+    font-size: 1.4rem;
+}
+
+.booking-entry > .price-sum {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin: 0 auto;
+    width: 85%;
+
+    & .price-sum-label {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-right: 1em;
+        font-weight: bold;
+        font-size: 1.7rem;
+    }
+
+    & .price-sum-value {
+        font-weight: bold;
+        font-size: 2rem;
+    }
 }
 
 .cart-entry-grid {
@@ -23,7 +76,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    width: 80%;
+    width: 85%;
     margin: 2% auto;
 }
 
@@ -164,7 +217,7 @@
 
         & .price-value {
             font-weight: bold;
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
     }
 }
@@ -227,6 +280,11 @@
         height: 3em;
         margin-left: 1em;
     }
+}
+
+.no-bookings {
+    width: 85%;
+    margin: 0 auto;
 }
 
 /* Large 992px - 1200px*/

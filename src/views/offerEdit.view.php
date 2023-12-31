@@ -78,8 +78,10 @@ if ($result) {
                 <input class="input-field" type="number" name="base-data[price]" id="price" min="1" value="<?php echo $house->getPrice(); ?>" required>
             </div>
             <div id="description-area">
-                <label class="label" for="description">Beschreibung*</label>
-                <textarea class="input-field" name="base-data[description]" id="description" cols="30" required rows="10"><?php echo $house->getDescription(); ?></textarea>
+                <div class="description-input">
+                    <label class="label" for="description">Beschreibung*</label>
+                    <textarea class="input-field" name="base-data[description]" id="description" cols="30" required rows="10"><?php echo $house->getDescription(); ?></textarea>
+                </div>
             </div>
         </div>
 
