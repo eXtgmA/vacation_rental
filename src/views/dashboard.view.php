@@ -2,6 +2,7 @@
 $header = __DIR__ . "/partials/header.view.php";
 $title = "Ferienhausvermietung";
 $site = "dashboard";
+$demoHouses = $param ?? [];
 include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/dashboard.css"/>
@@ -30,7 +31,7 @@ include_once($header);
                 </div>
                 <div id="person-amount-search" class="search-input">
                     <label id="person-amount-label" for="person-amount-input-field">Personen</label>
-                    <input id="person-amount-input-field" class="input-field" name="persons" type="number">
+                    <input id="person-amount-input-field" class="input-field" name="persons" type="number" value="2">
                 </div>
             </div>
             <div id="search-button">
@@ -43,30 +44,16 @@ include_once($header);
             <h4>Entdecke auch mal was Neues</h4>
         </div>
         <div id="suggestion-cards">
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus1.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">Berlin</span>
-                    <span class="card-price">750 € / Nacht</span>
+            <?php for ($i=0; $i < 3; $i++) { ?>
+                <div class="suggestion-card" onclick="openLink('<?php print 'offer/detail/'.(string)$demoHouses[$i]['id'] ?>')">
+                    <img class="card-image" src="<?php echo $demoHouses[$i]['image'] ?? ''; ?>" alt="">
+                    <div class="card-content">
+                        <span class="card-location"><?php echo $demoHouses[$i]['city'] ?? ''; ?></span>
+                        <span class="card-price"><?php echo $demoHouses[$i]['price'] ?? ''; ?> € / Nacht</span>
+                    </div>
+                    <span class="card-name"><?php echo $demoHouses[$i]['name'] ?? ''; ?></span>
                 </div>
-                <span class="card-name">Haus auf grüner Wiese</span>
-            </div>
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus2.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">München</span>
-                    <span class="card-price">100 € / Nacht</span>
-                </div>
-                <span class="card-name">Wohnung am Hang</span>
-            </div>
-            <div class="suggestion-card">
-                <img class="card-image" src="/assets/haus3.jpg" alt="">
-                <div class="card-content">
-                    <span class="card-location">Hamburg</span>
-                    <span class="card-price">50 € / Nacht</span>
-                </div>
-                <span class="card-name">Holzhaus umgeben von Baumaterial und vielem mehr</span>
-            </div>
+            <?php } ?>
         </div>
     </div>
 </div>
@@ -81,4 +68,5 @@ include_once($footer)
         document.getElementById('from-date-input-field').valueAsDate = new Date();
         dateStartElement.dispatchEvent(new Event('change'));
     }
+
 </script>

@@ -82,10 +82,6 @@
         grid-area: description;
     }
 
-    & > #description-area > .description-input {
-        padding: 10px;
-    }
-
     & > #description-area > .description-input > textarea {
         width: 100%;
         height: 100%;

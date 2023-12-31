@@ -24,6 +24,7 @@ class LoginController extends BaseController
 
     public function postLogin(): void
     {
+        $this->sanitize($_POST);
         $email = $_REQUEST['email'];
         $password = $_REQUEST['password'];
         $user = $this->find('\src\models\User', 'email', $email, 1);
