@@ -8,7 +8,8 @@ include_once($header);
 <link rel="stylesheet" href="/styles/dashboard.css"/>
 <div id="dashboard">
     <div id="search-area">
-        <video autoplay muted playsinline id="background-video" poster="/assets/backyard.png">
+        <video playsinline muted autoplay id="background-video" poster="/assets/backyard.png">
+            <source src="/assets/backyard.webm" type="video/webm">
             <source src="/assets/backyard.mp4" type="video/mp4">
         </video>
         <div id="title">
