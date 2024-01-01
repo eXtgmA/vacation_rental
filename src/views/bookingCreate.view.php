@@ -11,8 +11,10 @@ include_once($header);
 
 <img id="title-image" src="/images/<?php print $house->getFrontImage(); ?>" style="" alt="alt">
 
-<button class="btn-secondary" type="button" onclick="openLink('<?php echo "/offer/detail/".$house->getId(); ?>')">Zurück</button> <!-- todo : make me pretty (Marvin) -->
-<h1 class="title"><?php print $house->getName(); ?> buchen</h1>
+<div class="headline">
+    <h1 class="title"><?php print $house->getName(); ?> buchen</h1>
+    <button class="btn-secondary" type="button" onclick="openLink('<?php echo "/offer/detail/" . $house->getId(); ?>')">Zurück</button>
+</div>
 
 <form action="/booking/create/" method="post" id="booking-form">
 
