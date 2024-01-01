@@ -52,4 +52,7 @@ unset($_SESSION["old_POST"]);
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
-<script src="/scripts/option-create.js"></script>
+<script>
+    imageUuid = null;
+</script>
+<script src="/scripts/option-create.js" type="module"></script>

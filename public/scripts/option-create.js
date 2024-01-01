@@ -1,3 +1,5 @@
+import {uploadFile} from "./file-upload.js";
+
 let dropArea = document.getElementById("image-drop-area");
 let selectElement = document.getElementById("option-image-input");
 let container = document.getElementById("option-image");
@@ -26,48 +28,14 @@ function unhighlight(e) {
     dropArea.addEventListener(eventName, unhighlight, false)
 })
 
-dropArea.addEventListener("drop", handleDrop, false);
-selectElement.addEventListener("change", handleDialog, false);
+dropArea.addEventListener('drop', (e) => uploadFile(([...e.dataTransfer.files])[0], container, dropArea, selectElement), false);
+selectElement.addEventListener("change", (e) => uploadFile(([...e.target.files])[0], container, dropArea, selectElement), false);
 
-function handleDrop(e) {
-    let dt = e.dataTransfer;
-    let files = dt.files;
-    handleFiles(files);
-}
 
-function handleDialog(e) {
-    let files = e.target.files // Get the selected files
-    handleFiles(files)
-}
-
-function handleFiles(files) {
-    // just take the first file
-    uploadFile(([...files])[0]);
-}
-
-/**
- *
- * @param file
- */
-function uploadFile(file) {
-    let url = URL.createObjectURL(file)
-    let preview = document.createElement("img");
-    preview.src = url;
-
-    // add the image to the input field
-    selectElement.src = url;
-
-    // add the image for the preview
-    let closeButton = document.createElement("div")
-    closeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>' // Use Font Awesome icon
-    closeButton.classList.add("delete-btn");
-    closeButton.addEventListener("click", function () {
-        preview.remove();
-        closeButton.remove();
-        dropArea.classList.remove('hidden');
-        selectElement.src = null;
-    });
-    container.appendChild(preview);
-    container.appendChild(closeButton);
-    dropArea.classList.add("hidden");
+// preload the image
+if (imageUuid) {
+    fetch(imageUuid)
+        .then(response => response.blob())
+        .then(blob => uploadFile(new File([blob], "<?php echo $option->getOptionImage() ?>", {type: "image"}), container, dropArea, selectElement))
+        .catch(error => console.error(error));
 }

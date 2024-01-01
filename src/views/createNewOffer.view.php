@@ -158,9 +158,10 @@ include_once($header);
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
-
-<script src="/scripts/offer-create.js"></script>
-
 <script>
-    prefillTags("<?php echo $oldTagsSelected ?>");
+    const frontImageUuid = null;
+    const layoutImageUuid = null;
+    const optionalImagesUuids = null;
+    const houseTags = null;
 </script>
+<script src="/scripts/offer-create.js" type="module"></script>
