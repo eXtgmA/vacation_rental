@@ -1,4 +1,5 @@
 <?php
+
 namespace src\controller;
 
 use \src\models\Booking;
@@ -16,10 +17,10 @@ class CartController extends BaseController
         try {
             // get the one and only booking where "is_confirmed" equals false belonging to current user
             $query = "select * from bookings where user_id = {$_SESSION['user']} and is_confirmed = 0 limit 1";
-            $sql=$this->connection()->query($query);
+            $sql = $this->connection()->query($query);
             $booking = null; // fallback initializing
             if ($sql instanceof \mysqli_result) {
-                $booking= $sql->fetch_object('\src\models\Booking');
+                $booking = $sql->fetch_object('\src\models\Booking');
             }
             $param['booking'] = $booking;
 
@@ -28,8 +29,8 @@ class CartController extends BaseController
                 // get all bookingpositions related to this booking
                 $param["bookingpositions"] = $booking->getAllBookingpositions();
                 // recalculate positions
-                if ($param['bookingpositions']!=false) {
-                    $this-> recalculate($param['bookingpositions']);
+                if ($param['bookingpositions'] != false) {
+                    $this->recalculate($param['bookingpositions']);
                     $param["bookingpositions"] = $booking->getAllBookingpositions(); // fetch again fresh from db
                 }
 
@@ -80,10 +81,10 @@ class CartController extends BaseController
      * @return void
      * @throws \Exception
      */
-    private function recalculate($bookingpostitions):void
+    private function recalculate($bookingpostitions): void
     {
         foreach ($bookingpostitions as $position) { // check each house in cart
-            $priceList=(json_decode($position->getPriceDetailList(), true)); // get db pricelist
+            $priceList = (json_decode($position->getPriceDetailList(), true)); // get db pricelist
             $house = $this->find('\src\models\House', 'id', $position->getHouseId(), 1); // fetch house
             $newPricePerNight = $house->getPrice(); // get present price per night
             $houseOptions = $house->getAllOptions(); // fetch all options
@@ -91,18 +92,20 @@ class CartController extends BaseController
             $recalculatedOptions = []; // check every option for a new price / disabled / deleted
             $alloptionsPrice = 0; // get sum of all options in one position
             $options = $priceList['options']; //@phpstan-ignore-line
-            /** @var array<int> $options */
-            foreach ($options as $optionName => $optionPrice) {
-                foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
-                    // if an option is deleted it wont be find and so be removed from new pricelist
+            if ($options != null) {
+                /** @var array<int> $options */
+                foreach ($options as $optionName => $optionPrice) {
+                    foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
+                        // if an option is deleted it wont be find and so be removed from new pricelist
 
-                    // skip disabled so they wont be part of result
-                    if (!$houseOption->isDisabled()) {
-                    // todo when someone renames an option we cant find it here anymore
-                        if ($houseOption->getName()==$optionName) {
-                            $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
-                            $alloptionsPrice += $recalculatedOptions[$optionName];
-                            break; // stop inner loop on first hit
+                        // skip disabled so they wont be part of result
+                        if (!$houseOption->isDisabled()) {
+                            // todo when someone renames an option we cant find it here anymore
+                            if ($houseOption->getName() == $optionName) {
+                                $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
+                                $alloptionsPrice += $recalculatedOptions[$optionName];
+                                break; // stop inner loop on first hit
+                            }
                         }
                     }
                 }
