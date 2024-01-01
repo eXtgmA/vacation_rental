@@ -14,6 +14,10 @@ export function uploadFile(file, parentElement, dropArea, selectElement) {
     // add the image to the input field
     selectElement.src = url;
 
+    let dataTransfer = new DataTransfer();
+    dataTransfer.items.add(file);
+    selectElement.files = dataTransfer.files;
+
     // add the image for the preview
     let closeButton = document.createElement("div");
     closeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
@@ -30,4 +34,3 @@ export function uploadFile(file, parentElement, dropArea, selectElement) {
     parentElement.appendChild(closeButton);
     dropArea.classList.add("hidden");
 }
-

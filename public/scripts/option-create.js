@@ -34,8 +34,8 @@ selectElement.addEventListener("change", (e) => uploadFile(([...e.target.files])
 
 // preload the image
 if (imageUuid) {
-    fetch(imageUuid)
+    fetch("/images/" + imageUuid)
         .then(response => response.blob())
-        .then(blob => uploadFile(new File([blob], "<?php echo $option->getOptionImage() ?>", {type: "image"}), container, dropArea, selectElement))
+        .then(blob => uploadFile(new File([blob], imageUuid, {type: "image"}), container, dropArea, selectElement))
         .catch(error => console.error(error));
 }
