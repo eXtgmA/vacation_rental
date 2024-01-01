@@ -52,6 +52,6 @@ $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
 <script>
-    const imageUuid = "<?php echo "/images/" . $option->getOptionImage(); ?>";
+    const imageUuid = "<?php echo $option->getOptionImage(); ?>";
 </script>
 <script src="/scripts/option-create.js" type="module"></script>
