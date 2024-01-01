@@ -43,7 +43,7 @@ class OfferController extends BaseController
     {
         // get all existing features
         $param['features'] = $this->prepareFeatures();
-        new ViewController('createNewOffer', $param);
+        new ViewController('offerCreate', $param);
     }
 
     /**

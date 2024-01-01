@@ -25,7 +25,7 @@ class OptionController extends BaseController
     {
         $this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'house', 'offer');
-        new ViewController("OptionCreate", $houseId);
+        new ViewController("optionCreate", $houseId);
     }
 
     /**
