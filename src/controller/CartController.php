@@ -91,7 +91,7 @@ class CartController extends BaseController
             $recalculatedOptions = []; // check every option for a new price / disabled / deleted
             $alloptionsPrice = 0; // get sum of all options in one position
             $options = $priceList['options']; //@phpstan-ignore-line
-            /** @var array<int> $options */
+            /** @var array<int>|null $options */
             foreach ($options as $optionName => $optionPrice) {
                 foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
                     // if an option is deleted it wont be find and so be removed from new pricelist
