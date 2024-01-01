@@ -13,14 +13,20 @@ class ProfileController extends BaseController
         parent::__construct();
     }
 
-    public function getEdit() : void
+    public function getEdit(): void
     {
-        $id = $_SESSION['user'];
+        // Fallback  when user is not logged in
+
+        if (isset($_SESSION['user'])) {
+            $id = $_SESSION['user'];
+        } else {
+            $id = 0;
+        }
         $user = $this->find('\src\models\User', 'id', $id, 1);
         new ViewController('profile', $user);
     }
 
-    public function postUpdate() : void
+    public function postUpdate(): void
     {
         $this->sanitize($_POST);
         /** @var User $user */
@@ -31,7 +37,7 @@ class ProfileController extends BaseController
         if ($_POST['password']) {
             $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
         } else {
-            $_POST['password'] =$user->getPassword();
+            $_POST['password'] = $user->getPassword();
         }
         $user->update($_POST);
 
@@ -40,7 +46,7 @@ class ProfileController extends BaseController
         redirect("/profile", 302);
     }
 
-    public function getHistory() : void
+    public function getHistory(): void
     {
         $this->redirectIfNotLoggedIn();
 
