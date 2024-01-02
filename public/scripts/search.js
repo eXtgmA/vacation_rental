@@ -199,9 +199,10 @@ function filterResults() {
         })
         if (isFound == true) {  // if house has all searched features, go on and compare tags
             let tagstring = house.querySelector('.tags').innerHTML // every house has ',' separated string
+            tagstring = tagstring.toLowerCase(); // change to lowercase to search case insensitive
             // of options features and tags (tag search should check all of these)
             for (j = 0; j < tagArray.length; j++) {  // check for every set tag word
-                if (!tagstring.includes(tagArray[j])) {
+                if (!tagstring.includes(tagArray[j].toLowerCase())) {
                     isFound = false // break on first missing of tag, cause the house doesnt fit in the filter
                     break;
                 }
