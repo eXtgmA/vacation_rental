@@ -361,12 +361,14 @@ class OfferController extends BaseController
             // (data source: 1. dashboard or 2. session or 3. default )
         /** @var string $destination */
         $destination = $_SESSION['search-data']['destination'] = $param['destination'] ?? $_SESSION['search-data']['destination'] ?? '';
+        $destination = strtolower($destination);
         /** @var string $dateStart */
         $dateStart = $_SESSION['search-data']['dateStart'] = $param['dateStart'] ?? $_SESSION['search-data']['dateStart'] ?? '';
         /** @var string $dateEnd */
         $dateEnd = $_SESSION['search-data']['dateEnd'] = $param['dateEnd'] ?? $_SESSION['search-data']['dateEnd'] ?? '';
         /** @var string $persons */
         $persons = $_SESSION['search-data']['persons'] = (int)($param['persons'] ?? $_SESSION['search-data']['persons'] ?? 2);
+
 
         // prepare query
         $query = "
@@ -391,7 +393,7 @@ WHERE h.id NOT IN (
     )
 )
 and
-    city like '%{$destination}%'
+   lower(city) like '%{$destination}%'
 and
     is_disabled = 0
 ";
