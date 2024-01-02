@@ -161,7 +161,9 @@ include_once($footer)
 <script>
     const frontImageUuid = "<?php echo isset($images['front']) ? "/images/" . $images['front']->getUuid() : ""; ?>";
     const layoutImageUuid = "<?php echo isset($images['layout']) ? "/images/" . $images['layout']->getUuid() : ""; ?>";
-    const optionalImagesUuids = <?php echo isset($images['optional']) ? json_encode(array_map(function ($image) { return "/images/" . $image->getUuid(); }, $images['optional'])) : "[]"; ?>;
+    const optionalImagesUuids = <?php echo isset($images['optional']) ? json_encode(array_map(function ($image) {
+    return "/images/" . $image->getUuid();
+                                }, $images['optional'])) : "[]"; ?>;
     const houseTags = <?php echo json_encode($house->getTags()); ?>;
 </script>
 <script src="/scripts/offer-create.js" type="module"></script>
