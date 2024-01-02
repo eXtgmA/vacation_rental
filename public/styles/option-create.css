@@ -81,6 +81,12 @@
     margin-top: 10px;
 }
 
+#option-description-input {
+    width: 100%;
+    height: 100%;
+    resize: none;
+}
+
 .button-area {
     display: flex;
     justify-content: space-between;
