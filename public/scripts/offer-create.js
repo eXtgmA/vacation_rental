@@ -1,3 +1,5 @@
+import {uploadFile} from "./file-upload.js";
+
 let selectedOptionalImages = [];
 
 // initialize all elements
@@ -100,40 +102,6 @@ function updateOptionalImageInputField(files) {
     } else {
         optionalImageDropArea.classList.remove("hidden");
     }
-}
-
-/**
- * Add the primary image to the form
- * This method is used for the front and layout image
- *
- * @param file
- * @param parentElement
- * @param dropArea
- * @param selectElement
- */
-function addPrimaryImage(file, parentElement, dropArea, selectElement) {
-    let url = file.type ? URL.createObjectURL(file) : file;
-    let preview = document.createElement("img");
-    preview.src = url;
-
-    // add the image to the input field
-    selectElement.src = url;
-
-    // add the image for the preview
-    let closeButton = document.createElement("div");
-    closeButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
-    closeButton.classList.add("delete-btn");
-    closeButton.addEventListener("click", function () {
-        preview.remove();
-        closeButton.remove();
-        dropArea.classList.remove("hidden");
-        selectElement.src = null;
-    });
-
-    // add image and button to parentElement
-    parentElement.appendChild(preview);
-    parentElement.appendChild(closeButton);
-    dropArea.classList.add("hidden");
 }
 
 /**
@@ -268,10 +236,10 @@ tagInput.addEventListener("input", () => {
     }
 });
 
-frontImageDropArea.addEventListener('drop', (e) => addPrimaryImage(([...e.dataTransfer.files])[0], frontImageContainer, frontImageDropArea, frontImageSelectElement), false);
-frontImageSelectElement.addEventListener("change", (e) => addPrimaryImage(([...e.target.files])[0], frontImageContainer, frontImageDropArea, frontImageSelectElement), false);
-layoutImageDropArea.addEventListener("drop", (e) => addPrimaryImage(([...e.dataTransfer.files])[0], layoutImageContainer, layoutImageDropArea, layoutImageSelectElement), false);
-layoutImageSelectElement.addEventListener("change", (e) => addPrimaryImage(([...e.target.files])[0], layoutImageContainer, layoutImageDropArea, layoutImageSelectElement), false);
+frontImageDropArea.addEventListener('drop', (e) => uploadFile(([...e.dataTransfer.files])[0], frontImageContainer, frontImageDropArea, frontImageSelectElement), false);
+frontImageSelectElement.addEventListener("change", (e) => uploadFile(([...e.target.files])[0], frontImageContainer, frontImageDropArea, frontImageSelectElement), false);
+layoutImageDropArea.addEventListener("drop", (e) => uploadFile(([...e.dataTransfer.files])[0], layoutImageContainer, layoutImageDropArea, layoutImageSelectElement), false);
+layoutImageSelectElement.addEventListener("change", (e) => uploadFile(([...e.target.files])[0], layoutImageContainer, layoutImageDropArea, layoutImageSelectElement), false);
 
 // Handle the drop event of the optional image drop area
 optionalImageDropArea.addEventListener("drop", function (e) {
@@ -286,15 +254,37 @@ optionalImageDropArea.addEventListener("drop", function (e) {
 optionalImageSelectElement.addEventListener("change", (e) => addOptionalImage(e.target.files), false);
 
 
-/**
- * Add all given tags to the tags card
- *
- * @param tags
- */
-function prefillTags(tags) {
-    const tagsArray = tags.split(",");
-    const count = tagsArray.length;
-    for (var i=0; i<count; i++) {
-        addTag(String(tagsArray[i]));
-    }
+// preload the frontImage
+if (frontImageUuid) {
+    fetch(frontImageUuid)
+        .then(response => response.blob())
+        .then(blob => uploadFile(new File([blob], "<?php echo $house->getFrontimage() ?>", {type: "image"}), frontImageContainer, frontImageDropArea, frontImageSelectElement))
+        .catch(error => console.error(error));
+}
+
+// preload the layoutImage
+if (layoutImageUuid) {
+    fetch(layoutImageUuid)
+        .then(response => response.blob())
+        .then(blob => uploadFile(new File([blob], "<?php echo $house->getLayoutImage() ?>", {type: "image"}), layoutImageContainer, layoutImageDropArea, layoutImageSelectElement))
+        .catch(error => console.error(error));
+}
+
+// preload the optional images
+// Fetch all optional images associated with the house
+if (optionalImagesUuids?.length > 0) {
+    Promise.all(optionalImagesUuids.map(image =>
+        fetch(image)
+            .then(response => response.blob())
+            .then(blob => new File([blob], image, {type: "image"}))
+            .catch(error => console.error(error))
+    )).then(files => addOptionalImage(files)).catch(error => console.error(error));
+}
+
+// preload the tags
+// Add all given tags to the tags card
+if (houseTags) {
+    houseTags.forEach(tag => {
+        addTag(tag);
+    });
 }

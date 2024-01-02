@@ -14,7 +14,7 @@ include_once($header);
         <div class="card ">
             <div id="option-image">
                 <div id="image-drop-area">
-                    <p style="margin: 10px">Bild in den markierten Bereich ziehen oder </p><!--         todo : drag'n'drop is not working! (Marvin) -->
+                    <p style="margin: 10px">Bild in den markierten Bereich ziehen oder </p>
                     <input type="file" id="option-image-input" accept="image/*" name="optionimage">
                     <label for="option-image-input" id="select-image-label">Bild auswählen</label>
                 </div>
@@ -52,4 +52,7 @@ unset($_SESSION["old_POST"]);
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
-<script src="/scripts/option-create.js"></script>
+<script>
+    const imageUuid = null;
+</script>
+<script src="/scripts/option-create.js" type="module"></script>

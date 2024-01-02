@@ -6,8 +6,8 @@ $_SESSION['previous'] = '/offer';
 $houses = $param['houses'] ?? [];
 include_once($header);
 ?>
-    <link rel="stylesheet" href="/styles/offer.css"/>
-    <script src="/scripts/calendar-widget.js"></script>
+<link rel="stylesheet" href="/styles/offer.css"/>
+<script src="/scripts/calendar-widget.js"></script>
 
 <div class="page-header">
     <h1 style="">Eigene Häuser verwalten</h1>

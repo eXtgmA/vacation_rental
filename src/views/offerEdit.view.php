@@ -158,40 +158,12 @@ if ($result) {
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
-<script src="/scripts/offer-create.js"></script>
-
 <script>
-    // preload the frontImage
-    <?php if (isset($images['front'])) { ?>
-    fetch("<?php echo "/images/" . $images['front']->getUuid() ?>")
-        .then(response => response.blob())
-        .then(blob => addPrimaryImage(new File([blob], "<?php echo $house->getFrontimage() ?>", {type: "image"}), frontImageContainer, frontImageDropArea, frontImageSelectElement))
-        .catch(error => console.error(error));
-    <?php } ?>
-
-    // preload the layoutImage
-    <?php if (isset($images['layout'])) { ?>
-    fetch("<?php echo "/images/" . $images['layout']->getUuid() ?>")
-        .then(response => response.blob())
-        .then(blob => addPrimaryImage(new File([blob], "<?php echo $house->getLayoutImage() ?>", {type: "image"}), layoutImageContainer, layoutImageDropArea, layoutImageSelectElement))
-        .catch(error => console.error(error));
-    <?php } ?>
-
-    // preload the optional images
-    // Fetch all optional images associated with the house
-    <?php if (isset($images['optional'])) { ?>
-    Promise.all(<?php echo json_encode(array_map(function ($image) {
-        return $image->getUuid();
-                }, $images['optional'])) ?>?.map(image =>
-        fetch("/images/" + image)
-            .then(response => response.blob())
-            .then(blob => new File([blob], image, {type: "image"}))
-            .catch(error => console.error(error))
-    )).then(files => addOptionalImage(files)).catch(error => console.error(error));
-    <?php } ?>
-
-    // preload the tags
-    (<?php echo json_encode($house->getTags()); ?>)?.forEach(tag => {
-        addTag(tag);
-    });
+    const frontImageUuid = "<?php echo isset($images['front']) ? "/images/" . $images['front']->getUuid() : ""; ?>";
+    const layoutImageUuid = "<?php echo isset($images['layout']) ? "/images/" . $images['layout']->getUuid() : ""; ?>";
+    const optionalImagesUuids = <?php echo isset($images['optional']) ? json_encode(array_map(function ($image) {
+    return "/images/" . $image->getUuid();
+                                }, $images['optional'])) : "[]"; ?>;
+    const houseTags = <?php echo json_encode($house->getTags()); ?>;
 </script>
+<script src="/scripts/offer-create.js" type="module"></script>

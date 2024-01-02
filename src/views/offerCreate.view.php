@@ -84,10 +84,8 @@ include_once($header);
                 <div id="front-image" class="image-upload-area image-container">
                     <div id="front-image-drop-area" class="image-upload-drop-area">
                         <p class="image-upload-hint">Bild in den markierten Bereich ziehen oder </p>
-                        <input type="file" class="image-upload-input" id="front-image-input-field"
-                               accept="image/*" name="front-image-input">
-                        <label class="image-upload-label" for="front-image-input-field"
-                               id="front-image-label" tabindex="0">Bild auswählen</label>
+                        <input type="file" class="image-upload-input" id="front-image-input-field" accept="image/*" name="front-image-input">
+                        <label class="image-upload-label" for="front-image-input-field" id="front-image-label" tabindex="0">Bild auswählen</label>
                     </div>
                 </div>
             </div>
@@ -158,9 +156,10 @@ include_once($header);
 $footer = __DIR__ . "/partials/footer.view.php";
 include_once($footer)
 ?>
-
-<script src="/scripts/offer-create.js"></script>
-
 <script>
-    prefillTags("<?php echo $oldTagsSelected ?>");
+    const frontImageUuid = null;
+    const layoutImageUuid = null;
+    const optionalImagesUuids = null;
+    const houseTags = null;
 </script>
+<script src="/scripts/offer-create.js" type="module"></script>
