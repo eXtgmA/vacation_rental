@@ -11,22 +11,22 @@ include_once($header);
     <form action="/register" method="post" oninput="showButton()">
         <label id="register-forname-input-label" class="label" for="register-forname-input-field">Vorname</label>
         <input id="register-forname-input-field" class="input-field" type="text" name="forename"
-               value='<?php prefill("forename"); ?>'>
+               value='<?php prefill("forename"); ?>' required autofocus>
         <label id="register-surname-input-label" class="label" for="register-surname-input-field">Nachname</label>
         <input id="register-surname-input-field" class="input-field" type="text" name="surname"
-               value='<?php prefill("surname"); ?>'>
+               value='<?php prefill("surname"); ?>' required>
         <label id="register-password-input-label" class="label" for="register-password-input-field">Passwort</label>
         <input id="register-password-input-field" class="input-field" type="password" name="password"
-               value='<?php prefill("password"); ?>' oninput="showPasswordRepeat()">
+               value='<?php prefill("password"); ?>' oninput="showPasswordRepeat()" required>
         <div id="repeat-password" style="display:none">
             <label id="register-password-repeat-input-label" class="label" for="register-password-repeat-input-field">Passwort
                 bestätigen</label>
             <input id="register-password-repeat-input-field" class="input-field" type="password" name="password_confirm"
-                   value='<?php prefill("password_confirm"); ?>' oninput="checkEqual()">
+                   value='<?php prefill("password_confirm"); ?>' oninput="checkEqual()" required>
         </div>
         <label id="register-email-input-label" class="label" for="register-email-input-field">E-Mail</label>
         <input id="register-email-input-field" class="input-field" type="text" name="email"
-               value='<?php prefill("email"); ?>'>
+               value='<?php prefill("email"); ?>' required>
         <br/>
         <button id="sendButton" class="btn-secondary" type="submit" title="Stimmen beide Passwörter überein?" disabled>Registrieren</button>
         <span id="to-login">Du hast schon einen Account?<br/><a href="/login"><i class="fa-solid fa-angles-right fa-xs"></i> einloggen</a>
