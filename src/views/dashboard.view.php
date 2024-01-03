@@ -41,7 +41,7 @@ include_once($header);
     </div>
     <div id="suggestions">
         <div id="suggestion-title">
-            <h4>Entdecke auch mal was Neues</h4>
+            <h4>Entdecke mal was Neues</h4>
         </div>
         <div id="suggestion-cards">
             <?php for ($i=0; $i < 3; $i++) { ?>
