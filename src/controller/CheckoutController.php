@@ -108,7 +108,7 @@ class CheckoutController extends BaseController
             $nightCount = $priceList['night_count']; // get db value for Night count //@phpstan-ignore-line
             $recalculatedOptions = []; // check every option for a new price / disabled / deleted // todo delete disabled
             $alloptionsPrice = 0; // get sum of all options in one position
-            $options = $priceList['options']; //@phpstan-ignore-line
+            $options = $priceList['options'] ?? null; //@phpstan-ignore-line
             if ($options != null) {
                 /** @var array<int> $options */
                 foreach ($options as $optionName => $optionPrice) {
