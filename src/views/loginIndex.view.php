@@ -19,7 +19,7 @@ include_once($header);
         <input id="login-password-input-field" class="input-field" type="password" name="password" required>
         <br/>
         <button class="btn-secondary" type="submit">Login</button>
-        <span id="register-account">Noch keinen Account?<br/><a href="/register">neuen Anlegen</a>
+        <span id="register-account">Noch keinen Account?<br/><a href="/register"><i class="fa-solid fa-angles-right fa-beat fa-xs"></i> neuen Anlegen</a>
         </span>
     </form>
 </div>
