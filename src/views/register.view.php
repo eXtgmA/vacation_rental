@@ -29,6 +29,8 @@ include_once($header);
                value='<?php prefill("email"); ?>'>
         <br/>
         <button id="sendButton" class="btn-secondary" type="submit" disabled>Registrieren</button>
+        <span id="to-login">Du hast schon einen Account?<br/><a href="/login"><i class="fa-solid fa-angles-right fa-xs"></i> einloggen</a>
+        </span>
     </form>
 </div>
 <script>
