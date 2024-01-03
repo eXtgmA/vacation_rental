@@ -62,7 +62,7 @@ class BookingController extends BaseController
 
         // prevent to book on top of already booked days
         if (!$house->isTimeFrameAvailable($_POST['date_start'], $_POST['date_end'])) {
-            $_SESSION['message'] = "Ausgebucht! Bitte wählen Sie ein anderes Zeitfenster.";
+            $_SESSION['message'] = "Ausgebucht! Bitte wähle ein anderes Zeitfenster.";
             redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
             die();
         }
@@ -84,7 +84,7 @@ class BookingController extends BaseController
             } else {
                 // prevent user from booking the same house in the same time frame multiple times
                 if (!$booking->isTimeFrameAvailableInCart($_POST['date_start'], $_POST['date_end'], $house->getId())) {
-                    $_SESSION['message'] = "Sie haben bereits eine Buchung für diesen Zeitraum im Warenkorb.";
+                    $_SESSION['message'] = "Du hast bereits eine Buchung für diesen Zeitraum im Warenkorb.";
                     redirect('/booking/create/'.$_POST['house_id'], 302, $_POST);
                     die();
                 }
