@@ -128,6 +128,7 @@
                     transform: scale(1.05);
                     z-index: 999;
                     background-color: white;
+                    cursor: pointer;
                 }
 
                 & > .card-image {
