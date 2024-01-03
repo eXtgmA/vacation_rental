@@ -17,8 +17,10 @@ class RegisterController extends BaseController
     }
     public function postform(): void
     {
+        $password = $_POST['password'];
         $this->sanitize($_POST);
-        $input = $_REQUEST;
+        $input = $_POST;
+        $input['password'] = $password;
         $user=new User($input);
         $_SESSION['old_POST'] = $_POST;
 
@@ -27,7 +29,7 @@ class RegisterController extends BaseController
             redirect("/register", 302);
             die();
         }
-        if ($_POST['password']==null) {
+        if ($password==null) {
             $_SESSION['message'] = "Passwort ist ein Pflichtfeld";
             redirect("/register", 302);
             die();

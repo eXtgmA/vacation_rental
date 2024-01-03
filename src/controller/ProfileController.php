@@ -28,14 +28,15 @@ class ProfileController extends BaseController
 
     public function postUpdate(): void
     {
+        $password = $_POST['password'];
         $this->sanitize($_POST);
         /** @var User $user */
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         $user->enteredValidEmail($_POST['email'], "/profile");
         $user->sendUniqueEmail($_POST['email']);
 
-        if ($_POST['password']) {
-            $_POST['password'] = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        if ($password) {
+            $_POST['password'] = password_hash($password, PASSWORD_DEFAULT);
         } else {
             $_POST['password'] = $user->getPassword();
         }
