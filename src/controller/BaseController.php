@@ -88,7 +88,7 @@ class BaseController
 //      if it is a house, direct comparison is possible
         if (strtolower($class) == 'house') {
             if ($item->getOwnerId() != $user->getId()) {
-                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
+                $_SESSION['message'] = "Du bist nicht berechtigt diese Aktion auszuführen";
                 redirect($back, 302);
                 die();
             }
@@ -100,7 +100,7 @@ class BaseController
 
             $house = $this->find('\src\models\House', 'id', $houseId, 1);
             if ($house->getOwnerId() != $user->getId()) {
-                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
+                $_SESSION['message'] = "Du bist nicht berechtigt diese Aktion auszuführen";
                 redirect($back, 302);
                 die();
             }
@@ -110,7 +110,7 @@ class BaseController
         if (strtolower($class) == 'booking') {
             $booking = $this->find('\src\models\Booking', 'id', $id, 1);
             if ($booking->getUserId() != $user->getId()) {
-                $_SESSION['message'] = "Sie sind nicht berechtigt diese Aktion auszuführen";
+                $_SESSION['message'] = "Du bist nicht berechtigt diese Aktion auszuführen";
                 redirect($back, 302);
                 die();
             }

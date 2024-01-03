@@ -133,7 +133,7 @@ include_once($header);
     <?php } ?>
 <?php } else { ?>
 <div class="no-bookings">
-    <h3>Sie haben bisher noch keine Buchungen getätigt. Suchen Sie jetzt nach dem Ferienhaus Ihrer Träume! <i class="fa-solid fa-plane-departure"></i></h3>
+    <h3>Du hast bisher noch keine Buchungen getätigt. Suche jetzt nach dem Ferienhaus deiner Träume! <i class="fa-solid fa-plane-departure"></i></h3>
     <button class="btn-secondary" type="button" onclick="openLink('/dashboard')">Zur Suche</button>
 </div>
 <?php } ?>

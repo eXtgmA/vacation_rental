@@ -70,7 +70,7 @@ trait ValidationTrait
             return;
         } catch (Exception $e) { //@phpstan-ignore-line  Error is thrown in seperate message
             $previousPage = $_SESSION['previous'];
-            $_SESSION['message'] = "Hier ist etwas schiefgelaufen. Überprüfen Sie bitte nochmal die eingegebenen Daten.";
+            $_SESSION['message'] = "Hier ist etwas schiefgelaufen. Überprüfe bitte nochmal die eingegebenen Daten.";
             redirect($previousPage, 302, $input);
         }
     }
