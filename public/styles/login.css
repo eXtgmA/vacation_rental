@@ -4,7 +4,7 @@
     flex-direction: column;
 }
 
-.card #register-account {
+.card #register-account, #to-login {
     text-align: center;
     margin-top: 20px;
     font-style: italic;

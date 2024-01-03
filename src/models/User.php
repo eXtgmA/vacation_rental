@@ -141,7 +141,7 @@ class User extends BaseModel
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
             return;
         }
-        $_SESSION['message'] = 'E-Mail-Adresse ist falsch geschrieben';
+        $_SESSION['message'] = 'E-Mail-Adresse ist ungültig';
         redirect($redirect, 302, $_POST);
         die();
     }

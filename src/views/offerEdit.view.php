@@ -42,7 +42,7 @@ if ($result) {
         <div id="detail-grid">
             <div id="name-area">
                 <label class="label" for="name">Name der Anlage*</label>
-                <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php echo $house->getName(); ?>" required autofocus>
+                <input class="input-field" type="text" name="base-data[name]" id="name" value="<?php echo $house->getName(); ?>" required>
             </div>
             <div id="city-area">
                 <label class="label" for="city">Ort*</label>
