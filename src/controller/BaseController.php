@@ -17,10 +17,16 @@ class BaseController
     {
     }
 
+    /**
+     * Redirect to login page if user is not already logged in
+     *
+     * @return void
+     */
     protected function redirectIfNotLoggedIn(): void
     {
         if (!isset($_SESSION['user'])) {
-            redirect('/dashboard', 302);
+            $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
+            redirect('/login', 302);
             die();
         }
     }
