@@ -83,8 +83,8 @@ class BaseController
      */
     public function isUserAllowedHere($id, $class, $back):void
     {
-        if(!isset($_SESSION['user'])){
-            redirect('/login',302);
+        if (!isset($_SESSION['user'])) {
+            redirect('/login', 302);
             die();
         }
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);

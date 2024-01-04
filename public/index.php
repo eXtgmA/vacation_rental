@@ -82,7 +82,7 @@ function executeRoute(string $controller, string $action, array $routes, string 
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
     if ($routeIsValid) {
         // if user is not logged in => allow him to visit all public pages (checked in prag_match)
-        if(!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impressum|(offer/(find|(detail/\d*))))?$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '')){
+        if (!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impressum|(offer/(find|(detail/\d*))))?$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '')) {
             $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
             new ViewController('loginIndex');
         }
