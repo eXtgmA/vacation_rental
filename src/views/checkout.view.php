@@ -10,11 +10,9 @@ include_once($header);
 
 // auto redirect if there is nothing in the cart
 if (!(isset($booking) && !empty($bpos) && !empty($houses))) {
-    $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
-    redirect('/dashboard', 302);
+    redirect('/cart', 302);
     die();
 }
-
 ?>
     <link rel="stylesheet" href="/styles/checkout.css"/>
     <div class="headline">
