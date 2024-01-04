@@ -30,10 +30,16 @@ class BaseController
             die();
         }
     }
+
+    /**
+     * Redirect to profile page if user is already logged in
+     *
+     * @return void
+     */
     protected function redirectIfLoggedIn(): void
     {
         if (isset($_SESSION['user'])) {
-            redirect('/dashboard', 302);
+            redirect('/profile', 302);
             die();
         }
     }
