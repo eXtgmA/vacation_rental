@@ -15,12 +15,9 @@ class BookingController extends BaseController
         parent::__construct();
     }
 
-    public function getIndex(int $userId, mixed $formdata = null): void
-    {
-    }
-
     public function getCreateBookingposition(int $houseId = null): void
     {
+        $this->redirectIfNotLoggedIn();
         $house=$this->forceParam($houseId, 'House');
 
         // redirect if house is disabled

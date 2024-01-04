@@ -15,14 +15,8 @@ class ProfileController extends BaseController
 
     public function getEdit(): void
     {
-        // Fallback  when user is not logged in
-
-        if (isset($_SESSION['user'])) {
-            $id = $_SESSION['user'];
-        } else {
-            $id = 0;
-        }
-        $user = $this->find('\src\models\User', 'id', $id, 1);
+        $this->redirectIfNotLoggedIn();
+        $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         new ViewController('profile', $user);
     }
 
