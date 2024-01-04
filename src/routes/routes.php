@@ -17,12 +17,6 @@
 
 return [
 
-// Home as landingpage
-    'home' => [
-        'GET' => [
-            '' => 'index'
-        ]
-    ],
 // Login when already registered
     'login' =>
         ['GET' => [
@@ -42,7 +36,7 @@ return [
             '' => 'index'],
         ],
     'logout' =>
-        [
+        ['GET' => [],
             'POST' => [
                 '' => 'logout']
         ],
@@ -71,7 +65,9 @@ return [
         ],
     'impressum' =>
         ['GET' => [
-            '' => 'index']
+            '' => 'index'
+        ],
+          'POST' => []
         ],
     'option' =>
         ['GET' => [
@@ -96,7 +92,9 @@ return [
         ],
     'cart' =>
         ['GET' => [
-            '' => 'cart']
+            '' => 'cart'
+        ],
+          'POST' => []
         ],
     'checkout' =>
         ['GET' => [
