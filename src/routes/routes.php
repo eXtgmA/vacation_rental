@@ -36,7 +36,7 @@ return [
             '' => 'index'],
         ],
     'logout' =>
-        [
+        ['GET' => [],
             'POST' => [
                 '' => 'logout']
         ],
@@ -65,7 +65,9 @@ return [
         ],
     'impressum' =>
         ['GET' => [
-            '' => 'index']
+            '' => 'index'
+        ],
+          'POST' => []
         ],
     'option' =>
         ['GET' => [
@@ -90,7 +92,9 @@ return [
         ],
     'cart' =>
         ['GET' => [
-            '' => 'cart']
+            '' => 'cart'
+        ],
+          'POST' => []
         ],
     'checkout' =>
         ['GET' => [
