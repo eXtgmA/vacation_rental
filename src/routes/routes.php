@@ -17,12 +17,6 @@
 
 return [
 
-// Home as landingpage
-    'home' => [
-        'GET' => [
-            '' => 'index'
-        ]
-    ],
 // Login when already registered
     'login' =>
         ['GET' => [
