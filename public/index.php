@@ -81,6 +81,11 @@ function executeRoute(string $controller, string $action, array $routes, string 
     // Trying to get the routes endpoint if the route is completely defined in the routesfile
     $routeIsValid = isValidRoute($controller, $action, $routes, $requestedMethod);
     if ($routeIsValid) {
+        if(!isset($_SESSION['user']) && !preg_match('#^/(login|register|dashboard|impressum|(offer/(find|(detail/\d*))))?$#', parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH) ?: '')){
+            $_SESSION['redirect_back'] = $_SERVER['REQUEST_URI'];
+            new ViewController('loginIndex'); // redirect if no route is defined
+            die();
+        }
         // fetch internal functionname
         $controllerFunction = strtolower($requestedMethod) . $routes[$controller][$requestedMethod][$action];
         // prepare Controller namespace for calling the Class
