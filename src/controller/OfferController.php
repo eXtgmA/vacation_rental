@@ -24,6 +24,7 @@ class OfferController extends BaseController
      */
     public function getIndex(): void
     {
+        $this->redirectIfNotLoggedIn();
         // get all houses
         $houses = $this->getAllHousesBelongingToTheCurrentUser();
         $param['houses'] = $houses ?? [];
@@ -41,6 +42,7 @@ class OfferController extends BaseController
      */
     public function getCreate(): void
     {
+        $this->redirectIfNotLoggedIn();
         // get all existing features
         $param['features'] = $this->prepareFeatures();
         new ViewController('offerCreate', $param);
@@ -192,6 +194,7 @@ class OfferController extends BaseController
      */
     public function getEdit($houseId = null): void
     {
+        $this->redirectIfNotLoggedIn();
         $param['house']=$this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'House', '/offer');
         // get all existing features

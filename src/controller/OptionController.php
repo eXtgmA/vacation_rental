@@ -23,6 +23,7 @@ class OptionController extends BaseController
      */
     public function getCreate(int $houseId = null) : void
     {
+        $this->redirectIfNotLoggedIn();
         $this->forceParam($houseId, 'House');
         $this->isUserAllowedHere($houseId, 'house', 'offer');
         new ViewController("optionCreate", $houseId);
@@ -77,6 +78,7 @@ class OptionController extends BaseController
      */
     public function getShowall(int $houseId = null) : void
     {
+        $this->redirectIfNotLoggedIn();
         $house = $this->forceParam($houseId, 'house');
         $this->isUserAllowedHere($houseId, 'house', '/offer');
 
@@ -96,6 +98,7 @@ class OptionController extends BaseController
      */
     public function getEdit(int $optionId = null): void
     {
+        $this->redirectIfNotLoggedIn();
         $this->forceParam($optionId, 'option');
         $this->isUserAllowedHere($optionId, 'option', '/offer');
         if (!$optionId) {
