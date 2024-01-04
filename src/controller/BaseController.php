@@ -83,6 +83,10 @@ class BaseController
      */
     public function isUserAllowedHere($id, $class, $back):void
     {
+        if(!isset($_SESSION['user'])){
+            redirect('/login',302);
+            die();
+        }
         $user = $this->find('\src\models\User', 'id', $_SESSION['user'], 1);
         $item = $this->find("\src\models\\$class", 'id', $id, 1);
 //      if it is a house, direct comparison is possible
