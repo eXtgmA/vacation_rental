@@ -23,6 +23,7 @@ let optionalImageSelectElement = document.getElementById("optional-image-input-f
 // Create hidden input for form submission
 let hiddenInputElement = document.createElement("input");
 hiddenInputElement.type = "hidden";
+hiddenInputElement.id = "hidden-tags";
 hiddenInputElement.name = "tags";
 tagGrid.appendChild(hiddenInputElement);
 
@@ -43,11 +44,8 @@ function appendTagInputElement(tagText) {
  * @param tagText
  */
 function reduceTagInputElement(tagText) {
-    if (hiddenInputElement.value.startsWith(tagText + ",")) {
-        hiddenInputElement.value = hiddenInputElement.value.replace(tagText + ",", "");
-    } else {
-        hiddenInputElement.value = hiddenInputElement.value.replace(tagText, "");
-    }
+    hiddenInputElement.value = hiddenInputElement.value.split(",").filter((t) => t !== tagText).join(",")
+    console.debug("removed tag '" + tagText + "' from element. Current tags:", hiddenInputElement.value);
 }
 
 /**
@@ -55,16 +53,18 @@ function reduceTagInputElement(tagText) {
  */
 function addTag(tag) {
     let tagText = tag ?? tagInput.value.trim();
-    if (tagText) {
+    let tags = tagText.split(",")
+    tags.forEach((tag) => {
+    if (tag) {
         // Create new tag pill
         let newTagElement = document.createElement("div");
         newTagElement.className = "tag-pill";
         newTagElement.tabIndex = 0;
-        newTagElement.innerHTML = `<span class="tag-text">${tagText}</span>
+        newTagElement.innerHTML = `<span class="tag-text">${tag}</span>
                                        <span class="delete-text"> <i class="fa-solid fa-xmark"></i></span>`;
 
         // Append tag to hidden input
-        appendTagInputElement(tagText);
+        appendTagInputElement(tag);
 
         // Append new tag and hidden input to the tag grid
         tagGrid.appendChild(newTagElement);
@@ -75,15 +75,16 @@ function addTag(tag) {
         // Add event listeners to remove tag pill and hidden input on click or enter
         newTagElement.addEventListener("click", () => {
             tagGrid.removeChild(newTagElement);
-            reduceTagInputElement(tagText);
+            reduceTagInputElement(tag);
         });
         newTagElement.addEventListener("keydown", (e) => {
             if (e.key === "Enter") {
                 tagGrid.removeChild(newTagElement);
-                reduceTagInputElement(tagText);
+                reduceTagInputElement(tag);
             }
         });
     }
+    });
 }
 
 /**
