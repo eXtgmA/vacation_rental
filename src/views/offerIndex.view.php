@@ -29,11 +29,9 @@ if (isset($houses)) {
                     <button class="btn-primary" onclick="openLink('/offer/edit/<?php echo $house->getId() ?>')">
                         Bearbeiten
                     </button>
-                    <form action="/offer/togglestatus/<?php echo $house->getId(); ?>" method="post">
-                        <button type="submit" class="btn-secondary">
-                            <?php $house->getIsDisabled() == 1 ? print('Aktivieren') : print('Deaktivieren') ?>
-                        </button>
-                    </form>
+                    <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/offer/togglestatus/".$house->getId(); ?>')">
+                        <?php $house->getIsDisabled() == 1 ? print('Aktivieren') : print('Deaktivieren') ?>
+                    </button>
                     <?php if ($house->getBookedDates() == "") { ?>
                         <!-- deleting a house is only possible if no bookings exist for that house -->
                         <form action="/offer/delete/<?php echo $house->getId(); ?>" method="post">
