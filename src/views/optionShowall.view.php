@@ -31,11 +31,11 @@ if (isset($param["houseId"])) {
         foreach ($param as $option) {
             echo '<div class="card option-card' . (($option->isDisabled() == 1) ? ' disabled' : '') . '">';
             echo '<div class="option-buttons">';
-            echo "<button class='edit-button btn-primary' onclick='openLink(\"/option/edit/" . $option->getId() ."\")'>Edit</button></form>";
+            echo "<button class='edit-button btn-primary' onclick='openLink(\"/option/edit/" . $option->getId() ."\")'>Bearbeiten</button></form>";
             echo "<button class='btn-secondary' onclick='sendPostRequest(\"/option/togglestatus/" . $option->getId() . "\")'>"
                 . ($option->isDisabled() == 1 ? 'Aktivieren' : 'Deaktivieren')
                 ."</button>";
-            echo "<button class='delete-button btn-secondary' onclick='sendPostRequest(\"/option/delete/" . $option->getId() . "\")'>Delete</button></form>";
+            echo "<button class='delete-button btn-secondary' onclick='sendPostRequest(\"/option/delete/" . $option->getId() . "\")'>Löschen</button></form>";
             echo '</div>';
             echo '<div class="option-image">';
             echo '<img src="/images/' . $option->getOptionImage() . '" alt="alt">';

@@ -14,7 +14,7 @@ include_once($header);
 <link rel="stylesheet" href="/styles/search.css"/>
 <form action="/offer/find">
     <div id="search">
-        <video playsinline muted autoplay id="background-video" poster="/assets/backyard.png">
+        <video playsinline muted autoplay id="background-video" poster="/assets/backyard.webp">
             <source src="/assets/backyard.webm" type="video/webm">
             <source src="/assets/backyard.mp4" type="video/mp4">
         </video>
