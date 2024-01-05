@@ -427,32 +427,12 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (7, 'option_2.webp', 1, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (8, 'option_3.webp', 1, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (9, 'option_4.webp', 1, 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Blumenstrauß', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Blumenstrauss', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Modern', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wellness-Paket', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wellness', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massage', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fahrradtour', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Terrasse', 1);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meer', 1);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strand', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Barrierefrei', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strandkorb', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 1);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 1);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wasser', 1);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wassersport', 1);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Erholung', 1);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wellness', 1);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (2, 'Kleine gemütliche Ferienwohnung mit gepflegtem grünen Grundstück', 'Für einen gemütlichen Abend steht Ihnen ein Fernseher zur Verfügung.
@@ -484,22 +464,10 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (16, 'option_6.webp', 2, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (17, 'option_7.webp', 2, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (18, 'option_8.webp', 2, 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Ohrstöpsel', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Reinigungsmittel', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Taxi', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grillabend', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 2);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 2);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grün', 2);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pott', 2);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Ruhrgebiet', 2);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nordstadt', 2);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (3, 'Wellnessresidenz Störtebeker WG 9 Nähe zum Strand', 'Exklusiv eingerichtete Ferienwohnug über zwei Etagen (49qm) für 2 Personen. Die Wohnung verfügt über 1 Wohn- und Essraum mit anschließendem Südbalkon und hochwertiger Küchenzeile (inkl. Geschirrspüler), 1 Schlafzimmer mit Doppelbett, 1 geräumiges Badezimmer mit Dusche/WC und anschließendem Südbalkon sowie allem Komfort wie Fußbodenheizung, Fernseher in Wohn- und Schlafzimmer und die Nutzung des hauseigenen Wellnessbereichs. (Bitte die dann vor Ort geltenden Öffnungszeiten beachten)
@@ -552,30 +520,11 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (26, 'option_11.webp', 3, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (27, 'option_12.webp', 3, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (28, 'option_13.webp', 3, 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garage', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spielplatz', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fitness', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kayak', 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Doppelbett', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Babyreisebett', 3);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mückengitter', 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wellness', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Whirlpool', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Sauna', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 3);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wellnessresidenz', 3);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Südbalkon', 3);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (4, 'Gemütliche Ferienwohnung mit Lehmputzen', 'Ferienwohnung Seeigel, 30qm, Wohnzimmer, 1 Schlafzimmer, Küche, Bad, TV, WLAN, Terrasse mit Gartenmöbeln, Lehmputze, Parkplatz 20m vom Haus, waldnahes, ruhiges Grundstück, alter Baumbestand, zum Nordstrand 1,5km ( mit dem Fahrrad 5min.), zum Weststrand im Nationalpark 6km ( 30min mit dem Fahrrad)
@@ -617,27 +566,19 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (37, 'option_17.webp', 4, 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spinnen', 4);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eiche', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Sauna', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Weinprobe', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kochkurs', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pool', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 4);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Käfer', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Edeka', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fahrrad', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strand', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dünenkiefern', 4);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dünen', 4);
 
 
-INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (5, 'Modernes Ferienhaus mit Charme', 'Niedliches Ferienhaus mit 2 Schlafgelegenheiten im Zentrum vom Ostseebad Prerow. Verleben Sie Ihren Urlaub in entspannter, moderner Atmosphäre. Das Haus ist mit allem Komfort der heutigen Zeit eingerichtet. In der Küche finden Sie Spülmaschine, Herd, Backofen und Mikrowelle. Das Badezimmer besitzt eine ebenerdige Dusche. Das im Obergeschoß befindliche Schlafzimmer verfügt über ein Doppelbett. Im Wohnzimmer, welches mit dem Bad und der Küche sich im Erdgeschoss befindet, ist mit einer Couch ausgestattet.
+
+INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (5, 'Modernes Ferienhaus mit Charme', 'Niedliches Ferienhaus mit 2 Schlafgelegenheiten im Umland von Freiburg. Verleben Sie Ihren Urlaub in entspannter, moderner Atmosphäre. Das Haus ist mit allem Komfort der heutigen Zeit eingerichtet. In der Küche finden Sie Spülmaschine, Herd, Backofen und Mikrowelle. Das Badezimmer besitzt eine ebenerdige Dusche. Das im Obergeschoß befindliche Schlafzimmer verfügt über ein Doppelbett. Im Wohnzimmer, welches mit dem Bad und der Küche sich im Erdgeschoss befindet, ist mit einer Couch ausgestattet.
 
 2021 fanden die derzeit letzten Renovierungsarbeiten statt.
 ', 29, 4, '79106', 'Freiburg', 'Brunnegasse', 7, 58, 7, 0, 1);
-INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (18, 'Sauna', 'Nutzen Sie die im Haus integrierte Sauna und vergessen Sie die kalte Jahreszeit.', 25, 0, 5, 43);
 INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (19, 'Reitstunde', 'Ein qualifizierter Reitlehrer zeigt Ihnen die Grundlagen oder gibt Ihnen Tipps. Die Reitstunde dauert etwa eine Stunde und findet jeden Tag um 10 Uhr auf dem Reiterhof neben dem Haus statt. Sie erhalten eine Reitausrüstung mit Helm, Stiefeln und Handschuhe', 30, 0, 5, 44);
 INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (20, 'Pizza', 'Die Pizza ist tiefgefroren und muss im Ofen aufgewärmt werden. Sie können aus verschiedenen Sorten wählen, wie z.B. Salami, Käse, Schinken oder Gemüse. Die Pizza liegt in der Küche im Kühlschrank.', 10, 0, 5, 45);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 1);
@@ -651,7 +592,7 @@ INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALU
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 9);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 10);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 14);
-INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 24);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 20);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 26);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (5, 27);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (38, '5_front.webp', 5, 1);
@@ -659,26 +600,11 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (40, '5_other_1.webp', 5, 4);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (41, '5_other_2.webp', 5, 4);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (42, '5_other_3.webp', 5, 4);
-INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (43, 'option_18.webp', 5, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (44, 'option_19.webp', 5, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (45, 'option_20.webp', 5, 3);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('modern', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Sauna', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Reitstunde', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pizza', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pool', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 5);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 5);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Modern', 5);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wandern', 5);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Historisch', 5);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (6, 'Romantisches Fachwerkhaus im Grünen mit Kamin und Garten', 'Das Ferienhaus für Paare, die eine Auszeit vom Alltag suchen. Das Haus ist ein liebevoll restauriertes Fachwerkhaus aus dem 18. Jahrhundert und verfügt über einen gemütlichen Kamin im Wohnzimmer, eine voll ausgestattete Küche, ein Schlafzimmer mit Doppelbett und ein Badezimmer mit Badewanne. Das Haus liegt in einem idyllischen Dorf im Grünen, wo Sie die Ruhe und die Natur genießen können. Der Garten bietet viel Platz zum Entspannen, Grillen oder Spielen. Die Umgebung lädt zu Spaziergängen, Fahrradtouren oder Besuchen von Burgen und Klöstern ein. Das Ferienhaus ist geschmackvoll eingerichtet und bietet Platz für bis zu 2 Personen.', 100, 2, '20095', 'Hamburg', 'Am Kaiserkai', 7, 60, 2, 0, 1);
@@ -711,25 +637,8 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (54, 'option_24.webp', 6, 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Romantisch', 6);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fachwerk', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Frühstückskorb', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massage', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kutschfahrt', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Candle-Light-Dinner', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dinner', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 6);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 6);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wandern', 6);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Natur', 6);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (7, 'Geräumiges Chalet in den Alpen mit Kamin und Balkon', 'Ideales Ferienhaus für Familien oder Gruppen, die einen aktiven und abwechslungsreichen Urlaub in den Bergen verbringen möchten. Das Haus ist ein geräumiges Chalet aus Holz und Stein und verfügt über einen großen Kamin im Wohnzimmer, eine gut ausgestattete Küche, vier Schlafzimmer mit Doppelbetten und zwei Badezimmer mit Dusche und Badewanne. Das Highlight ist der Balkon mit einem herrlichen Blick auf die schneebedeckten Gipfel der Alpen. Das Haus liegt in einem kleinen Dorf in den Alpen, wo Sie viele Möglichkeiten für Ski-, Wander-, Rad- oder Klettertouren haben. Das Ferienhaus ist gemütlich und rustikal eingerichtet und bietet Platz für bis zu 8 Personen.', 200, 8, '82481', 'Mittenwald', 'Alpenstraße', 23, 120, 5, 0, 1);
@@ -762,23 +671,9 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Alpen', 7);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Balkon', 7);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Familie', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Skipass', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schlittenverleih', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fondue-Abend', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schneeschuhwanderung', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 7);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 7);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Berge', 7);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wandern', 7);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klettern', 7);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (8, 'Gemütliches Holzhaus am See mit Kamin und Sauna', 'Ideales Ferienhaus für Naturliebhaber, die Ruhe und Erholung suchen. Das Haus ist aus Holz gebaut und verfügt über einen gemütlichen Kamin im Wohnzimmer, eine moderne Küche, ein Badezimmer mit Dusche und eine Sauna im Garten. Das Haus liegt direkt am See, wo Sie schwimmen, angeln oder Boot fahren können. Die Umgebung bietet viele Möglichkeiten für Wanderungen, Radtouren oder Ausflüge zu historischen Städten und Schlössern. Das Ferienhaus ist komfortabel eingerichtet und bietet Platz für bis zu 6 Personen.', 150, 6, '20097', 'Hamburg', 'Singapurstraße', 23, 80, 3, 0, 1);
@@ -809,23 +704,7 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Gemütlich', 8);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Holzhaus', 8);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('See', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grillabend', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fahrradverleih', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strandkorb', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pool', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Sauna', 8);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 8);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Baden', 8);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (9, 'Modernes Loft in der Innenstadt mit Dachterrasse und Whirlpool', 'Das perfekte Ferienhaus für Stadtliebhaber, die Komfort und Luxus schätzen. Das Haus ist ein umgebautes Loft in einem historischen Gebäude und verfügt über eine offene Küche, ein Wohnzimmer mit Flachbild-TV und Soundsystem, ein Schlafzimmer mit Kingsize-Bett und ein Badezimmer mit Regendusche. Das Highlight ist die Dachterrasse mit einem Whirlpool, einer Lounge-Ecke und einem atemberaubenden Blick über die Stadt. Das Haus liegt im Zentrum der Stadt, wo Sie viele Geschäfte, Restaurants, Bars, Museen und Sehenswürdigkeiten finden. Das Ferienhaus ist stilvoll eingerichtet und bietet Platz für bis zu 4 Personen.', 200, 4, '20098', 'Hamburg', 'Am Sandtorkai', 85, 100, 2, 0, 1);
@@ -860,24 +739,6 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Loft', 9);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Modern', 9);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Innenstadt', 9);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dachterrasse', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Stadtführung', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Weinprobe', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kochkurs', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Theaterkarten', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Whirlpool', 9);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 9);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (10, 'Elegantes Penthouse in der City mit Balkon und Parkplatz', 'Dieses Ferienhaus ist perfekt für Geschäftsreisende oder Städtereisende, die Komfort und Eleganz schätzen. Das Haus ist ein luxuriöses Penthouse in einem modernen Gebäude und verfügt über eine offene Küche, ein Wohnzimmer mit Ledersofa und Smart-TV, ein Schlafzimmer mit Queensize-Bett und ein Badezimmer mit Marmorfliesen. Das Highlight ist der Balkon mit einem kleinen Tisch und zwei Stühlen, von dem aus Sie einen herrlichen Blick über die City haben. Das Haus liegt im Herzen der Stadt, wo Sie viele Einkaufsmöglichkeiten, Restaurants, Cafés, Clubs, Theater und Museen finden. Das Ferienhaus ist elegant eingerichtet und bietet Platz für bis zu 2 Personen.', 150, 2, '20097', 'Hamburg', 'Singapurstraße', 54, 70, 2, 0, 1);
@@ -909,22 +770,8 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Penthouse', 10);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Balkon', 10);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Luxus', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Minibar', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wäscheservice', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Business-Paket', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Konzertkarten', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 10);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 10);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Queensize-Bett', 10);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Marmorfliesen', 10);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (11, 'Helles Strandhaus an der Nordsee mit Terrasse und Garten', 'Dieses Ferienhaus ist ideal für Urlauber, die Sonne, Sand und Meer lieben. Das Haus ist ein helles Strandhaus aus Holz und Glas und verfügt über eine offene Küche, ein Wohnzimmer mit Esstisch und Sofa, zwei Schlafzimmer mit Einzelbetten und ein Badezimmer mit Dusche. Das Highlight ist die Terrasse mit einem großen Tisch und vier Stühlen, von der aus Sie einen direkten Zugang zum Garten und zum Strand haben. Das Haus liegt an der Nordsee, wo Sie das Rauschen der Wellen, die frische Brise und die weiten Dünen genießen können. Die Umgebung bietet viele Möglichkeiten für Wassersport, Strandspaziergänge oder Ausflüge zu Inseln und Küstenstädten. Das Ferienhaus ist modern und freundlich eingerichtet und bietet Platz für bis zu 4 Personen.', 120, 4, '20097', 'Hamburg', 'Marktstraße', 10, 70, 3, 0, 1);
@@ -964,32 +811,9 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (97, 'option_42.webp', 11, 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strandhaus', 11);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nordsee', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Surfkurs', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fischbuffet', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wattwanderung', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strandkorb', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pool', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 11);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 11);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meer', 11);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wassersport', 11);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strand', 11);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (12, 'Luxuriöse Villa am Mittelmeer mit Pool und Meerblick', 'Dieses Ferienhaus ist ideal für Urlauber, die Luxus und Exklusivität suchen. Das Haus ist eine luxuriöse Villa aus Stein und Glas und verfügt über eine große Küche, ein Wohnzimmer mit Kamin und Panoramafenster, drei Schlafzimmer mit Kingsize-Betten und Ensuite-Badezimmern mit Whirlpool. Das Highlight ist der Pool mit einer Liegewiese, einer Bar und einem atemberaubenden Blick auf das Mittelmeer. Das Haus liegt an der Mittelmeerküste, wo Sie das warme Klima, die feinen Sandstrände und das kristallklare Wasser genießen können. Die Umgebung bietet viele Möglichkeiten für Wassersport, Golf, Shopping oder Kultur. Das Ferienhaus ist luxuriös und elegant eingerichtet und bietet Platz für bis zu 6 Personen.', 300, 6, '18039', 'Ventimiglia', 'Via del Mare', 10, 150, 4, 0, 1);
@@ -1032,32 +856,8 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Luxus', 12);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Villa', 12);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mittelmeer', 12);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meer', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Limousinenservice', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Yachtcharter', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Gourmet-Menü', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Helikopterflug', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Pool', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Whirlpool', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Sauna', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 12);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 12);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Exklusiv', 12);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Panorama', 12);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (13, 'Gemütliches Reetdachhaus auf einer Insel mit Kamin und Garten', 'Dieses Ferienhaus ist ideal für Urlauber, die Ruhe und Erholung suchen. Das Haus ist ein gemütliches Reetdachhaus aus dem 19. Jahrhundert und verfügt über eine kleine Küche, ein Wohnzimmer mit Kamin und Bücherregal, ein Schlafzimmer mit Doppelbett und ein Badezimmer mit Dusche. Das Highlight ist der Garten mit einem Teich, einer Hängematte und einem Obstbaum. Das Haus liegt auf einer kleinen Insel in der Nordsee, wo Sie die Abgeschiedenheit und die Natur genießen können. Die Insel ist autofrei und nur mit dem Boot erreichbar. Die Umgebung bietet viele Möglichkeiten für Vogelbeobachtung, Angeln oder Picknick. Das Ferienhaus ist urig und charmant eingerichtet und bietet Platz für bis zu 2 Personen.', 80, 2, '25849', 'Pellworm', 'Inselweg', 3, 50, 2, 0, 1);
@@ -1095,29 +895,8 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Reetdach', 13);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Insel', 13);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Erholung', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Bootsfahrt', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kuchen', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Leuchtturmbesichtigung', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strandkorb', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 13);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 13);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wasser', 13);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Strand', 13);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (14, 'Verlassenes Herrenhaus im Wald mit Kamin', 'Dieses Ferienhaus ist nur für Mutige, die einen Nervenkitzel suchen. Das Haus ist ein verlassenes Herrenhaus aus dem 19. Jahrhundert und verfügt über einen alten Kamin im Wohnzimmer, eine verstaubte Küche, ein Schlafzimmer mit einem zerfetzten Himmelbett und ein Badezimmer mit einer rostigen Badewanne. Das Highlight ist der Spuk, der das Haus heimsucht. Das Haus liegt in einem dunklen Wald, wo Sie keine Nachbarn oder Zivilisation finden. Der Wald ist voller Geräusche, Schatten und Gefahren. Die Umgebung bietet keine Möglichkeiten für Freizeitaktivitäten, außer sich zu gruseln. Das Ferienhaus ist schmutzig und unheimlich eingerichtet und bietet Platz für bis zu 2 Personen.', 50, 2, '34567', 'Schreckenbach', 'Waldweg', 13, 100, 2, 0, 1);
@@ -1148,21 +927,10 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Verlassen', 14);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Herrenhaus', 14);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wald', 14);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spuk', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Ouija-Brett', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kerzen', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Séance', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fluchtweg', 14);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Geister', 14);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grusel', 14);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Alt', 14);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Abenteuer', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kinderstuhl', 14);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 14);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (15, 'Rustikale Hafenspelunke mit Kneipe und Hafenblick', 'Dieses Ferienhaus ist nur für Abenteurer, die das raue Leben am Meer erleben wollen. Das Haus ist eine rustikale Hafenspelunke aus dem 17. Jahrhundert und verfügt über eine kleine Küche, ein Wohnzimmer mit einem Holztisch und einem alten Radio, ein Schlafzimmer mit einem Stockbett und ein Badezimmer mit einer Eimerdusche. Das Highlight ist die Kneipe, die sich im Erdgeschoss befindet und wo Sie mit den Einheimischen trinken, singen und Geschichten austauschen können. Die Kneipe ist mit allerlei Nippes aus der Seefahrt dekoriert und bietet einen tollen Blick auf den Hafen. Das Haus liegt in einer Hafenstadt an der Nordsee, wo Sie das maritime Flair, die frischen Fischgerichte und die historischen Schiffe genießen können. Die Umgebung bietet viele Möglichkeiten für Bootsfahrten, Museumsbesuche oder Hafenrundgänge. Das Ferienhaus ist einfach und urig eingerichtet und bietet Platz für bis zu 2 Personen.', 40, 2, '27568', 'Bremerhaven', 'Hafenstraße', 1, 50, 2, 0, 1);
@@ -1186,15 +954,8 @@ INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES 
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Rustikal', 15);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Hafen', 15);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kneipe', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Freibier', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Segeltörn', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Hafenrallye', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Shanty-Chor', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 15);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Meerblick', 15);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wasser', 15);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spelunke', 15);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (16, 'Idyllische Almhütte in den Dolomiten mit Kamin und Almblick', 'Dieses Ferienhaus ist ideal für Urlauber, die Ruhe und Natur suchen. Das Haus ist eine idyllische Almhütte aus Holz und Stein und verfügt über eine kleine Küche, ein Wohnzimmer mit Kamin und Holztisch, ein Schlafzimmer mit Doppelbett und ein Badezimmer mit Dusche. Das Highlight ist der Almblick, der Ihnen einen herrlichen Blick auf die grünen Wiesen, die bunten Blumen und die majestätischen Gipfel der Dolomiten bietet. Das Haus liegt auf einer Alm in den Dolomiten, wo Sie die frische Luft, die klare Quelle und die gesunden Produkte der Almbauern genießen können. Die Umgebung bietet viele Möglichkeiten für Wanderungen, Radtouren oder Klettertouren. Das Ferienhaus ist einfach und gemütlich eingerichtet und bietet Platz für bis zu 2 Personen.', 60, 2, '39030', 'Prags', 'Almweg', 5, 40, 2, 0, 1);
@@ -1231,26 +992,11 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Idylle', 16);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Almhütte', 16);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dolomiten', 16);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Alm', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Almkäse', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Almwanderung', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Almjause', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Almmusik', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nichtraucher', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 16);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 16);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Berg', 16);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Berge', 16);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wandern', 16);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Radtour', 16);
+INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klettern', 16);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (17, 'Apartment in der Rigaer Straße mit Graffiti und Ghettoflair', 'Dieses Ferienhaus ist nur für Rebellen, die das alternative Leben in der Stadt suchen. Das Haus ist ein einfaches Apartment in einem besetzten Gebäude und verfügt über eine kleine Küche, ein Wohnzimmer mit einem Sofa und einem Plattenspieler, ein Schlafzimmer mit einem Matratzenlager und ein Badezimmer mit einer Gemeinschaftsdusche. Das Highlight ist das Graffiti, das die Wände des Hauses schmückt und die politischen Botschaften der Bewohner ausdrückt. Das Haus liegt in der Rigaer Straße, wo Sie viel Protest, Widerstand und Solidarität finden. Die Straße ist seit Jahren ein Brennpunkt der Gewalt zwischen Autonomen und der Polizei. Die Umgebung bietet viele Möglichkeiten für Demonstrationen, Konzerte oder Kunst. Das Ferienhaus ist billig und kreativ eingerichtet und bietet Platz für bis zu 4 Personen.', 30, 4, '10247', 'Berlin', 'Rigaer Straße', 94, 60, 2, 0, 1);
@@ -1274,13 +1020,6 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Apartment', 17);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Graffiti', 17);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Ghetto', 17);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Rebellen', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spraydose', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Konzertkarte', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Molotowcocktail', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Stadtführung', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 17);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 17);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (18, 'Modernes Loft in der Reeperbahn mit Dachterrasse und Nachtleben', 'Dieses Ferienhaus ist ideal für Urlauber, die Spaß und Unterhaltung suchen. Das Haus ist ein modernes Loft in einem renovierten Gebäude und verfügt über eine offene Küche, ein Wohnzimmer mit einem großen Sofa und einem Flachbild-TV, ein Schlafzimmer mit einem Doppelbett und einem begehbaren Kleiderschrank und ein Badezimmer mit einer Regendusche. Das Highlight ist die Dachterrasse mit einem Whirlpool, einer Lounge und einem fantastischen Blick auf die Reeperbahn. Das Haus liegt in der Reeperbahn, wo Sie das pulsierende Nachtleben, die vielfältigen Bars und Clubs und die berühmten Shows und Musicals genießen können. Die Umgebung bietet viele Möglichkeiten für Shopping, Kultur oder Sightseeing. Das Ferienhaus ist stilvoll und komfortabel eingerichtet und bietet Platz für bis zu 2 Personen.', 150, 2, '20359', 'Hamburg', 'Reeperbahn', 1, 80, 2, 0, 1);
@@ -1318,31 +1057,12 @@ INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Reeperbahn', 18);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dachterrasse', 18);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Nachtleben', 18);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Doppelbett', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Champagner', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Showkarte', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Limousinenservice', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Stadtführung', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Badewanne', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Spülmaschine', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Toaster', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Eierkocher', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Auto-Ladestation', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Klimaanlage', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Whirlpool', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fußbodenheizung', 18);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Massagesessel', 18);
 
 
 INSERT INTO vacation_rental_db.houses (id, name, description, price, max_person, postal_code, city, street, house_number, square_meter, room_count, is_disabled, owner_id) VALUES (19, 'Romantisches Fachwerkhaus in der Altstadt mit Kamin und Garten', 'Dieses Ferienhaus ist ideal für Urlauber, die Geschichte und Charme suchen. Das Haus ist ein romantisches Fachwerkhaus aus dem 16. Jahrhundert und verfügt über eine kleine Küche, ein Wohnzimmer mit Kamin und Holzbalken, ein Schlafzimmer mit einem Himmelbett und ein Badezimmer mit einer Badewanne. Das Highlight ist der Garten mit einem Brunnen, einer Laube und einem Rosenbeet. Das Haus liegt in der Altstadt von Freiburg, wo Sie das mittelalterliche Flair, die malerischen Gassen und die berühmten Bächle genießen können. Die Umgebung bietet viele Möglichkeiten für Kultur, Gastronomie oder Shopping. Das Ferienhaus ist liebevoll und stilvoll eingerichtet und bietet Platz für bis zu 2 Personen.', 100, 2, '79098', 'Freiburg', 'Fischerau', 12, 60, 2, 0, 1);
-INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (70, 'Wein', 'Für 10 € erhalten Sie eine Flasche Wein, die Sie im Garten genießen können. Der Wein ist aus der Region und hat einen fruchtigen Geschmack. Der Wein liegt in der Küche im Weinkühler.', 10, 0, 18, 163);
-INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (71, 'Kuchen', 'Für 5 € pro Person erhalten Sie einen leckeren Kuchen, der jeden Nachmittag an Ihre Tür geliefert wird. Der Kuchen ist hausgemacht und mit frischen Zutaten aus dem Garten zubereitet. Sie können aus verschiedenen Sorten wählen, wie z.B. Apfel, Kirsche, Schokolade oder Nuss.', 5, 0, 18, 164);
+INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (70, 'Wein', 'Für 10 € erhalten Sie eine Flasche Wein, die Sie im Garten genießen können. Der Wein ist aus der Region und hat einen fruchtigen Geschmack. Der Wein liegt in der Küche im Weinkühler.', 10, 0, 19, 163);
+INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (71, 'Kuchen', 'Für 5 € pro Person erhalten Sie einen leckeren Kuchen, der jeden Nachmittag an Ihre Tür geliefert wird. Der Kuchen ist hausgemacht und mit frischen Zutaten aus dem Garten zubereitet. Sie können aus verschiedenen Sorten wählen, wie z.B. Apfel, Kirsche, Schokolade oder Nuss.', 5, 0, 19, 164);
+INSERT INTO vacation_rental_db.options (id, name, description, price, is_disabled, house_id, image_id) VALUES (18, 'Sauna', 'Nutzen Sie die im Haus integrierte Sauna und vergessen Sie die kalte Jahreszeit.', 25, 0, 19, 43);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 1);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 3);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 4);
@@ -1354,32 +1074,20 @@ INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALU
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 15);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 18);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 20);
+INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 24);
 INSERT INTO vacation_rental_db.houses_has_features (houses_id, features_id) VALUES (19, 25);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (158, '19_front.webp', 19, 1);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (159, '19_layout.webp', 19, 2);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (160, '19_other_1.webp', 19, 4);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (161, '19_other_2.webp', 19, 4);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (162, '19_other_3.webp', 19, 4);
+INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (43, 'option_18.webp', 5, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (163, 'option_70.webp', 19, 3);
 INSERT INTO vacation_rental_db.images (id, uuid, house_id, typetable_id) VALUES (164, 'option_71.webp', 19, 3);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Romantisch', 19);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fachwerkhaus', 19);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Fachwerk', 19);
 INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Altstadt', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Wein', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kuchen', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Föhn', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Dusche', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Waschmaschine', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Mikrowelle', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('WLAN', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('TV', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Garten', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Schaukel', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Parkplatz', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Grill', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Haustiere erlaubt', 19);
-INSERT INTO vacation_rental_db.tags (name, house_id) VALUES ('Kamin', 19);
 
 COMMIT;
 
