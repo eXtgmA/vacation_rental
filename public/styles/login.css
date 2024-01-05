@@ -21,6 +21,10 @@
     }
 }
 
+button {
+    margin-top: 20px;
+}
+
 
 /* X-Small < 576px */
 @media (max-width: 576px) {

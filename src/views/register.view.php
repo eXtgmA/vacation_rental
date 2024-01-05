@@ -27,7 +27,6 @@ include_once($header);
         <label id="register-email-input-label" class="label" for="register-email-input-field">E-Mail</label>
         <input id="register-email-input-field" class="input-field" type="text" name="email"
                value='<?php prefill("email"); ?>' required>
-        <br/>
         <button id="sendButton" class="btn-secondary" type="submit" title="Stimmen beide Passwörter überein?" disabled>Registrieren</button>
         <span id="to-login">Du hast schon einen Account?<br/><a href="/login"><i class="fa-solid fa-angles-right fa-xs"></i> einloggen</a>
         </span>
