@@ -39,7 +39,6 @@ class CheckoutController extends BaseController
                 if ($param["bookingpositions"] == false) {
                     new ViewController('cart');
                     die();
-                } else {
                 }
 
                 // get all houses related to all bookingpositions
