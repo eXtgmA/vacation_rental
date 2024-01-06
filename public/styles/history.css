@@ -336,6 +336,12 @@
         "price";
         grid-template-columns: 1fr;
     }
+    .item-image {
+        margin-bottom: 5px;
+    }
+    .headline {
+        flex-direction: column;
+    }
 }
 
 /* X-Small < 576px */
@@ -352,6 +358,19 @@
 and (min-device-width: 375px)
 and (max-device-width: 812px)
 and (-webkit-min-device-pixel-ratio: 3) {
+    .booking-entry {
+        width: 100%;
+        padding: 0;
+
+        & > .booking-headline, .positions {
+            padding-left: 20px;
+        }
+    }
+
+    .headline > button {
+        margin: 0 !important;
+        width: 100%;
+    }
 
 
     .cart-entry-grid {
