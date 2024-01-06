@@ -96,7 +96,6 @@ body {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    margin: 1px;
     font-size: 16px;
     background-color: #f8f8f8;
     height: 2.5rem;
@@ -107,7 +106,7 @@ body {
 
     &:focus {
         outline: none;
-        margin: 0;
+        padding: 9px;
         border: 2px solid var(--color-primary-4);
     }
 }
@@ -187,4 +186,9 @@ input[type="checkbox"] {
         font-size: 1.2rem;
         cursor: pointer;
     }
+}
+
+.content-layout {
+    max-width: 1920px;
+    margin: auto;
 }
