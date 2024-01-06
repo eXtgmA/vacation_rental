@@ -29,6 +29,17 @@
     margin: 2% auto;
 }
 
+.disabled {
+    > *:not(.card-details) {
+        opacity: 0.33;
+    }
+    & .card-details {
+        > *:not(.button-container) {
+            opacity: 0.33;
+        }
+    }
+}
+
 .offer-card .card-image {
     flex: 30%;
     display: flex;
