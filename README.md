@@ -11,17 +11,23 @@ It was created as part of the __Web42__ module at AKAD.
 3. Add _C:\php_ to __PATH__
 4. Copy _php/php.ini_ from this repository to _C:\php_
 
-### 2. clone repository
+### 2. Clone Repository
 ```
 git clone git@github.com:eXtgmA/vacation_rental.git
 ```
 
-### 3. Setup Database
+### 3. Move Images
+Move all images one folder up  
+from `/public/images/sample`  
+to   `/public/images`  
+(otherwise you will not be able to see any images of the preview houses)
+
+### 4. Setup Database
 ```
 docker run -d -e MYSQL_ROOT_PASSWORD=password -e MARIADB_USER=shop -e MARIADB_PASSWORD=1234 -e MARIADB_DATABASE=vacation_rental_db -v .\database\init.sql:/docker-entrypoint-initdb.d/init.sql -p 3306:3306 --name web42_mariadb mariadb:lts
 ```
 
-### 4. Start PHP Server
+### 5. Start PHP Server
 ```
 # go to public folder
 cd public
