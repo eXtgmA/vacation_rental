@@ -51,7 +51,7 @@ class OptionController extends BaseController
             redirect($_SESSION['previous'], 302, $_POST);
             die();
         }
-        // save image into db // todo : use transaction (rollback and unlink in case of error)
+        // save image into db
         $image = new Image(['house_id' => $houseId, 'typetable_id' => 3, 'uuid' => $uuid]);
         $image->save();
 
@@ -139,7 +139,6 @@ class OptionController extends BaseController
         /** @var Option $option */
         $option=$this->forceParam($optionId, 'option');
         $this->isUserAllowedHere($optionId, 'option', '/offer');
-        // todo check if rest is needed, maybe more params to function
         try {
             $option->deleteOption();
         } catch (\Exception $e) {
@@ -170,8 +169,6 @@ class OptionController extends BaseController
      */
     public function updateImage(Option $option, array $imgInput): void
     {
-        //todo userallowed
-
         // update image
         if ($imgInput['name'] != '') {
             try {

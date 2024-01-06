@@ -118,7 +118,6 @@ class Option extends BaseModel
 
     public function getOptionImage(): string
     {
-//        todo check if try catch mybe neccessary
         $image = $this->find('\src\models\Image', 'id', $this->image_id, 1);
         return $image->getUuid();
     }

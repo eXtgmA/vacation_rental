@@ -33,7 +33,7 @@ tagGrid.appendChild(hiddenInputElement);
  */
 function appendTagInputElement(tagText) {
     if (hiddenInputElement.value.length > 0) {
-        hiddenInputElement.value = hiddenInputElement.value + "," + tagText;    // todo: check if tag already exists, and is , the right separator?
+        hiddenInputElement.value = hiddenInputElement.value + "," + tagText;
     } else {
         hiddenInputElement.value = hiddenInputElement.value + tagText;
     }

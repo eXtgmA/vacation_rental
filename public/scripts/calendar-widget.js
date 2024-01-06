@@ -1,5 +1,3 @@
-console.log("calendar-widget.js loaded");   // todo: remove
-
 //   load default styles
 const link = document.createElement('link');
 link.rel = 'stylesheet';

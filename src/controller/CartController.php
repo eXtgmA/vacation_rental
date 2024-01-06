@@ -96,12 +96,11 @@ class CartController extends BaseController
             if ($options != null) {
                 /** @var array<int> $options */
                 foreach ($options as $optionName => $optionPrice) {
-                    foreach ($houseOptions as $houseOption) {  // compare every booked option with available options // todo change to ID
+                    foreach ($houseOptions as $houseOption) {  // compare every booked option with available options
                         // if an option is deleted it wont be find and so be removed from new pricelist
 
                         // skip disabled so they wont be part of result
                         if (!$houseOption->isDisabled()) {
-                            // todo when someone renames an option we cant find it here anymore
                             if ($houseOption->getName() == $optionName) {
                                 $recalculatedOptions[$optionName] = $houseOption->getPrice(); // result is an array of name and price
                                 $alloptionsPrice += $recalculatedOptions[$optionName];
