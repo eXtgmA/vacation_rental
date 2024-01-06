@@ -14,21 +14,19 @@ include_once($header);
             <h1>Warenkorb</h1>
         </div>
         <?php if (isset($booking, $bpos, $houses)) { ?>
-        <?php foreach ($bpos
-
-        as $key => $p) { ?>
-        <?php $house = $houses[$p->getHouseId()] ?>
-        <?php if (in_array($p->getId(), $availabilityError)) { ?>
-        <div class="cart-entry-grid" style="background-color: lightgray; cursor: pointer" onclick="openLink('/booking/create/<?php echo $p->getHouseId() ?>')">
-            <div class="item-headline" style="flex-direction: column">
-                <h2 style='color: red;'>Ausgebucht! Wird beim Verlassen der Seite aus dem Warenkorb gelöscht!</h2>
-                <h2><?php echo $house->getName() ?></h2>
-            </div>
-            <?php } else { ?>
-            <div class="cart-entry-grid">
-                <div class="item-headline">
-                    <h2 onclick="openLink('/offer/detail/<?php echo $p->getHouseId() ?>')" style="cursor: pointer"><?php echo $house->getName() ?></h2>
-                </div>
+            <?php foreach ($bpos as $key => $p) { ?>
+                <?php $house = $houses[$p->getHouseId()] ?>
+                <?php if (in_array($p->getId(), $availabilityError)) { ?>
+                    <div class="cart-entry-grid" style="background-color: lightgray; cursor: pointer" onclick="openLink('/booking/create/<?php echo $p->getHouseId() ?>')">
+                    <div class="item-headline" style="flex-direction: column">
+                        <h2 style='color: red;'>Ausgebucht! Wird beim Verlassen der Seite aus dem Warenkorb gelöscht!</h2>
+                        <h2><?php echo $house->getName() ?></h2>
+                    </div>
+                <?php } else { ?>
+                    <div class="cart-entry-grid">
+                    <div class="item-headline">
+                        <h2 onclick="openLink('/offer/detail/<?php echo $p->getHouseId() ?>')" style="cursor: pointer"><?php echo $house->getName() ?></h2>
+                    </div>
                 <?php } ?>
                 <div class="item-image">
                     <img src="<?php echo "/images/" . $house->getFrontimage(); ?>" alt="[alt]" onclick="openLink('/offer/detail/<?php echo $p->getHouseId() ?>')" style="cursor: pointer">
@@ -87,17 +85,17 @@ include_once($header);
                         <button type="submit" class="btn-secondary" onclick="sendPostRequest('<?php echo "/booking/delete/" . $p->getId(); ?>')">Entfernen</button>
                     </div>
                 <?php } ?>
-            </div>
+                </div>
             <?php } ?>
             <div class="price-footer">
                 <button type="submit" class="btn-primary" onclick="openLink('/checkout')">Zur Kasse</button>
             </div>
-            <?php } else { ?>
-                <div>
-                    <h2 style="display: flex; justify-content: center">Der Warenkorb ist leer</h2>
-                </div>
-            <?php } ?>
-        </div>
+            </div>
+        <?php } else { ?>
+            <div>
+                <h2 style="display: flex; justify-content: center">Der Warenkorb ist leer</h2>
+            </div>
+        <?php } ?>
     </div>
 
 <?php
