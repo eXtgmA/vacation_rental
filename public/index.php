@@ -105,7 +105,6 @@ function executeRoute(string $controller, string $action, array $routes, string 
         }
     } else {
         new ViewController('notFound'); // redirect if no route is defined
-        // todo change with exception handling
     }
 }
 
