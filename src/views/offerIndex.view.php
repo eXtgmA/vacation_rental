@@ -8,7 +8,7 @@ include_once($header);
 ?>
 <link rel="stylesheet" href="/styles/offer.css"/>
 <script src="/scripts/calendar-widget.js"></script>
-<div class="layout">
+<div class="content-layout">
 
     <div class="page-header">
         <h1 style="">Eigene Häuser verwalten</h1>
