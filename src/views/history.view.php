@@ -111,9 +111,9 @@ include_once($header);
                                     <span class="nights-key">Nächte * Preis/Nacht</span>
                                     <span class="nights-value"><?php if (isset($pdl['night_count'], $pdl['price_per_night'])) { //@phpstan-ignore-line
                                             echo($pdl['night_count'] * $pdl['price_per_night']);
-                                        } else {
-                                            echo 'unknown ';
-                                        } ?>€</span>
+                                                               } else {
+                                                                   echo 'unknown ';
+                                                               } ?>€</span>
                                 </div>
                                 <hr/>
                             </div>
